@@ -149,4 +149,8 @@ For relation-graph inference, use either
  1. [relation-graph](https://github.com/balhoff/relation-graph)
  2. [Datalog](https://github.com/cmungall/datalog-experiments)
 
+## Previous work
 
+ 1. [Chado Ontology Schema](http://gmod.org/wiki/Chado_CV_Module)
+ 2. [GO MySQL database](http://web.archive.org/web/20030901235122/http://www.godatabase.org/dev/database/schema.html)
+ 3. [OBD](https://github.com/phenoscape/OBDAPI/tree/master/sql)

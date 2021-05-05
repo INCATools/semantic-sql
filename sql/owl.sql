@@ -9,23 +9,29 @@ CREATE VIEW subclass_of AS
 CREATE VIEW subclass_of_named AS
    SELECT * from subclass_of WHERE object NOT LIKE '_:%';
      
-CREATE VIEW subclass_of_some AS
-   SELECT subClassOf.stanza,
-          subClassOf.subject,
-          onProperty.object AS predicate,
-          someValuesFrom.object AS object
+CREATE VIEW some_values_from AS
+   SELECT onProperty.subject AS restriction,
+          onProperty.object AS on_property,
+          someValuesFrom.object AS filler
           FROM
-     statements AS subClassOf, 
      statements AS onProperty,
      statements AS someValuesFrom
    WHERE
-     subClassOf.predicate = 'rdfs:subClassOf' AND
      onProperty.predicate = 'owl:onProperty' AND
-     onProperty.subject=subClassOf.object AND
-     someValuesFrom.subject=subClassOf.object AND
+     onProperty.subject=someValuesFrom.subject AND
      someValuesFrom.predicate='owl:someValuesFrom';
      
-
+CREATE VIEW subclass_of_some AS
+   SELECT subClassOf.stanza,
+          subClassOf.subject,
+          svf.on_property AS predicate,
+          svf.filler AS object
+          FROM
+     statements AS subClassOf, 
+     some_values_from AS svf
+   WHERE
+     subClassOf.predicate = 'rdfs:subClassOf' AND
+     svf.restriction=subClassOf.object;
 
 
 CREATE VIEW owlClass AS SELECT distinct subject AS id FROM statements WHERE predicate = 'rdf:type' AND object = 'owl:Class';
