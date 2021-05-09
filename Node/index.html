@@ -59,6 +59,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../owl_index/">OWL</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -96,7 +100,7 @@
               
                 <h1 id="class-node">Class: Node</h1>
 <p>URI: <a href="https://w3id.org/semsql/Node">semsql:Node</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[OntologyNode],[Statements]-%20object%200..1&gt;[Node&#124;id:node_id_type],[OwlRestriction]-%20on%20property%200..1&gt;[Node],[Statements]-%20stanza%200..1&gt;[Node],[Statements]-%20subject%200..1&gt;[Node],[Node]^-[OntologyNode],[Node]^-[NamedIndividualNode],[Node]^-[IriNode],[Node]^-[ClassNode],[Node]^-[BlankNode],[Statements],[OwlRestriction],[NamedIndividualNode],[IriNode],[ClassNode],[BlankNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Problem],[OntologyNode],[Statements]-%20object%200..1&gt;[Node&#124;id:node_id_type],[OwlRestriction]-%20on%20property%200..1&gt;[Node],[Problem]-%20subject%200..1&gt;[Node],[Statements]-%20stanza%200..1&gt;[Node],[Statements]-%20subject%200..1&gt;[Node],[Problem]-%20subject(i)%200..1&gt;[Node],[Node]^-[OntologyNode],[Node]^-[NamedIndividualNode],[Node]^-[IriNode],[Node]^-[ClassNode],[Node]^-[BlankNode],[Statements],[OwlRestriction],[NamedIndividualNode],[IriNode],[ClassNode],[BlankNode]" /></p>
 <h2 id="children">Children</h2>
 <ul>
 <li><a href="../BlankNode/">BlankNode</a></li>
@@ -109,6 +113,7 @@
 <ul>
 <li><strong>None</strong> <em><a href="../object/">object</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 <li><strong>None</strong> <em><a href="../on_property/">on property</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
+<li><strong><a href="../Problem/">Problem</a></strong> <em><a href="../problem_subject/">problem➞subject</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 <li><strong>None</strong> <em><a href="../stanza/">stanza</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 <li><strong>None</strong> <em><a href="../subject/">subject</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 </ul>
