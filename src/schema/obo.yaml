@@ -1,0 +1,40 @@
+id: https://w3id.org/semsql/obo
+name: semsql_obo
+title: Semantic SQL OBO module
+description: >-
+  OBO Module
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  semsql_obo: https://w3id.org/semsql/obo
+  linkml: https://w3id.org/linkml/
+  
+default_prefix: semsql_obo
+default_range: string
+
+default_curi_maps:
+  - semweb_context
+
+imports:
+  - rdf
+  - owl
+
+classes:
+  problem:
+    abstract: true
+    description: >-
+      Represents an instance of a problem pertaining to conformance to OBO guidelines
+    slots:
+      - subject
+      - description
+    slot_usage:
+      subject:
+        description: >-
+          The thing that is problematic
+      
+  node with two labels problem:
+    is_a: problem
+    comments:
+      - sqlview>> SELECT s1.subject AS subject, s1.value AS label1, s2.value AS label2 FROM rdfslabel AS s1, rdfslabel AS s2 WHERE s1.subject=s2.subject AND s1.value != s2.value
+
+slots:

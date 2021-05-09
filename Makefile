@@ -1,4 +1,4 @@
-ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm doid chebi pr 
+ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm doid chebi pr wbphenotype fbbt dron
 
 OWL_SQL = rdf owl 
 OBO_SQL = $(OWL_SQL) obo-checks
@@ -104,7 +104,7 @@ semsql/sqlaviews.py: db/foo.db
 # TODO: markdown gen should make modular output
 markdown-%: src/schema/%.yaml
 	gen-markdown --no-mergeimports -d docs $< && mv docs/index.md docs/$*_index.md
-markdown: markdown-rdf markdown-owl
+markdown: markdown-rdf markdown-owl markdown-obo
 	gen-markdown --no-mergeimports -d docs src/schema/semsql.yaml
 
 gen-ddl: ddl/rdf.sql

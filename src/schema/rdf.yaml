@@ -113,6 +113,8 @@ slots:
     range: ncname
   base:
     range: uri
+  description:
+    slot_uri: dcterms:description
 
 types:
   node id type:

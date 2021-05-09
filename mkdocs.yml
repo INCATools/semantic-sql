@@ -4,4 +4,6 @@ nav:
   - Home: index.md
   - RDF: rdf_index.md
   - OWL: owl_index.md
-
+  - OBO: obo_index.md
+site_url: https://cmungall.github.io/semantic-sql/
+repo_url: https://github.com/cmungall/semantic-sql
