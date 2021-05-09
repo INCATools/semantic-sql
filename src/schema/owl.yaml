@@ -1,0 +1,89 @@
+id: https://w3id.org/semsql/owl
+name: semsql_owl
+title: Semantic SQL OWL module
+description: >-
+  OWL Module
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  semsql_owl: https://w3id.org/semsql/owl
+  linkml: https://w3id.org/linkml/
+  
+default_prefix: semsql_owl
+default_range: string
+
+default_curi_maps:
+  - semweb_context
+
+imports:
+  - rdf
+
+classes:
+  ontology node:
+    is_a: node
+    comments:
+      - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:Ontology'
+
+  property node:
+    abstract: true
+  object property node:
+    is_a: property node
+    comments:
+      - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:ObjectProperty'
+  transitive property node:
+    is_a: object property node
+    comments:
+      - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:TransitiveProperty'
+      
+  annotation property node:
+    is_a: property node
+    comments:
+      - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:AnnotatonProperty'
+
+  owl equivalent class statement:
+    is_a: statements
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='owl:equivalentClass'
+    slot_usage:
+      subject:
+        description: >-
+          One of the two classes that are equivalent. No significance to subject vs object
+        range: class node
+      object:
+        description: >-
+          One of the two classes that are equivalent. No significance to subject vs object
+        range: class node
+
+  owl restriction:
+    abstract: true
+    slots:
+      - restriction
+      - on property
+      - filler
+
+  owl some values from:
+    is_a: owl restriction
+    comments:
+      - >-
+        sqlview>>
+          SELECT onProperty.subject AS restriction,
+                    onProperty.object AS on_property,
+                    someValuesFrom.object AS filler
+                    FROM
+               statements AS onProperty,
+               statements AS someValuesFrom
+             WHERE
+               onProperty.predicate = 'owl:onProperty' AND
+               onProperty.subject=someValuesFrom.subject AND
+               someValuesFrom.predicate='owl:someValuesFrom'
+
+
+  
+
+slots:
+  restriction:
+    range: blank node
+  on property:
+    range: node
+  filler:
+    range: class node

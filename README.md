@@ -63,6 +63,21 @@ views for querying ontologies such as GO, that incorporate critical
 information in existential axioms, the view `edge` provides a union of
 subclass between named classes and subclasses of existentials.
 
+## Validation
+
+The general philosophy is not to use foreign key constraints or
+triggers to enforce integrity. Instead we allow problematic data into
+the database and instead provide transparent reporting on it and ways
+to validate. Individual use cases may call for more aggressive filtering.
+
+The convention is to write rules/constrains as SQL views with a name `problem_`.
+
+See also:
+
+ * ROBOT report
+ * GO Rules
+ * KGX validation
+
 ## Relationship to rdftab.rs
 
 We use the same schema as rdftab.rs, and rdftab can be used as a performant robust loader.
@@ -77,6 +92,10 @@ column is useful for ad-hoc querying.
 rdftab provides a useful base standard that could be used e.g. for
 distributing ontologies and semantic databases as sqlite, for which a
 variety of performant tools can be written.
+
+## Schema
+
+See [LinkML Docs](https://cmungall.github.io/semantic-sql/)
 
 ## Design Philosophy
 

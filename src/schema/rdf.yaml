@@ -1,0 +1,122 @@
+id: https://w3id.org/semsql/rdf
+name: semsql_rdf
+title: Semantic SQL RDF module
+description: >-
+  RDF Module
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  semsql_rdf: https://w3id.org/semsql/rdf
+  linkml: https://w3id.org/linkml/
+  
+default_prefix: semsql_rdf
+default_range: string
+
+default_curi_maps:
+  - semweb_context
+
+imports:
+  - linkml:types
+  - rdf
+
+classes:
+  prefix:
+    description: >-
+      Maps CURIEs to URIs
+    slots:
+      - prefix
+      - base
+
+  # -- triples --
+  statements:
+    description: >-
+      Represents an RDF triple
+    slots:
+      - stanza
+      - subject
+      - predicate
+      - object
+      - value
+      - language
+  rdf type statement:
+    is_a: statements
+    description: >-
+      A statement that indicates the asserted type of the subject entity
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='rdf:type'
+    slot_usage:
+      object:
+        description: >-
+          The entity type
+        range: class node
+  rdfs subClassOf statement:
+    is_a: statements
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:subClassOf'
+    slot_usage:
+      subject:
+        description: >-
+          The subclass element of the triple
+        range: class node
+      object:
+        description: >-
+          The superclass element of the triple
+        range: class node
+  rdfs label statement:
+    is_a: statements
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:label'
+      
+  # -- nodes --
+  node:
+    slots:
+      - id
+    comments:
+      - sqlview>> SELECT distinct(subject) AS id FROM statements UNION SELECT distinct(object) AS id FROM statements WHERE datatype IS NOT NULL
+  blank node:
+    is_a: node
+    comments:
+      - sqlview>> SELECT * FROM node WHERE id LIKE '_:%'
+  iri node:
+    is_a: node
+    comments:
+      - sqlview>> SELECT * FROM node WHERE id NOT LIKE '_:%'
+  class node:
+    is_a: node
+    class_uri: owl:Class
+  named individual node:
+    is_a: node
+    class_uri: owl:NamedIndividual
+
+slots:
+  id:
+    identifier: true
+    range: node id type
+  subject:
+    range: node
+  predicate:
+  object:
+    description: >-
+      Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+    range: node
+  stanza:
+    range: node
+  value:
+    description: >-
+      Note the range of this slot is always a string. Only used the triple represents a literal assertion
+    range: literal as string type
+  language:
+    range: string
+    todos:
+      - use an enum
+  prefix:
+    range: ncname
+  base:
+    range: uri
+
+types:
+  node id type:
+    typeof: uriorcurie
+  literal as string type:
+    typeof: string
+    

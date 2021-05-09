@@ -1,0 +1,20 @@
+id: https://w3id.org/kgcl/semsql
+name: semsql
+title: Semantic SQL
+description: >-
+  A datamodel for RDF, OWL, and OBO Ontologies designed to work harmoniously with SQL databases
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  semsql: https://w3id.org/semsql/
+  linkml: https://w3id.org/linkml/
+  
+default_prefix: semsql
+default_range: string
+
+default_curi_maps:
+  - semweb_context
+
+imports:
+  - rdf
+  - owl

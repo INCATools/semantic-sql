@@ -18,6 +18,10 @@ INSERT OR IGNORE INTO prefix VALUES
 ("BFO",       "http://purl.obolibrary.org/obo/BFO_"),
 ("CHEBI",     "http://purl.obolibrary.org/obo/CHEBI_"),
 ("CL",        "http://purl.obolibrary.org/obo/CL_"),
+("RO",        "http://purl.obolibrary.org/obo/RO_"),
+("GO",        "http://purl.obolibrary.org/obo/GO_"),
+("UBERON",        "http://purl.obolibrary.org/obo/UBERON_"),
+("PATO",        "http://purl.obolibrary.org/obo/PATO_"),
 ("IAO",       "http://purl.obolibrary.org/obo/IAO_"),
 ("NCBITaxon", "http://purl.obolibrary.org/obo/NCBITaxon_"),
 ("OBI",       "http://purl.obolibrary.org/obo/OBI_"),
@@ -25,6 +29,7 @@ INSERT OR IGNORE INTO prefix VALUES
 
 ("obo",       "http://purl.obolibrary.org/obo/"),
 
+("gocam", "http://model.geneontology.org/"),
 ("UP", "http://purl.uniprot.org/uniprot/"),
 ("UC", "http://purl.uniprot.org/core/"),
 ("PRO", "http://www.uniprot.org/annotation/PRO_"),

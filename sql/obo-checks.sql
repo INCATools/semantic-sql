@@ -17,3 +17,9 @@ CREATE VIEW problems AS
   UNION
   SELECT 'shared_label_problems' AS problem, node1 AS id, value FROM shared_label_problems;
   
+CREATE VIEW edge_pointing_to_obsolete_problem AS SELECT subject AS id, predicate, object FROM edge WHERE object in (SELECT id FROM deprecated);
+
+-- https://github.com/ontodev/robot/blob/master/robot-core/src/main/resources/report_queries/deprecated_boolean_datatype.rq
+CREATE VIEW deprecated_boolean_datatype_problem AS SELECT * FROM statements WHERE predicate='owl:deprecated' AND datatype != 'xsd:boolean';
+
+CREATE VIEW bad_boolean_datatype_problem AS SELECT * FROM statements WHERE datatype = 'xsd:boolean' AND value NOT IN ('true', 'false');

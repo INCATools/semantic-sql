@@ -1,0 +1,7 @@
+site_name: "Semantic SQL"
+theme: readthedocs
+nav:
+  - Home: index.md
+  - RDF: rdf_index.md
+  - OWL: owl_index.md
+

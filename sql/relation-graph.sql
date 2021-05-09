@@ -1,6 +1,24 @@
 -- #include "owl.sql"
 
 CREATE VIEW edge AS SELECT * FROM subclass_of_named UNION SELECT * FROM subclass_of_some;
+
+-- todo: add graph param
+CREATE TABLE entailed_edge (
+  subject TEXT,
+  predicate TEXT,
+  object TEXT
+  );
+
+CREATE VIEW entailed_subclass_of AS SELECT * FROM entailed_edge WHERE predicate='rdfs:subClassOf';
+
+/**
+
+Note: the queries below are slow
+
+instead it is recommended you use relation-graph to materialize inferred edges
+
+*/
+
 CREATE VIEW edge_composition AS
   SELECT e1.subject, e1.predicate AS predicate1, e2.predicate AS predicate2, e2.object, e1.object AS intermediate
   FROM edge AS e1, edge AS e2

@@ -1,0 +1,4 @@
+#!/bin/sh
+SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+cat $SCRIPTPATH/gaf.header.tsv
+grep -v ^\! $1

@@ -1,0 +1,12 @@
+.idea
+owl/
+download/
+db/
+docs/
+load*-*
+schemaload*-*
+venv
+bin/
+target/
+test.db
+inferences/
