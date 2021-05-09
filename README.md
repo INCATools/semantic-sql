@@ -142,6 +142,15 @@ See [LinkML Docs](https://cmungall.github.io/semantic-sql/)
 
 SQL views can be generated automatically. For now the linkml schema can be used to explore the structure
 
+## Additional Tools
+
+Standard SQL client can be used to explore a sqlite db created using this framework
+
+E.g. here is a shot of DBeaver querying the `rdfslabel` view in OBO for terms that have "assay" in the label:
+
+![image](https://user-images.githubusercontent.com/50745/117589903-74e18900-b0e1-11eb-8aa1-c92856b64384.png)
+
+
 ## Design Philosophy
 
 SPARQL has many appealing qualities and it was designed first and foremost for the semantic web. But there are problems:
