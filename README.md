@@ -4,7 +4,7 @@ This is an experimental repo that provides useful tools for working
 with RDF, OWL, and ontologies using SQL databases, as a performant and
 composable alternative to SPARQL.
 
-Currently only sqlite is supported.
+Currently only sqlite is supported, but this would be easy to adapt to postgres
 
 It leverages [rdftab.rs](https://github.com/ontodev/rdftab.rs) but can be used independently.
 
@@ -12,30 +12,37 @@ The only dependency is that RDF/OWL is loaded into a sqlite db
 following the [rdftab schema](sql/rdftab.sql). This can be done easily
 in a performant manner using the rdftab.rs command line tool.
 
+The basic idea is:
+
+ * provide SQL Views for common constructs, avoiding low-level RDF operations
+ * allow OWL and ontologies to be trivially used in combination with large data tables or existing relational databases
+
 ## Demos
 
 this repo is an early draft for discussion.
 
-Currently there are two "demos" to give the idea
+Currently there are a few "demos" to give the basic idea. In future these could be factored into different repos
 
  1. [ROBOT report](http://robot.obolibrary.org/report) functionality
  2. Translation of OWL to a "relation graph" for simpler querying of graph structure of ontologies like GO, Uberon
-
-There are also various views
+ 3. Loading of large ontology annotations (GAFs, GPADs, id mapping files) for performant querying and validation ("GO Rules")
+ 4. Abstraction over ABoxes (GO-CAMs)
 
 ## Running
+
+This example is for PATO but any ontology can be used
 
  0. install sqlite3
  1. Build rdftab.rs and copy to bin/ directory
  2. place an OWL file in the owl/ folder.
      E.g. `curl -L -s http://purl.obolibrary.org/obo/pato.owl > owl/pato.owl`
- 3. Run `make problems-pato` -- this shows a problem report
+ 3. Run `make target/pato.views` 
  4. Explore: `sqlite3 db/pato.db`
 
 Example:
 
 ```bash
-$ make problems-pato
+$ make target/pato.views
 sqlite3 db/pato.db -cmd "SELECT * FROM problems"
 ```
 
@@ -51,6 +58,36 @@ shared_label_problems|obo:PATO_0000001|quality
 shared_label_problems|obo:GO_0003824|catalytic activity
 shared_label_problems|obo:PATO_0001414|catalytic activity
 
+The `problem` view is actually a UNION view over multiple individual QC checks implemented as selects.
+
+## Relation Graphs
+
+We use `relation-graph` to materialize inferred edges such as `fingernail part-of body`, these are loaded into an `entailed_edge` table
+
+## Modules
+
+### RDF
+
+The module [rdf](sql/rdf.sql) provides convenient views for common RDF and RDFS constructs.
+
+E.g.
+
+```
+sqlite> select * from rdfslabel where value like '%shape%';
+```
+
+generates
+
+subject|predicate|object|value|
+---|---|---|---|
+PATO:0002536|PATO:0002536|rdfs:label||boomerang shaped|xsd:string|
+PATO:0002539|PATO:0002539|rdfs:label||ring shaped|xsd:string|
+PATO:0002540|PATO:0002540|rdfs:label||spur shaped|xsd:string|
+PATO:0005002|PATO:0005002|rdfs:label||pear shaped|xsd:string|
+PATO:0005003|PATO:0005003|rdfs:label||paddle shaped|xsd:string|
+
+
+### OWL
 
 The module [owl](sql/owl.sql) provides convenient views for predicates such as subClassOf, and for transitive queries, e.g. subclasses of shape:
 
@@ -62,6 +99,12 @@ The module [relation-graph](sql/relation-graph.sql) provides useful
 views for querying ontologies such as GO, that incorporate critical
 information in existential axioms, the view `edge` provides a union of
 subclass between named classes and subclasses of existentials.
+
+### OBO-Checks
+
+This is an experiment to try and replicate ROBOT checks. See below
+
+### GO
 
 ## Validation
 
@@ -96,6 +139,8 @@ variety of performant tools can be written.
 ## Schema
 
 See [LinkML Docs](https://cmungall.github.io/semantic-sql/)
+
+SQL views can be generated automatically. For now the linkml schema can be used to explore the structure
 
 ## Design Philosophy
 
