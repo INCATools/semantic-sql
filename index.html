@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Semantic SQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Semantic SQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mixins">Mixins</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#slots">Slots</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#enums">Enums</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#types">Types</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#built-in">Built in</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#defined">Defined</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="rdf_index/">RDF</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="owl_index/">OWL</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Semantic SQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="semsql-schema">Semsql schema</h1>
+<p>A datamodel for RDF, OWL, and OBO Ontologies designed to work harmoniously with SQL databases</p>
+<h3 id="classes">Classes</h3>
+<ul>
+<li><a href="Node/">Node</a><ul>
+<li><a href="BlankNode/">BlankNode</a></li>
+<li><a href="ClassNode/">ClassNode</a></li>
+<li><a href="IriNode/">IriNode</a></li>
+<li><a href="NamedIndividualNode/">NamedIndividualNode</a></li>
+<li><a href="OntologyNode/">OntologyNode</a></li>
+</ul>
+</li>
+<li><a href="OwlRestriction/">OwlRestriction</a><ul>
+<li><a href="OwlSomeValuesFrom/">OwlSomeValuesFrom</a></li>
+</ul>
+</li>
+<li><a href="Prefix.md">Prefix</a> - Maps CURIEs to URIs</li>
+<li><a href="PropertyNode/">PropertyNode</a><ul>
+<li><a href="AnnotationPropertyNode/">AnnotationPropertyNode</a></li>
+<li><a href="ObjectPropertyNode/">ObjectPropertyNode</a><ul>
+<li><a href="TransitivePropertyNode/">TransitivePropertyNode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="Statements/">Statements</a> - Represents an RDF triple<ul>
+<li><a href="OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a></li>
+<li><a href="RdfTypeStatement/">RdfTypeStatement</a> - A statement that indicates the asserted type of the subject entity</li>
+<li><a href="RdfsLabelStatement/">RdfsLabelStatement</a></li>
+<li><a href="RdfsSubClassOfStatement/">RdfsSubClassOfStatement</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="mixins">Mixins</h3>
+<h3 id="slots">Slots</h3>
+<ul>
+<li><a href="base/">base</a></li>
+<li><a href="filler/">filler</a></li>
+<li><a href="id/">id</a></li>
+<li><a href="language/">language</a></li>
+<li><a href="object/">object</a> - Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated<ul>
+<li><a href="owl_equivalent_class_statement_object/">owl equivalent class statement➞object</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
+<li><a href="rdf_type_statement_object/">rdf type statement➞object</a> - The entity type</li>
+<li><a href="rdfs_subClassOf_statement_object/">rdfs subClassOf statement➞object</a> - The superclass element of the triple</li>
+</ul>
+</li>
+<li><a href="on_property/">on property</a></li>
+<li><a href="predicate/">predicate</a></li>
+<li><a href="prefix/">prefix</a></li>
+<li><a href="restriction/">restriction</a></li>
+<li><a href="stanza/">stanza</a></li>
+<li><a href="subject/">subject</a><ul>
+<li><a href="owl_equivalent_class_statement_subject/">owl equivalent class statement➞subject</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
+<li><a href="rdfs_subClassOf_statement_subject/">rdfs subClassOf statement➞subject</a> - The subclass element of the triple</li>
+</ul>
+</li>
+<li><a href="value/">value</a> - Note the range of this slot is always a string. Only used the triple represents a literal assertion</li>
+</ul>
+<h3 id="enums">Enums</h3>
+<h3 id="types">Types</h3>
+<h4 id="built-in">Built in</h4>
+<ul>
+<li><strong>Bool</strong></li>
+<li><strong>Decimal</strong></li>
+<li><strong>ElementIdentifier</strong></li>
+<li><strong>NCName</strong></li>
+<li><strong>NodeIdentifier</strong></li>
+<li><strong>URI</strong></li>
+<li><strong>URIorCURIE</strong></li>
+<li><strong>XSDDate</strong></li>
+<li><strong>XSDDateTime</strong></li>
+<li><strong>XSDTime</strong></li>
+<li><strong>float</strong></li>
+<li><strong>int</strong></li>
+<li><strong>str</strong></li>
+</ul>
+<h4 id="defined">Defined</h4>
+<ul>
+<li><a href="types/Boolean/">Boolean</a>  (<strong>Bool</strong>)  - A binary (true or false) value</li>
+<li><a href="types/Date/">Date</a>  (<strong>XSDDate</strong>)  - a date (year, month and day) in an idealized calendar</li>
+<li><a href="types/Datetime/">Datetime</a>  (<strong>XSDDateTime</strong>)  - The combination of a date and time</li>
+<li><a href="types/Decimal/">Decimal</a>  (<strong>Decimal</strong>)  - A real number with arbitrary precision that conforms to the xsd:decimal specification</li>
+<li><a href="types/Double/">Double</a>  (<strong>float</strong>)  - A real number that conforms to the xsd:double specification</li>
+<li><a href="types/Float/">Float</a>  (<strong>float</strong>)  - A real number that conforms to the xsd:float specification</li>
+<li><a href="types/Integer/">Integer</a>  (<strong>int</strong>)  - An integer</li>
+<li><a href="types/LiteralAsStringType/">LiteralAsStringType</a>  (<a href="types/String/">String</a>) </li>
+<li><a href="types/Ncname/">Ncname</a>  (<strong>NCName</strong>)  - Prefix part of CURIE</li>
+<li><a href="types/NodeIdType/">NodeIdType</a>  (<a href="types/Uriorcurie/">Uriorcurie</a>) </li>
+<li><a href="types/Nodeidentifier/">Nodeidentifier</a>  (<strong>NodeIdentifier</strong>)  - A URI, CURIE or BNODE that represents a node in a model.</li>
+<li><a href="types/Objectidentifier/">Objectidentifier</a>  (<strong>ElementIdentifier</strong>)  - A URI or CURIE that represents an object in the model.</li>
+<li><a href="types/String/">String</a>  (<strong>str</strong>)  - A character string</li>
+<li><a href="types/Time/">Time</a>  (<strong>XSDTime</strong>)  - A time object represents a (local) time of day, independent of any particular day</li>
+<li><a href="types/Uri/">Uri</a>  (<strong>URI</strong>)  - a complete URI</li>
+<li><a href="types/Uriorcurie/">Uriorcurie</a>  (<strong>URIorCURIE</strong>)  - a URI or a CURIE</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rdf_index/" class="btn btn-neutral float-right" title="RDF">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+        <span style="margin-left: 15px"><a href="rdf_index/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.1.2
+Build Date UTC : 2021-05-09 22:38:33.197405+00:00
+-->
