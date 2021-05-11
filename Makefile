@@ -22,8 +22,8 @@ sql/all.sql: $(ALL_SQL_FILES)
 # ---
 # sqlite db creation and loading
 # ---
-target/%.created: 
-	touch db/$*.db
+target/%.created: db/$*.db
+	touch $@
 db/%.db: prefixes/prefix.sql sql/rdftab.sql
 	cat $^ | sqlite3 $@ && echo OK || echo ALREADY LOADED
 .PRECIOUS: db/%.db
@@ -91,27 +91,25 @@ CAMDIR = ../noctua-models/models/
 loadcams:
 	 find $(CAMDIR) -name "*.ttl" -exec sh -c "riot --out rdfxml {} | ./bin/rdftab db/go.db" \;
 
-# ---
-# Experimental: sqlalchemy bindings
-# ---
-semsql/sqlaviews.py: db/foo.db
-	sqlacodegen sqlite:///$< > $@
 
 # ---
 # Schema
 # ---
 
+MODULES = rdf owl obo
+
 # TODO: markdown gen should make modular output
 markdown-%: src/schema/%.yaml
 	gen-markdown --no-mergeimports -d docs $< && mv docs/index.md docs/$*_index.md
-markdown: markdown-rdf markdown-owl markdown-obo
+markdown: $(patsubst %, markdown-%, $(MODULES))
 	gen-markdown --no-mergeimports -d docs src/schema/semsql.yaml
 
-gen-ddl: ddl/rdf.sql
+gen-ddl: $(patsubst %, ddl/%.sql, $(MODULES))
 ddl/%.sql: src/schema/%.yaml
 	gen-sqlddl --no-use-foreign-keys $< > $@.tmp && \
 	python semsql/sqlutils.py $< >> $@.tmp && \
 	mv $@.tmp $@
 
+gen-sqla: $(patsubst %, semsql/sqla/%.py, $(MODULES))
 semsql/sqla/%.py: src/schema/%.yaml
 	gen-sqlddl --no-use-foreign-keys --sqla-file $@ $< 

@@ -5,7 +5,7 @@ from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
 
 VIEW_CODE = 'sqlview>>'
 
-def generate_views_from_linkml(schema: SchemaDefinition, drop_tables=True) -> None:
+def generate_views_from_linkml(schema: SchemaDefinition, view=True, drop_tables=True) -> None:
     """
     Generates SQL VIEW statements from hints in LinkML schema
 
@@ -23,11 +23,15 @@ def generate_views_from_linkml(schema: SchemaDefinition, drop_tables=True) -> No
             print()
             if drop_tables:
                 print(f'DROP TABLE {sql_table};')
-            print(f'CREATE VIEW {sql_table} AS {"UNION".join(views)};')
+            if view:
+                print(f'CREATE VIEW {sql_table} AS {"UNION".join(views)};')
+            else:
+                print(f'INSERT INTO {sql_table} AS {"UNION".join(views)};')
 
 @click.command()
 @click.argument('inputs', nargs=-1)
-def cli(inputs):
+@click.option('--view/--no-view', default=True)
+def cli(inputs, view: bool):
     """
     Generates SQL VIEW commands from hints embedded in linkml schema
     """
@@ -38,7 +42,7 @@ def cli(inputs):
             print(f'-- SCHEMA: {schema.id}')
             loader = SchemaLoader(schema, mergeimports=True)
             loader.resolve()
-            generate_views_from_linkml(schema)
+            generate_views_from_linkml(schema, view)
 
 if __name__ == '__main__':
     cli()

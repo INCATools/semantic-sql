@@ -1,15 +1,15 @@
 -- #include "rdf.sql"
 
 
-CREATE VIEW owl_ontology AS SELECT subject AS id FROM rdftype WHERE object='owl:Ontology';
+CREATE VIEW owl_ontology AS SELECT subject AS id FROM rdf_type WHERE object='owl:Ontology';
 
-CREATE VIEW owlClass AS SELECT distinct subject AS id FROM statements WHERE predicate = 'rdf:type' AND object = 'owl:Class';
-CREATE VIEW owlNamedIndividual AS SELECT distinct subject AS id FROM statements WHERE predicate = 'rdf:type' AND object = 'owl:NamedIndividual';
+CREATE VIEW class_node AS SELECT distinct subject AS id FROM statements WHERE predicate = 'rdf:type' AND object = 'owl:Class';
+CREATE VIEW named_individual_node AS SELECT distinct subject AS id FROM statements WHERE predicate = 'rdf:type' AND object = 'owl:NamedIndividual';
 CREATE VIEW object_property AS SELECT distinct subject AS id FROM statements WHERE predicate = 'rdf:type' AND object = 'owl:ObjectProperty';
 CREATE VIEW annotation_property AS SELECT distinct subject AS id FROM statements WHERE predicate = 'rdf:type' AND object = 'owl:AnnotationProperty';
 CREATE VIEW transitive AS SELECT distinct subject AS id FROM statements WHERE predicate = 'rdf:type' AND object = 'owl:TransitiveProperty';
 
-CREATE VIEW punned_class_as_individual AS SELECT id FROM owlClass WHERE id IN (SELECT id FROM owlNamedIndividual);
+CREATE VIEW punned_class_as_individual AS SELECT id FROM class_node WHERE id IN (SELECT id FROM named_individual_node);
 
 CREATE VIEW illegally_punned_object_annotation_property AS SELECT id FROM object_property WHERE id IN (SELECT id FROM annotation_property);
 
@@ -43,14 +43,9 @@ CREATE VIEW axiom_annotation AS
    axpv.predicate NOT IN ('owl:annotatedSource', 'owl:annotatedProperty', 'owl:annotatedTarget', 'rdf:type');
 
 
-CREATE VIEW subclass_of AS
-   SELECT stanza, subject, predicate, object FROM
-     statements
-   WHERE
-     predicate = 'rdfs:subClassOf';
      
-CREATE VIEW subclass_of_named AS
-   SELECT * from subclass_of WHERE object NOT LIKE '_:%';
+CREATE VIEW rdfs_subclass_of_named AS
+   SELECT * from rdfs_subclass_of WHERE object NOT LIKE '_:%';
      
 CREATE VIEW some_values_from AS
    SELECT onProperty.subject AS restriction,
@@ -64,7 +59,7 @@ CREATE VIEW some_values_from AS
      onProperty.subject=someValuesFrom.subject AND
      someValuesFrom.predicate='owl:someValuesFrom';
      
-CREATE VIEW subclass_of_some AS
+CREATE VIEW rdfs_subclass_of_some AS
    SELECT subClassOf.stanza,
           subClassOf.subject,
           svf.on_property AS predicate,
@@ -76,26 +71,39 @@ CREATE VIEW subclass_of_some AS
      subClassOf.predicate = 'rdfs:subClassOf' AND
      svf.restriction=subClassOf.object;
 
+DROP VIEW equivalent_to_intersection_of ;
+CREATE VIEW equivalent_to_intersection_of AS
+  SELECT
+    e.subject,
+    i.object
+  FROM
+    statements AS e JOIN statements AS i ON (e.object = i.subject)
+  WHERE e.predicate = 'owl:equivalentClass' and i.predicate = 'owl:intersectionOf';
+
+DROP VIEW equivalent_to_intersection_of_member ;
+CREATE VIEW equivalent_to_intersection_of_member AS
+ SELECT *
+ FROM equivalent_to_intersection_of AS ei JOIN rdf_list_member AS m ON (ei.object=m.subject);
 
 
 CREATE VIEW predicate AS SELECT distinct predicate AS id FROM edge WHERE id IN (SELECT id FROM object_property) OR id='rdfs:subClassOf';
 
-CREATE VIEW subclass_of_ancestors AS
-        WITH RECURSIVE subclass_of_ancestors
+CREATE VIEW rdfs_subclass_of_ancestors AS
+        WITH RECURSIVE rdfs_subclass_of_ancestors
              (
                    subject, object, depth
              )
              AS
              (SELECT subject, object, 1
-                FROM subclass_of
+                FROM rdfs_subclass_of
                UNION ALL
               SELECT
                    e.subject, a.object, a.depth+1
-                FROM subclass_of AS e
-                JOIN subclass_of_ancestors AS a
+                FROM rdfs_subclass_of AS e
+                JOIN rdfs_subclass_of_ancestors AS a
                   ON e.object = a.subject
              )
-          SELECT * FROM subclass_of_ancestors;
+          SELECT * FROM rdfs_subclass_of_ancestors;
 
 
 

@@ -29,6 +29,8 @@ classes:
 
   # -- triples --
   statements:
+    aliases:
+      - triple
     description: >-
       Represents an RDF triple
     slots:
@@ -37,9 +39,54 @@ classes:
       - predicate
       - object
       - value
+      - datatype
       - language
-  rdf type statement:
+    class_uri: owl:Restriction
+
+  edge:
+    description: >-
+      A relation graph edge that connects two entities by a predicate.
+      Note an edge is distinct from a statement, in that an axiom such as
+      A SubClassOf R some B is represented as multiple statements, but is
+      a single relation graph edge
+    slots:
+      - subject
+      - predicate
+      - object
+
+  entailed_edge:
+    description: >-
+      A relation graph edge that is inferred
+    slots:
+      - subject
+      - predicate
+      - object
+
+  node to node statement:
+    abstract: true
     is_a: statements
+    description: >-
+      A statement where object is non-null and value is not populated
+    slot_usage:
+      object:
+        required: true
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE object IS NOT NULL
+      
+  node to value statement:
+    abstract: true
+    is_a: statements
+    description: >-
+      A statement where value is non-null and object is not populated
+    slot_usage:
+      value:
+        required: true
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE value IS NOT NULL
+      
+      
+  rdf type statement:
+    is_a: node to node statement
     description: >-
       A statement that indicates the asserted type of the subject entity
     comments:
@@ -49,8 +96,8 @@ classes:
         description: >-
           The entity type
         range: class node
-  rdfs subClassOf statement:
-    is_a: statements
+  rdfs subclass of statement:
+    is_a: node to node statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:subClassOf'
     slot_usage:
@@ -63,7 +110,7 @@ classes:
           The superclass element of the triple
         range: class node
   rdfs label statement:
-    is_a: statements
+    is_a: node to value statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:label'
       
@@ -83,10 +130,49 @@ classes:
       - sqlview>> SELECT * FROM node WHERE id NOT LIKE '_:%'
   class node:
     is_a: node
+    mixins:
+      - class trait
     class_uri: owl:Class
   named individual node:
     is_a: node
     class_uri: owl:NamedIndividual
+
+  rdf level summary statistic:
+    abstract: true
+    attributes:
+      element:
+        range: node
+      number_of_usages:
+        range: integer
+    mixins:
+      - is report
+
+  count of predicates:
+    is_a: rdf level summary statistic
+    comments:
+      - sqlview>> SELECT predicate AS element, count(*) AS number_of_usages FROM statements GROUP BY predicate ORDER BY number_of_usages DESC
+  count of instantiated classes:
+    is_a: rdf level summary statistic
+    comments:
+      - sqlview>> SELECT object AS element, count(*) AS number_of_usages FROM rdf_type_statement GROUP BY element ORDER BY number_of_usages DESC
+
+  # -- mixins --
+  node trait:
+    abstract: true
+    mixin: true
+  class trait:
+    mixin: true
+    is_a: node trait
+  property trait:
+    mixin: true
+    is_a: node trait
+  individual trait:
+    mixin: true
+    is_a: node trait
+
+  is report:
+    mixin: true
+    abstract: true
 
 slots:
   id:
@@ -101,6 +187,7 @@ slots:
     range: node
   stanza:
     range: node
+  datatype:
   value:
     description: >-
       Note the range of this slot is always a string. Only used the triple represents a literal assertion

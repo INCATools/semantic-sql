@@ -1,4 +1,4 @@
-CREATE VIEW inst_term AS SELECT * FROM rdftype WHERE object != 'owl:NamedIndividual';
+CREATE VIEW inst_term AS SELECT * FROM rdf_type WHERE object != 'owl:NamedIndividual';
 
 CREATE VIEW modelstate AS SELECT subject AS id, value AS state FROM statements WHERE predicate='<http://geneontology.org/lego/modelstate>';
 CREATE VIEW modeltitle AS SELECT subject AS id, value AS state FROM statements WHERE predicate='dce:title';
@@ -7,7 +7,7 @@ CREATE VIEW stats_modelstate SELECT state, count(distinct id) AS num_models FROM
 
 CREATE VIEW has_evidence AS SELECT * FROM statements WHERE predicate = '<http://geneontology.org/lego/evidence>';
 
-CREATE VIEW inferred_type AS SELECT t.subject AS id, t.object AS asserted_type, s.object AS inferred_type FROM rdftype AS t JOIN entailed_subclass_of AS s ON (t.object=s.subject);
+CREATE VIEW inferred_type AS SELECT t.subject AS id, t.object AS asserted_type, s.object AS inferred_type FROM rdf_type AS t JOIN entailed_subclass_of AS s ON (t.object=s.subject);
 
 CREATE VIEW molecular_activity_node AS SELECT * FROM inferred_type WHERE inferred_type = 'GO:0003674';
 CREATE VIEW biological_process_node AS SELECT * FROM inferred_type WHERE inferred_type = 'GO:0008150';
@@ -29,9 +29,9 @@ CREATE VIEW part_of AS SELECT * from statements WHERE predicate='BFO:0000050';
 
 -- QC
 
-CREATE VIEW problem_rdftype_to_deprecated AS SELECT * FROM rdftype WHERE object IN (SELECT id FROM deprecated);
+CREATE VIEW problem_rdf_type_to_deprecated AS SELECT * FROM rdf_type WHERE object IN (SELECT id FROM deprecated);
 
 -- suggest a repair for use of an obsolete term
 -- sqlite does not support stored procedures but it would be easy to do an UPDATE for this
-CREATE VIEW repair_rdftype_to_deprecated AS SELECT t.*, r.object AS replaced_by FROM rdftype AS t JOIN term_replaced_by AS r ON (t.object=r.subject);
+CREATE VIEW repair_rdf_type_to_deprecated AS SELECT t.*, r.object AS replaced_by FROM rdf_type AS t JOIN term_replaced_by AS r ON (t.object=r.subject);
 

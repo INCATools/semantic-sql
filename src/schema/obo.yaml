@@ -34,7 +34,22 @@ classes:
       
   node with two labels problem:
     is_a: problem
+    attributes:
+      label1:
+      label2:
     comments:
-      - sqlview>> SELECT s1.subject AS subject, s1.value AS label1, s2.value AS label2 FROM rdfslabel AS s1, rdfslabel AS s2 WHERE s1.subject=s2.subject AND s1.value != s2.value
+      - >-
+        sqlview>>
+          SELECT
+             s1.subject AS subject,
+             s1.value AS label1,
+             s2.value AS label2
+          FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2
+          WHERE s1.subject=s2.subject AND s1.value != s2.value
+  all problems:
+    is_a: problem
+    comments:
+      - sqlview>> SELECT * FROM node_with_two_labels_problem
+
 
 slots:

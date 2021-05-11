@@ -1,6 +1,6 @@
 -- #include "owl.sql"
 
-CREATE VIEW edge AS SELECT * FROM subclass_of_named UNION SELECT * FROM subclass_of_some;
+CREATE VIEW edge AS SELECT * FROM rdfs_subclass_of_named UNION SELECT * FROM rdfs_subclass_of_some;
 
 -- todo: add graph param
 CREATE TABLE entailed_edge (

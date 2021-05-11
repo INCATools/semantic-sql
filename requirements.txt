@@ -2,3 +2,4 @@ linkml
 mkdocs
 sqlalchemy
 sqlacodegen
+sqlalchemy_utils

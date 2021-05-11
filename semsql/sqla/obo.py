@@ -59,6 +59,13 @@ class NodeToValueStatement(Base):
     __tablename__ = 'node_to_value_statement'
     value = Column(Text, primary_key=True)
 
+class NodeWithTwoLabelsProblem(Base):
+    __tablename__ = 'node_with_two_labels_problem'
+    subject = Column(Text, primary_key=True)
+    description = Column(Text, primary_key=True)
+    label1 = Column(Text, primary_key=True)
+    label2 = Column(Text, primary_key=True)
+
 class ObjectPropertyNode(Base):
     __tablename__ = 'object_property_node'
     id = Column(Text, primary_key=True)
@@ -72,9 +79,10 @@ class OntologyNode(Base):
 
 class OwlAllValuesFrom(Base):
     __tablename__ = 'owl_all_values_from'
+    id = Column(Text, primary_key=True)
+    restriction = Column(Text)
     on_property = Column(Text)
     filler = Column(Text)
-    id = Column(Text, primary_key=True)
 
 class OwlDisjointClassStatement(Base):
     __tablename__ = 'owl_disjoint_class_statement'
@@ -88,15 +96,17 @@ class OwlEquivalentClassStatement(Base):
 
 class OwlRestriction(Base):
     __tablename__ = 'owl_restriction'
+    id = Column(Text, primary_key=True)
+    restriction = Column(Text)
     on_property = Column(Text)
     filler = Column(Text)
-    id = Column(Text, primary_key=True)
 
 class OwlSomeValuesFrom(Base):
     __tablename__ = 'owl_some_values_from'
+    id = Column(Text, primary_key=True)
+    restriction = Column(Text)
     on_property = Column(Text)
     filler = Column(Text)
-    id = Column(Text, primary_key=True)
 
 class OwlSubclassOfSomeValuesFrom(Base):
     """
@@ -114,6 +124,14 @@ class Prefix(Base):
     __tablename__ = 'prefix'
     prefix = Column(Text, primary_key=True)
     base = Column(Text, primary_key=True)
+
+class Problem(Base):
+    """
+    Represents an instance of a problem pertaining to conformance to OBO guidelines
+    """
+    __tablename__ = 'problem'
+    subject = Column(Text, primary_key=True)
+    description = Column(Text, primary_key=True)
 
 class PropertyNode(Base):
     __tablename__ = 'property_node'

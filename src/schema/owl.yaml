@@ -21,10 +21,13 @@ imports:
 classes:
   ontology node:
     is_a: node
+    description: >-
+      A node representing an ontology
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:Ontology'
 
   property node:
+    is_a: node
     abstract: true
   object property node:
     is_a: property node
@@ -41,7 +44,7 @@ classes:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:AnnotatonProperty'
 
   owl equivalent class statement:
-    is_a: statements
+    is_a: node to node statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='owl:equivalentClass'
     slot_usage:
@@ -54,19 +57,62 @@ classes:
           One of the two classes that are equivalent. No significance to subject vs object
         range: class node
 
+  owl disjoint class statement:
+    is_a: node to node statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='owl:disjointClass'
+    slot_usage:
+      subject:
+        description: >-
+          One of the two classes that are disjoint. No significance to subject vs object
+        range: class node
+      object:
+        description: >-
+          One of the two classes that are disjoint. No significance to subject vs object
+        range: class node
+
+
+  anonymous expression:
+    abstract: true
+    is_a: blank node
+    
+  anonymous class expression:
+    abstract: true
+    mixins:
+      - class trait
+    is_a: anonymous expression
+    
+  anonymous property expression:
+    abstract: true
+    mixins:
+      - property trait
+    is_a: anonymous expression
+    
+  anonymous individual expression:
+    abstract: true
+    mixins:
+      - individual trait
+    is_a: anonymous expression
+    
   owl restriction:
     abstract: true
+    is_a: anonymous class expression
     slots:
-      - restriction
       - on property
       - filler
+    slot_usage:
+      id:
+        description: the id of the restriction
+    class_uri: owl:Restriction
 
   owl some values from:
+    aliases:
+      - existential restriction
     is_a: owl restriction
     comments:
       - >-
         sqlview>>
-          SELECT onProperty.subject AS restriction,
+          SELECT onProperty.subject AS id,
                     onProperty.object AS on_property,
                     someValuesFrom.object AS filler
                     FROM
@@ -77,6 +123,51 @@ classes:
                onProperty.subject=someValuesFrom.subject AND
                someValuesFrom.predicate='owl:someValuesFrom'
 
+  owl all values from:
+    aliases:
+      - universal restriction
+    is_a: owl restriction
+    comments:
+      - >-
+        sqlview>>
+          SELECT onProperty.subject AS id,
+                    onProperty.object AS on_property,
+                    someValuesFrom.object AS filler
+                    FROM
+               statements AS onProperty,
+               statements AS someValuesFrom
+             WHERE
+               onProperty.predicate = 'owl:onProperty' AND
+               onProperty.subject=someValuesFrom.subject AND
+               someValuesFrom.predicate='owl:allValuesFrom'
+
+  owl complex axiom:
+    abstract: true
+    description: >-
+      An axiom that is composed of two or more statements
+      
+  owl subclass of some values from:
+    is_a: owl complex axiom
+    description: >-
+      Composition of subClassOf and SomeValuesFrom
+    slots:
+      - subject
+      - predicate
+      - object
+    comments:
+      - >-
+        sqlview>>
+          SELECT subClassOf.stanza,
+                 subClassOf.subject,
+                 svf.on_property AS predicate,
+                 svf.filler AS object
+                 FROM
+            statements AS subClassOf, 
+            owl_some_values_from AS svf
+          WHERE
+            subClassOf.predicate = 'rdfs:subClassOf' AND
+            svf.restriction=subClassOf.object
+    
 
   
 
