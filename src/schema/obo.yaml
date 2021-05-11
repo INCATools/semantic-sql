@@ -31,7 +31,31 @@ classes:
       subject:
         description: >-
           The thing that is problematic
-      
+
+  property used with datatype values and objects:
+    is_a: problem
+    description: >-
+      A problem in which the same property is used two two different ways, one
+      in which the range is a literal value, the other where it is an object.
+    comments:
+      - >-
+        in OWL, if a property is typed as object or datatype, this will constrain its use.
+        However, annotation properties have no such constraints in OWL, but we still
+        consider this problematic and unintentional, unless it is a truly generic
+        predicate, such as owl:annotatedTarget or rdf:object
+    see_also:
+      - https://github.com/information-artifact-ontology/ontology-metadata/issues/67
+    comments:
+      - >-
+        sqlview>>
+          SELECT
+            DISTINCT
+              s1.predicate AS subject,
+              s1.datatype
+          FROM statements AS s1, statements AS s2 ON (s1.predicate=s2.predicate)
+          WHERE s1.value IS NOT NULL and s2.object IS NOT NULL
+
+
   node with two labels problem:
     is_a: problem
     attributes:
