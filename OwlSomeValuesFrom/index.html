@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -100,7 +104,7 @@
               
                 <h1 id="class-owlsomevaluesfrom">Class: OwlSomeValuesFrom</h1>
 <p>URI: <a href="https://w3id.org/semsql/OwlSomeValuesFrom">semsql:OwlSomeValuesFrom</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[OwlRestriction]^-[OwlSomeValuesFrom],[OwlRestriction],[Node],[ClassNode],[BlankNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[OwlRestriction]^-[OwlSomeValuesFrom&#124;id(i):node_id_type],[OwlRestriction],[Node],[ClassNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../OwlRestriction/">OwlRestriction</a></li>
@@ -116,8 +120,9 @@
 <li>range: <a href="../Node/">Node</a></li>
 </ul>
 </li>
-<li><a href="../restriction/">restriction</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../BlankNode/">BlankNode</a></li>
+<li><a href="../owl_restriction_id/">owl restriction➞id</a>  <sub>REQ</sub><ul>
+<li>Description: the id of the restriction</li>
+<li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>
 </ul>
@@ -132,12 +137,17 @@
 </thead>
 <tbody>
 <tr>
+<td><strong>Aliases:</strong></td>
+<td></td>
+<td>existential restriction</td>
+</tr>
+<tr>
 <td><strong>Comments:</strong></td>
 <td></td>
 <td>sqlview&gt;&gt;</td>
 </tr>
 <tr>
-<td>SELECT onProperty.subject AS restriction,</td>
+<td>SELECT onProperty.subject AS id,</td>
 <td></td>
 <td></td>
 </tr>

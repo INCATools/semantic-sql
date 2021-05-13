@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -100,12 +104,19 @@
               
                 <h1 id="class-annotationpropertynode">Class: AnnotationPropertyNode</h1>
 <p>URI: <a href="https://w3id.org/semsql/AnnotationPropertyNode">semsql:AnnotationPropertyNode</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[PropertyNode],[PropertyNode]^-[AnnotationPropertyNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[PropertyNode],[PropertyNode]^-[AnnotationPropertyNode&#124;id(i):node_id_type]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../PropertyNode/">PropertyNode</a></li>
 </ul>
 <h2 id="attributes">Attributes</h2>
+<h3 id="inherited-from-property-node">Inherited from property node:</h3>
+<ul>
+<li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="other-properties">Other properties</h2>
 <table>
 <thead>
@@ -119,7 +130,7 @@
 <tr>
 <td><strong>Comments:</strong></td>
 <td></td>
-<td>sqlview&gt;&gt; SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:AnnotatonProperty'</td>
+<td>sqlview&gt;&gt; SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotatonProperty'</td>
 </tr>
 </tbody>
 </table>

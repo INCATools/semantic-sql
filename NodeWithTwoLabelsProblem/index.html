@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -100,12 +104,23 @@
               
                 <h1 id="class-nodewithtwolabelsproblem">Class: NodeWithTwoLabelsProblem</h1>
 <p>URI: <a href="https://w3id.org/semsql/NodeWithTwoLabelsProblem">semsql:NodeWithTwoLabelsProblem</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Problem],[Problem]^-[NodeWithTwoLabelsProblem&#124;description(i):string%20%3F],[Node]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Problem],[Problem]^-[NodeWithTwoLabelsProblem&#124;label1:string%20%3F;label2:string%20%3F;description(i):string%20%3F],[Node]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../Problem/">Problem</a> - Represents an instance of a problem pertaining to conformance to OBO guidelines</li>
 </ul>
 <h2 id="attributes">Attributes</h2>
+<h3 id="own">Own</h3>
+<ul>
+<li><a href="../nodeWithTwoLabelsProblem__label1/">➞label1</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../nodeWithTwoLabelsProblem__label2/">➞label2</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+</ul>
 <h3 id="inherited-from-problem">Inherited from problem:</h3>
 <ul>
 <li><a href="../description/">description</a>  <sub>OPT</sub><ul>
@@ -131,7 +146,37 @@
 <tr>
 <td><strong>Comments:</strong></td>
 <td></td>
-<td>sqlview&gt;&gt; SELECT s1.subject AS subject, s1.value AS label1, s2.value AS label2 FROM rdfslabel AS s1, rdfslabel AS s2 WHERE s1.subject=s2.subject AND s1.value != s2.value</td>
+<td>sqlview&gt;&gt;</td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>s1.subject AS subject,</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>s1.value AS label1,</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>s2.value AS label2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WHERE s1.subject=s2.subject AND s1.value != s2.value</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>

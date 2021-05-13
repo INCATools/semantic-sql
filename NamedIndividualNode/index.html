@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -127,6 +131,11 @@
 <td><strong>Mappings:</strong></td>
 <td></td>
 <td>owl:NamedIndividual</td>
+</tr>
+<tr>
+<td><strong>Comments:</strong></td>
+<td></td>
+<td>sqlview&gt;&gt; SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:NamedIndividual';</td>
 </tr>
 </tbody>
 </table>

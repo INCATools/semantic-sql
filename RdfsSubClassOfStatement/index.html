@@ -9,7 +9,7 @@
   
   <link rel="canonical" href="https://cmungall.github.io/semantic-sql/RdfsSubClassOfStatement/">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Class: RdfsSubClassOfStatement - Semantic SQL</title>
+  <title>Class: RdfsSubclassOfStatement - Semantic SQL</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,7 +18,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Class: RdfsSubClassOfStatement";
+    var mkdocs_page_name = "Class: RdfsSubclassOfStatement";
     var mkdocs_page_input_path = "RdfsSubClassOfStatement.md";
     var mkdocs_page_url = "/semantic-sql/RdfsSubClassOfStatement/";
   </script>
@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -84,7 +88,7 @@
     
       
     
-    <li>Class: RdfsSubClassOfStatement</li>
+    <li>Class: RdfsSubclassOfStatement</li>
     <li class="wy-breadcrumbs-aside">
       
         <a href="https://github.com/cmungall/semantic-sql/edit/master/docs/RdfsSubClassOfStatement.md"
@@ -98,30 +102,34 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="class-rdfssubclassofstatement">Class: RdfsSubClassOfStatement</h1>
-<p>URI: <a href="https://w3id.org/semsql/RdfsSubClassOfStatement">semsql:RdfsSubClassOfStatement</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Statements],[ClassNode]&lt;object%200..1-%20[RdfsSubClassOfStatement&#124;predicate(i):string%20%3F;value(i):literal_as_string_type%20%3F;language(i):string%20%3F],[ClassNode]&lt;subject%200..1-%20[RdfsSubClassOfStatement],[Statements]^-[RdfsSubClassOfStatement],[Node],[ClassNode]" /></p>
+                <h1 id="class-rdfssubclassofstatement">Class: RdfsSubclassOfStatement</h1>
+<p>URI: <a href="https://w3id.org/semsql/RdfsSubclassOfStatement">semsql:RdfsSubclassOfStatement</a></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[ClassNode]&lt;object%201..1-%20[RdfsSubclassOfStatement&#124;predicate(i):string%20%3F;value(i):literal_as_string_type%20%3F;datatype(i):string%20%3F;language(i):string%20%3F],[ClassNode]&lt;subject%200..1-%20[RdfsSubclassOfStatement],[NodeToNodeStatement]^-[RdfsSubclassOfStatement],[NodeToNodeStatement],[Node],[ClassNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../Statements/">Statements</a> - Represents an RDF triple</li>
+<li>is_a: <a href="../NodeToNodeStatement/">NodeToNodeStatement</a> - A statement where object is non-null and value is not populated</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
 <h3 id="own">Own</h3>
 <ul>
-<li><a href="../rdfs_subClassOf_statement_object/">rdfs subClassOf statement➞object</a>  <sub>OPT</sub><ul>
+<li><a href="../rdfs_subclass_of_statement_object/">rdfs subclass of statement➞object</a>  <sub>REQ</sub><ul>
 <li>Description: The superclass element of the triple</li>
 <li>range: <a href="../ClassNode/">ClassNode</a></li>
 </ul>
 </li>
-<li><a href="../rdfs_subClassOf_statement_subject/">rdfs subClassOf statement➞subject</a>  <sub>OPT</sub><ul>
+<li><a href="../rdfs_subclass_of_statement_subject/">rdfs subclass of statement➞subject</a>  <sub>OPT</sub><ul>
 <li>Description: The subclass element of the triple</li>
 <li>range: <a href="../ClassNode/">ClassNode</a></li>
 </ul>
 </li>
 </ul>
-<h3 id="inherited-from-statements">Inherited from statements:</h3>
+<h3 id="inherited-from-node-to-node-statement">Inherited from node to node statement:</h3>
 <ul>
+<li><a href="../datatype/">datatype</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
 <li><a href="../language/">language</a>  <sub>OPT</sub><ul>
 <li>range: <a href="../types/String/">String</a></li>
 </ul>

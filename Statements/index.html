@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -101,18 +105,21 @@
                 <h1 id="class-statements">Class: Statements</h1>
 <p>Represents an RDF triple</p>
 <p>URI: <a href="https://w3id.org/semsql/Statements">semsql:Statements</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]&lt;object%200..1-%20[Statements&#124;predicate:string%20%3F;value:literal_as_string_type%20%3F;language:string%20%3F],[Node]&lt;subject%200..1-%20[Statements],[Node]&lt;stanza%200..1-%20[Statements],[Statements]^-[RdfsSubClassOfStatement],[Statements]^-[RdfsLabelStatement],[Statements]^-[RdfTypeStatement],[Statements]^-[OwlEquivalentClassStatement],[RdfsSubClassOfStatement],[RdfsLabelStatement],[RdfTypeStatement],[OwlEquivalentClassStatement],[Node]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]&lt;object%200..1-%20[Statements&#124;predicate:string%20%3F;value:literal_as_string_type%20%3F;datatype:string%20%3F;language:string%20%3F],[Node]&lt;subject%200..1-%20[Statements],[Node]&lt;stanza%200..1-%20[Statements],[Statements]^-[RdfListStatement],[Statements]^-[NodeToValueStatement],[Statements]^-[NodeToNodeStatement],[RdfListStatement],[NodeToValueStatement],[NodeToNodeStatement],[Node]" /></p>
 <h2 id="children">Children</h2>
 <ul>
-<li><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a></li>
-<li><a href="../RdfTypeStatement/">RdfTypeStatement</a> - A statement that indicates the asserted type of the subject entity</li>
-<li><a href="../RdfsLabelStatement/">RdfsLabelStatement</a></li>
-<li><a href="../RdfsSubClassOfStatement/">RdfsSubClassOfStatement</a></li>
+<li><a href="../NodeToNodeStatement/">NodeToNodeStatement</a> - A statement where object is non-null and value is not populated</li>
+<li><a href="../NodeToValueStatement/">NodeToValueStatement</a> - A statement where value is non-null and object is not populated</li>
+<li><a href="../RdfListStatement/">RdfListStatement</a> - A statement that is used to represent aspects of RDF lists</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
 <h3 id="own">Own</h3>
 <ul>
+<li><a href="../datatype/">datatype</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
 <li><a href="../language/">language</a>  <sub>OPT</sub><ul>
 <li>range: <a href="../types/String/">String</a></li>
 </ul>
@@ -140,6 +147,28 @@
 </ul>
 </li>
 </ul>
+<h2 id="other-properties">Other properties</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Aliases:</strong></td>
+<td></td>
+<td>triple</td>
+</tr>
+<tr>
+<td><strong>Mappings:</strong></td>
+<td></td>
+<td>rdf:Statement</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div>

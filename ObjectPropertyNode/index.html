@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -100,7 +104,7 @@
               
                 <h1 id="class-objectpropertynode">Class: ObjectPropertyNode</h1>
 <p>URI: <a href="https://w3id.org/semsql/ObjectPropertyNode">semsql:ObjectPropertyNode</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[TransitivePropertyNode],[PropertyNode],[ObjectPropertyNode]^-[TransitivePropertyNode],[PropertyNode]^-[ObjectPropertyNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[TransitivePropertyNode],[PropertyNode],[ObjectPropertyNode&#124;id(i):node_id_type]^-[TransitivePropertyNode],[PropertyNode]^-[ObjectPropertyNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../PropertyNode/">PropertyNode</a></li>
@@ -111,6 +115,13 @@
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
+<h3 id="inherited-from-property-node">Inherited from property node:</h3>
+<ul>
+<li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="other-properties">Other properties</h2>
 <table>
 <thead>
@@ -124,7 +135,7 @@
 <tr>
 <td><strong>Comments:</strong></td>
 <td></td>
-<td>sqlview&gt;&gt; SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:ObjectProperty'</td>
+<td>sqlview&gt;&gt; SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ObjectProperty'</td>
 </tr>
 </tbody>
 </table>

@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -100,19 +104,25 @@
               
                 <h1 id="class-classnode">Class: ClassNode</h1>
 <p>URI: <a href="https://w3id.org/semsql/ClassNode">semsql:ClassNode</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RdfsSubClassOfStatement],[RdfTypeStatement],[OwlEquivalentClassStatement],[Node],[OwlRestriction]-%20filler%200..1&gt;[ClassNode&#124;id(i):node_id_type],[OwlEquivalentClassStatement]-%20object%200..1&gt;[ClassNode],[OwlEquivalentClassStatement]-%20subject%200..1&gt;[ClassNode],[RdfTypeStatement]-%20object%200..1&gt;[ClassNode],[RdfsSubClassOfStatement]-%20object%200..1&gt;[ClassNode],[RdfsSubClassOfStatement]-%20subject%200..1&gt;[ClassNode],[Node]^-[ClassNode],[OwlRestriction]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RdfsSubclassOfStatement],[RdfTypeStatement],[OwlEquivalentClassStatement],[OwlDisjointClassStatement],[Node],[ClassTrait],[OwlRestriction]-%20filler%200..1&gt;[ClassNode&#124;id(i):node_id_type],[OwlDisjointClassStatement]-%20object%201..1&gt;[ClassNode],[OwlDisjointClassStatement]-%20subject%200..1&gt;[ClassNode],[OwlEquivalentClassStatement]-%20object%201..1&gt;[ClassNode],[OwlEquivalentClassStatement]-%20subject%200..1&gt;[ClassNode],[RdfTypeStatement]-%20object%201..1&gt;[ClassNode],[RdfsSubclassOfStatement]-%20object%201..1&gt;[ClassNode],[RdfsSubclassOfStatement]-%20subject%200..1&gt;[ClassNode],[ClassNode]uses%20-.-&gt;[ClassTrait],[Node]^-[ClassNode],[OwlRestriction]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../Node/">Node</a></li>
 </ul>
+<h2 id="uses-mixins">Uses Mixins</h2>
+<ul>
+<li>mixin: <a href="../ClassTrait/">ClassTrait</a></li>
+</ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <ul>
 <li><strong>None</strong> <em><a href="../filler/">filler</a></em>  <sub>OPT</sub>  <strong><a href="./">ClassNode</a></strong></li>
-<li><strong><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a></strong> <em><a href="../owl_equivalent_class_statement_object/">owl equivalent class statement➞object</a></em>  <sub>OPT</sub>  <strong><a href="./">ClassNode</a></strong></li>
+<li><strong><a href="../OwlDisjointClassStatement/">OwlDisjointClassStatement</a></strong> <em><a href="../owl_disjoint_class_statement_object/">owl disjoint class statement➞object</a></em>  <sub>REQ</sub>  <strong><a href="./">ClassNode</a></strong></li>
+<li><strong><a href="../OwlDisjointClassStatement/">OwlDisjointClassStatement</a></strong> <em><a href="../owl_disjoint_class_statement_subject/">owl disjoint class statement➞subject</a></em>  <sub>OPT</sub>  <strong><a href="./">ClassNode</a></strong></li>
+<li><strong><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a></strong> <em><a href="../owl_equivalent_class_statement_object/">owl equivalent class statement➞object</a></em>  <sub>REQ</sub>  <strong><a href="./">ClassNode</a></strong></li>
 <li><strong><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a></strong> <em><a href="../owl_equivalent_class_statement_subject/">owl equivalent class statement➞subject</a></em>  <sub>OPT</sub>  <strong><a href="./">ClassNode</a></strong></li>
-<li><strong><a href="../RdfTypeStatement/">RdfTypeStatement</a></strong> <em><a href="../rdf_type_statement_object/">rdf type statement➞object</a></em>  <sub>OPT</sub>  <strong><a href="./">ClassNode</a></strong></li>
-<li><strong><a href="../RdfsSubClassOfStatement/">RdfsSubClassOfStatement</a></strong> <em><a href="../rdfs_subClassOf_statement_object/">rdfs subClassOf statement➞object</a></em>  <sub>OPT</sub>  <strong><a href="./">ClassNode</a></strong></li>
-<li><strong><a href="../RdfsSubClassOfStatement/">RdfsSubClassOfStatement</a></strong> <em><a href="../rdfs_subClassOf_statement_subject/">rdfs subClassOf statement➞subject</a></em>  <sub>OPT</sub>  <strong><a href="./">ClassNode</a></strong></li>
+<li><strong><a href="../RdfTypeStatement/">RdfTypeStatement</a></strong> <em><a href="../rdf_type_statement_object/">rdf type statement➞object</a></em>  <sub>REQ</sub>  <strong><a href="./">ClassNode</a></strong></li>
+<li><strong><a href="RdfsSubclassOfStatement.md">RdfsSubclassOfStatement</a></strong> <em><a href="../rdfs_subclass_of_statement_object/">rdfs subclass of statement➞object</a></em>  <sub>REQ</sub>  <strong><a href="./">ClassNode</a></strong></li>
+<li><strong><a href="RdfsSubclassOfStatement.md">RdfsSubclassOfStatement</a></strong> <em><a href="../rdfs_subclass_of_statement_subject/">rdfs subclass of statement➞subject</a></em>  <sub>OPT</sub>  <strong><a href="./">ClassNode</a></strong></li>
 </ul>
 <h2 id="attributes">Attributes</h2>
 <h3 id="inherited-from-node">Inherited from node:</h3>
@@ -136,6 +146,11 @@
 <td><strong>Mappings:</strong></td>
 <td></td>
 <td>owl:Class</td>
+</tr>
+<tr>
+<td><strong>Comments:</strong></td>
+<td></td>
+<td>sqlview&gt;&gt; SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:Class';</td>
 </tr>
 </tbody>
 </table>

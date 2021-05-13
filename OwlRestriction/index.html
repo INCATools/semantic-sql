@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -100,9 +104,14 @@
               
                 <h1 id="class-owlrestriction">Class: OwlRestriction</h1>
 <p>URI: <a href="https://w3id.org/semsql/OwlRestriction">semsql:OwlRestriction</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[OwlSomeValuesFrom],[ClassNode]&lt;filler%200..1-%20[OwlRestriction],[Node]&lt;on%20property%200..1-%20[OwlRestriction],[BlankNode]&lt;restriction%200..1-%20[OwlRestriction],[OwlRestriction]^-[OwlSomeValuesFrom],[Node],[ClassNode],[BlankNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[OwlSomeValuesFrom],[ClassNode]&lt;filler%200..1-%20[OwlRestriction&#124;id:node_id_type],[Node]&lt;on%20property%200..1-%20[OwlRestriction],[OwlRestriction]^-[OwlSomeValuesFrom],[OwlRestriction]^-[OwlAllValuesFrom],[AnonymousClassExpression]^-[OwlRestriction],[OwlAllValuesFrom],[Node],[ClassNode],[AnonymousClassExpression]" /></p>
+<h2 id="parents">Parents</h2>
+<ul>
+<li>is_a: <a href="../AnonymousClassExpression/">AnonymousClassExpression</a></li>
+</ul>
 <h2 id="children">Children</h2>
 <ul>
+<li><a href="../OwlAllValuesFrom/">OwlAllValuesFrom</a></li>
 <li><a href="../OwlSomeValuesFrom/">OwlSomeValuesFrom</a></li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
@@ -117,11 +126,29 @@
 <li>range: <a href="../Node/">Node</a></li>
 </ul>
 </li>
-<li><a href="../restriction/">restriction</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../BlankNode/">BlankNode</a></li>
+<li><a href="../owl_restriction_id/">owl restriction➞id</a>  <sub>REQ</sub><ul>
+<li>Description: the id of the restriction</li>
+<li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>
 </ul>
+<h2 id="other-properties">Other properties</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mappings:</strong></td>
+<td></td>
+<td>owl:Restriction</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div>

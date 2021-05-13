@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -100,7 +104,11 @@
               
                 <h1 id="class-propertynode">Class: PropertyNode</h1>
 <p>URI: <a href="https://w3id.org/semsql/PropertyNode">semsql:PropertyNode</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[PropertyNode]^-[ObjectPropertyNode],[PropertyNode]^-[AnnotationPropertyNode],[ObjectPropertyNode],[AnnotationPropertyNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[PropertyNode&#124;id(i):node_id_type]^-[ObjectPropertyNode],[PropertyNode]^-[AnnotationPropertyNode],[Node]^-[PropertyNode],[ObjectPropertyNode],[Node],[AnnotationPropertyNode]" /></p>
+<h2 id="parents">Parents</h2>
+<ul>
+<li>is_a: <a href="../Node/">Node</a></li>
+</ul>
 <h2 id="children">Children</h2>
 <ul>
 <li><a href="../AnnotationPropertyNode/">AnnotationPropertyNode</a></li>
@@ -108,6 +116,13 @@
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
+<h3 id="inherited-from-node">Inherited from node:</h3>
+<ul>
+<li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
+</ul>
+</li>
+</ul>
               
             </div>
           </div>

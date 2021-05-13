@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://cmungall.github.io/semantic-sql/RdfListStatement/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Class: RdfListStatement - Semantic SQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Class: RdfListStatement";
+    var mkdocs_page_input_path = "RdfListStatement.md";
+    var mkdocs_page_url = "/semantic-sql/RdfListStatement/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Semantic SQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../rdf_index/">RDF</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../owl_index/">OWL</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Semantic SQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Class: RdfListStatement</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/cmungall/semantic-sql/edit/master/docs/RdfListStatement.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="class-rdfliststatement">Class: RdfListStatement</h1>
+<p>A statement that is used to represent aspects of RDF lists</p>
+<p>URI: <a href="https://w3id.org/semsql/RdfListStatement">semsql:RdfListStatement</a></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Statements],[RdfRestTransitiveStatement],[RdfRestStatement],[RdfListNode]&lt;subject%200..1-%20[RdfListStatement&#124;predicate(i):string%20%3F;value(i):literal_as_string_type%20%3F;datatype(i):string%20%3F;language(i):string%20%3F],[RdfListStatement]^-[RdfRestTransitiveStatement],[RdfListStatement]^-[RdfRestStatement],[RdfListStatement]^-[RdfListMemberStatement],[RdfListStatement]^-[RdfFirstStatement],[Statements]^-[RdfListStatement],[RdfListNode],[RdfListMemberStatement],[RdfFirstStatement],[Node]" /></p>
+<h2 id="parents">Parents</h2>
+<ul>
+<li>is_a: <a href="../Statements/">Statements</a> - Represents an RDF triple</li>
+</ul>
+<h2 id="children">Children</h2>
+<ul>
+<li><a href="../RdfFirstStatement/">RdfFirstStatement</a> - A statement that connects a list to its first element. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful</li>
+<li><a href="../RdfListMemberStatement/">RdfListMemberStatement</a></li>
+<li><a href="../RdfRestStatement/">RdfRestStatement</a> - A statement that connects a list to its remaining elements. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful</li>
+<li><a href="../RdfRestTransitiveStatement/">RdfRestTransitiveStatement</a></li>
+</ul>
+<h2 id="referenced-by-class">Referenced by class</h2>
+<h2 id="attributes">Attributes</h2>
+<h3 id="own">Own</h3>
+<ul>
+<li><a href="../rdf_list_statement_subject/">rdf list statement➞subject</a>  <sub>OPT</sub><ul>
+<li>Description: The rdf:List to which the statement applies</li>
+<li>range: <a href="../RdfListNode/">RdfListNode</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="inherited-from-statements">Inherited from statements:</h3>
+<ul>
+<li><a href="../datatype/">datatype</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../language/">language</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../object/">object</a>  <sub>OPT</sub><ul>
+<li>Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated</li>
+<li>range: <a href="../Node/">Node</a></li>
+</ul>
+</li>
+<li><a href="../predicate/">predicate</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../stanza/">stanza</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../Node/">Node</a></li>
+</ul>
+</li>
+<li><a href="../value/">value</a>  <sub>OPT</sub><ul>
+<li>Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion</li>
+<li>range: <a href="../types/LiteralAsStringType/">LiteralAsStringType</a></li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/cmungall/semantic-sql/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

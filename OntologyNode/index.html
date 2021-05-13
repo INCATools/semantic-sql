@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -99,6 +103,7 @@
             <div class="section">
               
                 <h1 id="class-ontologynode">Class: OntologyNode</h1>
+<p>A node representing an ontology</p>
 <p>URI: <a href="https://w3id.org/semsql/OntologyNode">semsql:OntologyNode</a></p>
 <p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]^-[OntologyNode&#124;id(i):node_id_type],[Node]" /></p>
 <h2 id="parents">Parents</h2>
@@ -126,7 +131,7 @@
 <tr>
 <td><strong>Comments:</strong></td>
 <td></td>
-<td>sqlview&gt;&gt; SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:Ontology'</td>
+<td>sqlview&gt;&gt; SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:Ontology'</td>
 </tr>
 </tbody>
 </table>

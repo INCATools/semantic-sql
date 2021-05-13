@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -100,16 +104,16 @@
               
                 <h1 id="class-owlequivalentclassstatement">Class: OwlEquivalentClassStatement</h1>
 <p>URI: <a href="https://w3id.org/semsql/OwlEquivalentClassStatement">semsql:OwlEquivalentClassStatement</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Statements],[ClassNode]&lt;object%200..1-%20[OwlEquivalentClassStatement&#124;predicate(i):string%20%3F;value(i):literal_as_string_type%20%3F;language(i):string%20%3F],[ClassNode]&lt;subject%200..1-%20[OwlEquivalentClassStatement],[Statements]^-[OwlEquivalentClassStatement],[Node],[ClassNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[ClassNode]&lt;object%201..1-%20[OwlEquivalentClassStatement&#124;predicate(i):string%20%3F;value(i):literal_as_string_type%20%3F;datatype(i):string%20%3F;language(i):string%20%3F],[ClassNode]&lt;subject%200..1-%20[OwlEquivalentClassStatement],[NodeToNodeStatement]^-[OwlEquivalentClassStatement],[NodeToNodeStatement],[Node],[ClassNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../Statements/">Statements</a> - Represents an RDF triple</li>
+<li>is_a: <a href="../NodeToNodeStatement/">NodeToNodeStatement</a> - A statement where object is non-null and value is not populated</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
 <h3 id="own">Own</h3>
 <ul>
-<li><a href="../owl_equivalent_class_statement_object/">owl equivalent class statement➞object</a>  <sub>OPT</sub><ul>
+<li><a href="../owl_equivalent_class_statement_object/">owl equivalent class statement➞object</a>  <sub>REQ</sub><ul>
 <li>Description: One of the two classes that are equivalent. No significance to subject vs object</li>
 <li>range: <a href="../ClassNode/">ClassNode</a></li>
 </ul>
@@ -120,8 +124,12 @@
 </ul>
 </li>
 </ul>
-<h3 id="inherited-from-statements">Inherited from statements:</h3>
+<h3 id="inherited-from-node-to-node-statement">Inherited from node to node statement:</h3>
 <ul>
+<li><a href="../datatype/">datatype</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
 <li><a href="../language/">language</a>  <sub>OPT</sub><ul>
 <li>range: <a href="../types/String/">String</a></li>
 </ul>

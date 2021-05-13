@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -100,10 +104,15 @@
               
                 <h1 id="class-blanknode">Class: BlankNode</h1>
 <p>URI: <a href="https://w3id.org/semsql/BlankNode">semsql:BlankNode</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node],[OwlRestriction]-%20restriction%200..1&gt;[BlankNode&#124;id(i):node_id_type],[Node]^-[BlankNode],[OwlRestriction]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RdfListNode],[Node],[BlankNode&#124;id(i):node_id_type]^-[RdfListNode],[BlankNode]^-[AnonymousExpression],[Node]^-[BlankNode],[AnonymousExpression]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../Node/">Node</a></li>
+</ul>
+<h2 id="children">Children</h2>
+<ul>
+<li><a href="../AnonymousExpression/">AnonymousExpression</a></li>
+<li><a href="../RdfListNode/">RdfListNode</a> - A node representing an RDF list</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <ul>

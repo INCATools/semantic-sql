@@ -63,6 +63,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -101,10 +105,14 @@
                 <h1 id="class-problem">Class: Problem</h1>
 <p>Represents an instance of a problem pertaining to conformance to OBO guidelines</p>
 <p>URI: <a href="https://w3id.org/semsql/Problem">semsql:Problem</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]&lt;subject%200..1-%20[Problem&#124;description:string%20%3F],[Problem]^-[NodeWithTwoLabelsProblem],[NodeWithTwoLabelsProblem],[Node]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[TrailingWhitespaceProblem],[PropertyUsedWithDatatypeValuesAndObjects],[Node]&lt;subject%200..1-%20[Problem&#124;description:string%20%3F],[Problem]^-[TrailingWhitespaceProblem],[Problem]^-[PropertyUsedWithDatatypeValuesAndObjects],[Problem]^-[NodeWithTwoLabelsProblem],[Problem]^-[LexicalProblem],[Problem]^-[AllProblems],[NodeWithTwoLabelsProblem],[Node],[LexicalProblem],[AllProblems]" /></p>
 <h2 id="children">Children</h2>
 <ul>
+<li><a href="../AllProblems/">AllProblems</a></li>
+<li><a href="../LexicalProblem/">LexicalProblem</a> - a problem with the textual value of an annotation property</li>
 <li><a href="../NodeWithTwoLabelsProblem/">NodeWithTwoLabelsProblem</a></li>
+<li><a href="../PropertyUsedWithDatatypeValuesAndObjects/">PropertyUsedWithDatatypeValuesAndObjects</a> - A problem in which the same property is used two two different ways, one in which the range is a literal value, the other where it is an object.</li>
+<li><a href="../TrailingWhitespaceProblem/">TrailingWhitespaceProblem</a></li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
