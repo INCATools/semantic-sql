@@ -17,6 +17,12 @@ The basic idea is:
  * provide SQL Views for common constructs, avoiding low-level RDF operations
  * allow OWL and ontologies to be trivially used in combination with large data tables or existing relational databases
 
+E.g.
+
+```sql
+SELECT * FROM my_big_table WHERE col1='...' AND col2 IN (SELECT subject FROM subclass_of_closure WHERE object='UBERON:nnnnnnn');
+```
+
 ## Requirements
 
  * [rdftab](https://github.com/ontodev/rdftab.rs)
@@ -45,7 +51,7 @@ This example is for PATO but any ontology can be used
  1. Build rdftab.rs and copy to bin/ directory
  2. place an OWL file in the owl/ folder.
      E.g. `curl -L -s http://purl.obolibrary.org/obo/pato.owl > owl/pato.owl`
- 3. Run `make target/pato.views` 
+ 3. Run `make db/pato.db` 
  4. Explore: `sqlite3 db/pato.db`
 
 Example:
@@ -72,6 +78,8 @@ The `problem` view is actually a UNION view over multiple individual QC checks i
 ## Relation Graphs
 
 We use `relation-graph` to materialize inferred edges such as `fingernail part-of body`, these are loaded into an `entailed_edge` table
+
+
 
 ## Querying multiple dbs
 
@@ -106,7 +114,7 @@ Each of these is managed as a separate yaml file that compiles down to either SQ
 
 ### RDF
 
-The module [rdf](sql/rdf.sql) provides convenient views for common RDF and RDFS constructs.
+The module [rdf](ddl/rdf.sql) provides convenient views for common RDF and RDFS constructs.
 
 E.g.
 
@@ -127,7 +135,7 @@ PATO:0005003|PATO:0005003|rdfs:label||paddle shaped|xsd:string|
 
 ### OWL
 
-The module [owl](sql/owl.sql) provides convenient views for predicates such as subClassOf, and for transitive queries, e.g. subclasses of shape:
+The module [owl](sql/ddl.sql) provides convenient views for predicates such as subClassOf, and for transitive queries, e.g. subclasses of shape:
 
 ```sql
 select * from subclass_of_ancestors where object='obo:PATO_0000052';
@@ -188,6 +196,7 @@ E.g. here is a shot of DBeaver querying the `rdfslabel` view in OBO for terms th
 
 ![image](https://user-images.githubusercontent.com/50745/117589903-74e18900-b0e1-11eb-8aa1-c92856b64384.png)
 
+See the tests folder for examples of use of sqlalchemy to access OWL-level constructs over large databases from Python
 
 ## Design Philosophy
 
