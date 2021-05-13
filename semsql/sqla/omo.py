@@ -5,12 +5,6 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 metadata = Base.metadata
 
-class AllProblems(Base):
-    __tablename__ = 'all_problems'
-    subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
-
 class AnnotationPropertyNode(Base):
     __tablename__ = 'annotation_property_node'
     id = Column(Text, primary_key=True)
@@ -183,15 +177,6 @@ class IriNode(Base):
     __tablename__ = 'iri_node'
     id = Column(Text, primary_key=True)
 
-class LexicalProblem(Base):
-    """
-    a problem with the textual value of an annotation property
-    """
-    __tablename__ = 'lexical_problem'
-    subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
-
 class NamedIndividualNode(Base):
     __tablename__ = 'named_individual_node'
     id = Column(Text, primary_key=True)
@@ -225,14 +210,6 @@ class NodeToValueStatement(Base):
     datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
-
-class NodeWithTwoLabelsProblem(Base):
-    __tablename__ = 'node_with_two_labels_problem'
-    subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
-    label1 = Column(Text, primary_key=True)
-    label2 = Column(Text, primary_key=True)
 
 class ObjectPropertyNode(Base):
     __tablename__ = 'object_property_node'
@@ -308,27 +285,9 @@ class Prefix(Base):
     prefix = Column(Text, primary_key=True)
     base = Column(Text, primary_key=True)
 
-class Problem(Base):
-    """
-    Represents an instance of a problem pertaining to conformance to OBO guidelines
-    """
-    __tablename__ = 'problem'
-    subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
-
 class PropertyNode(Base):
     __tablename__ = 'property_node'
     id = Column(Text, primary_key=True)
-
-class PropertyUsedWithDatatypeValuesAndObjects(Base):
-    """
-    A problem in which the same property is used two two different ways, one in which the range is a literal value, the other where it is an object.
-    """
-    __tablename__ = 'property_used_with_datatype_values_and_objects'
-    subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
 
 class RdfFirstStatement(Base):
     """
@@ -434,14 +393,6 @@ class RdfsSubclassOfStatement(Base):
     subject = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
 
-class RepairAction(Base):
-    """
-    Represents an action that needs to be taken to repair a problem
-    """
-    __tablename__ = 'repair_action'
-    subject = Column(Text, primary_key=True)
-    description = Column(Text, primary_key=True)
-
 class Statements(Base):
     """
     Represents an RDF triple
@@ -454,12 +405,6 @@ class Statements(Base):
     value = Column(Text, primary_key=True)
     datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
-
-class TrailingWhitespaceProblem(Base):
-    __tablename__ = 'trailing_whitespace_problem'
-    subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
 
 class TransitivePropertyNode(Base):
     __tablename__ = 'transitive_property_node'

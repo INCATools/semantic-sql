@@ -24,7 +24,7 @@ classes:
     description: >-
       A node representing an ontology
     comments:
-      - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:Ontology'
+      - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:Ontology'
 
   property node:
     is_a: node
@@ -32,16 +32,16 @@ classes:
   object property node:
     is_a: property node
     comments:
-      - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:ObjectProperty'
+      - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ObjectProperty'
   transitive property node:
     is_a: object property node
     comments:
-      - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:TransitiveProperty'
+      - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:TransitiveProperty'
       
   annotation property node:
     is_a: property node
     comments:
-      - sqlview>> SELECT DISTINCT subject AS id FROM rdftype WHERE object='owl:AnnotatonProperty'
+      - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotatonProperty'
 
   owl equivalent class statement:
     is_a: node to node statement
@@ -75,7 +75,8 @@ classes:
   anonymous expression:
     abstract: true
     is_a: blank node
-    
+
+  ## todo: consider composition model; do not inherit from blank node
   anonymous class expression:
     abstract: true
     mixins:
@@ -93,7 +94,7 @@ classes:
     mixins:
       - individual trait
     is_a: anonymous expression
-    
+
   owl restriction:
     abstract: true
     is_a: anonymous class expression
@@ -154,6 +155,16 @@ classes:
       - subject
       - predicate
       - object
+    slot_usage:
+      subject:
+        role: subclass
+        description: the class C in the axiom C subClassOf P some D
+      predicate:
+        role: on property
+        description: the predicate P in the axiom C subClassOf P some D
+      object:
+        role: filler
+        description: the class D in the axiom C subClassOf P some D
     comments:
       - >-
         sqlview>>
@@ -166,8 +177,34 @@ classes:
             owl_some_values_from AS svf
           WHERE
             subClassOf.predicate = 'rdfs:subClassOf' AND
-            svf.restriction=subClassOf.object
-    
+            svf.id=subClassOf.object
+
+  owl equivalent to intersection member:
+    is_a: owl complex axiom
+    description: >-
+      Composition of OwlEquivalentClass, OwlIntersectionOf, and RdfListMember; C = X1 and ... and Xn
+    slots:
+      - subject
+      - object
+    slot_usage:
+      subject:
+        role: subclass
+        description: the defined class
+      object:
+        role: filler
+        description: a class expression that forms the defining expression
+    comments:
+      - >-
+        sqlview>>
+            SELECT e.stanza,
+                   e.subject,
+                   m.object
+                   FROM
+              owl_equivalent_class_statement AS e JOIN
+              statements AS i ON (e.object=i.subject) JOIN
+              rdf_list_member_statement AS m ON (i.object=m.subject)
+            WHERE
+              i.predicate = 'owl:intersectionOf'
 
   
 

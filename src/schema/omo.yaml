@@ -1,0 +1,104 @@
+id: https://w3id.org/semsql/omo
+name: semsql_obo
+title: Semantic SQL OMO module
+description: >-
+  Module representing OBO Metadata Ontology abstractions
+license: https://creativecommons.org/publicdomain/zero/1.0/
+see_also:
+  - http://obofoundry.org/ontology/omo
+
+prefixes:
+  semsql_omo: https://w3id.org/semsql/omo
+  linkml: https://w3id.org/linkml/
+  
+default_prefix: semsql_omo
+default_range: string
+
+default_curi_maps:
+  - semweb_context
+
+imports:
+  - rdf
+  - owl
+
+classes:
+
+  has oio synonym statement:
+    abstract: true
+    is_a: node to value statement
+    
+  has exact synonym statement:
+    is_a: has oio synonym statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasExactSynonym'
+    exact_mappings:
+      - oio:hasExactSynonym
+  has broad synonym statement:
+    is_a: has oio synonym statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasBroadSynonym'
+    exact_mappings:
+      - oio:hasBroadSynonym
+  has narrow synonym statement:
+    is_a: has oio synonym statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasNarrowSynonym'
+    exact_mappings:
+      - oio:hasNarrowSynonym
+  has related synonym statement:
+    is_a: has oio synonym statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasRelatedSynonym'
+    exact_mappings:
+      - oio:hasRelatedSynonym
+  has synonym statement:
+    is_a: node to value statement
+    union_of:
+      - has exact synonym statement
+      - has broad synonym statement
+      - has narrow synonym statement
+      - has related synonym statement
+
+
+  has exact match statement:
+    is_a: has match statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='skos:hasExactMatch'
+    exact_mappings:
+      - skos:hasExactMatch
+  has broad match statement:
+    is_a: has match statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='skos:hasBroadMatch'
+    exact_mappings:
+      - skos:hasBroadMatch
+  has narrow match statement:
+    is_a: has match statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='skos:hasNarrowMatch'
+    exact_mappings:
+      - skos:hasNarrowMatch
+  has related match statement:
+    is_a: has match statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='skos:hasRelatedMatch'
+    exact_mappings:
+      - skos:hasRelatedMatch
+  has match statement:
+    is_a: node to value statement
+    union_of:
+      - has exact match statement
+      - has broad match statement
+      - has narrow match statement
+      - has related match statement
+
+  has dbxref statement:
+    is_a: has mapping statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasDbXref'
+      
+  has mapping statement:
+    is_a: node to value statement
+    union_of:
+      - has match statement
+      - has dbxref statement

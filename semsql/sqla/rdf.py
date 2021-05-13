@@ -13,6 +13,16 @@ class ClassNode(Base):
     __tablename__ = 'class_node'
     id = Column(Text, primary_key=True)
 
+class CountOfInstantiatedClasses(Base):
+    __tablename__ = 'count_of_instantiated_classes'
+    element = Column(Text, primary_key=True)
+    number_of_usages = Column(Text, primary_key=True)
+
+class CountOfPredicates(Base):
+    __tablename__ = 'count_of_predicates'
+    element = Column(Text, primary_key=True)
+    number_of_usages = Column(Text, primary_key=True)
+
 class IriNode(Base):
     __tablename__ = 'iri_node'
     id = Column(Text, primary_key=True)
@@ -34,6 +44,7 @@ class NodeToNodeStatement(Base):
     subject = Column(Text, primary_key=True)
     predicate = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
 
@@ -46,6 +57,7 @@ class NodeToValueStatement(Base):
     subject = Column(Text, primary_key=True)
     predicate = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
 
@@ -57,6 +69,77 @@ class Prefix(Base):
     prefix = Column(Text, primary_key=True)
     base = Column(Text, primary_key=True)
 
+class RdfFirstStatement(Base):
+    """
+    A statement that connects a list to its first element. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful
+    """
+    __tablename__ = 'rdf_first_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+
+class RdfLevelSummaryStatistic(Base):
+    __tablename__ = 'rdf_level_summary_statistic'
+    element = Column(Text, primary_key=True)
+    number_of_usages = Column(Text, primary_key=True)
+
+class RdfListMemberStatement(Base):
+    __tablename__ = 'rdf_list_member_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+
+class RdfListNode(Base):
+    """
+    A node representing an RDF list
+    """
+    __tablename__ = 'rdf_list_node'
+    id = Column(Text, primary_key=True)
+
+class RdfListStatement(Base):
+    """
+    A statement that is used to represent aspects of RDF lists
+    """
+    __tablename__ = 'rdf_list_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+
+class RdfRestStatement(Base):
+    """
+    A statement that connects a list to its remaining elements. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful
+    """
+    __tablename__ = 'rdf_rest_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+
+class RdfRestTransitiveStatement(Base):
+    __tablename__ = 'rdf_rest_transitive_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+
 class RdfTypeStatement(Base):
     """
     A statement that indicates the asserted type of the subject entity
@@ -66,6 +149,7 @@ class RdfTypeStatement(Base):
     subject = Column(Text, primary_key=True)
     predicate = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
 
@@ -75,14 +159,16 @@ class RdfsLabelStatement(Base):
     subject = Column(Text, primary_key=True)
     predicate = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
 
-class RdfsSubClassOfStatement(Base):
-    __tablename__ = 'rdfs_subClassOf_statement'
+class RdfsSubclassOfStatement(Base):
+    __tablename__ = 'rdfs_subclass_of_statement'
     stanza = Column(Text, primary_key=True)
     predicate = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
     subject = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
@@ -97,4 +183,5 @@ class Statements(Base):
     predicate = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)

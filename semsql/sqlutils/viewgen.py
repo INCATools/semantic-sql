@@ -1,9 +1,27 @@
 import click
-from linkml_model import SchemaDefinition
+from typing import List
+from linkml_model import SchemaDefinition, ClassDefinition
 from linkml.utils.formatutils import underscore
 from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
 
 VIEW_CODE = 'sqlview>>'
+
+def get_viewdef(schema: SchemaDefinition, c: ClassDefinition) -> str:
+    """
+    Return all VIEW definitions for a class
+    :param schema:
+    :param c: class with potential views definitions
+    :return: view SQL select clause
+    """
+    views = []
+    for cmt in c.comments:
+        cmt = cmt.strip().rstrip(';')
+        if cmt.startswith(VIEW_CODE):
+            views.append(cmt.replace(VIEW_CODE,'').strip())
+    if len(views) > 0:
+        return " UNION ".join(views)
+    else:
+        return None
 
 def generate_views_from_linkml(schema: SchemaDefinition, view=True, drop_tables=True) -> None:
     """
@@ -13,20 +31,16 @@ def generate_views_from_linkml(schema: SchemaDefinition, view=True, drop_tables=
     :param schema: LinkML schema containing hints
     """
     for cn, c in schema.classes.items():
+        viewdef = get_viewdef(schema, c)
         sql_table = underscore(cn)
-        views = []
-        for cmt in c.comments:
-            cmt = cmt.strip().rstrip(';')
-            if cmt.startswith(VIEW_CODE):
-                views.append(cmt.replace(VIEW_CODE,'').strip())
-        if len(views) > 0:
+        if viewdef is not None:
             print()
             if drop_tables:
                 print(f'DROP TABLE {sql_table};')
             if view:
-                print(f'CREATE VIEW {sql_table} AS {"UNION".join(views)};')
+                print(f'CREATE VIEW {sql_table} AS {viewdef};')
             else:
-                print(f'INSERT INTO {sql_table} AS {"UNION".join(views)};')
+                print(f'INSERT INTO {sql_table} AS {viewdef};')
 
 @click.command()
 @click.argument('inputs', nargs=-1)

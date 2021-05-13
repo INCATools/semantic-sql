@@ -15,3 +15,7 @@ CREATE VIEW entailed_gaf AS SELECT gaf.*, e.predicate AS inferred_predicate, e.o
 -- stats
 CREATE VIEW num_annotation_by_taxon AS SELECT db_object_taxon, count(*) AS num_annotations FROM gaf GROUP BY db_object_taxon;
 CREATE VIEW num_term_by_taxon AS SELECT db_object_taxon, count(DISTINCT ontology_class_ref) AS num_terms_annotated FROM gaf GROUP BY db_object_taxon;
+
+CREATE VIEW stats_gpi_group_by_species AS SELECT db_object_taxon, count(*) AS num_gps FROM gpi GROUP BY db_object_taxon;
+CREATE VIEW stats_gpi_group_by_species_type AS SELECT db_object_taxon, db_object_type, count(*) AS num_gps FROM gpi GROUP BY db_object_taxon, db_object_type;
+CREATE VIEW stats_gpi_group_by_species_count_parent_protein AS SELECT db_object_taxon, db_object_type, count(DISTINCT parent_protein) AS num_gps FROM gpi GROUP BY db_object_taxon, db_object_type;

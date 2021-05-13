@@ -1,0 +1,54 @@
+id: https://w3id.org/semsql/relation_graph
+name: relation_graph
+title: Relation Graph module
+description: >-
+  Module for representing Relation Graphs
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  semsql_rg: https://w3id.org/semsql/relation_graph
+  linkml: https://w3id.org/linkml/
+
+default_prefix: semsql_rg
+default_range: string
+
+default_curi_maps:
+  - semweb_context
+
+imports:
+  - rdf
+  - owl
+
+classes:
+
+  relation graph construct:
+    abstract: true
+    description: >-
+      A construct used as part of a Relation Graph
+    comments:
+      - Relation Graphs are complementary abstractions to OWL in which axioms of the form A SubClassOf R some C form individual edges
+    todos:
+      - consider moving this to its own module
+
+  edge:
+    is_a: relation graph construct
+    description: >-
+      A relation graph edge that connects two entities by a predicate.
+      Note an edge is distinct from a statement, in that an axiom such as
+      A SubClassOf R some B is represented as multiple statements, but is
+      a single relation graph edge
+    slots:
+      - subject
+      - predicate
+      - object
+
+  entailed_edge:
+    is_a: relation graph construct
+    description: >-
+      A relation graph edge that is inferred
+    slots:
+      - subject
+      - predicate
+      - object
+    see_also:
+      - https://github.com/balhoff/relation-graph

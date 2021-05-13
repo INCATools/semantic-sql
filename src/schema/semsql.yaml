@@ -20,3 +20,5 @@ imports:
   - rdf
   - owl
   - obo
+  - omo
+  - relation_graph

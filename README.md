@@ -17,6 +17,15 @@ The basic idea is:
  * provide SQL Views for common constructs, avoiding low-level RDF operations
  * allow OWL and ontologies to be trivially used in combination with large data tables or existing relational databases
 
+## Requirements
+
+ * [rdftab](https://github.com/ontodev/rdftab.rs)
+ * sqlite
+
+After building `rdftab`, place it in the bin directory
+
+Note this repo includes additional python code for auxhiliary functions, but this is not required for main usage
+
 ## Demos
 
 this repo is an early draft for discussion.
@@ -64,7 +73,36 @@ The `problem` view is actually a UNION view over multiple individual QC checks i
 
 We use `relation-graph` to materialize inferred edges such as `fingernail part-of body`, these are loaded into an `entailed_edge` table
 
+## Querying multiple dbs
+
+```bash
+$ sqlite3 db/go.db
+SQLite version 3.28.0 2019-04-15 14:49:49
+Enter ".help" for usage hints.
+sqlite> attach 'db/cl.db' as cl;
+sqlite> .databases
+main: /Users/cjm/repos/semantic-sql/db/go.db
+cl: /Users/cjm/repos/semantic-sql/db/cl.db
+sqlite> select count(*) from cl.rdfs_subclass_of_statement;
+27236
+sqlite> select count(*) from main.rdfs_subclass_of_statement;
+173270
+sqlite> select count(*) from rdfs_subclass_of_statement;
+173270
+```
+
+
 ## Modules
+
+The logic/views are divided into modules. The current organization may be changed.
+
+ - RDF - core RDF types and predicates
+ - OWL - OWL constructs
+ - OMO - OBO Metadata
+ - Relation Graphs
+ - OBO - mostly checks
+
+Each of these is managed as a separate yaml file that compiles down to either SQL views or INSERTs
 
 ### RDF
 

@@ -2,7 +2,8 @@ id: https://w3id.org/semsql/obo
 name: semsql_obo
 title: Semantic SQL OBO module
 description: >-
-  OBO Module
+  Abstractions for working with OBO ontologies. Assumes usage of OMO.
+  Currently this module contains mostly checks/reports, similar to ROBOT report
 license: https://creativecommons.org/publicdomain/zero/1.0/
 
 prefixes:
@@ -18,12 +19,18 @@ default_curi_maps:
 imports:
   - rdf
   - owl
+  - omo
 
 classes:
-  problem:
+  ontology status statement:
+    is_a: node to value statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate = '<http://obofoundry.github.io/vocabulary/activity_status>'
+      - sqlview>> SELECT * FROM statements WHERE predicate = 'pav:status'
+  repair action:
     abstract: true
     description: >-
-      Represents an instance of a problem pertaining to conformance to OBO guidelines
+      Represents an action that needs to be taken to repair a problem
     slots:
       - subject
       - description
@@ -32,29 +39,62 @@ classes:
         description: >-
           The thing that is problematic
 
+  problem:
+    abstract: true
+    description: >-
+      Represents an instance of a problem pertaining to conformance to OBO guidelines
+    slots:
+      - subject
+      - predicate
+      - value
+    slot_usage:
+      subject:
+        description: >-
+          The thing that is problematic
+      predicate:
+        description: >-
+          The property of the thing that is problematic
+
+  lexical problem:
+    abstract: true
+    is_a: problem
+    description: >-
+      a problem with the textual value of an annotation property
+
+  trailing whitespace problem:
+    is_a: problem
+    comments:
+      - >-
+        sqlview>>
+        SELECT
+          subject,
+          predicate,
+          value
+        FROM statements
+        WHERE VALUE like ' %' OR VALUE like '% '
+
   property used with datatype values and objects:
     is_a: problem
     description: >-
       A problem in which the same property is used two two different ways, one
       in which the range is a literal value, the other where it is an object.
+    see_also:
+      - https://github.com/information-artifact-ontology/ontology-metadata/issues/67
     comments:
       - >-
         in OWL, if a property is typed as object or datatype, this will constrain its use.
         However, annotation properties have no such constraints in OWL, but we still
         consider this problematic and unintentional, unless it is a truly generic
         predicate, such as owl:annotatedTarget or rdf:object
-    see_also:
-      - https://github.com/information-artifact-ontology/ontology-metadata/issues/67
-    comments:
       - >-
         sqlview>>
           SELECT
             DISTINCT
               s1.predicate AS subject,
-              s1.datatype
+              s1.predicate,
+              s1.datatype AS value
           FROM statements AS s1, statements AS s2 ON (s1.predicate=s2.predicate)
           WHERE s1.value IS NOT NULL and s2.object IS NOT NULL
-
 
   node with two labels problem:
     is_a: problem
@@ -65,15 +105,17 @@ classes:
       - >-
         sqlview>>
           SELECT
-             s1.subject AS subject,
-             s1.value AS label1,
-             s2.value AS label2
+             s1.subject,
+             s1.predicate,
+             s1.value
           FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2
           WHERE s1.subject=s2.subject AND s1.value != s2.value
   all problems:
     is_a: problem
+    # TODO: use union_of
     comments:
       - sqlview>> SELECT * FROM node_with_two_labels_problem
+      - sqlview>> SELECT * FROM trailing_whitespace_problem
 
 
 slots:

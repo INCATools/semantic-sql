@@ -1,13 +1,14 @@
 id: https://w3id.org/semsql/rdf
-name: semsql_rdf
+name: Semsql-RDF
 title: Semantic SQL RDF module
 description: >-
-  RDF Module
+  Abstractions for working with RDF and RDFS triples
 license: https://creativecommons.org/publicdomain/zero/1.0/
 
 prefixes:
   semsql_rdf: https://w3id.org/semsql/rdf
   linkml: https://w3id.org/linkml/
+  sh: http://www.w3.org/ns/shacl#
   
 default_prefix: semsql_rdf
 default_range: string
@@ -19,6 +20,11 @@ imports:
   - linkml:types
   - rdf
 
+subsets:
+  export:
+    description: >-
+      Used to indicate a table/class that should be dumped as part of the export of a db
+
 classes:
   prefix:
     description: >-
@@ -26,6 +32,9 @@ classes:
     slots:
       - prefix
       - base
+    class_uri: sh:PrefixDeclaration
+    in_subset:
+      - export
 
   # -- triples --
   statements:
@@ -41,26 +50,7 @@ classes:
       - value
       - datatype
       - language
-    class_uri: owl:Restriction
-
-  edge:
-    description: >-
-      A relation graph edge that connects two entities by a predicate.
-      Note an edge is distinct from a statement, in that an axiom such as
-      A SubClassOf R some B is represented as multiple statements, but is
-      a single relation graph edge
-    slots:
-      - subject
-      - predicate
-      - object
-
-  entailed_edge:
-    description: >-
-      A relation graph edge that is inferred
-    slots:
-      - subject
-      - predicate
-      - object
+    class_uri: rdf:Statement
 
   node to node statement:
     abstract: true
@@ -96,6 +86,7 @@ classes:
         description: >-
           The entity type
         range: class node
+
   rdfs subclass of statement:
     is_a: node to node statement
     comments:
@@ -109,11 +100,70 @@ classes:
         description: >-
           The superclass element of the triple
         range: class node
+
   rdfs label statement:
     is_a: node to value statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:label'
-      
+
+  rdf list statement:
+    abstract: true
+    is_a: statements
+    description: >-
+      A statement that is used to represent aspects of RDF lists
+    slot_usage:
+      subject:
+        description: The rdf:List to which the statement applies
+        range: rdf list node
+
+  rdf first statement:
+    is_a: rdf list statement
+    description: >-
+      A statement that connects a list to its first element.
+      This is a low-level triple, it is unlikely you need to use this directly.
+      It is used to define rdf_list_member_statement, which is more useful
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='rdf:first'
+  rdf rest statement:
+    is_a: rdf list statement
+    description: >-
+      A statement that connects a list to its remaining elements.
+      This is a low-level triple, it is unlikely you need to use this directly.
+      It is used to define rdf_list_member_statement, which is more useful
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='rdf:rest'
+  rdf rest transitive statement:
+    is_a: rdf list statement
+    comments:
+      - >-
+        sqlview>>
+          WITH RECURSIVE rdf_rest_transitive_statement
+                     (
+                           subject, object
+                     )
+                     AS
+                     (SELECT subject, object
+                        FROM rdf_rest_statement
+                       UNION ALL
+                      SELECT
+                           rest.subject, rest_t.object
+                        FROM rdf_rest_statement AS rest
+                        JOIN rdf_rest_transitive_statement AS rest_t
+                          ON rest.object = rest_t.subject
+                     )
+                  SELECT * FROM rdf_rest_transitive_statement
+  rdf list member statement:
+    is_a: rdf list statement
+    comments:
+      - >-
+        sqlview>>
+          SELECT
+             rest_t.subject,
+             f.object
+            FROM rdf_rest_transitive_statement AS rest_t JOIN rdf_first_statement AS f ON (rest_t.object = f.subject)
+            UNION
+            SELECT subject,object FROM rdf_first_statement;
+
   # -- nodes --
   node:
     slots:
@@ -124,6 +174,12 @@ classes:
     is_a: node
     comments:
       - sqlview>> SELECT * FROM node WHERE id LIKE '_:%'
+  rdf list node:
+    is_a: blank node
+    description: >-
+      A node representing an RDF list
+    comments:
+      - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'rdf:List';
   iri node:
     is_a: node
     comments:
@@ -133,9 +189,15 @@ classes:
     mixins:
       - class trait
     class_uri: owl:Class
+    comments:
+      - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:Class';
   named individual node:
     is_a: node
     class_uri: owl:NamedIndividual
+    comments:
+      - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:NamedIndividual';
+
+  # -- reporting/stats --
 
   rdf level summary statistic:
     abstract: true
@@ -198,8 +260,10 @@ slots:
       - use an enum
   prefix:
     range: ncname
+    slot_uri: sh:prefix
   base:
     range: uri
+    slot_uri: sh:namespace
   description:
     slot_uri: dcterms:description
 

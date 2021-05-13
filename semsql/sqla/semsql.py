@@ -8,8 +8,7 @@ metadata = Base.metadata
 class AllProblems(Base):
     __tablename__ = 'all_problems'
     subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
+    description = Column(Text, primary_key=True)
 
 class AnnotationPropertyNode(Base):
     __tablename__ = 'annotation_property_node'
@@ -48,6 +47,24 @@ class CountOfPredicates(Base):
     __tablename__ = 'count_of_predicates'
     element = Column(Text, primary_key=True)
     number_of_usages = Column(Text, primary_key=True)
+
+class Edge(Base):
+    """
+    A relation graph edge that connects two entities by a predicate. Note an edge is distinct from a statement, in that an axiom such as A SubClassOf R some B is represented as multiple statements, but is a single relation graph edge
+    """
+    __tablename__ = 'edge'
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
+class EntailedEdge(Base):
+    """
+    A relation graph edge that is inferred
+    """
+    __tablename__ = 'entailed_edge'
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
 
 class HasBroadMatchStatement(Base):
     __tablename__ = 'has_broad_match_statement'
@@ -189,8 +206,7 @@ class LexicalProblem(Base):
     """
     __tablename__ = 'lexical_problem'
     subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
+    description = Column(Text, primary_key=True)
 
 class NamedIndividualNode(Base):
     __tablename__ = 'named_individual_node'
@@ -229,8 +245,7 @@ class NodeToValueStatement(Base):
 class NodeWithTwoLabelsProblem(Base):
     __tablename__ = 'node_with_two_labels_problem'
     subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
+    description = Column(Text, primary_key=True)
     label1 = Column(Text, primary_key=True)
     label2 = Column(Text, primary_key=True)
 
@@ -314,8 +329,7 @@ class Problem(Base):
     """
     __tablename__ = 'problem'
     subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
+    description = Column(Text, primary_key=True)
 
 class PropertyNode(Base):
     __tablename__ = 'property_node'
@@ -327,8 +341,7 @@ class PropertyUsedWithDatatypeValuesAndObjects(Base):
     """
     __tablename__ = 'property_used_with_datatype_values_and_objects'
     subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
+    description = Column(Text, primary_key=True)
 
 class RdfFirstStatement(Base):
     """
@@ -458,8 +471,7 @@ class Statements(Base):
 class TrailingWhitespaceProblem(Base):
     __tablename__ = 'trailing_whitespace_problem'
     subject = Column(Text, primary_key=True)
-    predicate = Column(Text, primary_key=True)
-    value = Column(Text, primary_key=True)
+    description = Column(Text, primary_key=True)
 
 class TransitivePropertyNode(Base):
     __tablename__ = 'transitive_property_node'

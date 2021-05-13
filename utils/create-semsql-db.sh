@@ -7,7 +7,7 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 db=""
 verbose=0
 
-while getopts "h?fvd:" opt; do
+while getopts "h?fvrd:" opt; do
     case "$opt" in
     h|\?)
         show_help
@@ -16,6 +16,8 @@ while getopts "h?fvd:" opt; do
     f)  force=1
         ;;
     v)  verbose=1
+        ;;
+    r)  report=1
         ;;
     d)  db=$OPTARG
         ;;
@@ -79,9 +81,21 @@ do
 done
 echo "## Indexing"
 cat sql/indexes.sql | sqlite3 $db
-echo "## Problems"
-sqlite3 $db "SELECT * FROM all_problems"
-echo "## Predicates"
-sqlite3 $db "SELECT * FROM count_of_predicates"
-echo "## Class Count"
-sqlite3 $db "SELECT * FROM count_of_instantiated_classes"
+
+if [[ $report == 1 ]]; then
+    echo "## Problems"
+    sqlite3 $db "SELECT * FROM all_problems"
+    echo "## Predicates"
+    sqlite3 $db "SELECT * FROM count_of_predicates"
+    echo "## Class Count"
+    sqlite3 $db "SELECT * FROM count_of_instantiated_classes"
+    echo ## Reports
+    sqlite3 -cmd ".echo on" -cmd ".headers on" $db < reports/query-semsql.sql  > reports/out.txt 2> reports/err.txt
+    if grep -q "Error" reports/err.txt; then
+        echo "ERRORS"
+        cat reports/err.txt
+        exit -1
+    else
+        exit 0
+    fi
+fi
