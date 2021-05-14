@@ -271,6 +271,16 @@ class RdfsLabelStatement(Base):
     language = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
 
+class RdfsSubclassOfNamedStatement(Base):
+    __tablename__ = 'rdfs_subclass_of_named_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
 class RdfsSubclassOfStatement(Base):
     __tablename__ = 'rdfs_subclass_of_statement'
     stanza = Column(Text, primary_key=True)
@@ -293,6 +303,17 @@ class Statements(Base):
     value = Column(Text, primary_key=True)
     datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
+
+class SubgraphEdgeByAncestor(Base):
+    """
+    An edge within a subgraph
+    """
+    __tablename__ = 'subgraph_edge_by_ancestor'
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    ancestor_object = Column(Text, primary_key=True)
+    ancestor_predicate = Column(Text, primary_key=True)
 
 class TransitivePropertyNode(Base):
     __tablename__ = 'transitive_property_node'

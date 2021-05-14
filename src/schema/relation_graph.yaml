@@ -41,14 +41,50 @@ classes:
       - subject
       - predicate
       - object
+    in_subset:
+      - base table
+    comments:
+      - >-
+        sqlview>>
+          SELECT subject, predicate, object FROM owl_subclass_of_some_values_from UNION
+            SELECT subject, predicate, object FROM rdfs_subclass_of_named_statement
+
+  subgraph edge by ancestor:
+    is_a: relation graph construct
+    description: >-
+      An edge within a subgraph
+    slots:
+      - subject
+      - predicate
+      - object
+      - ancestor object
+      - ancestor predicate
+    comments:
+      - Example: subgraph under uberon limb "SELECT * FROM sg_edge WHERE ancestor_object='UBERON:0002101';"
+      - Example: subgraph from part-descendants of uberon limb "SELECT * FROM sg_edge WHERE ancestor_object='UBERON:0002101' AND ancestor_predicate='BFO:0000050';"
+      - >-
+        sqlview>>
+          SELECT
+            edge.*,
+            ee.predicate AS ancestor_predicate,
+            ee.object AS ancestor_object
+          FROM edge JOIN entailed_edge AS ee ON (edge.subject = ee.subject)
 
   entailed_edge:
     is_a: relation graph construct
     description: >-
       A relation graph edge that is inferred
+    comments: >-
+      - It is common to populate this via a procedure external to the database, e.g balhoff/relation-graph
     slots:
       - subject
       - predicate
       - object
     see_also:
       - https://github.com/balhoff/relation-graph
+    in_subset:
+      - base table
+slots:
+  ancestor object:
+    range: node
+  ancestor predicate:

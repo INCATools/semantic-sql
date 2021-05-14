@@ -101,6 +101,9 @@ owl/%.owl:
 owl/go.owl:
 	curl -L -s http://purl.obolibrary.org/obo/go/extensions/go-plus.owl > $@
 
+owl/monarch.owl:
+	robot merge -I http://purl.obolibrary.org/obo/upheno/monarch.owl -o $@
+
 
 # ---
 # GO Demo
@@ -138,7 +141,7 @@ markdown: $(patsubst %, markdown-%, $(MODULES))
 
 gen-ddl: $(patsubst %, ddl/%.sql, $(MODULES))
 ddl/%.sql: src/schema/%.yaml
-	gen-sqlddl --no-use-foreign-keys $< > $@.tmp && \
+	gen-sqlddl --dialect sqlite --no-use-foreign-keys $< > $@.tmp && \
 	python semsql/sqlutils/viewgen.py $< >> $@.tmp && \
 	mv $@.tmp $@
 

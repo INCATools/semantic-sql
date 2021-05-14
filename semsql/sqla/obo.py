@@ -245,6 +245,16 @@ class OntologyNode(Base):
     __tablename__ = 'ontology_node'
     id = Column(Text, primary_key=True)
 
+class OntologyStatusStatement(Base):
+    __tablename__ = 'ontology_status_statement'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+
 class OwlAllValuesFrom(Base):
     __tablename__ = 'owl_all_values_from'
     on_property = Column(Text)
@@ -423,6 +433,16 @@ class RdfsLabelStatement(Base):
     datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
+
+class RdfsSubclassOfNamedStatement(Base):
+    __tablename__ = 'rdfs_subclass_of_named_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
 
 class RdfsSubclassOfStatement(Base):
     __tablename__ = 'rdfs_subclass_of_statement'

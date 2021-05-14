@@ -24,6 +24,9 @@ subsets:
   export:
     description: >-
       Used to indicate a table/class that should be dumped as part of the export of a db
+  base table:
+    description: >-
+      Indicates the class/table is typically not constructed from a view
 
 classes:
   prefix:
@@ -35,6 +38,7 @@ classes:
     class_uri: sh:PrefixDeclaration
     in_subset:
       - export
+      - base table
 
   # -- triples --
   statements:
@@ -51,6 +55,8 @@ classes:
       - datatype
       - language
     class_uri: rdf:Statement
+    in_subset:
+      - base table
 
   node to node statement:
     abstract: true
@@ -100,6 +106,12 @@ classes:
         description: >-
           The superclass element of the triple
         range: class node
+
+  rdfs subclass of named statement:
+    is_a: rdfs subclass of statement
+    comments:
+      - sqlview>> SELECT * FROM rdfs_subclass_of_statement WHERE object NOT LIKE '_:%';
+
 
   rdfs label statement:
     is_a: node to value statement
