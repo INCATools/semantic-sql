@@ -6,7 +6,6 @@ docs/
 load*-*
 schemaload*-*
 venv
-bin/
 target/
 test.db
 inferences/
@@ -14,3 +13,5 @@ __pycache__
 *.old
 #.*#
 site/
+.DS_Store
+bin/rdftab
