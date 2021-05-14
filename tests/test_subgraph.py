@@ -4,7 +4,8 @@ import logging
 import unittest
 import os
 from semsql.sqla.rdf import RdfsLabelStatement
-from semsql.sqla.relation_graph import SubgraphEdgeByAncestor
+from semsql.sqla.relation_graph import SubgraphEdgeByAncestor, SubgraphEdgeByDescendant
+from semsql.subgraph import extract_subgraph
 from sqlalchemy.orm import relationship, sessionmaker, aliased
 from sqlalchemy import create_engine
 
@@ -22,11 +23,20 @@ class SubgraphTestCase(unittest.TestCase):
     engine = create_engine(f"sqlite:///{path}")
     Session = sessionmaker(bind=engine)
     session = Session()
-    print('OWL query:')
-    q = session.query(SubgraphEdgeByAncestor).\
-        where(SubgraphEdgeByAncestor.ancestor_object == 'CL:0000000')
+    edges = extract_subgraph(session, terms=['CL:0000000'], view=SubgraphEdgeByAncestor)
     lines = []
-    for e in q.all():
+    print(f'graph for descendants of "cell"')
+    for e in edges:
+        line = f'{e.subject} {e.predicate} {e.object}'
+        print(line)
+        lines.append(line)
+    assert 'GO:0031967 BFO:0000050 GO:0043229' in lines
+    assert 'GO:0031975 rdfs:subClassOf GO:0110165' in lines
+
+    print(f'graph for ancestors of "nuclear membrane"')
+    edges = extract_subgraph(session, terms=['GO:0031965'], view=SubgraphEdgeByDescendant)
+    lines = []
+    for e in edges:
         line = f'{e.subject} {e.predicate} {e.object}'
         print(line)
         lines.append(line)

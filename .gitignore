@@ -10,3 +10,7 @@ bin/
 target/
 test.db
 inferences/
+__pycache__
+*.old
+#.*#
+site/

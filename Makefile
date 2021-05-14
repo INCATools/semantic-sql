@@ -51,7 +51,7 @@ else
 	SED = sed -i
 endif
 
-bin/rdftab: | build
+bin/rdftab:
 	curl -L -o $@ $(RDFTAB_URL)
 	chmod +x $@
 
@@ -143,8 +143,10 @@ download/idmapping.dat.gz:
 	wget https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/idmapping.dat.gz -O $@
 
 CAMDIR = ../noctua-models/models/
+trcams:
+	find $(CAMDIR)/ -name "*.ttl" -exec sh -c "riot --out rdfxml {} > {}.rdfxml" \;
 loadcams:
-	 find $(CAMDIR) -name "*.ttl" -exec sh -c "riot --out rdfxml {} | ./bin/rdftab db/go.db" \;
+	 find $(CAMDIR) -name "*.ttl.rdfxml" -exec sh -c "./bin/rdftab db/go.db < {}" \;
 
 
 # ---

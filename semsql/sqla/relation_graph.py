@@ -306,14 +306,25 @@ class Statements(Base):
 
 class SubgraphEdgeByAncestor(Base):
     """
-    An edge within a subgraph
+    An edge within a subgraph anchored around a set of ancestor terms
     """
     __tablename__ = 'subgraph_edge_by_ancestor'
     subject = Column(Text, primary_key=True)
     predicate = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
-    ancestor_object = Column(Text, primary_key=True)
-    ancestor_predicate = Column(Text, primary_key=True)
+    anchor_object = Column(Text, primary_key=True)
+    anchor_predicate = Column(Text, primary_key=True)
+
+class SubgraphEdgeByDescendant(Base):
+    """
+    An edge within a subgraph anchored around a set of descendant terms
+    """
+    __tablename__ = 'subgraph_edge_by_descendant'
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    anchor_object = Column(Text, primary_key=True)
+    anchor_predicate = Column(Text, primary_key=True)
 
 class TransitivePropertyNode(Base):
     __tablename__ = 'transitive_property_node'
