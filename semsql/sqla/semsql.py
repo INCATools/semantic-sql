@@ -8,7 +8,8 @@ metadata = Base.metadata
 class AllProblems(Base):
     __tablename__ = 'all_problems'
     subject = Column(Text, primary_key=True)
-    description = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
 
 class AnnotationPropertyNode(Base):
     __tablename__ = 'annotation_property_node'
@@ -206,7 +207,8 @@ class LexicalProblem(Base):
     """
     __tablename__ = 'lexical_problem'
     subject = Column(Text, primary_key=True)
-    description = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
 
 class NamedIndividualNode(Base):
     __tablename__ = 'named_individual_node'
@@ -245,7 +247,8 @@ class NodeToValueStatement(Base):
 class NodeWithTwoLabelsProblem(Base):
     __tablename__ = 'node_with_two_labels_problem'
     subject = Column(Text, primary_key=True)
-    description = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
     label1 = Column(Text, primary_key=True)
     label2 = Column(Text, primary_key=True)
 
@@ -259,6 +262,16 @@ class OntologyNode(Base):
     """
     __tablename__ = 'ontology_node'
     id = Column(Text, primary_key=True)
+
+class OntologyStatusStatement(Base):
+    __tablename__ = 'ontology_status_statement'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
 
 class OwlAllValuesFrom(Base):
     __tablename__ = 'owl_all_values_from'
@@ -329,7 +342,8 @@ class Problem(Base):
     """
     __tablename__ = 'problem'
     subject = Column(Text, primary_key=True)
-    description = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
 
 class PropertyNode(Base):
     __tablename__ = 'property_node'
@@ -341,7 +355,8 @@ class PropertyUsedWithDatatypeValuesAndObjects(Base):
     """
     __tablename__ = 'property_used_with_datatype_values_and_objects'
     subject = Column(Text, primary_key=True)
-    description = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
 
 class RdfFirstStatement(Base):
     """
@@ -437,6 +452,16 @@ class RdfsLabelStatement(Base):
     language = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
 
+class RdfsSubclassOfNamedStatement(Base):
+    __tablename__ = 'rdfs_subclass_of_named_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
 class RdfsSubclassOfStatement(Base):
     __tablename__ = 'rdfs_subclass_of_statement'
     stanza = Column(Text, primary_key=True)
@@ -468,10 +493,33 @@ class Statements(Base):
     datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
 
+class SubgraphEdgeByAncestor(Base):
+    """
+    An edge within a subgraph anchored around a set of ancestor terms
+    """
+    __tablename__ = 'subgraph_edge_by_ancestor'
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    anchor_object = Column(Text, primary_key=True)
+    anchor_predicate = Column(Text, primary_key=True)
+
+class SubgraphEdgeByDescendant(Base):
+    """
+    An edge within a subgraph anchored around a set of descendant terms
+    """
+    __tablename__ = 'subgraph_edge_by_descendant'
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    anchor_object = Column(Text, primary_key=True)
+    anchor_predicate = Column(Text, primary_key=True)
+
 class TrailingWhitespaceProblem(Base):
     __tablename__ = 'trailing_whitespace_problem'
     subject = Column(Text, primary_key=True)
-    description = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
 
 class TransitivePropertyNode(Base):
     __tablename__ = 'transitive_property_node'

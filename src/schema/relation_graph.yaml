@@ -49,26 +49,50 @@ classes:
           SELECT subject, predicate, object FROM owl_subclass_of_some_values_from UNION
             SELECT subject, predicate, object FROM rdfs_subclass_of_named_statement
 
-  subgraph edge by ancestor:
+  subgraph query:
+    abstract: true
     is_a: relation graph construct
+
+  subgraph edge by ancestor:
+    is_a: subgraph query
     description: >-
-      An edge within a subgraph
+      An edge within a subgraph anchored around a set of ancestor terms
     slots:
       - subject
       - predicate
       - object
-      - ancestor object
-      - ancestor predicate
+      - anchor object
+      - anchor predicate
     comments:
-      - Example: subgraph under uberon limb "SELECT * FROM sg_edge WHERE ancestor_object='UBERON:0002101';"
-      - Example: subgraph from part-descendants of uberon limb "SELECT * FROM sg_edge WHERE ancestor_object='UBERON:0002101' AND ancestor_predicate='BFO:0000050';"
+      - Example: subgraph under uberon limb "SELECT * FROM sg_edge WHERE anchor_object='UBERON:0002101';"
+      - Example: subgraph from part-descendants of uberon limb "SELECT * FROM sg_edge WHERE anchor_object='UBERON:0002101' AND ancestor_predicate='BFO:0000050';"
       - >-
         sqlview>>
           SELECT
             edge.*,
-            ee.predicate AS ancestor_predicate,
-            ee.object AS ancestor_object
+            ee.predicate AS anchor_predicate,
+            ee.object AS anchor_object
           FROM edge JOIN entailed_edge AS ee ON (edge.subject = ee.subject)
+
+  subgraph edge by descendant:
+    is_a: subgraph query
+    description: >-
+      An edge within a subgraph anchored around a set of descendant terms
+    slots:
+      - subject
+      - predicate
+      - object
+      - anchor object
+      - anchor predicate
+    comments:
+      - Example: subgraph under uberon limb "SELECT * FROM sg_edge WHERE anchor_object='UBERON:0002101';"
+      - >-
+        sqlview>>
+          SELECT
+            edge.*,
+            ee.predicate AS anchor_predicate,
+            ee.subject AS anchor_object
+          FROM edge JOIN entailed_edge AS ee ON (edge.subject = ee.object)
 
   entailed_edge:
     is_a: relation graph construct
@@ -85,6 +109,6 @@ classes:
     in_subset:
       - base table
 slots:
-  ancestor object:
+  anchor object:
     range: node
-  ancestor predicate:
+  anchor predicate:

@@ -1,14 +1,10 @@
 ALL_OBO_ONTS := $(shell cat reports/obo.tsv)
-ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm doid chebi pr wbphenotype fbbt dron
-
-OWL_SQL = rdf owl 
-OBO_SQL = $(OWL_SQL) obo-checks
-RG_SQL = $(OWL_SQL) relation-graph
-ALL_SQL = $(OWL_SQL) relation-graph obo-checks
+SELECTED_ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm doid chebi pr wbphenotype fbbt dron
 
 TEST_ONTOLOGIES = go-nucleus robot-example
 
 all: $(patsubst %,all-%,$(ALL_OBO_ONTS))
+selected: $(patsubst %,all-%,$(SELECTED_ONTS))
 
 all-%: db/%.db
 	echo $*
@@ -51,29 +47,29 @@ else
 	SED = sed -i
 endif
 
-bin/rdftab: | build
+bin/rdftab:
 	curl -L -o $@ $(RDFTAB_URL)
 	chmod +x $@
 
 # ---
 # OBO Registry
 # ---
+# fetch list of ontologies from OBO registry
 
 
+# first fetch ontology list in rdf/owl;
 owl/obo-ontologies.owl:
 	robot convert -I http://purl.obolibrary.org/meta/ontologies.ttl -o $@
 
+# depends on .db build of rdf/owl - then export to TSV
+# NOTE: currently there is a checked in copy of obo.tsv; use this, as we have pre-filtered ontologies that do not load
 reports/obo.tsv: db/obo-ontologies.db
 	sqlite3 $< "SELECT subject FROM ontology_status_statement WHERE value = 'active'" | perl -npe 's@^obo:@@' > $@
 
-
+# to test
 list-onts:
 	echo $(ALL_OBO_ONTS)
 
-#@Deprecated
-ALL_SQL_FILES = $(patsubst %,sql/%.sql,$(ALL_SQL))
-sql/all.sql: $(ALL_SQL_FILES)
-	cat $^ > $@
 
 # ---
 # sqlite db creation and loading
@@ -143,8 +139,10 @@ download/idmapping.dat.gz:
 	wget https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/idmapping.dat.gz -O $@
 
 CAMDIR = ../noctua-models/models/
+trcams:
+	find $(CAMDIR)/ -name "*.ttl" -exec sh -c "riot --out rdfxml {} > {}.rdfxml" \;
 loadcams:
-	 find $(CAMDIR) -name "*.ttl" -exec sh -c "riot --out rdfxml {} | ./bin/rdftab db/go.db" \;
+	 find $(CAMDIR) -name "*.ttl.rdfxml" -exec sh -c "./bin/rdftab db/go.db < {}" \;
 
 
 # ---
