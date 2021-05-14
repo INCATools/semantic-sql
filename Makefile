@@ -54,15 +54,19 @@ bin/rdftab:
 # ---
 # OBO Registry
 # ---
+# fetch list of ontologies from OBO registry
 
 
+# first fetch ontology list in rdf/owl;
 owl/obo-ontologies.owl:
 	robot convert -I http://purl.obolibrary.org/meta/ontologies.ttl -o $@
 
+# depends on .db build of rdf/owl - then export to TSV
+# NOTE: currently there is a checked in copy of obo.tsv; use this, as we have pre-filtered ontologies that do not load
 reports/obo.tsv: db/obo-ontologies.db
 	sqlite3 $< "SELECT subject FROM ontology_status_statement WHERE value = 'active'" | perl -npe 's@^obo:@@' > $@
 
-
+# to test
 list-onts:
 	echo $(ALL_OBO_ONTS)
 
