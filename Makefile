@@ -1,14 +1,10 @@
 ALL_OBO_ONTS := $(shell cat reports/obo.tsv)
-ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm doid chebi pr wbphenotype fbbt dron
-
-OWL_SQL = rdf owl 
-OBO_SQL = $(OWL_SQL) obo-checks
-RG_SQL = $(OWL_SQL) relation-graph
-ALL_SQL = $(OWL_SQL) relation-graph obo-checks
+SELECTED_ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm doid chebi pr wbphenotype fbbt dron
 
 TEST_ONTOLOGIES = go-nucleus robot-example
 
 all: $(patsubst %,all-%,$(ALL_OBO_ONTS))
+selected: $(patsubst %,all-%,$(SELECTED_ONTS))
 
 all-%: db/%.db
 	echo $*
@@ -70,10 +66,6 @@ reports/obo.tsv: db/obo-ontologies.db
 list-onts:
 	echo $(ALL_OBO_ONTS)
 
-#@Deprecated
-ALL_SQL_FILES = $(patsubst %,sql/%.sql,$(ALL_SQL))
-sql/all.sql: $(ALL_SQL_FILES)
-	cat $^ > $@
 
 # ---
 # sqlite db creation and loading
