@@ -35,6 +35,26 @@ realclean-%:
 	rm target/$*.* ;
 	rm db/$*.db
 
+
+# ---
+### RDFTab
+# ---
+# from https://github.com/obi-ontology/obi/blob/master/Makefile#L49
+#
+# Use RDFTab to create SQLite databases from OWL files.
+UNAME := $(shell uname)
+ifeq ($(UNAME), Darwin)
+	RDFTAB_URL := https://github.com/ontodev/rdftab.rs/releases/download/v0.1.1/rdftab-x86_64-apple-darwin
+	SED = sed -i.bak
+else
+	RDFTAB_URL := https://github.com/ontodev/rdftab.rs/releases/download/v0.1.1/rdftab-x86_64-unknown-linux-musl
+	SED = sed -i
+endif
+
+bin/rdftab: | build
+	curl -L -o $@ $(RDFTAB_URL)
+	chmod +x $@
+
 # ---
 # OBO Registry
 # ---
@@ -58,7 +78,7 @@ sql/all.sql: $(ALL_SQL_FILES)
 # ---
 # sqlite db creation and loading
 # ---
-db/%.db: owl/%.owl inferences/%-inf.tsv
+db/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
 	./utils/create-semsql-db.sh -v -f -d $@ $<
 .PRECIOUS: db/%.db
 
