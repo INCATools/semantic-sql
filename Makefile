@@ -51,6 +51,10 @@ bin/rdftab:
 	curl -L -o $@ $(RDFTAB_URL)
 	chmod +x $@
 
+RG_VERSION=1.1
+bin/relation-graph:
+	curl -L -s https://github.com/balhoff/relation-graph/releases/download/v$(RG_VERSION)/relation-graph-$(RG_VERSION).tgz | tar -zxv  && mv relation-graph-$(RG_VERSION) relation-graph && (cd bin && ln -s ../relation-graph/bin/relation-graph)
+
 # ---
 # OBO Registry
 # ---

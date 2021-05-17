@@ -20,6 +20,7 @@ INSERT OR IGNORE INTO prefix VALUES
 ("CL",        "http://purl.obolibrary.org/obo/CL_"),
 ("RO",        "http://purl.obolibrary.org/obo/RO_"),
 ("GO",        "http://purl.obolibrary.org/obo/GO_"),
+("ENVO",        "http://purl.obolibrary.org/obo/ENVO_"),
 ("UBERON",        "http://purl.obolibrary.org/obo/UBERON_"),
 ("PATO",        "http://purl.obolibrary.org/obo/PATO_"),
 ("IAO",       "http://purl.obolibrary.org/obo/IAO_"),

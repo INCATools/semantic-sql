@@ -8,7 +8,13 @@ CREATE VIEW hasSynonym AS
   SELECT * FROM hasNarrowSynonym UNION
   SELECT * FROM hasRelatedSynonym;
 
-CREATE VIEW axiom_dbxref_annotation AS SELECT * FROM axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref';
+CREATE VIEW axiom_dbxref_annotation AS SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref';
+CREATE VIEW axiom_source_annotation AS SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:source';
+
+
+CREATE VIEW exact_synonym_axiom_dbxref_annotation AS SELECT * FROM axiom_dbxref_annotation WHERE predicate = 'oio:hasExactSynonym';
+CREATE VIEW dbxref_axiom_dbxref_annotation AS SELECT * FROM axiom_dbxref_annotation WHERE predicate = 'oio:hasDbXref';
+CREATE VIEW dbxref_axiom_source_annotation AS SELECT * FROM axiom_source_annotation WHERE predicate = 'oio:hasDbXref';
 
 -- we assume domain of hasSynonymType is a synonym axiom
 CREATE VIEW hasSynonymWithType AS SELECT * FROM axiom_annotation WHERE annotation_predicate = 'oio:hasSynonymType';

@@ -23,6 +23,18 @@ E.g.
 SELECT * FROM my_big_table WHERE col1='...' AND col2 IN (SELECT subject FROM subclass_of_closure WHERE object='UBERON:nnnnnnn');
 ```
 
+## In flux
+
+Some parts of this repo are in-flux, see https://github.com/cmungall/semantic-sql/issues/4
+
+One particularly confusing thing is that there are two sets of semi-redundant VIEW definitions in 2 folders:
+
+ * sql/
+ * ddl/
+
+The ones in ddl are generated from the YAML, and they will eventually replace the ones in sql/
+
+
 ## Requirements
 
  * [rdftab](https://github.com/ontodev/rdftab.rs)
@@ -77,7 +89,7 @@ The `problem` view is actually a UNION view over multiple individual QC checks i
 
 ## Relation Graphs
 
-We use `relation-graph` to materialize inferred edges such as `fingernail part-of body`, these are loaded into an `entailed_edge` table
+We use [relation-graph](https://github.com/balhoff/relation-graph) to materialize inferred edges such as `fingernail part-of body`, these are loaded into an `entailed_edge` table
 
 
 
@@ -97,6 +109,24 @@ sqlite> select count(*) from main.rdfs_subclass_of_statement;
 173270
 sqlite> select count(*) from rdfs_subclass_of_statement;
 173270
+```
+
+
+## Python
+
+```bash
+pip install -r requirements.txt
+```
+
+
+for visualization, install: https://github.com/cmungall/obographviz
+
+
+visualize all terms starting with the string "nucle" and their ancestors using obographviz:
+
+
+```bash
+python semsql/subgraph.py -d tests/inputs/go-nucleus.db nucle% -m label -v up -f viz -p s,p
 ```
 
 

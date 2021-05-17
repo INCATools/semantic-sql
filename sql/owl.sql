@@ -13,7 +13,7 @@ CREATE VIEW punned_class_as_individual AS SELECT id FROM class_node WHERE id IN 
 
 CREATE VIEW illegally_punned_object_annotation_property AS SELECT id FROM object_property WHERE id IN (SELECT id FROM annotation_property);
 
-CREATE VIEW axiom_annotation AS
+CREATE VIEW owl_axiom_annotation AS
   SELECT
     axpv.stanza AS stanza,
     axs.object AS subject,
