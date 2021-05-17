@@ -51,6 +51,12 @@ bin/rdftab:
 	curl -L -o $@ $(RDFTAB_URL)
 	chmod +x $@
 
+RG_VERSION=1.1
+bin/relation-graph:
+	wget https://github.com/balhoff/relation-graph/releases/download/v1.1/relation-graph-1.1.tgz  && \;
+	relation-graph-1.1/bin/relation-graph
+	~/Downloads/relation-graph-1.1/bin/relation-graph
+
 # ---
 # OBO Registry
 # ---
@@ -88,7 +94,7 @@ inferences/%-inf.ttl: owl/%.owl
 
 # currently tedious to get this back into a TSV that can be loaded into sqlite...
 inferences/%-inf.owl: inferences/%-inf.ttl
-	robot merge -i $< -i inferences/%-nr.ttl -o $@
+	robot merge -i $< -i inferences/$*-nr.ttl -o $@
 .PRECIOUS: inferences/%-inf.owl
 inferences/%-inf.tsv: inferences/%-inf.owl
 	sqlite3 $@.db < prefixes/prefix.sql && ./bin/rdftab $@.db < $< && sqlite3 $@.db -cmd '.separator "\t"' -cmd '.header on' "SELECT subject,predicate,object FROM statements " > $@.tmp && mv $@.db $@.db.old && mv $@.tmp $@
