@@ -53,9 +53,7 @@ bin/rdftab:
 
 RG_VERSION=1.1
 bin/relation-graph:
-	wget https://github.com/balhoff/relation-graph/releases/download/v1.1/relation-graph-1.1.tgz  && \;
-	relation-graph-1.1/bin/relation-graph
-	~/Downloads/relation-graph-1.1/bin/relation-graph
+	curl -L -s https://github.com/balhoff/relation-graph/releases/download/v$(RG_VERSION)/relation-graph-$(RG_VERSION).tgz | tar -zxv  && mv relation-graph-$(RG_VERSION) relation-graph && (cd bin && ln -s ../relation-graph/bin/relation-graph)
 
 # ---
 # OBO Registry
