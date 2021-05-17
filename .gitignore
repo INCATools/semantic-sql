@@ -1,7 +1,7 @@
 .idea
 owl/*.owl
 download/
-db/
+db/*.db
 docs/
 load*-*
 schemaload*-*
@@ -9,7 +9,10 @@ venv
 bin/
 target/
 test.db
-inferences/
+inferences/*tsv
+inferences/*owl
+inferences/*ttl
+*.load
 __pycache__
 *.old
 #.*#
