@@ -112,11 +112,33 @@ classes:
     comments:
       - sqlview>> SELECT * FROM rdfs_subclass_of_statement WHERE object NOT LIKE '_:%';
 
+  rdfs subproperty of statement:
+    is_a: node to node statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:subPropertyOf'
+    slot_usage:
+      subject:
+        description: >-
+          The subproperty element of the triple
+        range: property node
+      object:
+        description: >-
+          The superproperty element of the triple
+        range: property node
 
   rdfs label statement:
     is_a: node to value statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:label'
+
+  rdfs domain statement:
+    is_a: node to domain statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:domain'
+  rdfs range statement:
+    is_a: node to domain statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:range'
 
   rdf list statement:
     abstract: true
@@ -203,6 +225,13 @@ classes:
     class_uri: owl:Class
     comments:
       - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:Class';
+  property node:
+    is_a: node
+    description: >-
+      Note this only directly classifies nodes asserted to be rdf:Properties
+    class_uri: owl:Propery
+    comments:
+      - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:Property';
   named individual node:
     is_a: node
     class_uri: owl:NamedIndividual

@@ -60,7 +60,6 @@ def map_terms_to_ids(session, terms: List[str], view = None) -> List:
 
 def extract_subgraph(session, terms: List[str], predicates: List[str] = None, view = SubgraphEdgeByAncestor) -> None:
     q = session.query(view)
-    print(f'TERMS = {terms} PREDS = {predicates}')
     q = q.filter(view.anchor_object.in_(terms))
     if predicates is not None:
         q = q.filter(view.predicate.in_(predicates))
@@ -91,7 +90,7 @@ def edges_to_obograph(session, edge_rows:List) -> dict:
     g = {"nodes": nodes, "edges": edges}
     return g
 
-def render_edges(session, edges: List, to_format: str = 'text', seeds: List[str] = []):
+def render_edges(session, edges: List, to_format: str = 'text', seeds: List[str] = [], stylemap: str = None):
     if to_format == 'obojson':
         g = edges_to_obograph(session, edges)
         print(json.dumps(g))
@@ -104,13 +103,22 @@ def render_edges(session, edges: List, to_format: str = 'text', seeds: List[str]
             style = {}
             if seeds is not None:
                 style['highlightIds'] = seeds
+            #style['styles'] = ['filled', 'rounded']
+            #style['prefixProperties'] = {
+            #    "CL": {"fillcolor": "yellow"},
+            #    "GO": {"fillcolor": "#ff7f00"}
+            #}
             temp_file_name = tmpfile.name
             print(f'Writing to {temp_file_name}')
             tmpfile.write(json.dumps(g))
             tmpfile.flush()
             pngfile = f'{temp_file_name}.png'
             style_json = json.dumps(style).replace("'", "\\'")
-            subprocess.run(['og2dot.js', '-S', style_json, '-t', 'png', temp_file_name, '-o', pngfile])
+            print(style_json)
+            cmdtoks = ['og2dot.js', '-S', style_json, '-t', 'png', temp_file_name, '-o', pngfile]
+            if stylemap is not None:
+                cmdtoks += ['-s', stylemap]
+            subprocess.run(cmdtoks)
             subprocess.run(['open', pngfile])
     else:
         for e in edges:
@@ -150,6 +158,8 @@ class OutputFormat(Enum):
               help='output format')
 @click.option('-p', '--predicates',
               help='comma separate list of predicates')
+@click.option('-s', '--stylemap',
+              help='a json file to configure visualization. See https://berkeleybop.github.io/kgviz-model/')
 @click.option('-v', '--view', default='up',
               type=click.Choice(TRAVERSAL_VIEWS.keys()),
               help='view / direction to traverse from anchors')
@@ -158,7 +168,7 @@ class OutputFormat(Enum):
               type=click.Choice(TERM_QUERY_VIEWS.keys()),
               help='how to match query input')
 @click.argument('terms', nargs=-1)
-def cli(db: str, terms: List[str], predicates: str, to_format: str, match_criteria: str, view: str):
+def cli(db: str, terms: List[str], predicates: str, to_format: str, match_criteria: str, view: str, stylemap: str):
     """
     Extract subgraph
 
@@ -172,11 +182,10 @@ def cli(db: str, terms: List[str], predicates: str, to_format: str, match_criter
     ids = map_terms_to_ids(session, terms, TERM_QUERY_VIEWS[match_criteria])
     if predicates is not None:
         predicate_list = [expand_predicate(p) for p in predicates.split(",")]
-        print(f'Predicates = {predicate_list}')
     else:
         predicate_list = None
     edges = extract_subgraph(session, ids, predicates=predicate_list, view=TRAVERSAL_VIEWS[view])
-    render_edges(session, edges, to_format.lower(), seeds=ids)
+    render_edges(session, edges, to_format.lower(), seeds=ids, stylemap=stylemap)
 
 
 

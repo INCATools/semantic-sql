@@ -100,6 +100,24 @@ sqlite> select count(*) from rdfs_subclass_of_statement;
 ```
 
 
+## Python
+
+```bash
+pip install -r requirements.txt
+```
+
+
+for visualization, install: https://github.com/cmungall/obographviz
+
+
+visualize all terms starting with the string "nucle" and their ancestors using obographviz:
+
+
+```bash
+python semsql/subgraph.py -d tests/inputs/go-nucleus.db nucle% -m label -v up -f viz -p s,p
+```
+
+
 ## Modules
 
 The logic/views are divided into modules. The current organization may be changed.
