@@ -102,3 +102,8 @@ classes:
     union_of:
       - has match statement
       - has dbxref statement
+
+  axiom dbxref annotation:
+    is_a: owl axiom annotation
+    comments:
+      - sqlview>> SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref'

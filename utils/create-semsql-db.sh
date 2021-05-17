@@ -77,6 +77,7 @@ do
         sqlite3 $db "SELECT COUNT(*) AS num_edges FROM entailed_edge"        
     else
         echo "No inference file: $inf_file"
+        echo "TODO: add ability to run command to generate this"
     fi
 done
 echo "## Indexing"

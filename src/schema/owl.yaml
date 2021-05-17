@@ -115,6 +115,42 @@ classes:
           One of the two classes that are disjoint. No significance to subject vs object
         range: class node
 
+  owl axiom annotation:
+    is_a: statements
+    slots:
+      - axiom predicate
+      - axiom object
+      - axiom value
+      - axiom language
+      - axiom datatype
+    comments:
+      - sqlview>> SELECT
+        axpv.stanza AS stanza,
+        axs.object AS subject,
+        axp.object AS predicate,
+        axo.object AS object,
+        axo.value AS value,
+        axo.datatype AS datatype,
+        axo.language AS language,
+        axpv.subject AS id,
+        axpv.predicate AS annotation_predicate,
+        axpv.object AS annotation_iri,
+        axpv.value AS annotation_value,
+        axpv.language AS annotation_language,
+        axpv.datatype AS annotation_datatype
+        FROM
+        statements AS axs,
+        statements AS axp,
+        statements AS axo,
+        statements AS axpv
+        WHERE
+        axs.predicate = 'owl:annotatedSource' AND
+        axp.predicate = 'owl:annotatedProperty' AND
+        axo.predicate = 'owl:annotatedTarget' AND
+        axs.subject = axpv.subject AND
+        axp.subject = axpv.subject AND
+        axo.subject = axpv.subject AND
+        axpv.predicate NOT IN ('owl:annotatedSource', 'owl:annotatedProperty', 'owl:annotatedTarget', 'rdf:type');
 
   anonymous expression:
     abstract: true
