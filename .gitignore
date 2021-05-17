@@ -1,5 +1,5 @@
 .idea
-owl/
+owl/*.owl
 download/
 db/
 docs/
