@@ -65,6 +65,7 @@ The ones in ddl are generated from the YAML, and they will eventually replace th
 
  * [rdftab](https://github.com/ontodev/rdftab.rs)
  * [relation-graph](https://github.com/balhoff/relation-graph)
+ * riot (part of apache jena)
  * sqlite
 
 You can make the first two:
@@ -76,8 +77,14 @@ make bin/rdftab
 
 You will need to add to your PATH:
 
-```
+```bash
 export PATH="$PATH:./bin"
+```
+
+To install riot:
+
+```bash
+brew install riot
 ```
 
 
