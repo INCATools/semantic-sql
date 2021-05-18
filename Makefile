@@ -123,8 +123,11 @@ prefixes/obo_prefixes.owl:
 prefixes/obo_prefixes.db: prefixes/obo_prefixes.owl
 	sqlite3 $@ < prefixes/prefix_ddl.sql && ./bin/rdftab $@ < $<
 
-prefixes/obo_prefixes.tsv: prefixes/obo_prefixes.db
-	sqlite $< -cmd ".separator '\t'" "SELECT p.value AS prefix, ns.value AS base FROM statements AS p JOIN statements AS ns ON (p.subject=ns.subject) WHERE p.predicate='<http://www.w3.org/ns/shacl#prefix>' AND ns.predicate='<http://www.w3.org/ns/shacl#namespace>'"
+prefixes/obo_prefixes.csv: prefixes/obo_prefixes.db
+	sqlite3 $< -cmd ".separator ','" "SELECT p.value AS prefix, ns.value AS base FROM statements AS p JOIN statements AS ns ON (p.subject=ns.subject) WHERE p.predicate='<http://www.w3.org/ns/shacl#prefix>' AND ns.predicate='<http://www.w3.org/ns/shacl#namespace>'" > $@
+
+prefixes/prefixes.csv: prefixes/prefixes_curated.csv prefixes/obo_prefixes.csv
+	cat $^ > $@
 
 # ---
 # Downloads
