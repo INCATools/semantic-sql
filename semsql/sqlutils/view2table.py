@@ -24,7 +24,7 @@ def cli(inputs, name: str, index: bool):
     Generates a command that turns a view into a table
 
     See https://github.com/cmungall/semantic-sql/issues/9
-    
+
     Example usage:
     ```
     python semsql/sqlutils/view2table.py src/schema/rdf.yaml -n rdfs_label_statement | sqlite3 db/pato.db

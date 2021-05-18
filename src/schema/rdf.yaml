@@ -130,13 +130,18 @@ classes:
     is_a: node to value statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:label'
+    slot_usage:
+      value:
+        description: >-
+          The label value
+        range: str
 
   rdfs domain statement:
-    is_a: node to domain statement
+    is_a: node to node statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:domain'
   rdfs range statement:
-    is_a: node to domain statement
+    is_a: node to node statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:range'
 
