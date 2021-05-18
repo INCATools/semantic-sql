@@ -17,3 +17,6 @@ __pycache__
 *.old
 #.*#
 site/
+node_modules/*
+relation-graph/*
+.DS_Store
