@@ -84,9 +84,10 @@ export PATH="$PATH:./bin"
 To install riot:
 
 ```bash
-brew install riot
+brew install jena
 ```
 
+(^^this is a temporary requirement until relation-graph exports TSVs)
 
 Note this repo includes additional python code for auxhiliary functions, but this is not required for main usage
 
@@ -166,6 +167,10 @@ pip install -r requirements.txt
 
 
 for visualization, install: https://github.com/cmungall/obographviz
+
+```bash
+npm install -g graphviz
+```
 
 
 visualize all terms starting with the string "nucle" and their ancestors using obographviz:
