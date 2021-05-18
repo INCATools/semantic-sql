@@ -23,6 +23,29 @@ E.g.
 SELECT * FROM my_big_table WHERE col1='...' AND col2 IN (SELECT subject FROM subclass_of_closure WHERE object='UBERON:nnnnnnn');
 ```
 
+## Download sqlite DBs
+
+You can find ready-made downloads for all OBOs in the [bbop-sqlite](https://s3.amazonaws.com/bbop-sqlite/) bucket
+
+To list:
+
+```bash
+$ s3cmd ls s3://bbop-sqlite
+2021-05-18 01:24       974848  s3://bbop-sqlite/aeo.db
+2021-05-18 01:24     11739136  s3://bbop-sqlite/agro.db
+2021-05-18 01:24      1556480  s3://bbop-sqlite/amphx.db
+2021-05-18 01:24      1540096  s3://bbop-sqlite/apo.db
+...
+```
+
+caveats:
+
+ - this is for demo purposes only, we may remove this bucket at any time
+ - the bucket is not guaranteed to be kept up to date
+ - the version of the schema may be different from this repo
+
+You can easily build a sqlite db from OWL yourself, see below:
+
 ## In flux
 
 Some parts of this repo are in-flux, see https://github.com/cmungall/semantic-sql/issues/4

@@ -60,6 +60,11 @@ classes:
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotatonProperty'
 
+  deprecated node:
+    is_a: node
+    comments:
+      - sqlview>> SELECT DISTINCT subject AS id FROM statements WHERE predicate='owl:deprecated' AND value='true'
+
   owl imports statement:
     is_a: node to node statement
     comments:

@@ -92,7 +92,8 @@ inferences/%-inf.ttl: owl/%.owl
 
 # currently tedious to get this back into a TSV that can be loaded into sqlite...
 inferences/%-inf.owl: inferences/%-inf.ttl
-	robot merge -i $< -i inferences/$*-nr.ttl -o $@
+	riot --out RDFXML $< inferences/$*-nr.ttl > $@.tmp && mv $@.tmp $@
+#	robot merge -i $< -i inferences/$*-nr.ttl -o $@
 .PRECIOUS: inferences/%-inf.owl
 inferences/%-inf.tsv: inferences/%-inf.owl
 	sqlite3 $@.db < prefixes/prefix.sql && ./bin/rdftab $@.db < $< && sqlite3 $@.db -cmd '.separator "\t"' -cmd '.header on' "SELECT subject,predicate,object FROM statements " > $@.tmp && mv $@.db $@.db.old && mv $@.tmp $@
@@ -134,6 +135,8 @@ demo/gaf/%.gpi.tsv:
 	curl -L -s http://current.geneontology.org/annotations/$*.gpi.gz | gzip -dc | ./utils/gpi2tsv > $@
 demo/gaf/wb.gpi.tsv:
 	curl -L -s ftp://ftp.wormbase.org/pub/wormbase/species/c_elegans/PRJNA13758/annotation/gene_product_info/c_elegans.PRJNA13758.current.gene_product_info.gpi.gz | gzip -dc | ./utils/gpi2tsv > $@
+demo/gaf/goa_uniprot_gcrp.gaf.gz:
+	curl -L -s ftp://ftp.ebi.ac.uk/pub/databases/GO/goa/UNIPROT/goa_uniprot_gcrp.gaf.gz > $@
 loadgaf-%: demo/gaf/%.gaf.tsv
 	sqlite3 db/go.db -cmd '.separator "\t"' '.import $< gaf' && touch $@
 loadgpi-%: demo/gaf/%.gpi.tsv
