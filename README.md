@@ -19,8 +19,10 @@ The basic idea is:
 
 E.g.
 
+using ontology hierarchy in queries:
+
 ```sql
-SELECT * FROM my_big_table WHERE col1='...' AND col2 IN (SELECT subject FROM subclass_of_closure WHERE object='UBERON:nnnnnnn');
+SELECT * FROM my_big_table WHERE col1='...' AND col2 IN (SELECT subject FROM entailed_edge WHERE predicate = 'rdfs:subClassOf' and object='UBERON:nnnnnnn');
 ```
 
 ## Download sqlite DBs
@@ -43,6 +45,7 @@ caveats:
  - this is for demo purposes only, we may remove this bucket at any time
  - the bucket is not guaranteed to be kept up to date
  - the version of the schema may be different from this repo
+ - some dbs may have additional tables loaded; e.g go.db may have gafs loaded
 
 You can easily build a sqlite db from OWL yourself, see below:
 
@@ -61,9 +64,30 @@ The ones in ddl are generated from the YAML, and they will eventually replace th
 ## Requirements
 
  * [rdftab](https://github.com/ontodev/rdftab.rs)
+ * [relation-graph](https://github.com/balhoff/relation-graph)
+ * riot (part of apache jena)
  * sqlite
 
-After building `rdftab`, place it in the bin directory
+You can make the first two:
+
+```bash
+make bin/relation-graph
+make bin/rdftab
+```
+
+You will need to add to your PATH:
+
+```bash
+export PATH="$PATH:./bin"
+```
+
+To install riot:
+
+```bash
+brew install jena
+```
+
+(^^this is a temporary requirement until relation-graph exports TSVs)
 
 Note this repo includes additional python code for auxhiliary functions, but this is not required for main usage
 
@@ -144,6 +168,10 @@ pip install -r requirements.txt
 
 for visualization, install: https://github.com/cmungall/obographviz
 
+```bash
+npm install -g graphviz
+```
+
 
 visualize all terms starting with the string "nucle" and their ancestors using obographviz:
 
@@ -172,7 +200,7 @@ The module [rdf](ddl/rdf.sql) provides convenient views for common RDF and RDFS 
 E.g.
 
 ```
-sqlite> select * from rdfslabel where value like '%shape%';
+sqlite> select * from rdfs_label_statement where value like '%shape%';
 ```
 
 generates
@@ -245,7 +273,7 @@ SQL views can be generated automatically. For now the linkml schema can be used 
 
 Standard SQL client can be used to explore a sqlite db created using this framework
 
-E.g. here is a shot of DBeaver querying the `rdfslabel` view in OBO for terms that have "assay" in the label:
+E.g. here is a shot of DBeaver querying the `rdfs_label_statement` view in OBO for terms that have "assay" in the label:
 
 ![image](https://user-images.githubusercontent.com/50745/117589903-74e18900-b0e1-11eb-8aa1-c92856b64384.png)
 
@@ -295,7 +323,7 @@ other views. Views can also be materialized for speed.
 A trivial example, from [sql/rdf.sql](sql/rdf.sql) is a view for labels:
 
 ```sql
-CREATE VIEW rdfslabel AS SELECT * FROM statements WHERE predicate = 'rdfs:label';
+CREATE VIEW rdfs_label_statement AS SELECT * FROM statements WHERE predicate = 'rdfs:label';
 ```
 
 This is a convenience predicate that saves typing, provides autocomplete in the sqlite CLI, etc
@@ -303,8 +331,8 @@ This is a convenience predicate that saves typing, provides autocomplete in the 
 These can then be layered, e.g to write ROBOT-style checks in a declarative fashion [sql/obo-checks.sql](sql/obo-checks.sql):
 
 ```sql
-CREATE VIEW node_with_two_labels_problems AS SELECT s1.subject AS id, s1.value AS label1, s2.value AS label2 FROM rdfslabel AS s1, rdfslabel AS s2 WHERE s1.subject=s2.subject AND s1.value != s2.value;
-CREATE VIEW shared_label_problems AS SELECT s1.subject AS node1, s2.subject AS node2, s1.value FROM rdfslabel AS s1, rdfslabel AS s2 WHERE s1.subject!=s2.subject AND s1.value = s2.value;
+CREATE VIEW node_with_two_labels_problems AS SELECT s1.subject AS id, s1.value AS label1, s2.value AS label2 FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2 WHERE s1.subject=s2.subject AND s1.value != s2.value;
+CREATE VIEW shared_label_problems AS SELECT s1.subject AS node1, s2.subject AS node2, s1.value FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2 WHERE s1.subject!=s2.subject AND s1.value = s2.value;
 ```
 
 We can then combine all reports into a single view:
