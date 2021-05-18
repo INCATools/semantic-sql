@@ -45,6 +45,7 @@ caveats:
  - this is for demo purposes only, we may remove this bucket at any time
  - the bucket is not guaranteed to be kept up to date
  - the version of the schema may be different from this repo
+ - some dbs may have additional tables loaded; e.g go.db may have gafs loaded
 
 You can easily build a sqlite db from OWL yourself, see below:
 
@@ -63,9 +64,22 @@ The ones in ddl are generated from the YAML, and they will eventually replace th
 ## Requirements
 
  * [rdftab](https://github.com/ontodev/rdftab.rs)
+ * [relation-graph](https://github.com/balhoff/relation-graph)
  * sqlite
 
-After building `rdftab`, place it in the bin directory
+You can make the first two:
+
+```bash
+make bin/relation-graph
+make bin/rdftab
+```
+
+You will need to add to your PATH:
+
+```
+export PATH="$PATH:./bin"
+```
+
 
 Note this repo includes additional python code for auxhiliary functions, but this is not required for main usage
 
