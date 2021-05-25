@@ -1,17 +1,15 @@
-id: https://w3id.org/semsql/omo
-name: semsql_omo
-title: Semantic SQL OMO module
+id: https://w3id.org/semsql/nlp
+name: semsql_nlp
+title: Semantic SQL NLP/TM module
 description: >-
-  Module representing OBO Metadata Ontology abstractions
+  Module for representing results of simple NLTK/SpaCy type processing
 license: https://creativecommons.org/publicdomain/zero/1.0/
-see_also:
-  - http://obofoundry.org/ontology/omo
 
 prefixes:
-  semsql_omo: https://w3id.org/semsql/omo
+  semsql_nlp: https://w3id.org/semsql/nlp
   linkml: https://w3id.org/linkml/
   
-default_prefix: semsql_omo
+default_prefix: semsql_nlp
 default_range: string
 
 default_curi_maps:
@@ -23,6 +21,8 @@ imports:
 classes:
 
   subject prefix:
+    description: >-
+      This may move to another module as it is generally useful
     slots:
       - subject
       - value
@@ -30,10 +30,24 @@ classes:
       - sqlview>> SELECT DISTINCT s.subject, prefix.prefix AS value FROM prefix, statements AS s WHERE INSTR(s.subject,prefix || ':')=1;
 
   textual transformation:
+    description: >-
+      Represents a transformation of a subject text value, e.g. lemmatization
     slots:
       - subject
       - predicate
       - value
+    slot_usage:
+      subject:
+        range: string
+        description: >-
+          The string value prior to processing. This may be for example the value of an rdfs_label_statement
+      predicate:
+        description: >-
+          The relation between subject and object, e.g stemming
+      object:
+        range: string
+        description: >-
+          The string value after processing. E.g. lemmatized value
 
   processed statement:
     slots:
@@ -42,6 +56,8 @@ classes:
       - value
       - transformation predicate
       - transformed value
+    description: >-
+      A statement that is enhanced with a processed/transformed text value
     comments:
       - >-
         sqlview>>
@@ -63,6 +79,8 @@ classes:
       object match field:
       object preprocessing:
       match string:
+    description: >-
+      TODO: Reuse SSSOM here
     comments:
       - >-
         sqlview>>
