@@ -213,7 +213,7 @@ docker-build-no-cache:
 
 docker-build:
 	@docker build --build-arg ODK_VERSION=$(VERSION)  $(ROBOT_JAR_ARGS)  -t $(IM):$(VERSION) . \
-	&& docker tag $(IM):$(VERSION) $(IM):latest && docker tag $(IM):$(VERSION) $(DEV):latest && \
+	&& docker tag $(IM):$(VERSION) $(IM) && docker tag $(IM):$(VERSION) $(DEV):latest && \
 	docker build -f docker/odklite/Dockerfile -t $(IMLITE):$(VERSION) . \
 	&& docker tag $(IMLITE):$(VERSION) $(IMLITE):latest && cd docker/robot/ && make docker-build
 
