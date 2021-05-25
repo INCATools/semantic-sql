@@ -224,3 +224,8 @@ docker-build-dev:
 docker-clean:
 	docker kill $(IM) || echo not running ;
 	docker rm $(IM) || echo not made 
+
+### DEPLOY
+
+s3-deploy:
+	aws s3 sync db s3://bbop-sqlite
