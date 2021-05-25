@@ -181,6 +181,11 @@ subgraph-d tests/inputs/go-nucleus.db -m label nucle% -f viz -p s,BFO:0000050 \
             -s conf/obograph-style.json -C 'containmentRelations: [rdfs:subClassOf]'
 ```
 
+Generates:
+
+![image](https://user-images.githubusercontent.com/50745/119427094-4659d580-bcbf-11eb-8c79-ed8559ed4886.png)
+
+
 
 ## Modules
 
