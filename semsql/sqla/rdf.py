@@ -69,6 +69,13 @@ class Prefix(Base):
     prefix = Column(Text, primary_key=True)
     base = Column(Text, primary_key=True)
 
+class PropertyNode(Base):
+    """
+    Note this only directly classifies nodes asserted to be rdf:Properties
+    """
+    __tablename__ = 'property_node'
+    id = Column(Text, primary_key=True)
+
 class RdfFirstStatement(Base):
     """
     A statement that connects a list to its first element. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful
@@ -153,6 +160,16 @@ class RdfTypeStatement(Base):
     language = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
 
+class RdfsDomainStatement(Base):
+    __tablename__ = 'rdfs_domain_statement'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
 class RdfsLabelStatement(Base):
     __tablename__ = 'rdfs_label_statement'
     stanza = Column(Text, primary_key=True)
@@ -162,6 +179,16 @@ class RdfsLabelStatement(Base):
     datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
+
+class RdfsRangeStatement(Base):
+    __tablename__ = 'rdfs_range_statement'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
 
 class RdfsSubclassOfNamedStatement(Base):
     __tablename__ = 'rdfs_subclass_of_named_statement'
@@ -175,6 +202,16 @@ class RdfsSubclassOfNamedStatement(Base):
 
 class RdfsSubclassOfStatement(Base):
     __tablename__ = 'rdfs_subclass_of_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
+class RdfsSubpropertyOfStatement(Base):
+    __tablename__ = 'rdfs_subproperty_of_statement'
     stanza = Column(Text, primary_key=True)
     predicate = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)

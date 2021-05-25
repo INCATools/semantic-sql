@@ -25,6 +25,10 @@ class AnonymousPropertyExpression(Base):
     __tablename__ = 'anonymous_property_expression'
     id = Column(Text, primary_key=True)
 
+class AsymmetricPropertyNode(Base):
+    __tablename__ = 'asymmetric_property_node'
+    id = Column(Text, primary_key=True)
+
 class BlankNode(Base):
     __tablename__ = 'blank_node'
     id = Column(Text, primary_key=True)
@@ -43,8 +47,16 @@ class CountOfPredicates(Base):
     element = Column(Text, primary_key=True)
     number_of_usages = Column(Text, primary_key=True)
 
+class DeprecatedNode(Base):
+    __tablename__ = 'deprecated_node'
+    id = Column(Text, primary_key=True)
+
 class IriNode(Base):
     __tablename__ = 'iri_node'
+    id = Column(Text, primary_key=True)
+
+class IrreflexivePropertyNode(Base):
+    __tablename__ = 'irreflexive_property_node'
     id = Column(Text, primary_key=True)
 
 class NamedIndividualNode(Base):
@@ -98,6 +110,42 @@ class OwlAllValuesFrom(Base):
     filler = Column(Text)
     id = Column(Text, primary_key=True)
 
+class OwlAxiom(Base):
+    __tablename__ = 'owl_axiom'
+    stanza = Column(Text)
+    subject = Column(Text)
+    predicate = Column(Text)
+    object = Column(Text)
+    value = Column(Text)
+    datatype = Column(Text)
+    language = Column(Text)
+    id = Column(Text, primary_key=True)
+
+class OwlAxiomAnnotation(Base):
+    __tablename__ = 'owl_axiom_annotation'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    axiom_predicate = Column(Text, primary_key=True)
+    axiom_object = Column(Text, primary_key=True)
+    axiom_value = Column(Text, primary_key=True)
+    axiom_language = Column(Text, primary_key=True)
+    axiom_datatype = Column(Text, primary_key=True)
+
+class OwlComplementOfStatement(Base):
+    __tablename__ = 'owl_complement_of_statement'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
 class OwlDisjointClassStatement(Base):
     __tablename__ = 'owl_disjoint_class_statement'
     stanza = Column(Text, primary_key=True)
@@ -126,13 +174,69 @@ class OwlEquivalentToIntersectionMember(Base):
     subject = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
 
+class OwlHasSelf(Base):
+    __tablename__ = 'owl_has_self'
+    on_property = Column(Text)
+    id = Column(Text, primary_key=True)
+    filler = Column(Text)
+
+class OwlHasValue(Base):
+    __tablename__ = 'owl_has_value'
+    on_property = Column(Text)
+    filler = Column(Text)
+    id = Column(Text, primary_key=True)
+
+class OwlImportsStatement(Base):
+    __tablename__ = 'owl_imports_statement'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
+class OwlInverseOfStatement(Base):
+    __tablename__ = 'owl_inverse_of_statement'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
+class OwlReifiedAxiom(Base):
+    __tablename__ = 'owl_reified_axiom'
+    stanza = Column(Text)
+    subject = Column(Text)
+    predicate = Column(Text)
+    object = Column(Text)
+    value = Column(Text)
+    datatype = Column(Text)
+    language = Column(Text)
+    id = Column(Text, primary_key=True)
+
 class OwlRestriction(Base):
     __tablename__ = 'owl_restriction'
     on_property = Column(Text)
     filler = Column(Text)
     id = Column(Text, primary_key=True)
 
+class OwlSameAsStatement(Base):
+    __tablename__ = 'owl_same_as_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
 class OwlSomeValuesFrom(Base):
+    """
+    An OWL SomeValuesFrom restriction
+    """
     __tablename__ = 'owl_some_values_from'
     on_property = Column(Text)
     filler = Column(Text)
@@ -156,6 +260,9 @@ class Prefix(Base):
     base = Column(Text, primary_key=True)
 
 class PropertyNode(Base):
+    """
+    Note this only directly classifies nodes asserted to be rdf:Properties
+    """
     __tablename__ = 'property_node'
     id = Column(Text, primary_key=True)
 
@@ -243,6 +350,16 @@ class RdfTypeStatement(Base):
     language = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
 
+class RdfsDomainStatement(Base):
+    __tablename__ = 'rdfs_domain_statement'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
 class RdfsLabelStatement(Base):
     __tablename__ = 'rdfs_label_statement'
     stanza = Column(Text, primary_key=True)
@@ -252,6 +369,16 @@ class RdfsLabelStatement(Base):
     datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
     value = Column(Text, primary_key=True)
+
+class RdfsRangeStatement(Base):
+    __tablename__ = 'rdfs_range_statement'
+    stanza = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
 
 class RdfsSubclassOfNamedStatement(Base):
     __tablename__ = 'rdfs_subclass_of_named_statement'
@@ -273,6 +400,20 @@ class RdfsSubclassOfStatement(Base):
     subject = Column(Text, primary_key=True)
     object = Column(Text, primary_key=True)
 
+class RdfsSubpropertyOfStatement(Base):
+    __tablename__ = 'rdfs_subproperty_of_statement'
+    stanza = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    value = Column(Text, primary_key=True)
+    datatype = Column(Text, primary_key=True)
+    language = Column(Text, primary_key=True)
+    subject = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+
+class ReflexivePropertyNode(Base):
+    __tablename__ = 'reflexive_property_node'
+    id = Column(Text, primary_key=True)
+
 class Statements(Base):
     """
     Represents an RDF triple
@@ -285,6 +426,10 @@ class Statements(Base):
     value = Column(Text, primary_key=True)
     datatype = Column(Text, primary_key=True)
     language = Column(Text, primary_key=True)
+
+class SymmetricPropertyNode(Base):
+    __tablename__ = 'symmetric_property_node'
+    id = Column(Text, primary_key=True)
 
 class TransitivePropertyNode(Base):
     __tablename__ = 'transitive_property_node'
