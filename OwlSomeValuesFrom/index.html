@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -103,11 +107,12 @@
             <div class="section">
               
                 <h1 id="class-owlsomevaluesfrom">Class: OwlSomeValuesFrom</h1>
+<p>An OWL SomeValuesFrom restriction</p>
 <p>URI: <a href="https://w3id.org/semsql/OwlSomeValuesFrom">semsql:OwlSomeValuesFrom</a></p>
 <p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[OwlRestriction]^-[OwlSomeValuesFrom&#124;id(i):node_id_type],[OwlRestriction],[Node],[ClassNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../OwlRestriction/">OwlRestriction</a></li>
+<li>is_a: <a href="../OwlRestriction/">OwlRestriction</a> - An OWL restriction, such as <code>SomeValuesFrom(partOf Hand)</code></li>
 </ul>
 <h2 id="attributes">Attributes</h2>
 <h3 id="inherited-from-owl-restriction">Inherited from owl restriction:</h3>
@@ -157,7 +162,7 @@
 <td></td>
 </tr>
 <tr>
-<td>someValuesFrom.object AS filler</td>
+<td>f.object AS filler</td>
 <td></td>
 <td></td>
 </tr>
@@ -172,7 +177,7 @@
 <td></td>
 </tr>
 <tr>
-<td>statements AS someValuesFrom</td>
+<td>statements AS f</td>
 <td></td>
 <td></td>
 </tr>
@@ -187,12 +192,12 @@
 <td></td>
 </tr>
 <tr>
-<td>onProperty.subject=someValuesFrom.subject AND</td>
+<td>onProperty.subject=f.subject AND</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>someValuesFrom.predicate='owl:someValuesFrom'</td>
+<td>f.predicate='owl:someValuesFrom'</td>
 <td></td>
 <td></td>
 </tr>

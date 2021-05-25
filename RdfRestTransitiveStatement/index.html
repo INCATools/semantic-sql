@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -104,7 +108,7 @@
               
                 <h1 id="class-rdfresttransitivestatement">Class: RdfRestTransitiveStatement</h1>
 <p>URI: <a href="https://w3id.org/semsql/RdfRestTransitiveStatement">semsql:RdfRestTransitiveStatement</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RdfListStatement]^-[RdfRestTransitiveStatement&#124;predicate(i):string%20%3F;value(i):literal_as_string_type%20%3F;datatype(i):string%20%3F;language(i):string%20%3F],[RdfListStatement],[RdfListNode],[Node]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RdfListStatement]^-[RdfRestTransitiveStatement&#124;value(i):literal_as_string_type%20%3F;datatype(i):string%20%3F;language(i):string%20%3F],[RdfListStatement],[RdfListNode],[PropertyNode],[Node]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../RdfListStatement/">RdfListStatement</a> - A statement that is used to represent aspects of RDF lists</li>
@@ -126,7 +130,7 @@
 </ul>
 </li>
 <li><a href="../predicate/">predicate</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/String/">String</a></li>
+<li>range: <a href="../PropertyNode/">PropertyNode</a></li>
 </ul>
 </li>
 <li><a href="../rdf_list_statement_subject/">rdf list statement➞subject</a>  <sub>OPT</sub><ul>

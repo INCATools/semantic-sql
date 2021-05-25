@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -103,21 +107,27 @@
             <div class="section">
               
                 <h1 id="class-objectpropertynode">Class: ObjectPropertyNode</h1>
+<p>A node representing an OWL object property</p>
 <p>URI: <a href="https://w3id.org/semsql/ObjectPropertyNode">semsql:ObjectPropertyNode</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[TransitivePropertyNode],[PropertyNode],[ObjectPropertyNode&#124;id(i):node_id_type]^-[TransitivePropertyNode],[PropertyNode]^-[ObjectPropertyNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[TransitivePropertyNode],[SymmetricPropertyNode],[ReflexivePropertyNode],[PropertyNode],[ObjectPropertyNode&#124;id(i):node_id_type]^-[TransitivePropertyNode],[ObjectPropertyNode]^-[SymmetricPropertyNode],[ObjectPropertyNode]^-[ReflexivePropertyNode],[ObjectPropertyNode]^-[IrreflexivePropertyNode],[ObjectPropertyNode]^-[AsymmetricPropertyNode],[PropertyNode]^-[ObjectPropertyNode],[IrreflexivePropertyNode],[AsymmetricPropertyNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../PropertyNode/">PropertyNode</a></li>
+<li>is_a: <a href="../PropertyNode/">PropertyNode</a> - Note this only directly classifies nodes asserted to be rdf:Properties</li>
 </ul>
 <h2 id="children">Children</h2>
 <ul>
-<li><a href="../TransitivePropertyNode/">TransitivePropertyNode</a></li>
+<li><a href="../AsymmetricPropertyNode/">AsymmetricPropertyNode</a></li>
+<li><a href="../IrreflexivePropertyNode/">IrreflexivePropertyNode</a> - A node representing an OWL irreflexive object property</li>
+<li><a href="../ReflexivePropertyNode/">ReflexivePropertyNode</a> - A node representing an OWL reflexive object property</li>
+<li><a href="../SymmetricPropertyNode/">SymmetricPropertyNode</a> - A node representing an OWL symmetric object property</li>
+<li><a href="../TransitivePropertyNode/">TransitivePropertyNode</a> - A node representing an OWL transitive object property</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
 <h3 id="inherited-from-property-node">Inherited from property node:</h3>
 <ul>
 <li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>Description: An identifier for an element. Note blank node ids are not unique across databases</li>
 <li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>
@@ -136,6 +146,11 @@
 <td><strong>Comments:</strong></td>
 <td></td>
 <td>sqlview&gt;&gt; SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ObjectProperty'</td>
+</tr>
+<tr>
+<td><strong>See also:</strong></td>
+<td></td>
+<td>https://www.w3.org/TR/owl2-syntax/#Object_Properties</td>
 </tr>
 </tbody>
 </table>

@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -104,7 +108,7 @@
               
                 <h1 id="class-trailingwhitespaceproblem">Class: TrailingWhitespaceProblem</h1>
 <p>URI: <a href="https://w3id.org/semsql/TrailingWhitespaceProblem">semsql:TrailingWhitespaceProblem</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Problem]^-[TrailingWhitespaceProblem&#124;description(i):string%20%3F],[Problem],[Node]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Problem]^-[TrailingWhitespaceProblem&#124;value(i):literal_as_string_type%20%3F],[PropertyNode],[Problem],[Node]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../Problem/">Problem</a> - Represents an instance of a problem pertaining to conformance to OBO guidelines</li>
@@ -112,13 +116,19 @@
 <h2 id="attributes">Attributes</h2>
 <h3 id="inherited-from-problem">Inherited from problem:</h3>
 <ul>
-<li><a href="../description/">description</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/String/">String</a></li>
+<li><a href="../problem_predicate/">problem➞predicate</a>  <sub>OPT</sub><ul>
+<li>Description: The property of the thing that is problematic</li>
+<li>range: <a href="../PropertyNode/">PropertyNode</a></li>
 </ul>
 </li>
 <li><a href="../problem_subject/">problem➞subject</a>  <sub>OPT</sub><ul>
 <li>Description: The thing that is problematic</li>
 <li>range: <a href="../Node/">Node</a></li>
+</ul>
+</li>
+<li><a href="../value/">value</a>  <sub>OPT</sub><ul>
+<li>Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion</li>
+<li>range: <a href="../types/LiteralAsStringType/">LiteralAsStringType</a></li>
 </ul>
 </li>
 </ul>
@@ -135,7 +145,27 @@
 <tr>
 <td><strong>Comments:</strong></td>
 <td></td>
-<td>sqlview&gt;&gt; SELECT subject, value AS description FROM statements WHERE VALUE like ' %' OR VALUE like '% '</td>
+<td>sqlview&gt;&gt; SELECT</td>
+</tr>
+<tr>
+<td>subject,</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>predicate,</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>value</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FROM statements WHERE VALUE like ' %' OR VALUE like '% '</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>

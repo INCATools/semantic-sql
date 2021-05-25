@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -107,7 +111,7 @@
 <p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[OwlRestriction],[OwlRestriction]^-[OwlAllValuesFrom&#124;id(i):node_id_type],[Node],[ClassNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../OwlRestriction/">OwlRestriction</a></li>
+<li>is_a: <a href="../OwlRestriction/">OwlRestriction</a> - An OWL restriction, such as <code>SomeValuesFrom(partOf Hand)</code></li>
 </ul>
 <h2 id="attributes">Attributes</h2>
 <h3 id="inherited-from-owl-restriction">Inherited from owl restriction:</h3>
@@ -157,7 +161,7 @@
 <td></td>
 </tr>
 <tr>
-<td>someValuesFrom.object AS filler</td>
+<td>f.object AS filler</td>
 <td></td>
 <td></td>
 </tr>
@@ -172,7 +176,7 @@
 <td></td>
 </tr>
 <tr>
-<td>statements AS someValuesFrom</td>
+<td>statements AS f</td>
 <td></td>
 <td></td>
 </tr>
@@ -187,12 +191,12 @@
 <td></td>
 </tr>
 <tr>
-<td>onProperty.subject=someValuesFrom.subject AND</td>
+<td>onProperty.subject=f.subject AND</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>someValuesFrom.predicate='owl:allValuesFrom'</td>
+<td>f.predicate='owl:allValuesFrom'</td>
 <td></td>
 <td></td>
 </tr>

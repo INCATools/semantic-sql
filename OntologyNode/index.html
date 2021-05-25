@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -108,12 +112,13 @@
 <p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]^-[OntologyNode&#124;id(i):node_id_type],[Node]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../Node/">Node</a></li>
+<li>is_a: <a href="../Node/">Node</a> - The basic unit of representation in an RDF or OWL graph</li>
 </ul>
 <h2 id="attributes">Attributes</h2>
 <h3 id="inherited-from-node">Inherited from node:</h3>
 <ul>
 <li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>Description: An identifier for an element. Note blank node ids are not unique across databases</li>
 <li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>
@@ -132,6 +137,11 @@
 <td><strong>Comments:</strong></td>
 <td></td>
 <td>sqlview&gt;&gt; SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:Ontology'</td>
+</tr>
+<tr>
+<td><strong>See also:</strong></td>
+<td></td>
+<td>https://www.w3.org/TR/owl2-syntax/#Ontologies</td>
 </tr>
 </tbody>
 </table>

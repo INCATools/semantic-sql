@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -103,26 +107,58 @@
             <div class="section">
               
                 <h1 id="class-propertynode">Class: PropertyNode</h1>
+<p>Note this only directly classifies nodes asserted to be rdf:Properties</p>
 <p>URI: <a href="https://w3id.org/semsql/PropertyNode">semsql:PropertyNode</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[PropertyNode&#124;id(i):node_id_type]^-[ObjectPropertyNode],[PropertyNode]^-[AnnotationPropertyNode],[Node]^-[PropertyNode],[ObjectPropertyNode],[Node],[AnnotationPropertyNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[SubgraphQuery],[RdfsSubpropertyOfStatement],[OwlSubclassOfSomeValuesFrom]-%20predicate%200..1&gt;[PropertyNode&#124;id(i):node_id_type],[Statements]-%20predicate%200..1&gt;[PropertyNode],[OwlSubclassOfSomeValuesFrom]-%20predicate(i)%200..1&gt;[PropertyNode],[Problem]-%20predicate(i)%200..1&gt;[PropertyNode],[Edge]-%20predicate%200..1&gt;[PropertyNode],[SubgraphQuery]-%20predicate(i)%200..1&gt;[PropertyNode],[SubgraphEdgeByAncestor]-%20predicate%200..1&gt;[PropertyNode],[SubgraphEdgeByDescendant]-%20predicate%200..1&gt;[PropertyNode],[SubgraphEdgeByParent]-%20predicate%200..1&gt;[PropertyNode],[SubgraphEdgeByChild]-%20predicate%200..1&gt;[PropertyNode],[SubgraphEdgeBySelf]-%20predicate%200..1&gt;[PropertyNode],[EntailedEdge]-%20predicate%200..1&gt;[PropertyNode],[Problem]-%20predicate%200..1&gt;[PropertyNode],[RdfsSubpropertyOfStatement]-%20object%201..1&gt;[PropertyNode],[RdfsSubpropertyOfStatement]-%20subject%200..1&gt;[PropertyNode],[SubgraphQuery]-%20predicate%200..1&gt;[PropertyNode],[PropertyNode]^-[ObjectPropertyNode],[PropertyNode]^-[AnnotationPropertyNode],[Node]^-[PropertyNode],[SubgraphEdgeBySelf],[SubgraphEdgeByParent],[SubgraphEdgeByDescendant],[SubgraphEdgeByChild],[SubgraphEdgeByAncestor],[Statements],[Problem],[OwlSubclassOfSomeValuesFrom],[ObjectPropertyNode],[Node],[EntailedEdge],[Edge],[AnnotationPropertyNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../Node/">Node</a></li>
+<li>is_a: <a href="../Node/">Node</a> - The basic unit of representation in an RDF or OWL graph</li>
 </ul>
 <h2 id="children">Children</h2>
 <ul>
-<li><a href="../AnnotationPropertyNode/">AnnotationPropertyNode</a></li>
-<li><a href="../ObjectPropertyNode/">ObjectPropertyNode</a></li>
+<li><a href="../AnnotationPropertyNode/">AnnotationPropertyNode</a> - A node representing an OWL annotation property</li>
+<li><a href="../ObjectPropertyNode/">ObjectPropertyNode</a> - A node representing an OWL object property</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
+<ul>
+<li><strong><a href="../OwlSubclassOfSomeValuesFrom/">OwlSubclassOfSomeValuesFrom</a></strong> <em><a href="../owl_subclass_of_some_values_from_predicate/">owl subclass of some values from➞predicate</a></em>  <sub>OPT</sub>  <strong><a href="./">PropertyNode</a></strong></li>
+<li><strong>None</strong> <em><a href="../predicate/">predicate</a></em>  <sub>OPT</sub>  <strong><a href="./">PropertyNode</a></strong></li>
+<li><strong><a href="../Problem/">Problem</a></strong> <em><a href="../problem_predicate/">problem➞predicate</a></em>  <sub>OPT</sub>  <strong><a href="./">PropertyNode</a></strong></li>
+<li><strong><a href="../RdfsSubpropertyOfStatement/">RdfsSubpropertyOfStatement</a></strong> <em><a href="../rdfs_subproperty_of_statement_object/">rdfs subproperty of statement➞object</a></em>  <sub>REQ</sub>  <strong><a href="./">PropertyNode</a></strong></li>
+<li><strong><a href="../RdfsSubpropertyOfStatement/">RdfsSubpropertyOfStatement</a></strong> <em><a href="../rdfs_subproperty_of_statement_subject/">rdfs subproperty of statement➞subject</a></em>  <sub>OPT</sub>  <strong><a href="./">PropertyNode</a></strong></li>
+<li><strong><a href="../SubgraphQuery/">SubgraphQuery</a></strong> <em><a href="../subgraph_query_predicate/">subgraph query➞predicate</a></em>  <sub>OPT</sub>  <strong><a href="./">PropertyNode</a></strong></li>
+</ul>
 <h2 id="attributes">Attributes</h2>
 <h3 id="inherited-from-node">Inherited from node:</h3>
 <ul>
 <li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>Description: An identifier for an element. Note blank node ids are not unique across databases</li>
 <li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>
 </ul>
+<h2 id="other-properties">Other properties</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mappings:</strong></td>
+<td></td>
+<td>owl:Propery</td>
+</tr>
+<tr>
+<td><strong>Comments:</strong></td>
+<td></td>
+<td>sqlview&gt;&gt; SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:Property';</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div>

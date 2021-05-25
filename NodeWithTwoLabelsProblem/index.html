@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -104,7 +108,7 @@
               
                 <h1 id="class-nodewithtwolabelsproblem">Class: NodeWithTwoLabelsProblem</h1>
 <p>URI: <a href="https://w3id.org/semsql/NodeWithTwoLabelsProblem">semsql:NodeWithTwoLabelsProblem</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Problem],[Problem]^-[NodeWithTwoLabelsProblem&#124;label1:string%20%3F;label2:string%20%3F;description(i):string%20%3F],[Node]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[PropertyNode],[Problem],[Problem]^-[NodeWithTwoLabelsProblem&#124;label1:string%20%3F;label2:string%20%3F;value(i):literal_as_string_type%20%3F],[Node]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../Problem/">Problem</a> - Represents an instance of a problem pertaining to conformance to OBO guidelines</li>
@@ -123,13 +127,19 @@
 </ul>
 <h3 id="inherited-from-problem">Inherited from problem:</h3>
 <ul>
-<li><a href="../description/">description</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/String/">String</a></li>
+<li><a href="../problem_predicate/">problem➞predicate</a>  <sub>OPT</sub><ul>
+<li>Description: The property of the thing that is problematic</li>
+<li>range: <a href="../PropertyNode/">PropertyNode</a></li>
 </ul>
 </li>
 <li><a href="../problem_subject/">problem➞subject</a>  <sub>OPT</sub><ul>
 <li>Description: The thing that is problematic</li>
 <li>range: <a href="../Node/">Node</a></li>
+</ul>
+</li>
+<li><a href="../value/">value</a>  <sub>OPT</sub><ul>
+<li>Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion</li>
+<li>range: <a href="../types/LiteralAsStringType/">LiteralAsStringType</a></li>
 </ul>
 </li>
 </ul>
@@ -154,17 +164,17 @@
 <td></td>
 </tr>
 <tr>
-<td>s1.subject AS subject,</td>
+<td>s1.subject,</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>s1.value AS label1,</td>
+<td>s1.predicate,</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>s2.value AS label2</td>
+<td>s1.value</td>
 <td></td>
 <td></td>
 </tr>

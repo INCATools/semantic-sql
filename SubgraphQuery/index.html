@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://cmungall.github.io/semantic-sql/SubgraphQuery/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Class: SubgraphQuery - Semantic SQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Class: SubgraphQuery";
+    var mkdocs_page_input_path = "SubgraphQuery.md";
+    var mkdocs_page_url = "/semantic-sql/SubgraphQuery/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Semantic SQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../rdf_index/">RDF</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../owl_index/">OWL</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Semantic SQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Class: SubgraphQuery</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/cmungall/semantic-sql/edit/master/docs/SubgraphQuery.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="class-subgraphquery">Class: SubgraphQuery</h1>
+<p>A subgraph query encompasses as subgraph edge and a seed/anchor object and seed/anchor predicate</p>
+<p>URI: <a href="https://w3id.org/semsql/SubgraphQuery">semsql:SubgraphQuery</a></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]&lt;anchor%20object%200..1-%20[SubgraphQuery&#124;anchor_predicate:string%20%3F],[Node]&lt;object%200..1-%20[SubgraphQuery],[PropertyNode]&lt;predicate%200..1-%20[SubgraphQuery],[Node]&lt;subject%200..1-%20[SubgraphQuery],[SubgraphQuery]^-[SubgraphEdgeBySelf],[SubgraphQuery]^-[SubgraphEdgeByParent],[SubgraphQuery]^-[SubgraphEdgeByDescendant],[SubgraphQuery]^-[SubgraphEdgeByChild],[SubgraphQuery]^-[SubgraphEdgeByAncestor],[RelationGraphConstruct]^-[SubgraphQuery],[SubgraphEdgeBySelf],[SubgraphEdgeByParent],[SubgraphEdgeByDescendant],[SubgraphEdgeByChild],[SubgraphEdgeByAncestor],[RelationGraphConstruct],[PropertyNode],[Node]" /></p>
+<h2 id="parents">Parents</h2>
+<ul>
+<li>is_a: <a href="../RelationGraphConstruct/">RelationGraphConstruct</a> - A construct used as part of a Relation Graph</li>
+</ul>
+<h2 id="children">Children</h2>
+<ul>
+<li><a href="../SubgraphEdgeByAncestor/">SubgraphEdgeByAncestor</a> - An edge within a subgraph anchored around a set of ancestor terms</li>
+<li><a href="../SubgraphEdgeByChild/">SubgraphEdgeByChild</a> - An edge within a subgraph anchored around a set of child terms</li>
+<li><a href="../SubgraphEdgeByDescendant/">SubgraphEdgeByDescendant</a> - An edge within a subgraph anchored around a set of descendant terms</li>
+<li><a href="../SubgraphEdgeByParent/">SubgraphEdgeByParent</a> - An edge within a subgraph anchored around a set of parent terms</li>
+<li><a href="../SubgraphEdgeBySelf/">SubgraphEdgeBySelf</a> - A special null form of a subgraph query where there is no expansion</li>
+</ul>
+<h2 id="referenced-by-class">Referenced by class</h2>
+<h2 id="attributes">Attributes</h2>
+<h3 id="own">Own</h3>
+<ul>
+<li><a href="../subgraph_query_anchor_object/">subgraph query➞anchor object</a>  <sub>OPT</sub><ul>
+<li>Description: The entity that is used to seed the graph. The seed entity will bear some relationship to each subgraph edge; E.g. with an ancestor subgraph query, all edges will have a subject that descends from the ancestor</li>
+<li>range: <a href="../Node/">Node</a></li>
+</ul>
+</li>
+<li><a href="../subgraph_query_anchor_predicate/">subgraph query➞anchor predicate</a>  <sub>OPT</sub><ul>
+<li>Description: The predicate that is used to determine if an edge should be included based on relationship to the anchor_object.</li>
+<li>range: <a href="../types/String/">String</a></li>
+</ul>
+</li>
+<li><a href="../subgraph_query_object/">subgraph query➞object</a>  <sub>OPT</sub><ul>
+<li>Description: object of the subgraph edge</li>
+<li>range: <a href="../Node/">Node</a></li>
+</ul>
+</li>
+<li><a href="../subgraph_query_predicate/">subgraph query➞predicate</a>  <sub>OPT</sub><ul>
+<li>Description: predicate of the subgraph edge</li>
+<li>range: <a href="../PropertyNode/">PropertyNode</a></li>
+</ul>
+</li>
+<li><a href="../subgraph_query_subject/">subgraph query➞subject</a>  <sub>OPT</sub><ul>
+<li>Description: subject of the subgraph edge</li>
+<li>range: <a href="../Node/">Node</a></li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/cmungall/semantic-sql/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

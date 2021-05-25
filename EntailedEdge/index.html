@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -105,7 +109,7 @@
                 <h1 id="class-entailededge">Class: EntailedEdge</h1>
 <p>A relation graph edge that is inferred</p>
 <p>URI: <a href="https://w3id.org/semsql/EntailedEdge">semsql:EntailedEdge</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RelationGraphConstruct],[Node],[Node]&lt;object%200..1-%20[EntailedEdge&#124;predicate:string%20%3F],[Node]&lt;subject%200..1-%20[EntailedEdge],[RelationGraphConstruct]^-[EntailedEdge]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RelationGraphConstruct],[PropertyNode],[Node],[Node]&lt;object%200..1-%20[EntailedEdge],[PropertyNode]&lt;predicate%200..1-%20[EntailedEdge],[Node]&lt;subject%200..1-%20[EntailedEdge],[RelationGraphConstruct]^-[EntailedEdge]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../RelationGraphConstruct/">RelationGraphConstruct</a> - A construct used as part of a Relation Graph</li>
@@ -119,7 +123,7 @@
 </ul>
 </li>
 <li><a href="../predicate/">predicate</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/String/">String</a></li>
+<li>range: <a href="../PropertyNode/">PropertyNode</a></li>
 </ul>
 </li>
 <li><a href="../subject/">subject</a>  <sub>OPT</sub><ul>
@@ -137,6 +141,16 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><strong>Comments:</strong></td>
+<td></td>
+<td>- It is common to populate this via a procedure external to the database, e.g balhoff/relation-graph</td>
+</tr>
+<tr>
+<td><strong>In Subsets:</strong></td>
+<td></td>
+<td>base table</td>
+</tr>
 <tr>
 <td><strong>See also:</strong></td>
 <td></td>

@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -103,19 +107,22 @@
             <div class="section">
               
                 <h1 id="class-node">Class: Node</h1>
+<p>The basic unit of representation in an RDF or OWL graph</p>
 <p>URI: <a href="https://w3id.org/semsql/Node">semsql:Node</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RepairAction],[PropertyNode],[Problem],[OwlSubclassOfSomeValuesFrom],[OwlEquivalentToIntersectionMember],[OntologyNode],[NodeToNodeStatement],[NodeToNodeStatement]-%20object%201..1&gt;[Node&#124;id:node_id_type],[Statements]-%20object%200..1&gt;[Node],[OwlSubclassOfSomeValuesFrom]-%20object(i)%200..1&gt;[Node],[OwlEquivalentToIntersectionMember]-%20object(i)%200..1&gt;[Node],[Edge]-%20object%200..1&gt;[Node],[EntailedEdge]-%20object%200..1&gt;[Node],[OwlRestriction]-%20on%20property%200..1&gt;[Node],[OwlEquivalentToIntersectionMember]-%20object%200..1&gt;[Node],[OwlEquivalentToIntersectionMember]-%20subject%200..1&gt;[Node],[OwlSubclassOfSomeValuesFrom]-%20object%200..1&gt;[Node],[OwlSubclassOfSomeValuesFrom]-%20subject%200..1&gt;[Node],[Problem]-%20subject%200..1&gt;[Node],[RdfLevelSummaryStatistic]-%20element%200..1&gt;[Node],[RepairAction]-%20subject%200..1&gt;[Node],[Statements]-%20stanza%200..1&gt;[Node],[Statements]-%20subject%200..1&gt;[Node],[OwlSubclassOfSomeValuesFrom]-%20subject(i)%200..1&gt;[Node],[OwlEquivalentToIntersectionMember]-%20subject(i)%200..1&gt;[Node],[RepairAction]-%20subject(i)%200..1&gt;[Node],[Problem]-%20subject(i)%200..1&gt;[Node],[Edge]-%20subject%200..1&gt;[Node],[EntailedEdge]-%20subject%200..1&gt;[Node],[Node]^-[PropertyNode],[Node]^-[OntologyNode],[Node]^-[NamedIndividualNode],[Node]^-[IriNode],[Node]^-[ClassNode],[Node]^-[BlankNode],[Statements],[RdfLevelSummaryStatistic],[OwlRestriction],[NamedIndividualNode],[IriNode],[EntailedEdge],[Edge],[ClassNode],[BlankNode]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[SubgraphQuery],[SubgraphEdgeByParent],[SubgraphEdgeByDescendant],[SubgraphEdgeByChild],[SubgraphEdgeByAncestor],[RepairAction],[PropertyNode],[Problem],[OwlSubclassOfSomeValuesFrom],[OwlEquivalentToIntersectionMember],[OntologyNode],[NodeToNodeStatement],[SubgraphQuery]-%20anchor%20object(i)%200..1&gt;[Node&#124;id:node_id_type],[SubgraphEdgeByAncestor]-%20anchor%20object%200..1&gt;[Node],[SubgraphEdgeByDescendant]-%20anchor%20object%200..1&gt;[Node],[SubgraphEdgeByParent]-%20anchor%20object%200..1&gt;[Node],[SubgraphEdgeByChild]-%20anchor%20object%200..1&gt;[Node],[SubgraphEdgeBySelf]-%20anchor%20object%200..1&gt;[Node],[NodeToNodeStatement]-%20object%201..1&gt;[Node],[Statements]-%20object%200..1&gt;[Node],[OwlSubclassOfSomeValuesFrom]-%20object(i)%200..1&gt;[Node],[OwlEquivalentToIntersectionMember]-%20object(i)%200..1&gt;[Node],[Edge]-%20object%200..1&gt;[Node],[SubgraphQuery]-%20object(i)%200..1&gt;[Node],[SubgraphEdgeByAncestor]-%20object%200..1&gt;[Node],[SubgraphEdgeByDescendant]-%20object%200..1&gt;[Node],[SubgraphEdgeByParent]-%20object%200..1&gt;[Node],[SubgraphEdgeByChild]-%20object%200..1&gt;[Node],[SubgraphEdgeBySelf]-%20object%200..1&gt;[Node],[EntailedEdge]-%20object%200..1&gt;[Node],[OwlRestriction]-%20on%20property%200..1&gt;[Node],[OwlEquivalentToIntersectionMember]-%20object%200..1&gt;[Node],[OwlEquivalentToIntersectionMember]-%20subject%200..1&gt;[Node],[OwlSubclassOfSomeValuesFrom]-%20object%200..1&gt;[Node],[OwlSubclassOfSomeValuesFrom]-%20subject%200..1&gt;[Node],[Problem]-%20subject%200..1&gt;[Node],[RdfLevelSummaryStatistic]-%20element%200..1&gt;[Node],[RepairAction]-%20subject%200..1&gt;[Node],[Statements]-%20stanza%200..1&gt;[Node],[SubgraphEdgeByAncestor]-%20anchor%20object(i)%200..1&gt;[Node],[SubgraphEdgeByChild]-%20anchor%20object(i)%200..1&gt;[Node],[SubgraphEdgeByDescendant]-%20anchor%20object(i)%200..1&gt;[Node],[SubgraphEdgeByParent]-%20anchor%20object(i)%200..1&gt;[Node],[SubgraphQuery]-%20anchor%20object%200..1&gt;[Node],[SubgraphQuery]-%20object%200..1&gt;[Node],[SubgraphQuery]-%20subject%200..1&gt;[Node],[Statements]-%20subject%200..1&gt;[Node],[OwlSubclassOfSomeValuesFrom]-%20subject(i)%200..1&gt;[Node],[OwlEquivalentToIntersectionMember]-%20subject(i)%200..1&gt;[Node],[RepairAction]-%20subject(i)%200..1&gt;[Node],[Problem]-%20subject(i)%200..1&gt;[Node],[Edge]-%20subject%200..1&gt;[Node],[SubgraphQuery]-%20subject(i)%200..1&gt;[Node],[SubgraphEdgeByAncestor]-%20subject%200..1&gt;[Node],[SubgraphEdgeByDescendant]-%20subject%200..1&gt;[Node],[SubgraphEdgeByParent]-%20subject%200..1&gt;[Node],[SubgraphEdgeByChild]-%20subject%200..1&gt;[Node],[SubgraphEdgeBySelf]-%20subject%200..1&gt;[Node],[EntailedEdge]-%20subject%200..1&gt;[Node],[Node]^-[PropertyNode],[Node]^-[OntologyNode],[Node]^-[NamedIndividualNode],[Node]^-[IriNode],[Node]^-[DeprecatedNode],[Node]^-[ClassNode],[Node]^-[BlankNode],[SubgraphEdgeBySelf],[Statements],[RdfLevelSummaryStatistic],[OwlRestriction],[NamedIndividualNode],[IriNode],[EntailedEdge],[Edge],[DeprecatedNode],[ClassNode],[BlankNode]" /></p>
 <h2 id="children">Children</h2>
 <ul>
-<li><a href="../BlankNode/">BlankNode</a></li>
-<li><a href="../ClassNode/">ClassNode</a></li>
+<li><a href="../BlankNode/">BlankNode</a> - A node with an ID that is not preserved between databases</li>
+<li><a href="../ClassNode/">ClassNode</a> - A node that represents an RDFS/OWL class</li>
+<li><a href="../DeprecatedNode/">DeprecatedNode</a></li>
 <li><a href="../IriNode/">IriNode</a></li>
-<li><a href="../NamedIndividualNode/">NamedIndividualNode</a></li>
+<li><a href="../NamedIndividualNode/">NamedIndividualNode</a> - A node that represents an OWL Named Individual</li>
 <li><a href="../OntologyNode/">OntologyNode</a> - A node representing an ontology</li>
-<li><a href="../PropertyNode/">PropertyNode</a></li>
+<li><a href="../PropertyNode/">PropertyNode</a> - Note this only directly classifies nodes asserted to be rdf:Properties</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <ul>
+<li><strong>None</strong> <em><a href="../anchor_object/">anchor object</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 <li><strong><a href="../NodeToNodeStatement/">NodeToNodeStatement</a></strong> <em><a href="../node_to_node_statement_object/">node to node statement➞object</a></em>  <sub>REQ</sub>  <strong><a href="./">Node</a></strong></li>
 <li><strong>None</strong> <em><a href="../object/">object</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 <li><strong>None</strong> <em><a href="../on_property/">on property</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
@@ -127,12 +134,20 @@
 <li><strong>None</strong> <em><a href="../rdfLevelSummaryStatistic__element/">➞element</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 <li><strong><a href="../RepairAction/">RepairAction</a></strong> <em><a href="../repair_action_subject/">repair action➞subject</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 <li><strong>None</strong> <em><a href="../stanza/">stanza</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
+<li><strong><a href="../SubgraphEdgeByAncestor/">SubgraphEdgeByAncestor</a></strong> <em><a href="../subgraph_edge_by_ancestor_anchor_object/">subgraph edge by ancestor➞anchor object</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
+<li><strong><a href="../SubgraphEdgeByChild/">SubgraphEdgeByChild</a></strong> <em><a href="../subgraph_edge_by_child_anchor_object/">subgraph edge by child➞anchor object</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
+<li><strong><a href="../SubgraphEdgeByDescendant/">SubgraphEdgeByDescendant</a></strong> <em><a href="../subgraph_edge_by_descendant_anchor_object/">subgraph edge by descendant➞anchor object</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
+<li><strong><a href="../SubgraphEdgeByParent/">SubgraphEdgeByParent</a></strong> <em><a href="../subgraph_edge_by_parent_anchor_object/">subgraph edge by parent➞anchor object</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
+<li><strong><a href="../SubgraphQuery/">SubgraphQuery</a></strong> <em><a href="../subgraph_query_anchor_object/">subgraph query➞anchor object</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
+<li><strong><a href="../SubgraphQuery/">SubgraphQuery</a></strong> <em><a href="../subgraph_query_object/">subgraph query➞object</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
+<li><strong><a href="../SubgraphQuery/">SubgraphQuery</a></strong> <em><a href="../subgraph_query_subject/">subgraph query➞subject</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 <li><strong>None</strong> <em><a href="../subject/">subject</a></em>  <sub>OPT</sub>  <strong><a href="./">Node</a></strong></li>
 </ul>
 <h2 id="attributes">Attributes</h2>
 <h3 id="own">Own</h3>
 <ul>
 <li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>Description: An identifier for an element. Note blank node ids are not unique across databases</li>
 <li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>
@@ -148,9 +163,24 @@
 </thead>
 <tbody>
 <tr>
+<td><strong>Aliases:</strong></td>
+<td></td>
+<td>object</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>resource</td>
+</tr>
+<tr>
 <td><strong>Comments:</strong></td>
 <td></td>
 <td>sqlview&gt;&gt; SELECT distinct(subject) AS id FROM statements UNION SELECT distinct(object) AS id FROM statements WHERE datatype IS NOT NULL</td>
+</tr>
+<tr>
+<td><strong>Exact Mappings:</strong></td>
+<td></td>
+<td>rdf:Resource</td>
 </tr>
 </tbody>
 </table>

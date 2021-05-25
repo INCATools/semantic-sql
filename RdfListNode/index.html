@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -103,12 +107,12 @@
             <div class="section">
               
                 <h1 id="class-rdflistnode">Class: RdfListNode</h1>
-<p>A node representing an RDF list</p>
+<p>A node representing an RDF list. Note that you will not likely need to use this directly.</p>
 <p>URI: <a href="https://w3id.org/semsql/RdfListNode">semsql:RdfListNode</a></p>
 <p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RdfListStatement],[RdfListStatement]-%20subject%200..1&gt;[RdfListNode&#124;id(i):node_id_type],[BlankNode]^-[RdfListNode],[BlankNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../BlankNode/">BlankNode</a></li>
+<li>is_a: <a href="../BlankNode/">BlankNode</a> - A node with an ID that is not preserved between databases</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <ul>
@@ -118,6 +122,7 @@
 <h3 id="inherited-from-blank-node">Inherited from blank node:</h3>
 <ul>
 <li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>Description: An identifier for an element. Note blank node ids are not unique across databases</li>
 <li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>

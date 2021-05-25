@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -107,7 +111,7 @@
 <p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[PropertyTrait],[AnonymousPropertyExpression&#124;id(i):node_id_type]uses%20-.-&gt;[PropertyTrait],[AnonymousExpression]^-[AnonymousPropertyExpression],[AnonymousExpression]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../AnonymousExpression/">AnonymousExpression</a></li>
+<li>is_a: <a href="../AnonymousExpression/">AnonymousExpression</a> - An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves</li>
 </ul>
 <h2 id="uses-mixins">Uses Mixins</h2>
 <ul>
@@ -117,6 +121,7 @@
 <h3 id="inherited-from-anonymous-expression">Inherited from anonymous expression:</h3>
 <ul>
 <li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>Description: An identifier for an element. Note blank node ids are not unique across databases</li>
 <li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>

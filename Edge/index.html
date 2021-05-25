@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -105,7 +109,7 @@
                 <h1 id="class-edge">Class: Edge</h1>
 <p>A relation graph edge that connects two entities by a predicate. Note an edge is distinct from a statement, in that an axiom such as A SubClassOf R some B is represented as multiple statements, but is a single relation graph edge</p>
 <p>URI: <a href="https://w3id.org/semsql/Edge">semsql:Edge</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RelationGraphConstruct],[Node],[Node]&lt;object%200..1-%20[Edge&#124;predicate:string%20%3F],[Node]&lt;subject%200..1-%20[Edge],[RelationGraphConstruct]^-[Edge]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RelationGraphConstruct],[PropertyNode],[Node],[Node]&lt;object%200..1-%20[Edge],[PropertyNode]&lt;predicate%200..1-%20[Edge],[Node]&lt;subject%200..1-%20[Edge],[RelationGraphConstruct]^-[Edge]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../RelationGraphConstruct/">RelationGraphConstruct</a> - A construct used as part of a Relation Graph</li>
@@ -119,7 +123,7 @@
 </ul>
 </li>
 <li><a href="../predicate/">predicate</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/String/">String</a></li>
+<li>range: <a href="../PropertyNode/">PropertyNode</a></li>
 </ul>
 </li>
 <li><a href="../subject/">subject</a>  <sub>OPT</sub><ul>
@@ -127,6 +131,38 @@
 </ul>
 </li>
 </ul>
+<h2 id="other-properties">Other properties</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Comments:</strong></td>
+<td></td>
+<td>sqlview&gt;&gt;</td>
+</tr>
+<tr>
+<td>SELECT subject, predicate, object FROM owl_subclass_of_some_values_from UNION</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SELECT subject, predicate, object FROM rdfs_subclass_of_named_statement</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>In Subsets:</strong></td>
+<td></td>
+<td>base table</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div>

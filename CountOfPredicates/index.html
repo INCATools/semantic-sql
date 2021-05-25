@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -103,21 +107,22 @@
             <div class="section">
               
                 <h1 id="class-countofpredicates">Class: CountOfPredicates</h1>
+<p>Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL</p>
 <p>URI: <a href="https://w3id.org/semsql/CountOfPredicates">semsql:CountOfPredicates</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RdfLevelSummaryStatistic],[Node],[RdfLevelSummaryStatistic]^-[CountOfPredicates&#124;number_of_usages(i):integer%20%3F]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RdfLevelSummaryStatistic],[Node],[RdfLevelSummaryStatistic]^-[CountOfPredicates&#124;count_value(i):integer%20%3F]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../RdfLevelSummaryStatistic/">RdfLevelSummaryStatistic</a></li>
+<li>is_a: <a href="../RdfLevelSummaryStatistic/">RdfLevelSummaryStatistic</a> - Abstract grouping for views/classes that provide some kind of count summary about an individual element</li>
 </ul>
 <h2 id="attributes">Attributes</h2>
 <h3 id="inherited-from-rdf-level-summary-statistic">Inherited from rdf level summary statistic:</h3>
 <ul>
-<li><a href="../rdfLevelSummaryStatistic__element/">➞element</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../Node/">Node</a></li>
+<li><a href="../rdfLevelSummaryStatistic__count_value/">➞count_value</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/Integer/">Integer</a></li>
 </ul>
 </li>
-<li><a href="../rdfLevelSummaryStatistic__number_of_usages/">➞number_of_usages</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/Integer/">Integer</a></li>
+<li><a href="../rdfLevelSummaryStatistic__element/">➞element</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../Node/">Node</a></li>
 </ul>
 </li>
 </ul>
@@ -134,7 +139,7 @@
 <tr>
 <td><strong>Comments:</strong></td>
 <td></td>
-<td>sqlview&gt;&gt; SELECT predicate AS element, count(*) AS number_of_usages FROM statements GROUP BY predicate ORDER BY number_of_usages DESC</td>
+<td>sqlview&gt;&gt; SELECT predicate AS element, count(*) AS count_value FROM statements GROUP BY predicate ORDER BY count_value DESC</td>
 </tr>
 </tbody>
 </table>

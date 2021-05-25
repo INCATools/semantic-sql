@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -103,27 +107,29 @@
             <div class="section">
               
                 <h1 id="class-rdflevelsummarystatistic">Class: RdfLevelSummaryStatistic</h1>
+<p>Abstract grouping for views/classes that provide some kind of count summary about an individual element</p>
 <p>URI: <a href="https://w3id.org/semsql/RdfLevelSummaryStatistic">semsql:RdfLevelSummaryStatistic</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]&lt;element%200..1-%20[RdfLevelSummaryStatistic&#124;number_of_usages:integer%20%3F],[RdfLevelSummaryStatistic]uses%20-.-&gt;[IsReport],[RdfLevelSummaryStatistic]^-[CountOfPredicates],[RdfLevelSummaryStatistic]^-[CountOfInstantiatedClasses],[Node],[IsReport],[CountOfPredicates],[CountOfInstantiatedClasses]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]&lt;element%200..1-%20[RdfLevelSummaryStatistic&#124;count_value:integer%20%3F],[RdfLevelSummaryStatistic]uses%20-.-&gt;[IsReport],[RdfLevelSummaryStatistic]^-[CountOfSubclasses],[RdfLevelSummaryStatistic]^-[CountOfPredicates],[RdfLevelSummaryStatistic]^-[CountOfInstantiatedClasses],[Node],[IsReport],[CountOfSubclasses],[CountOfPredicates],[CountOfInstantiatedClasses]" /></p>
 <h2 id="uses-mixins">Uses Mixins</h2>
 <ul>
-<li>mixin: <a href="../IsReport/">IsReport</a></li>
+<li>mixin: <a href="../IsReport/">IsReport</a> - Used to describe classes/views that have a reporting function</li>
 </ul>
 <h2 id="children">Children</h2>
 <ul>
-<li><a href="../CountOfInstantiatedClasses/">CountOfInstantiatedClasses</a></li>
-<li><a href="../CountOfPredicates/">CountOfPredicates</a></li>
+<li><a href="../CountOfInstantiatedClasses/">CountOfInstantiatedClasses</a> - Number of distinct instantiations of a class. Note in many OBOs, classes are not directly instantiated</li>
+<li><a href="../CountOfPredicates/">CountOfPredicates</a> - Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL</li>
+<li><a href="../CountOfSubclasses/">CountOfSubclasses</a> - Number of subclasses for a given class</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
 <h3 id="own">Own</h3>
 <ul>
-<li><a href="../rdfLevelSummaryStatistic__element/">➞element</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../Node/">Node</a></li>
+<li><a href="../rdfLevelSummaryStatistic__count_value/">➞count_value</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../types/Integer/">Integer</a></li>
 </ul>
 </li>
-<li><a href="../rdfLevelSummaryStatistic__number_of_usages/">➞number_of_usages</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/Integer/">Integer</a></li>
+<li><a href="../rdfLevelSummaryStatistic__element/">➞element</a>  <sub>OPT</sub><ul>
+<li>range: <a href="../Node/">Node</a></li>
 </ul>
 </li>
 </ul>

@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -103,16 +107,23 @@
             <div class="section">
               
                 <h1 id="class-namedindividualnode">Class: NamedIndividualNode</h1>
+<p>A node that represents an OWL Named Individual</p>
 <p>URI: <a href="https://w3id.org/semsql/NamedIndividualNode">semsql:NamedIndividualNode</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node],[Node]^-[NamedIndividualNode&#124;id(i):node_id_type]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[OwlSameAsStatement],[Node],[OwlSameAsStatement]-%20object%201..1&gt;[NamedIndividualNode&#124;id(i):node_id_type],[OwlSameAsStatement]-%20subject%200..1&gt;[NamedIndividualNode],[Node]^-[NamedIndividualNode]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../Node/">Node</a></li>
+<li>is_a: <a href="../Node/">Node</a> - The basic unit of representation in an RDF or OWL graph</li>
+</ul>
+<h2 id="referenced-by-class">Referenced by class</h2>
+<ul>
+<li><strong><a href="../OwlSameAsStatement/">OwlSameAsStatement</a></strong> <em><a href="../owl_same_as_statement_object/">owl same as statement➞object</a></em>  <sub>REQ</sub>  <strong><a href="./">NamedIndividualNode</a></strong></li>
+<li><strong><a href="../OwlSameAsStatement/">OwlSameAsStatement</a></strong> <em><a href="../owl_same_as_statement_subject/">owl same as statement➞subject</a></em>  <sub>OPT</sub>  <strong><a href="./">NamedIndividualNode</a></strong></li>
 </ul>
 <h2 id="attributes">Attributes</h2>
 <h3 id="inherited-from-node">Inherited from node:</h3>
 <ul>
 <li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li>Description: An identifier for an element. Note blank node ids are not unique across databases</li>
 <li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>

@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -105,17 +109,24 @@
                 <h1 id="class-nodetonodestatement">Class: NodeToNodeStatement</h1>
 <p>A statement where object is non-null and value is not populated</p>
 <p>URI: <a href="https://w3id.org/semsql/NodeToNodeStatement">semsql:NodeToNodeStatement</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Statements],[RdfsSubclassOfStatement],[RdfTypeStatement],[OwlEquivalentClassStatement],[OwlDisjointClassStatement],[Node]&lt;object%201..1-%20[NodeToNodeStatement&#124;predicate(i):string%20%3F;value(i):literal_as_string_type%20%3F;datatype(i):string%20%3F;language(i):string%20%3F],[NodeToNodeStatement]^-[RdfsSubclassOfStatement],[NodeToNodeStatement]^-[RdfTypeStatement],[NodeToNodeStatement]^-[OwlEquivalentClassStatement],[NodeToNodeStatement]^-[OwlDisjointClassStatement],[Statements]^-[NodeToNodeStatement],[Node]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Statements],[RdfsSubpropertyOfStatement],[RdfsSubclassOfStatement],[RdfsRangeStatement],[RdfsDomainStatement],[RdfTypeStatement],[PropertyNode],[OwlSameAsStatement],[OwlInverseOfStatement],[OwlImportsStatement],[OwlEquivalentClassStatement],[OwlDisjointClassStatement],[OwlComplementOfStatement],[Node]&lt;object%201..1-%20[NodeToNodeStatement&#124;value(i):literal_as_string_type%20%3F;datatype(i):string%20%3F;language(i):string%20%3F],[NodeToNodeStatement]^-[RdfsSubpropertyOfStatement],[NodeToNodeStatement]^-[RdfsSubclassOfStatement],[NodeToNodeStatement]^-[RdfsRangeStatement],[NodeToNodeStatement]^-[RdfsDomainStatement],[NodeToNodeStatement]^-[RdfTypeStatement],[NodeToNodeStatement]^-[OwlSameAsStatement],[NodeToNodeStatement]^-[OwlInverseOfStatement],[NodeToNodeStatement]^-[OwlImportsStatement],[NodeToNodeStatement]^-[OwlEquivalentClassStatement],[NodeToNodeStatement]^-[OwlDisjointClassStatement],[NodeToNodeStatement]^-[OwlComplementOfStatement],[Statements]^-[NodeToNodeStatement],[Node]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
 <li>is_a: <a href="../Statements/">Statements</a> - Represents an RDF triple</li>
 </ul>
 <h2 id="children">Children</h2>
 <ul>
+<li><a href="../OwlComplementOfStatement/">OwlComplementOfStatement</a></li>
 <li><a href="../OwlDisjointClassStatement/">OwlDisjointClassStatement</a></li>
-<li><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a></li>
+<li><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a> - A statement that connects two class nodes where both classes are equivalent</li>
+<li><a href="../OwlImportsStatement/">OwlImportsStatement</a></li>
+<li><a href="../OwlInverseOfStatement/">OwlInverseOfStatement</a></li>
+<li><a href="../OwlSameAsStatement/">OwlSameAsStatement</a> - A statement that connects two individual nodes where both individual are equivalent</li>
 <li><a href="../RdfTypeStatement/">RdfTypeStatement</a> - A statement that indicates the asserted type of the subject entity</li>
+<li><a href="../RdfsDomainStatement/">RdfsDomainStatement</a></li>
+<li><a href="../RdfsRangeStatement/">RdfsRangeStatement</a></li>
 <li><a href="RdfsSubclassOfStatement.md">RdfsSubclassOfStatement</a></li>
+<li><a href="../RdfsSubpropertyOfStatement/">RdfsSubpropertyOfStatement</a></li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
@@ -137,7 +148,7 @@
 </ul>
 </li>
 <li><a href="../predicate/">predicate</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/String/">String</a></li>
+<li>range: <a href="../PropertyNode/">PropertyNode</a></li>
 </ul>
 </li>
 <li><a href="../stanza/">stanza</a>  <sub>OPT</sub><ul>

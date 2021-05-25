@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -105,11 +109,14 @@
                 <h1 id="class-statements">Class: Statements</h1>
 <p>Represents an RDF triple</p>
 <p>URI: <a href="https://w3id.org/semsql/Statements">semsql:Statements</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]&lt;object%200..1-%20[Statements&#124;predicate:string%20%3F;value:literal_as_string_type%20%3F;datatype:string%20%3F;language:string%20%3F],[Node]&lt;subject%200..1-%20[Statements],[Node]&lt;stanza%200..1-%20[Statements],[Statements]^-[RdfListStatement],[Statements]^-[NodeToValueStatement],[Statements]^-[NodeToNodeStatement],[RdfListStatement],[NodeToValueStatement],[NodeToNodeStatement],[Node]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node]&lt;object%200..1-%20[Statements&#124;value:literal_as_string_type%20%3F;datatype:string%20%3F;language:string%20%3F],[PropertyNode]&lt;predicate%200..1-%20[Statements],[Node]&lt;subject%200..1-%20[Statements],[Node]&lt;stanza%200..1-%20[Statements],[Statements]^-[RdfListStatement],[Statements]^-[OwlReifiedAxiom],[Statements]^-[OwlAxiomAnnotation],[Statements]^-[OwlAxiom],[Statements]^-[NodeToValueStatement],[Statements]^-[NodeToNodeStatement],[RdfListStatement],[PropertyNode],[OwlReifiedAxiom],[OwlAxiomAnnotation],[OwlAxiom],[NodeToValueStatement],[NodeToNodeStatement],[Node]" /></p>
 <h2 id="children">Children</h2>
 <ul>
 <li><a href="../NodeToNodeStatement/">NodeToNodeStatement</a> - A statement where object is non-null and value is not populated</li>
 <li><a href="../NodeToValueStatement/">NodeToValueStatement</a> - A statement where value is non-null and object is not populated</li>
+<li><a href="../OwlAxiom/">OwlAxiom</a></li>
+<li><a href="../OwlAxiomAnnotation/">OwlAxiomAnnotation</a></li>
+<li><a href="../OwlReifiedAxiom/">OwlReifiedAxiom</a> - An OWL axiom that has been reified - i.e. it includes an <a href="id">id</a> field that uniquely identifies that axiom and which can be the subject of additional statements</li>
 <li><a href="../RdfListStatement/">RdfListStatement</a> - A statement that is used to represent aspects of RDF lists</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
@@ -130,7 +137,7 @@
 </ul>
 </li>
 <li><a href="../predicate/">predicate</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/String/">String</a></li>
+<li>range: <a href="../PropertyNode/">PropertyNode</a></li>
 </ul>
 </li>
 <li><a href="../stanza/">stanza</a>  <sub>OPT</sub><ul>
@@ -166,6 +173,11 @@
 <td><strong>Mappings:</strong></td>
 <td></td>
 <td>rdf:Statement</td>
+</tr>
+<tr>
+<td><strong>In Subsets:</strong></td>
+<td></td>
+<td>base table</td>
 </tr>
 </tbody>
 </table>

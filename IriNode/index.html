@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -104,15 +108,16 @@
               
                 <h1 id="class-irinode">Class: IriNode</h1>
 <p>URI: <a href="https://w3id.org/semsql/IriNode">semsql:IriNode</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node],[Node]^-[IriNode&#124;id(i):node_id_type]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[Node],[Node]^-[IriNode&#124;id:node_id_type]" /></p>
 <h2 id="parents">Parents</h2>
 <ul>
-<li>is_a: <a href="../Node/">Node</a></li>
+<li>is_a: <a href="../Node/">Node</a> - The basic unit of representation in an RDF or OWL graph</li>
 </ul>
+<h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
-<h3 id="inherited-from-node">Inherited from node:</h3>
+<h3 id="own">Own</h3>
 <ul>
-<li><a href="../id/">id</a>  <sub>REQ</sub><ul>
+<li><a href="../iri_node_id/">iri node➞id</a>  <sub>REQ</sub><ul>
 <li>range: <a href="../types/NodeIdType/">NodeIdType</a></li>
 </ul>
 </li>
@@ -127,6 +132,16 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><strong>Aliases:</strong></td>
+<td></td>
+<td>IRI</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>named entity</td>
+</tr>
 <tr>
 <td><strong>Comments:</strong></td>
 <td></td>

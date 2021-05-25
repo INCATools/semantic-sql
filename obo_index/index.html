@@ -85,6 +85,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -124,13 +128,15 @@
 <p>Abstractions for working with OBO ontologies. Assumes usage of OMO. Currently this module contains mostly checks/reports, similar to ROBOT report</p>
 <h3 id="classes">Classes</h3>
 <ul>
-<li><a href="../Node/">Node</a><ul>
-<li><a href="../BlankNode/">BlankNode</a><ul>
-<li><a href="../AnonymousExpression/">AnonymousExpression</a><ul>
-<li><a href="../AnonymousClassExpression/">AnonymousClassExpression</a><ul>
-<li><a href="../OwlRestriction/">OwlRestriction</a><ul>
+<li><a href="../Node/">Node</a> - The basic unit of representation in an RDF or OWL graph<ul>
+<li><a href="../BlankNode/">BlankNode</a> - A node with an ID that is not preserved between databases<ul>
+<li><a href="../AnonymousExpression/">AnonymousExpression</a> - An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves<ul>
+<li><a href="../AnonymousClassExpression/">AnonymousClassExpression</a> - An OWL anonymous class expression, such as for example <code>SomeValuesFrom(partOf Hand)</code><ul>
+<li><a href="../OwlRestriction/">OwlRestriction</a> - An OWL restriction, such as <code>SomeValuesFrom(partOf Hand)</code><ul>
 <li><a href="../OwlAllValuesFrom/">OwlAllValuesFrom</a></li>
-<li><a href="../OwlSomeValuesFrom/">OwlSomeValuesFrom</a></li>
+<li><a href="../OwlHasSelf/">OwlHasSelf</a></li>
+<li><a href="../OwlHasValue/">OwlHasValue</a></li>
+<li><a href="../OwlSomeValuesFrom/">OwlSomeValuesFrom</a> - An OWL SomeValuesFrom restriction</li>
 </ul>
 </li>
 </ul>
@@ -139,17 +145,22 @@
 <li><a href="../AnonymousPropertyExpression/">AnonymousPropertyExpression</a></li>
 </ul>
 </li>
-<li><a href="../RdfListNode/">RdfListNode</a> - A node representing an RDF list</li>
+<li><a href="../RdfListNode/">RdfListNode</a> - A node representing an RDF list. Note that you will not likely need to use this directly.</li>
 </ul>
 </li>
-<li><a href="../ClassNode/">ClassNode</a></li>
+<li><a href="../ClassNode/">ClassNode</a> - A node that represents an RDFS/OWL class</li>
+<li><a href="../DeprecatedNode/">DeprecatedNode</a></li>
 <li><a href="../IriNode/">IriNode</a></li>
-<li><a href="../NamedIndividualNode/">NamedIndividualNode</a></li>
+<li><a href="../NamedIndividualNode/">NamedIndividualNode</a> - A node that represents an OWL Named Individual</li>
 <li><a href="../OntologyNode/">OntologyNode</a> - A node representing an ontology</li>
-<li><a href="../PropertyNode/">PropertyNode</a><ul>
-<li><a href="../AnnotationPropertyNode/">AnnotationPropertyNode</a></li>
-<li><a href="../ObjectPropertyNode/">ObjectPropertyNode</a><ul>
-<li><a href="../TransitivePropertyNode/">TransitivePropertyNode</a></li>
+<li><a href="../PropertyNode/">PropertyNode</a> - Note this only directly classifies nodes asserted to be rdf:Properties<ul>
+<li><a href="../AnnotationPropertyNode/">AnnotationPropertyNode</a> - A node representing an OWL annotation property</li>
+<li><a href="../ObjectPropertyNode/">ObjectPropertyNode</a> - A node representing an OWL object property<ul>
+<li><a href="../AsymmetricPropertyNode/">AsymmetricPropertyNode</a></li>
+<li><a href="../IrreflexivePropertyNode/">IrreflexivePropertyNode</a> - A node representing an OWL irreflexive object property</li>
+<li><a href="../ReflexivePropertyNode/">ReflexivePropertyNode</a> - A node representing an OWL reflexive object property</li>
+<li><a href="../SymmetricPropertyNode/">SymmetricPropertyNode</a> - A node representing an OWL symmetric object property</li>
+<li><a href="../TransitivePropertyNode/">TransitivePropertyNode</a> - A node representing an OWL transitive object property</li>
 </ul>
 </li>
 </ul>
@@ -157,7 +168,7 @@
 </ul>
 </li>
 <li><a href="../OwlComplexAxiom/">OwlComplexAxiom</a> - An axiom that is composed of two or more statements<ul>
-<li><a href="../OwlEquivalentToIntersectionMember/">OwlEquivalentToIntersectionMember</a> - Composition of OwlEquivalentClass, OwlIntersectionOf, and RdfListMember; C = X1 and ... and Xn</li>
+<li><a href="../OwlEquivalentToIntersectionMember/">OwlEquivalentToIntersectionMember</a> - Composition of <code>OwlEquivalentClass</code>, <code>OwlIntersectionOf</code>, and <code>RdfListMember</code>; <code>C = X1 and ... and Xn</code></li>
 <li><a href="../OwlSubclassOfSomeValuesFrom/">OwlSubclassOfSomeValuesFrom</a> - Composition of subClassOf and SomeValuesFrom</li>
 </ul>
 </li>
@@ -170,18 +181,29 @@
 <li><a href="../TrailingWhitespaceProblem/">TrailingWhitespaceProblem</a></li>
 </ul>
 </li>
-<li><a href="../RdfLevelSummaryStatistic/">RdfLevelSummaryStatistic</a><ul>
-<li><a href="../CountOfInstantiatedClasses/">CountOfInstantiatedClasses</a></li>
-<li><a href="../CountOfPredicates/">CountOfPredicates</a></li>
+<li><a href="../RdfLevelSummaryStatistic/">RdfLevelSummaryStatistic</a> - Abstract grouping for views/classes that provide some kind of count summary about an individual element<ul>
+<li><a href="../CountOfInstantiatedClasses/">CountOfInstantiatedClasses</a> - Number of distinct instantiations of a class. Note in many OBOs, classes are not directly instantiated</li>
+<li><a href="../CountOfPredicates/">CountOfPredicates</a> - Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL</li>
+<li><a href="../CountOfSubclasses/">CountOfSubclasses</a> - Number of subclasses for a given class</li>
 </ul>
 </li>
 <li><a href="../RepairAction/">RepairAction</a> - Represents an action that needs to be taken to repair a problem</li>
 <li><a href="../Statements/">Statements</a> - Represents an RDF triple<ul>
 <li><a href="../NodeToNodeStatement/">NodeToNodeStatement</a> - A statement where object is non-null and value is not populated<ul>
+<li><a href="../OwlComplementOfStatement/">OwlComplementOfStatement</a></li>
 <li><a href="../OwlDisjointClassStatement/">OwlDisjointClassStatement</a></li>
-<li><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a></li>
+<li><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a> - A statement that connects two class nodes where both classes are equivalent</li>
+<li><a href="../OwlImportsStatement/">OwlImportsStatement</a></li>
+<li><a href="../OwlInverseOfStatement/">OwlInverseOfStatement</a></li>
+<li><a href="../OwlSameAsStatement/">OwlSameAsStatement</a> - A statement that connects two individual nodes where both individual are equivalent</li>
 <li><a href="../RdfTypeStatement/">RdfTypeStatement</a> - A statement that indicates the asserted type of the subject entity</li>
-<li><a href="RdfsSubclassOfStatement.md">RdfsSubclassOfStatement</a></li>
+<li><a href="../RdfsDomainStatement/">RdfsDomainStatement</a></li>
+<li><a href="../RdfsRangeStatement/">RdfsRangeStatement</a></li>
+<li><a href="RdfsSubclassOfStatement.md">RdfsSubclassOfStatement</a><ul>
+<li><a href="../RdfsSubclassOfNamedStatement/">RdfsSubclassOfNamedStatement</a></li>
+</ul>
+</li>
+<li><a href="../RdfsSubpropertyOfStatement/">RdfsSubpropertyOfStatement</a></li>
 </ul>
 </li>
 <li><a href="../NodeToValueStatement/">NodeToValueStatement</a> - A statement where value is non-null and object is not populated<ul>
@@ -204,9 +226,17 @@
 </ul>
 </li>
 <li><a href="../HasSynonymStatement/">HasSynonymStatement</a></li>
+<li><a href="../HasTextDefinitionStatement/">HasTextDefinitionStatement</a></li>
+<li><a href="../OntologyStatusStatement/">OntologyStatusStatement</a></li>
 <li><a href="../RdfsLabelStatement/">RdfsLabelStatement</a></li>
 </ul>
 </li>
+<li><a href="../OwlAxiom/">OwlAxiom</a></li>
+<li><a href="../OwlAxiomAnnotation/">OwlAxiomAnnotation</a><ul>
+<li><a href="../AxiomDbxrefAnnotation/">AxiomDbxrefAnnotation</a></li>
+</ul>
+</li>
+<li><a href="../OwlReifiedAxiom/">OwlReifiedAxiom</a> - An OWL axiom that has been reified - i.e. it includes an <a href="id">id</a> field that uniquely identifies that axiom and which can be the subject of additional statements</li>
 <li><a href="../RdfListStatement/">RdfListStatement</a> - A statement that is used to represent aspects of RDF lists<ul>
 <li><a href="../RdfFirstStatement/">RdfFirstStatement</a> - A statement that connects a list to its first element. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful</li>
 <li><a href="../RdfListMemberStatement/">RdfListMemberStatement</a></li>
@@ -221,8 +251,8 @@
 <ul>
 <li><a href="../ClassTrait/">ClassTrait</a></li>
 <li><a href="../IndividualTrait/">IndividualTrait</a></li>
-<li><a href="../IsReport/">IsReport</a></li>
-<li><a href="../NodeTrait/">NodeTrait</a><ul>
+<li><a href="../IsReport/">IsReport</a> - Used to describe classes/views that have a reporting function</li>
+<li><a href="../NodeTrait/">NodeTrait</a> - abstract groupings/properties for different aspects of the model<ul>
 <li><a href="../ClassTrait/">ClassTrait</a></li>
 <li><a href="../IndividualTrait/">IndividualTrait</a></li>
 <li><a href="../PropertyTrait/">PropertyTrait</a></li>
@@ -232,11 +262,20 @@
 </ul>
 <h3 id="slots">Slots</h3>
 <ul>
-<li><a href="../base/">base</a></li>
+<li><a href="../axiom_datatype/">axiom datatype</a></li>
+<li><a href="../axiom_language/">axiom language</a></li>
+<li><a href="../axiom_object/">axiom object</a></li>
+<li><a href="../axiom_predicate/">axiom predicate</a></li>
+<li><a href="../axiom_value/">axiom value</a></li>
+<li><a href="../base/">base</a> - The base URI a prefix will expand to</li>
 <li><a href="../datatype/">datatype</a></li>
 <li><a href="../description/">description</a></li>
-<li><a href="../filler/">filler</a></li>
-<li><a href="../id/">id</a><ul>
+<li><a href="../filler/">filler</a><ul>
+<li><a href="../owl_has_self_filler/">owl has self➞filler</a> - This is Null for a self-restriction</li>
+</ul>
+</li>
+<li><a href="../id/">id</a> - An identifier for an element. Note blank node ids are not unique across databases<ul>
+<li><a href="../iri_node_id/">iri node➞id</a></li>
 <li><a href="../owl_restriction_id/">owl restriction➞id</a> - the id of the restriction</li>
 </ul>
 </li>
@@ -247,8 +286,10 @@
 <li><a href="../node_to_node_statement_object/">node to node statement➞object</a><ul>
 <li><a href="../owl_disjoint_class_statement_object/">owl disjoint class statement➞object</a> - One of the two classes that are disjoint. No significance to subject vs object</li>
 <li><a href="../owl_equivalent_class_statement_object/">owl equivalent class statement➞object</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
+<li><a href="../owl_same_as_statement_object/">owl same as statement➞object</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
 <li><a href="../rdf_type_statement_object/">rdf type statement➞object</a> - The entity type</li>
 <li><a href="../rdfs_subclass_of_statement_object/">rdfs subclass of statement➞object</a> - The superclass element of the triple</li>
+<li><a href="../rdfs_subproperty_of_statement_object/">rdfs subproperty of statement➞object</a> - The superproperty element of the triple</li>
 </ul>
 </li>
 <li><a href="../owl_equivalent_to_intersection_member_object/">owl equivalent to intersection member➞object</a> - a class expression that forms the defining expression</li>
@@ -258,26 +299,32 @@
 <li><a href="../on_property/">on property</a></li>
 <li><a href="../predicate/">predicate</a><ul>
 <li><a href="../owl_subclass_of_some_values_from_predicate/">owl subclass of some values from➞predicate</a> - the predicate P in the axiom C subClassOf P some D</li>
+<li><a href="../problem_predicate/">problem➞predicate</a> - The property of the thing that is problematic</li>
 </ul>
 </li>
-<li><a href="../prefix/">prefix</a></li>
+<li><a href="../prefix/">prefix</a> - A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'</li>
+<li><a href="../rdfLevelSummaryStatistic__count_value/">➞count_value</a></li>
 <li><a href="../rdfLevelSummaryStatistic__element/">➞element</a></li>
-<li><a href="../rdfLevelSummaryStatistic__number_of_usages/">➞number_of_usages</a></li>
 <li><a href="../restriction/">restriction</a></li>
 <li><a href="../stanza/">stanza</a></li>
 <li><a href="../subject/">subject</a><ul>
 <li><a href="../owl_disjoint_class_statement_subject/">owl disjoint class statement➞subject</a> - One of the two classes that are disjoint. No significance to subject vs object</li>
 <li><a href="../owl_equivalent_class_statement_subject/">owl equivalent class statement➞subject</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
 <li><a href="../owl_equivalent_to_intersection_member_subject/">owl equivalent to intersection member➞subject</a> - the defined class</li>
+<li><a href="../owl_same_as_statement_subject/">owl same as statement➞subject</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
 <li><a href="../owl_subclass_of_some_values_from_subject/">owl subclass of some values from➞subject</a> - the class C in the axiom C subClassOf P some D</li>
 <li><a href="../problem_subject/">problem➞subject</a> - The thing that is problematic</li>
 <li><a href="../rdf_list_statement_subject/">rdf list statement➞subject</a> - The rdf:List to which the statement applies</li>
 <li><a href="../rdfs_subclass_of_statement_subject/">rdfs subclass of statement➞subject</a> - The subclass element of the triple</li>
+<li><a href="../rdfs_subproperty_of_statement_subject/">rdfs subproperty of statement➞subject</a> - The subproperty element of the triple</li>
 <li><a href="../repair_action_subject/">repair action➞subject</a> - The thing that is problematic</li>
 </ul>
 </li>
 <li><a href="../value/">value</a> - Note the range of this slot is always a string. Only used the triple represents a literal assertion<ul>
-<li><a href="../node_to_value_statement_value/">node to value statement➞value</a></li>
+<li><a href="../node_to_value_statement_value/">node to value statement➞value</a><ul>
+<li><a href="../rdfs_label_statement_value/">rdfs label statement➞value</a> - The label value</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

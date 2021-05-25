@@ -67,6 +67,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -105,11 +109,12 @@
                 <h1 id="class-relationgraphconstruct">Class: RelationGraphConstruct</h1>
 <p>A construct used as part of a Relation Graph</p>
 <p>URI: <a href="https://w3id.org/semsql/RelationGraphConstruct">semsql:RelationGraphConstruct</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RelationGraphConstruct]^-[EntailedEdge],[RelationGraphConstruct]^-[Edge],[EntailedEdge],[Edge]" /></p>
+<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[SubgraphQuery],[RelationGraphConstruct]^-[SubgraphQuery],[RelationGraphConstruct]^-[EntailedEdge],[RelationGraphConstruct]^-[Edge],[EntailedEdge],[Edge]" /></p>
 <h2 id="children">Children</h2>
 <ul>
 <li><a href="../Edge/">Edge</a> - A relation graph edge that connects two entities by a predicate. Note an edge is distinct from a statement, in that an axiom such as A SubClassOf R some B is represented as multiple statements, but is a single relation graph edge</li>
 <li><a href="../EntailedEdge/">EntailedEdge</a> - A relation graph edge that is inferred</li>
+<li><a href="../SubgraphQuery/">SubgraphQuery</a> - A subgraph query encompasses as subgraph edge and a seed/anchor object and seed/anchor predicate</li>
 </ul>
 <h2 id="referenced-by-class">Referenced by class</h2>
 <h2 id="attributes">Attributes</h2>
