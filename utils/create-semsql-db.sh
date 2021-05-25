@@ -51,6 +51,8 @@ if [[ -f $db ]]; then
     fi
 fi
 
+export PATH="./bin:$PATH"
+
 cat ddl/semsql.sql | sqlite3 $db
 sqlite3 $db -cmd ".mode csv" -cmd ".import prefixes/prefixes.csv prefix" "SELECT COUNT(*) FROM prefix"
 
@@ -71,6 +73,9 @@ do
     echo "Loading relation-graph inferences"
     bn="$(basename $owlf .owl)"
     inf_file="inferences/$bn-inf.tsv"
+    #if [[ ! -f $inf_file ]]; then
+    #    relation-graph --ontology-file $owlf --redundant-output-file $@ --non-redundant-output-file inferences/$*-nr.ttl --property http://purl.obolibrary.org/obo/BFO_0000050 
+    #fi
     if [[ -f $inf_file ]]; then
         echo "Loading inferences $inf_file"
         sqlite3 $db -cmd '.separator "\t"' ".import $inf_file entailed_edge"
