@@ -87,7 +87,7 @@ db/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
 # ---
 # We use relation-graph
 inferences/%-inf.ttl: owl/%.owl
-	relation-graph --ontology-file $< --redundant-output-file $@ --non-redundant-output-file inferences/$*-nr.ttl --property http://purl.obolibrary.org/obo/BFO_0000050 
+	bin/relation-graph --ontology-file $< --redundant-output-file $@ --non-redundant-output-file inferences/$*-nr.ttl --property http://purl.obolibrary.org/obo/BFO_0000050 
 .PRECIOUS: inferences/%-inf.ttl
 
 # currently tedious to get this back into a TSV that can be loaded into sqlite...
