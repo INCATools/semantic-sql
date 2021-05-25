@@ -27,7 +27,7 @@ def cli(inputs, name: str, index: bool):
 
     Example usage:
     ```
-    python semsql/sqlutils/view2table.py src/schema/rdf.yaml -n rdfs_label_statement | sqlite3 db/pato.db
+    python -m semsql.sqlutils.view2table src/schema/rdf.yaml -n rdfs_label_statement | sqlite3 db/pato.db
     ```
     """
     for input in inputs:
