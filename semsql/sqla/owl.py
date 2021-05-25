@@ -6,14 +6,23 @@ Base = declarative_base()
 metadata = Base.metadata
 
 class AnnotationPropertyNode(Base):
+    """
+    A node representing an OWL annotation property
+    """
     __tablename__ = 'annotation_property_node'
     id = Column(Text, primary_key=True)
 
 class AnonymousClassExpression(Base):
+    """
+    An OWL anonymous class expression, such as for example `SomeValuesFrom(partOf Hand)`
+    """
     __tablename__ = 'anonymous_class_expression'
     id = Column(Text, primary_key=True)
 
 class AnonymousExpression(Base):
+    """
+    An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves
+    """
     __tablename__ = 'anonymous_expression'
     id = Column(Text, primary_key=True)
 
@@ -30,22 +39,42 @@ class AsymmetricPropertyNode(Base):
     id = Column(Text, primary_key=True)
 
 class BlankNode(Base):
+    """
+    A node with an ID that is not preserved between databases
+    """
     __tablename__ = 'blank_node'
     id = Column(Text, primary_key=True)
 
 class ClassNode(Base):
+    """
+    A node that represents an RDFS/OWL class
+    """
     __tablename__ = 'class_node'
     id = Column(Text, primary_key=True)
 
 class CountOfInstantiatedClasses(Base):
+    """
+    Number of distinct instantiations of a class. Note in many OBOs, classes are not directly instantiated
+    """
     __tablename__ = 'count_of_instantiated_classes'
     element = Column(Text, primary_key=True)
-    number_of_usages = Column(Text, primary_key=True)
+    count_value = Column(Text, primary_key=True)
 
 class CountOfPredicates(Base):
+    """
+    Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL
+    """
     __tablename__ = 'count_of_predicates'
     element = Column(Text, primary_key=True)
-    number_of_usages = Column(Text, primary_key=True)
+    count_value = Column(Text, primary_key=True)
+
+class CountOfSubclasses(Base):
+    """
+    Number of subclasses for a given class
+    """
+    __tablename__ = 'count_of_subclasses'
+    element = Column(Text, primary_key=True)
+    count_value = Column(Text, primary_key=True)
 
 class DeprecatedNode(Base):
     __tablename__ = 'deprecated_node'
@@ -56,14 +85,23 @@ class IriNode(Base):
     id = Column(Text, primary_key=True)
 
 class IrreflexivePropertyNode(Base):
+    """
+    A node representing an OWL irreflexive object property
+    """
     __tablename__ = 'irreflexive_property_node'
     id = Column(Text, primary_key=True)
 
 class NamedIndividualNode(Base):
+    """
+    A node that represents an OWL Named Individual
+    """
     __tablename__ = 'named_individual_node'
     id = Column(Text, primary_key=True)
 
 class Node(Base):
+    """
+    The basic unit of representation in an RDF or OWL graph
+    """
     __tablename__ = 'node'
     id = Column(Text, primary_key=True)
 
@@ -94,6 +132,9 @@ class NodeToValueStatement(Base):
     value = Column(Text, primary_key=True)
 
 class ObjectPropertyNode(Base):
+    """
+    A node representing an OWL object property
+    """
     __tablename__ = 'object_property_node'
     id = Column(Text, primary_key=True)
 
@@ -157,6 +198,9 @@ class OwlDisjointClassStatement(Base):
     object = Column(Text, primary_key=True)
 
 class OwlEquivalentClassStatement(Base):
+    """
+    A statement that connects two class nodes where both classes are equivalent
+    """
     __tablename__ = 'owl_equivalent_class_statement'
     stanza = Column(Text, primary_key=True)
     predicate = Column(Text, primary_key=True)
@@ -168,7 +212,7 @@ class OwlEquivalentClassStatement(Base):
 
 class OwlEquivalentToIntersectionMember(Base):
     """
-    Composition of OwlEquivalentClass, OwlIntersectionOf, and RdfListMember; C = X1 and ... and Xn
+    Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`
     """
     __tablename__ = 'owl_equivalent_to_intersection_member'
     subject = Column(Text, primary_key=True)
@@ -207,6 +251,9 @@ class OwlInverseOfStatement(Base):
     object = Column(Text, primary_key=True)
 
 class OwlReifiedAxiom(Base):
+    """
+    An OWL axiom that has been reified - i.e. it includes an [id](id) field that uniquely identifies that axiom and which can be the subject of additional statements
+    """
     __tablename__ = 'owl_reified_axiom'
     stanza = Column(Text)
     subject = Column(Text)
@@ -218,12 +265,18 @@ class OwlReifiedAxiom(Base):
     id = Column(Text, primary_key=True)
 
 class OwlRestriction(Base):
+    """
+    An OWL restriction, such as `SomeValuesFrom(partOf Hand)`
+    """
     __tablename__ = 'owl_restriction'
     on_property = Column(Text)
     filler = Column(Text)
     id = Column(Text, primary_key=True)
 
 class OwlSameAsStatement(Base):
+    """
+    A statement that connects two individual nodes where both individual are equivalent
+    """
     __tablename__ = 'owl_same_as_statement'
     stanza = Column(Text, primary_key=True)
     predicate = Column(Text, primary_key=True)
@@ -280,9 +333,12 @@ class RdfFirstStatement(Base):
     subject = Column(Text, primary_key=True)
 
 class RdfLevelSummaryStatistic(Base):
+    """
+    Abstract grouping for views/classes that provide some kind of count summary about an individual element
+    """
     __tablename__ = 'rdf_level_summary_statistic'
     element = Column(Text, primary_key=True)
-    number_of_usages = Column(Text, primary_key=True)
+    count_value = Column(Text, primary_key=True)
 
 class RdfListMemberStatement(Base):
     __tablename__ = 'rdf_list_member_statement'
@@ -296,7 +352,7 @@ class RdfListMemberStatement(Base):
 
 class RdfListNode(Base):
     """
-    A node representing an RDF list
+    A node representing an RDF list. Note that you will not likely need to use this directly.
     """
     __tablename__ = 'rdf_list_node'
     id = Column(Text, primary_key=True)
@@ -411,6 +467,9 @@ class RdfsSubpropertyOfStatement(Base):
     object = Column(Text, primary_key=True)
 
 class ReflexivePropertyNode(Base):
+    """
+    A node representing an OWL reflexive object property
+    """
     __tablename__ = 'reflexive_property_node'
     id = Column(Text, primary_key=True)
 
@@ -428,9 +487,15 @@ class Statements(Base):
     language = Column(Text, primary_key=True)
 
 class SymmetricPropertyNode(Base):
+    """
+    A node representing an OWL symmetric object property
+    """
     __tablename__ = 'symmetric_property_node'
     id = Column(Text, primary_key=True)
 
 class TransitivePropertyNode(Base):
+    """
+    A node representing an OWL transitive object property
+    """
     __tablename__ = 'transitive_property_node'
     id = Column(Text, primary_key=True)

@@ -6,32 +6,58 @@ Base = declarative_base()
 metadata = Base.metadata
 
 class BlankNode(Base):
+    """
+    A node with an ID that is not preserved between databases
+    """
     __tablename__ = 'blank_node'
     id = Column(Text, primary_key=True)
 
 class ClassNode(Base):
+    """
+    A node that represents an RDFS/OWL class
+    """
     __tablename__ = 'class_node'
     id = Column(Text, primary_key=True)
 
 class CountOfInstantiatedClasses(Base):
+    """
+    Number of distinct instantiations of a class. Note in many OBOs, classes are not directly instantiated
+    """
     __tablename__ = 'count_of_instantiated_classes'
     element = Column(Text, primary_key=True)
-    number_of_usages = Column(Text, primary_key=True)
+    count_value = Column(Text, primary_key=True)
 
 class CountOfPredicates(Base):
+    """
+    Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL
+    """
     __tablename__ = 'count_of_predicates'
     element = Column(Text, primary_key=True)
-    number_of_usages = Column(Text, primary_key=True)
+    count_value = Column(Text, primary_key=True)
+
+class CountOfSubclasses(Base):
+    """
+    Number of subclasses for a given class
+    """
+    __tablename__ = 'count_of_subclasses'
+    element = Column(Text, primary_key=True)
+    count_value = Column(Text, primary_key=True)
 
 class IriNode(Base):
     __tablename__ = 'iri_node'
     id = Column(Text, primary_key=True)
 
 class NamedIndividualNode(Base):
+    """
+    A node that represents an OWL Named Individual
+    """
     __tablename__ = 'named_individual_node'
     id = Column(Text, primary_key=True)
 
 class Node(Base):
+    """
+    The basic unit of representation in an RDF or OWL graph
+    """
     __tablename__ = 'node'
     id = Column(Text, primary_key=True)
 
@@ -90,9 +116,12 @@ class RdfFirstStatement(Base):
     subject = Column(Text, primary_key=True)
 
 class RdfLevelSummaryStatistic(Base):
+    """
+    Abstract grouping for views/classes that provide some kind of count summary about an individual element
+    """
     __tablename__ = 'rdf_level_summary_statistic'
     element = Column(Text, primary_key=True)
-    number_of_usages = Column(Text, primary_key=True)
+    count_value = Column(Text, primary_key=True)
 
 class RdfListMemberStatement(Base):
     __tablename__ = 'rdf_list_member_statement'
@@ -106,7 +135,7 @@ class RdfListMemberStatement(Base):
 
 class RdfListNode(Base):
     """
-    A node representing an RDF list
+    A node representing an RDF list. Note that you will not likely need to use this directly.
     """
     __tablename__ = 'rdf_list_node'
     id = Column(Text, primary_key=True)
