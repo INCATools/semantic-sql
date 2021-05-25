@@ -23,31 +23,42 @@ classes:
     is_a: node
     description: >-
       A node representing an ontology
+    see_also:
+      - https://www.w3.org/TR/owl2-syntax/#Ontologies
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:Ontology'
 
-  property node:
-    is_a: node
-    abstract: true
   object property node:
     is_a: property node
+    description: >-
+      A node representing an OWL object property
+    see_also:
+      - https://www.w3.org/TR/owl2-syntax/#Object_Properties
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ObjectProperty'
 
   transitive property node:
     is_a: object property node
+    description: >-
+      A node representing an OWL transitive object property
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:TransitiveProperty'
   symmetric property node:
     is_a: object property node
+    description: >-
+      A node representing an OWL symmetric object property
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:SymmetricProperty'
   reflexive property node:
     is_a: object property node
+    description: >-
+      A node representing an OWL reflexive object property
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:IrreflexiveProperty'
   irreflexive property node:
     is_a: object property node
+    description: >-
+      A node representing an OWL irreflexive object property
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ReflexiveProperty'
   asymmetric property node:
@@ -57,10 +68,14 @@ classes:
 
   annotation property node:
     is_a: property node
+    description: >-
+      A node representing an OWL annotation property
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotatonProperty'
 
   deprecated node:
+    aliases:
+      - deprecated IRI
     is_a: node
     comments:
       - sqlview>> SELECT DISTINCT subject AS id FROM statements WHERE predicate='owl:deprecated' AND value='true'
@@ -82,6 +97,8 @@ classes:
     is_a: node to node statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='owl:equivalentClass'
+    description: >-
+      A statement that connects two class nodes where both classes are equivalent
     slot_usage:
       subject:
         description: >-
@@ -96,6 +113,8 @@ classes:
     is_a: node to node statement
     comments:
       - sqlview>> SELECT * FROM statements WHERE predicate='owl:sameAs'
+    description: >-
+      A statement that connects two individual nodes where both individual are equivalent
     slot_usage:
       subject:
         description: >-
@@ -119,6 +138,41 @@ classes:
         description: >-
           One of the two classes that are disjoint. No significance to subject vs object
         range: class node
+
+  owl reified axiom:
+    is_a: statements
+    slots:
+      - id
+    description: >-
+      An OWL axiom that has been reified - i.e. it includes an [id](id) field that uniquely identifies
+      that axiom and which can be the subject of additional statements
+    comments:
+      - sqlview>> SELECT
+        axs.subject AS id,
+        axs.stanza AS stanza,
+        axs.object AS subject,
+        axp.object AS predicate,
+        axo.object AS object,
+        axo.value AS value,
+        axo.datatype AS datatype,
+        axo.language AS language
+        FROM
+        statements AS axs,
+        statements AS axp,
+        statements AS axo
+        WHERE
+        axs.predicate = 'owl:annotatedSource' AND
+        axp.predicate = 'owl:annotatedProperty' AND
+        axo.predicate = 'owl:annotatedTarget' AND
+        axs.subject = axp.subject AND
+        axs.subject = axo.subject
+
+  owl axiom:
+    is_a: statements
+    slots:
+      - id
+    comments:
+      - sqlview>> SELECT * FROM owl_reified_axiom UNION SELECT NULL AS id, * FROM statements
 
   owl axiom annotation:
     is_a: statements
@@ -160,6 +214,10 @@ classes:
   anonymous expression:
     abstract: true
     is_a: blank node
+    description: >-
+      An OWL expression, such as a class expression.
+      Expressions are "anonymous" as they are a composition of named elements rather than a named
+      element themselves
 
   ## todo: consider composition model; do not inherit from blank node
   anonymous class expression:
@@ -167,6 +225,8 @@ classes:
     mixins:
       - class trait
     is_a: anonymous expression
+    description: >-
+      An OWL anonymous class expression, such as for example `SomeValuesFrom(partOf Hand)`
     
   anonymous property expression:
     abstract: true
@@ -183,6 +243,8 @@ classes:
   owl restriction:
     abstract: true
     is_a: anonymous class expression
+    description: >-
+      An OWL restriction, such as `SomeValuesFrom(partOf Hand)`
     slots:
       - on property
       - filler
@@ -216,7 +278,7 @@ classes:
       - universal restriction
     is_a: owl restriction
     comments:
-      - >-
+      - |-
         sqlview>>
           SELECT onProperty.subject AS id,
                     onProperty.object AS on_property,
@@ -309,7 +371,7 @@ classes:
   owl equivalent to intersection member:
     is_a: owl complex axiom
     description: >-
-      Composition of OwlEquivalentClass, OwlIntersectionOf, and RdfListMember; C = X1 and ... and Xn
+      Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`
     slots:
       - subject
       - object
@@ -333,8 +395,6 @@ classes:
             WHERE
               i.predicate = 'owl:intersectionOf'
 
-  
-
 slots:
   restriction:
     range: blank node
@@ -342,3 +402,8 @@ slots:
     range: node
   filler:
     range: class node
+  axiom predicate:
+  axiom object:
+  axiom value:
+  axiom language:
+  axiom datatype:
