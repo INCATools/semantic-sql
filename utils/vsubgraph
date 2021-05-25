@@ -1,0 +1,2 @@
+#!/bin/sh
+subgraph -f viz -V up -s conf/obograph-style.json "$@"

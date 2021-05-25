@@ -1,10 +1,35 @@
 id: https://w3id.org/kgcl/semsql
 name: semsql
 title: Semantic SQL
-description: >-
+description: |-
   A datamodel for RDF, OWL, and OBO Ontologies designed to work harmoniously with SQL databases.
-  See https://github.com/cmungall/semantic-sql for GitHub repo
+
+  Note that the primary purpose of this linkml schema is to organize and define SQL VIEWs to
+  be used on top of a generic SQL database following the rdftab statements schema.
+  These SQL views are encoded with the `sqlviews>>` tag inside the yaml.
+
+  We use linkml to do this rather than a simple SQL DDL file because linkml gives
+  us a standard way to do things such as:
+
+    * attach descriptions to each view
+    * define a data dictionary of all columns used, together with domains/ranges
+    * modular structure with imports
+    * the ability to attach rich semantic metadata to each schema element
+
+  Additionally, the framework provides automatic compilation to SQLAlchemy models,
+  and tools for being able to turn views into indexed tables for efficient querying,
+  as well as a rich searchable documentation system and other tooling.
+
+  This schema is best browsed online: https://cmungall.github.io/semantic-sql/
+
+  Note that things are in flux, and there some oddities that need ironed out, see
+  issues for details
+
+  See the [github repo](https://github.com/cmungall/semantic-sql) for code to convert
+  from the linkml yaml into SQL DDL
 license: https://creativecommons.org/publicdomain/zero/1.0/
+see_also:
+  - https://github.com/cmungall/semantic-sql
 
 prefixes:
   semsql: https://w3id.org/semsql/
@@ -22,3 +47,4 @@ imports:
   - obo
   - omo
   - relation_graph
+  - nlp

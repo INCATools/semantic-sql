@@ -24,6 +24,10 @@
             "label": "composed primarily of"
         },
         "RO:0002220": {
+            "color": "gray",
+            "label": "A"
+        },
+        "RO:0002202": {
             "color": "green",
             "label": "DF"
         },
@@ -52,6 +56,9 @@
         "UBERON": {
             "fillcolor": "yellow"
         },
+        "CL": {
+            "fillcolor": "azure2"
+        },
         "GO": {
             "fillcolor": "pink"
         },
@@ -73,6 +80,9 @@
         },
         "ENVO": {
             "fillcolor": "cyan"
+        },
+        "NCBITaxon": {
+            "fillcolor": "burlywood1"
         },
         "FOODON": {
             "fillcolor": "pink"

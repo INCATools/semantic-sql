@@ -96,7 +96,9 @@ inferences/%-inf.owl: inferences/%-inf.ttl
 #	robot merge -i $< -i inferences/$*-nr.ttl -o $@
 .PRECIOUS: inferences/%-inf.owl
 inferences/%-inf.tsv: inferences/%-inf.owl
-	sqlite3 $@.db < prefixes/prefix.sql && ./bin/rdftab $@.db < $< && sqlite3 $@.db -cmd '.separator "\t"' -cmd '.header on' "SELECT subject,predicate,object FROM statements " > $@.tmp && mv $@.db $@.db.old && mv $@.tmp $@
+	sqlite3 $@.db -cmd ".mode csv" ".import prefixes/prefixes.csv prefix" && \
+	./bin/rdftab $@.db < $< && \
+	sqlite3 $@.db -cmd '.separator "\t"' -cmd '.header on' "SELECT subject,predicate,object FROM statements " > $@.tmp && mv $@.db $@.db.old && mv $@.tmp $@
 .PRECIOUS: inferences/%-inf.tsv
 
 #inferences/%.load: db/%.db inferences/%-inf.tsv
@@ -110,6 +112,22 @@ inferences/%-inf.tsv: inferences/%-inf.owl
 reports/%.problems.tsv: db/%.db target/%.views
 	sqlite3 $<  "SELECT * FROM problems" > $@
 
+
+# ---
+# Prefixes
+# ---
+
+prefixes/obo_prefixes.owl:
+	robot convert -I http://purl.obolibrary.org/meta/obo_prefixes.ttl -o $@
+
+prefixes/obo_prefixes.db: prefixes/obo_prefixes.owl
+	sqlite3 $@ < prefixes/prefix_ddl.sql && ./bin/rdftab $@ < $<
+
+prefixes/obo_prefixes.csv: prefixes/obo_prefixes.db
+	sqlite3 $< -cmd ".separator ','" "SELECT p.value AS prefix, ns.value AS base FROM statements AS p JOIN statements AS ns ON (p.subject=ns.subject) WHERE p.predicate='<http://www.w3.org/ns/shacl#prefix>' AND ns.predicate='<http://www.w3.org/ns/shacl#namespace>'" > $@
+
+prefixes/prefixes.csv: prefixes/prefixes_curated.csv prefixes/obo_prefixes.csv
+	cat $^ > $@
 
 # ---
 # Downloads
@@ -179,3 +197,35 @@ gen-sqla: $(patsubst %, semsql/sqla/%.py, $(MODULES))
 # make SQL Alchemy models
 semsql/sqla/%.py: src/schema/%.yaml
 	gen-sqlddl --no-use-foreign-keys --sqla-file $@ $< 
+
+
+
+
+# Building docker image
+VERSION = "v0.0.1"
+IM=cmungall/semantic-sql
+
+docker-build-no-cache:
+	@docker build  --build-arg ODK_VERSION=$(VERSION) $(ROBOT_JAR_ARGS) --no-cache -t $(IM):$(VERSION) . \
+	&& docker tag $(IM):$(VERSION) $(IM):latest && docker tag $(IM):$(VERSION) $(DEV):latest && \
+	docker build -f docker/odklite/Dockerfile -t $(IMLITE):$(VERSION) . \
+	&& docker tag $(IMLITE):$(VERSION) $(IMLITE):latest && cd docker/robot/ && make docker-build
+
+docker-build:
+	@docker build --build-arg ODK_VERSION=$(VERSION)  $(ROBOT_JAR_ARGS)  -t $(IM):$(VERSION) . \
+	&& docker tag $(IM):$(VERSION) $(IM) && docker tag $(IM):$(VERSION) $(DEV):latest && \
+	docker build -f docker/odklite/Dockerfile -t $(IMLITE):$(VERSION) . \
+	&& docker tag $(IMLITE):$(VERSION) $(IMLITE):latest && cd docker/robot/ && make docker-build
+
+docker-build-dev:
+	@docker build --build-arg ODK_VERSION=$(VERSION) -t $(DEV):$(VERSION) . \
+	&& docker tag $(DEV):$(VERSION) $(DEV):latest
+
+docker-clean:
+	docker kill $(IM) || echo not running ;
+	docker rm $(IM) || echo not made 
+
+### DEPLOY
+
+s3-deploy:
+	aws s3 sync db s3://bbop-sqlite

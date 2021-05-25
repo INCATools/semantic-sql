@@ -1,5 +1,5 @@
 id: https://w3id.org/semsql/omo
-name: semsql_obo
+name: semsql_omo
 title: Semantic SQL OMO module
 description: >-
   Module representing OBO Metadata Ontology abstractions
@@ -22,6 +22,11 @@ imports:
   - owl
 
 classes:
+
+  has text definition statement:
+    is_a: node to value statement
+    comments:
+      - sqlview>> SELECT * FROM statements WHERE predicate='IAO:0000115'
 
   has oio synonym statement:
     abstract: true

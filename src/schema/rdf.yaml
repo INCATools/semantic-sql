@@ -134,7 +134,7 @@ classes:
       value:
         description: >-
           The label value
-        range: str
+        range: string
 
   rdfs domain statement:
     is_a: node to node statement
@@ -205,40 +205,63 @@ classes:
 
   # -- nodes --
   node:
+    aliases:
+      - object
+      - resource
+    description: >-
+      The basic unit of representation in an RDF or OWL graph
     slots:
       - id
+    exact_mappings:
+      - rdf:Resource
     comments:
       - sqlview>> SELECT distinct(subject) AS id FROM statements UNION SELECT distinct(object) AS id FROM statements WHERE datatype IS NOT NULL
+
   blank node:
     is_a: node
+    description: >-
+      A node with an ID that is not preserved between databases
     comments:
       - sqlview>> SELECT * FROM node WHERE id LIKE '_:%'
+
   rdf list node:
     is_a: blank node
     description: >-
-      A node representing an RDF list
+      A node representing an RDF list. Note that you will not likely need to use this directly.
     comments:
       - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'rdf:List';
   iri node:
+    aliases:
+      - IRI
+      - named entity
     is_a: node
+    slot_usage:
+      id:
+        pattern: "^_:"
     comments:
       - sqlview>> SELECT * FROM node WHERE id NOT LIKE '_:%'
+
   class node:
     is_a: node
     mixins:
       - class trait
+    description: >-
+      A node that represents an RDFS/OWL class
     class_uri: owl:Class
     comments:
       - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:Class';
   property node:
     is_a: node
+    abstract: true
+    class_uri: owl:Propery
     description: >-
       Note this only directly classifies nodes asserted to be rdf:Properties
-    class_uri: owl:Propery
     comments:
       - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:Property';
   named individual node:
     is_a: node
+    description: >-
+      A node that represents an OWL Named Individual
     class_uri: owl:NamedIndividual
     comments:
       - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:NamedIndividual';
@@ -247,27 +270,42 @@ classes:
 
   rdf level summary statistic:
     abstract: true
+    description: >-
+      Abstract grouping for views/classes that provide some kind of count summary about an individual element
     attributes:
       element:
         range: node
-      number_of_usages:
+      count_value:
         range: integer
     mixins:
       - is report
 
   count of predicates:
     is_a: rdf level summary statistic
+    description: >-
+      Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL
     comments:
-      - sqlview>> SELECT predicate AS element, count(*) AS number_of_usages FROM statements GROUP BY predicate ORDER BY number_of_usages DESC
+      - sqlview>> SELECT predicate AS element, count(*) AS count_value FROM statements GROUP BY predicate ORDER BY count_value DESC
   count of instantiated classes:
     is_a: rdf level summary statistic
+    description: >-
+      Number of distinct instantiations of a class. Note in many OBOs, classes are not directly instantiated
     comments:
-      - sqlview>> SELECT object AS element, count(*) AS number_of_usages FROM rdf_type_statement GROUP BY element ORDER BY number_of_usages DESC
+      - sqlview>> SELECT object AS element, count(*) AS count_value FROM rdf_type_statement GROUP BY element ORDER BY count_value DESC
+
+  count of subclasses:
+    is_a: rdf level summary statistic
+    description: >-
+      Number of subclasses for a given class
+    comments:
+      - sqlview>> SELECT sc.object AS element, count(distinct sc.subject) AS count_value FROM rdfs_subclass_of_statement AS sc GROUP BY sc.object ORDER BY count_value DESC
 
   # -- mixins --
   node trait:
     abstract: true
     mixin: true
+    description: >-
+      abstract groupings/properties for different aspects of the model
   class trait:
     mixin: true
     is_a: node trait
@@ -281,25 +319,37 @@ classes:
   is report:
     mixin: true
     abstract: true
+    description: >-
+      Used to describe classes/views that have a reporting function
 
 slots:
   id:
     identifier: true
     range: node id type
+    description: >-
+      An identifier for an element. Note blank node ids are not unique across databases
   subject:
     range: node
+    slot_uri: rdf:subject
   predicate:
+    range: property node
+    slot_uri: rdf:predicate
   object:
     description: >-
       Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
     range: node
+    slot_uri: rdf:object
   stanza:
     range: node
+    see_also:
+      - https://github.com/ontodev/rdftab.rs#stanzas
   datatype:
   value:
     description: >-
       Note the range of this slot is always a string. Only used the triple represents a literal assertion
     range: literal as string type
+    close_mappings:
+      - rdf:object
   language:
     range: string
     todos:
@@ -307,9 +357,13 @@ slots:
   prefix:
     range: ncname
     slot_uri: sh:prefix
+    description: >-
+      A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
   base:
     range: uri
     slot_uri: sh:namespace
+    description: >-
+      The base URI a prefix will expand to
   description:
     slot_uri: dcterms:description
 

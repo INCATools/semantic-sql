@@ -1,8 +1,20 @@
 id: https://w3id.org/semsql/relation_graph
 name: relation_graph
 title: Relation Graph module
-description: >-
-  Module for representing Relation Graphs
+description: |-
+  Module for representing Relation Graphs.
+
+  The core concept in a relation graph is an [Edge](Edge.md), which consists of
+
+   * [subject](subject.md)
+   * [predicate](predicate.md)
+   * [object](object.md)
+
+  When mapping from OWL, an Edge corresponds to one of:
+
+   * `A SubClassOf B`, where `B` is a named class, and the predicate is rdfs:subClassOf
+   * `A SubClassOf P some B`, and the predicate is `P`
+
 license: https://creativecommons.org/publicdomain/zero/1.0/
 
 prefixes:
@@ -52,6 +64,31 @@ classes:
   subgraph query:
     abstract: true
     is_a: relation graph construct
+    description: >-
+      A subgraph query encompasses as subgraph edge and a seed/anchor object and seed/anchor predicate
+    slots:
+      - subject
+      - predicate
+      - object
+      - anchor object
+      - anchor predicate
+    slot_usage:
+      subject:
+        description: subject of the subgraph edge
+      predicate:
+        description: predicate of the subgraph edge
+      object:
+        description: object of the subgraph edge
+      anchor object:
+        description: >-
+          The entity that is used to seed the graph.
+          The seed entity will bear some relationship to each subgraph edge;
+          E.g. with an ancestor subgraph query, all edges will have a subject that
+          descends from the ancestor
+      anchor predicate:
+        description: >-
+          The predicate that is used to determine if an edge should be included
+          based on relationship to the anchor_object.
 
   subgraph edge by ancestor:
     is_a: subgraph query
@@ -63,6 +100,13 @@ classes:
       - object
       - anchor object
       - anchor predicate
+    slot_usage:
+      anchor object:
+        description: >-
+          The ancestor term
+      anchor predicate:
+        description: >-
+          The entailed predicate that holds between each edge subject and the ancestor
     comments:
       - Example: subgraph under uberon limb "SELECT * FROM sg_edge WHERE anchor_object='UBERON:0002101';"
       - Example: subgraph from part-descendants of uberon limb "SELECT * FROM sg_edge WHERE anchor_object='UBERON:0002101' AND ancestor_predicate='BFO:0000050';"
@@ -84,6 +128,13 @@ classes:
       - object
       - anchor object
       - anchor predicate
+    slot_usage:
+      anchor object:
+        description: >-
+          The descendant term
+      anchor predicate:
+        description: >-
+          The entailed predicate that holds between the descendant and each edge subject
     comments:
       - Example: subgraph under uberon limb "SELECT * FROM sg_edge WHERE anchor_object='UBERON:0002101';"
       - >-
@@ -93,6 +144,77 @@ classes:
             ee.predicate AS anchor_predicate,
             ee.subject AS anchor_object
           FROM edge JOIN entailed_edge AS ee ON (edge.subject = ee.object)
+
+  subgraph edge by parent:
+    is_a: subgraph query
+    description: >-
+      An edge within a subgraph anchored around a set of parent terms
+    slots:
+      - subject
+      - predicate
+      - object
+      - anchor object
+      - anchor predicate
+    slot_usage:
+      anchor object:
+        description: >-
+          The parent term
+      anchor predicate:
+        description: >-
+          The entailed predicate that holds between each edge subject and the parent
+    comments:
+      - >-
+        sqlview>>
+          SELECT
+            edge.*,
+            ee.predicate AS anchor_predicate,
+            ee.object AS anchor_object
+          FROM edge JOIN edge AS ee ON (edge.subject = ee.subject)
+
+  subgraph edge by child:
+    is_a: subgraph query
+    description: >-
+      An edge within a subgraph anchored around a set of child terms
+    slots:
+      - subject
+      - predicate
+      - object
+      - anchor object
+      - anchor predicate
+    slot_usage:
+      anchor object:
+        description: >-
+          The child term
+      anchor predicate:
+        description: >-
+          The entailed predicate that holds between the child and each edge subject
+    comments:
+      - >-
+        sqlview>>
+          SELECT
+            edge.*,
+            ee.predicate AS anchor_predicate,
+            ee.subject AS anchor_object
+          FROM edge JOIN edge AS ee ON (edge.subject = ee.object)
+
+  subgraph edge by self:
+    is_a: subgraph query
+    description: >-
+      A special null form of a subgraph query where there is no expansion
+    slots:
+      - subject
+      - predicate
+      - object
+      - anchor object
+      - anchor predicate
+    comments:
+      - >-
+        sqlview>>
+          SELECT
+            edge.*,
+            edge.predicate AS anchor_predicate,
+            edge.subject AS anchor_object
+          FROM edge
 
   entailed_edge:
     is_a: relation graph construct
