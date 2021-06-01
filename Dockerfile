@@ -20,9 +20,9 @@ COPY ./utils/create-semsql-db.sh /tools/
 
 RUN apt update && apt upgrade -y && apt clean && \
     apt update && \
-    apt install --no-install-recommends -y build-essential software-properties-common curl && \
+    apt install -y build-essential software-properties-common && \
     add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt install --no-install-recommends -y python3.7 python3.7-dev python3.7-distutils && \
+    apt install -y curl python3.7 python3.7-dev python3.7-distutils && \
     apt clean && rm -rf /var/lib/apt/lists/* && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1 && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2 && \
