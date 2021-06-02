@@ -22,13 +22,16 @@ RUN apt update && apt upgrade -y && apt clean && \
     apt update && \
     apt install -y build-essential software-properties-common && \
     add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt install -y curl python3.7 python3.7-dev python3.7-distutils && \
+    apt install -y curl python3.7 python3.7-dev python3.7-distutils nodejs npm && \
     apt clean && rm -rf /var/lib/apt/lists/* && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1 && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2 && \
     curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py --force-reinstall && \
-    rm get-pip.py
+    rm get-pip.py && \ 
+    npm install -g obographviz 
+COPY ./node_modules/obographviz /tools/node_modules/obographviz/
+ENV PATH "/tools/node_modules/obographviz/bin/:$PATH"
   
 # Install packages
 RUN apt-get update &&\
@@ -99,9 +102,9 @@ RUN wget -nv https://github.com/balhoff/relation-graph/releases/download/v$RGVER
 RUN wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O /tools/jq && chmod +x /tools/jq
 
 COPY semsql /tools/semsql/
+COPY db /tools/db
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-
-CMD python3 -m semsql.subgraph 
-#-d db/envo.db ocean% -m label -f viz -s  conf/obograph-style.json 
+#CMD ls $HOME
+CMD python3 -m semsql.subgraph -d db/envo.db ocean% -m label -f viz
