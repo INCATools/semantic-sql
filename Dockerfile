@@ -106,5 +106,4 @@ COPY db /tools/db
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-#CMD ls $HOME
 CMD python3 -m semsql.subgraph -d db/envo.db ocean% -m label -f viz
