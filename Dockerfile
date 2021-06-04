@@ -1,6 +1,6 @@
 ### From https://stackoverflow.com/questions/51121875/how-to-run-docker-with-python-and-java
 ### 1. Get Linux
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 LABEL maintainer="cjmungall@lbl.gov" \
       name="semanticsql" \
       version="0.0.1"
@@ -13,25 +13,6 @@ COPY requirements.txt /tools/
 COPY ./utils/create-semsql-db.sh /tools/
 ##COPY utils/* /tools/
 
-# 1. Upgrade installed packages
-# 2. Install python 3.7.10 (or newer)
-# 3. Register the version in alternatives (and set higher priority to 3.7)
-# 4. Upgrade pip to latest version
-
-RUN apt update && apt upgrade -y && apt clean && \
-    apt update && \
-    apt install -y build-essential software-properties-common && \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt install -y curl python3.7 python3.7-dev python3.7-distutils nodejs npm && \
-    apt clean && rm -rf /var/lib/apt/lists/* && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1 && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2 && \
-    curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-    python3 get-pip.py --force-reinstall && \
-    rm get-pip.py && \ 
-    npm install -g obographviz 
-COPY ./node_modules/obographviz /tools/node_modules/obographviz/
-ENV PATH "/tools/node_modules/obographviz/bin/:$PATH"
   
 # Install packages
 RUN apt-get update &&\
@@ -42,8 +23,8 @@ RUN apt-get update &&\
     openjdk-8-jre \
     openjdk-8-jdk \
     maven \
-    #python3-pip \
-    #python3-dev \
+    python3-pip \
+    python3-dev \
     subversion \
     make \
     automake \
@@ -66,7 +47,12 @@ RUN apt-get update &&\
     cd /usr/local/bin \
     && ln -s /usr/bin/python3 python \
     && pip3 install --upgrade pip setuptools \
-    && pip3 install -r /tools/requirements.txt
+    && pip3 install -r /tools/requirements.txt 
+    #&& npm install -g obographviz \
+    #&& chmod +x /tools/node_modules 
+
+#COPY ./node_modules/obographviz /tools/node_modules/obographviz/
+#ENV PATH "/tools/node_modules/obographviz/bin/:$PATH"
 
 ###### ROBOT ######
 ENV ROBOT v1.8.1
@@ -105,5 +91,8 @@ COPY semsql /tools/semsql/
 COPY db /tools/db
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
+ENV PATH "/usr/bin/:$PATH"
 
-CMD python3 -m semsql.subgraph -d db/envo.db ocean% -m label -f viz
+#CMD python3 -m semsql.subgraph -d db/envo.db ocean% -m label -f viz
+#CMD sqlite db/envo.db
+CMD /bin/bash
