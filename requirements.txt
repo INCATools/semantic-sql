@@ -1,5 +1,6 @@
-linkml_runtime
+linkml-runtime
 pyyaml
 mkdocs
 sqlalchemy
 sqlalchemy_utils
+click

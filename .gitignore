@@ -6,7 +6,6 @@ docs/
 load*-*
 schemaload*-*
 venv
-bin/
 target/
 test.db
 inferences/*tsv
@@ -17,6 +16,9 @@ __pycache__
 *.old
 #.*#
 site/
-node_modules/*
-relation-graph/*
 .DS_Store
+bin/rdftab
+relation-graph/*
+*/.DS_Store
+inferences/*
+node_modules/*

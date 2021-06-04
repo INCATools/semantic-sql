@@ -1,7 +1,9 @@
 ### From https://stackoverflow.com/questions/51121875/how-to-run-docker-with-python-and-java
 ### 1. Get Linux
-FROM ubuntu:18.04
-LABEL maintainer="cjmungall@lbl.gov" 
+FROM ubuntu:20.04
+LABEL maintainer="cjmungall@lbl.gov" \
+      name="semanticsql" \
+      version="0.0.1"
 
 ### 2. Get Java, Python and all required system libraries (version control etc)
 ENV JAVA_HOME="/usr"
@@ -12,7 +14,7 @@ COPY ./utils/create-semsql-db.sh /tools/
 ##COPY utils/* /tools/
 
   
-
+# Install packages
 RUN apt-get update &&\
   apt-get install -y software-properties-common &&\
   apt-get upgrade -y &&\
@@ -44,7 +46,13 @@ RUN apt-get update &&\
     xlsx2csv &&\
     cd /usr/local/bin \
     && ln -s /usr/bin/python3 python \
-    && pip3 install --upgrade pip setuptools 
+    && pip3 install --upgrade pip setuptools \
+    && pip3 install -r /tools/requirements.txt 
+    #&& npm install -g obographviz \
+    #&& chmod +x /tools/node_modules 
+
+#COPY ./node_modules/obographviz /tools/node_modules/obographviz/
+#ENV PATH "/tools/node_modules/obographviz/bin/:$PATH"
 
 ###### ROBOT ######
 ENV ROBOT v1.8.1
@@ -79,8 +87,12 @@ RUN wget -nv https://github.com/balhoff/relation-graph/releases/download/v$RGVER
 # LAYERSIZE: ~4MB
 RUN wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O /tools/jq && chmod +x /tools/jq
 
-COPY semsql /tools/
+COPY semsql /tools/semsql/
+COPY db /tools/db
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
+ENV PATH "/usr/bin/:$PATH"
 
-CMD python3 -m semsql.subgraph
+#CMD python3 -m semsql.subgraph -d db/envo.db ocean% -m label -f viz
+#CMD sqlite db/envo.db
+CMD /bin/bash
