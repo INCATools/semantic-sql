@@ -134,7 +134,8 @@ prefixes/prefixes.csv: prefixes/prefixes_curated.csv prefixes/obo_prefixes.csv
 # ---
 
 owl/%.owl:
-	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp && mv $@.tmp $@
+#	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp && mv $@.tmp $@
+	robot merge -I http://purl.obolibrary.org/obo/$*.owl -o $@
 .PRECIOUS: owl/%.owl 
 
 owl/go.owl:
@@ -228,4 +229,4 @@ docker-clean:
 ### DEPLOY
 
 s3-deploy:
-	aws s3 sync db s3://bbop-sqlite
+	aws s3 sync db s3://bbop-sqlite --acl public-read
