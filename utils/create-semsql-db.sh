@@ -1,5 +1,7 @@
 #!/bin/sh
 
+DIR=`dirname "$0"`/..
+
 # A POSIX variable
 OPTIND=1         # Reset in case getopts has been used previously in the shell.
 
@@ -30,7 +32,7 @@ shift $((OPTIND-1))
 
 
 if [[ $verbose == 1 ]]; then
-   echo "verbose=$verbose, db='$db', Files: $@"
+   echo "verbose=$verbose, db='$db', Files: $@, Path=$DIR"
 fi
 
 if [[ "$db" == "" ]]; then
@@ -51,10 +53,10 @@ if [[ -f $db ]]; then
     fi
 fi
 
-export PATH="./bin:$PATH"
+export PATH="$DIR/bin:$PATH"
 
-cat ddl/semsql.sql | sqlite3 $db
-sqlite3 $db -cmd ".mode csv" -cmd ".import prefixes/prefixes.csv prefix" "SELECT COUNT(*) FROM prefix"
+cat $DIR/ddl/semsql.sql | sqlite3 $db
+sqlite3 $db -cmd ".mode csv" -cmd ".import $DIR/prefixes/prefixes.csv prefix" "SELECT COUNT(*) FROM prefix"
 
 echo loading "$@"
 if [[ "$@" == "" ]]; then
@@ -67,7 +69,7 @@ do
     if [[ $verbose == 1 ]]; then
         echo "Loading: $owlf"
     fi
-    ./bin/rdftab $db < $owlf
+    $DIR/bin/rdftab $db < $owlf
     echo "Counting statements"
     sqlite3 $db "SELECT COUNT(*) FROM statements"
     echo "Loading relation-graph inferences"
@@ -86,7 +88,7 @@ do
     fi
 done
 echo "## Indexing"
-cat sql/indexes.sql | sqlite3 $db
+cat $DIR/sql/indexes.sql | sqlite3 $db
 
 if [[ $report == 1 ]]; then
     echo "## Problems"
