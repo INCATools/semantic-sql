@@ -370,6 +370,12 @@ slots:
 types:
   node id type:
     typeof: uriorcurie
+    description: >-
+      IDs are either CURIEs, IRI, or blank nodes. IRIs are wrapped in <>s to distinguish them from
+      CURIEs, but in general it is good practice to populate the [prefixes][Prefixes.md] table such
+      that they are shortened to CURIEs. Blank nodes are ids starting with `_:`.
+    see_also:
+      - https://github.com/ontodev/rdftab.rs/issues/18
   literal as string type:
     typeof: string
     
