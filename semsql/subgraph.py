@@ -372,7 +372,7 @@ def expand_predicate(p: str) -> CURIE:
 
 
 @click.command()
-@click.option('--db', '-d', help='Path to sqlite db')
+@click.option('--db', '-d', help='Path to sqlite db', required=True)
 @click.option('-f', '--to_format', default='text',
               type=click.Choice(OutputFormat.list()),
               help='output format')
@@ -409,6 +409,7 @@ def cli(db: str, terms: List[str], predicates: str, anchor_predicates: str, to_f
     \b
         Visualize subgraph seeded from terms matching a label:
             $ subgraph-d tests/inputs/go-nucleus.db -m label nucle% -f viz
+        (requires obographviz)
     \b
         As above, with stylesheet:
             $ subgraph-d tests/inputs/go-nucleus.db -m label nucle% -f viz -s conf/obograph-style.json
@@ -427,7 +428,14 @@ def cli(db: str, terms: List[str], predicates: str, anchor_predicates: str, to_f
     session = Session()
     logger.info(f'QUERY: {terms}')
     ids = map_terms_to_ids(session, terms, TERM_QUERY_VIEWS[match_criteria])
-    logger.info(f'SEED CURIES: {ids}')
+    logger.debug(f'SEED CURIES: {ids}')
+    if to_format != 'viz':
+        if stylemap is not None:
+            logging.error(f'Ignoring viz-specific stylemap arg {stylemap} as format={to_format}')
+        if configure is not None:
+            logging.error(f'Ignoring viz-specific configure arg {configure} as format={to_format}')
+
+
     if predicates is not None:
         predicate_list = [expand_predicate(p) for p in predicates.split(",")]
     else:
