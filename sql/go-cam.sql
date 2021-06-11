@@ -2,6 +2,8 @@ CREATE VIEW inst_term AS SELECT * FROM rdf_type WHERE object != 'owl:NamedIndivi
 
 CREATE VIEW modelstate AS SELECT subject AS id, value AS state FROM statements WHERE predicate='<http://geneontology.org/lego/modelstate>';
 CREATE VIEW modeltitle AS SELECT subject AS id, value AS state FROM statements WHERE predicate='dce:title';
+CREATE VIEW templatestate AS SELECT subject AS id, value AS state FROM statements WHERE predicate='<http://geneontology.org/lego/templatestate>';
+CREATE VIEW is_template AS SELECT id FROM templatestate WHERE state = 'true';
 
 CREATE VIEW stats_modelstate SELECT state, count(distinct id) AS num_models FROM modelstate GROUP BY state;
 
