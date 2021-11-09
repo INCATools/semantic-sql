@@ -27,6 +27,12 @@
             "color": "gray",
             "label": "A"
         },
+        "RO:0001025": {
+            "arrowhead": "diamond",
+            "color": "green",
+            "penwidth": 2,            
+            "label": "L"
+        },        
         "RO:0002202": {
             "color": "green",
             "label": "DF"

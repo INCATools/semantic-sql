@@ -9,7 +9,7 @@ from enum import Enum, unique
 from semsql.sqla.rdf import RdfsLabelStatement, Prefix
 from semsql.sqla.omo import HasOioSynonymStatement, HasTextDefinitionStatement
 from semsql.sqla.relation_graph import SubgraphEdgeByAncestor, SubgraphEdgeByDescendant, \
-    SubgraphEdgeBySelf, SubgraphEdgeByChild, SubgraphEdgeByParent
+    SubgraphEdgeBySelf, SubgraphEdgeByChild, SubgraphEdgeByParent, SubgraphEdgeByAncestorOrDescendant
 from typing import List, Optional, Dict
 from sqlalchemy.orm import relationship, sessionmaker, aliased
 from sqlalchemy import create_engine
@@ -24,7 +24,8 @@ TRAVERSAL_VIEWS = {
     "parent": SubgraphEdgeByParent,
     "child": SubgraphEdgeByChild,
     "down": SubgraphEdgeByAncestor,
-    "up": SubgraphEdgeByDescendant
+    "up": SubgraphEdgeByDescendant,
+    "updown": SubgraphEdgeByAncestorOrDescendant,
 }
 
 LOGLEVEL = {
