@@ -145,6 +145,12 @@ classes:
             ee.subject AS anchor_object
           FROM edge JOIN entailed_edge AS ee ON (edge.subject = ee.object)
 
+  subgraph edge by ancestor or descendant:
+    is_a: subgraph query
+    comments:
+      - sqlview>> SELECT * FROM subgraph_edge_by_ancestor
+      - sqlview>> SELECT * FROM subgraph_edge_by_descendant
+
   subgraph edge by parent:
     is_a: subgraph query
     description: >-

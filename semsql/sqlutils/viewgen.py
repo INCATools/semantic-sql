@@ -1,8 +1,8 @@
 import click
 from typing import List
-from linkml_model import SchemaDefinition, ClassDefinition
-from linkml.utils.formatutils import underscore
+from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition
 from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
+from linkml_runtime.utils.formatutils import underscore
 
 VIEW_CODE = 'sqlview>>'
 

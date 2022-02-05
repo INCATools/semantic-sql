@@ -515,6 +515,16 @@ class SubgraphEdgeByAncestor(Base):
     anchor_object = Column(Text, primary_key=True)
     anchor_predicate = Column(Text, primary_key=True)
 
+class SubgraphEdgeByAncestorOrDescendant(Base):
+    """
+    """
+    __tablename__ = 'subgraph_edge_by_ancestor_or_descendant'
+    subject = Column(Text, primary_key=True)
+    predicate = Column(Text, primary_key=True)
+    object = Column(Text, primary_key=True)
+    anchor_object = Column(Text, primary_key=True)
+    anchor_predicate = Column(Text, primary_key=True)
+
 class SubgraphEdgeByChild(Base):
     """
     An edge within a subgraph anchored around a set of child terms

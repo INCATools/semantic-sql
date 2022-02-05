@@ -51,7 +51,7 @@ bin/rdftab:
 	curl -L -o $@ $(RDFTAB_URL)
 	chmod +x $@
 
-RG_VERSION=1.1
+RG_VERSION=2.0
 bin/relation-graph:
 	curl -L -s https://github.com/balhoff/relation-graph/releases/download/v$(RG_VERSION)/relation-graph-$(RG_VERSION).tgz | tar -zxv  && mv relation-graph-$(RG_VERSION) relation-graph && (cd bin && ln -s ../relation-graph/bin/relation-graph)
 
@@ -86,14 +86,17 @@ db/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
 # Inferences
 # ---
 # We use relation-graph
+
+#RG_PROPS = --property http://purl.obolibrary.org/obo/BFO_0000050
+RG_PROPS =
+
 inferences/%-inf.ttl: owl/%.owl
-	relation-graph --ontology-file $< --redundant-output-file $@ --non-redundant-output-file inferences/$*-nr.ttl --property http://purl.obolibrary.org/obo/BFO_0000050 
+	relation-graph --ontology-file $< --output-file $@ --equivalence-as-subclass true --output-subclasses true --reflexive-subclasses true $(RG_PROPS)
 .PRECIOUS: inferences/%-inf.ttl
 
 # currently tedious to get this back into a TSV that can be loaded into sqlite...
 inferences/%-inf.owl: inferences/%-inf.ttl
-	riot --out RDFXML $< inferences/$*-nr.ttl > $@.tmp && mv $@.tmp $@
-#	robot merge -i $< -i inferences/$*-nr.ttl -o $@
+	riot --out RDFXML $< > $@.tmp && mv $@.tmp $@
 .PRECIOUS: inferences/%-inf.owl
 inferences/%-inf.tsv: inferences/%-inf.owl
 	sqlite3 $@.db -cmd ".mode csv" ".import prefixes/prefixes.csv prefix" && \
@@ -161,6 +164,11 @@ loadgaf-%: demo/gaf/%.gaf.tsv
 loadgpi-%: demo/gaf/%.gpi.tsv
 	sqlite3 db/go.db -cmd '.separator "\t"' '.import $< gpi' && touch $@
 
+# faster loading, no need to create intermediate file
+loadgafgz-%: demo/gaf/%.gaf.gz
+	gzip -dc $< | ./utils/gaf2tsv | sqlite3 db/$*.db -cmd '.separator "\t"' -cmd ".import /dev/stdin gaf" 
+
+
 download/idmapping.dat.gz:
 	wget https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/idmapping.dat.gz -O $@
 
@@ -195,9 +203,10 @@ reports/query-%.sql: src/schema/%.yaml
 
 gen-sqla: $(patsubst %, semsql/sqla/%.py, $(MODULES))
 
+# TODO: new sqla direct model
 # make SQL Alchemy models
-semsql/sqla/%.py: src/schema/%.yaml
-	gen-sqlddl --no-use-foreign-keys --sqla-file $@ $< 
+#semsql/sqla/%.py: src/schema/%.yaml
+#	gen-sqlddl --no-use-foreign-keys --sqla-file $@ $< 
 
 
 

@@ -1,4 +1,4 @@
-linkml-runtime
+linkml >= 1.1.7
 pyyaml
 mkdocs
 sqlalchemy
