@@ -5,8 +5,7 @@ import click
 import logging
 
 from sqlalchemy import *
-from linkml_model.meta import ClassDefinition, SlotDefinition, SchemaDefinition, ClassDefinitionName, SlotDefinitionName
-from linkml_model.types import NCName, URIorCURIE
+from linkml_runtime.linkml_model.meta import ClassDefinition, SlotDefinition, SchemaDefinition, ClassDefinitionName, SlotDefinitionName
 from linkml.utils.formatutils import underscore, camelcase
 from linkml.utils.generator import Generator, shared_arguments
 from linkml.generators.sqlddlgen import RANGEMAP
@@ -16,6 +15,8 @@ CLASS_SLOT_PAIR = Tuple[ClassDefinitionName, SlotDefinitionName]
 class SQLAlchemyGenerator(Generator):
     """
     A `Generator` for creating SQL Alchemy
+
+    TODO: replace this with the SQLAGen in the main linkml repo
     """
     generatorname = os.path.basename(__file__)
     valid_formats = ["sqla"]
