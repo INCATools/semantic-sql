@@ -1,5 +1,8 @@
 site_name: "Semantic SQL"
-theme: readthedocs
+theme:
+  name: readthedocs
+  analytics:
+    gtag: G-2SYBSJVZ23
 nav:
   - Home: index.md
   - RDF: rdf_index.md
