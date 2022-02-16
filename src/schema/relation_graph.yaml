@@ -55,6 +55,8 @@ classes:
       - object
     in_subset:
       - base table
+    notes:
+      - this should hold direct edges. See also entailed_edge
     comments:
       - >-
         sqlview>>
@@ -236,6 +238,38 @@ classes:
       - https://github.com/balhoff/relation-graph
     in_subset:
       - base table
+
+  transitive_edge:
+    is_a: relation graph construct
+    description: >-
+      A relation graph edge that is formed from a chain of one or more edges
+    notes:
+      - this is equivalent to a property path query in SPARQL
+      - there may be fewer edges than entailed_edge
+    slots:
+      - subject
+      - predicate
+      - object
+    comments:
+      - >-
+        sqlview>>
+          WITH RECURSIVE transitive_edge
+                       (
+                             subject, predicate, object, depth
+                       )
+                       AS
+                       (SELECT subject, predicate, object, 1
+                          FROM edge
+                         UNION ALL
+                        SELECT
+                             e.subject, e.predicate, a.object, a.depth+1
+                          FROM edge AS e
+                          JOIN transitive_edge AS a
+                            ON e.object = a.subject AND e.predicate = a.predicate
+                       )
+                    SELECT * FROM transitive_edge
+
+
 slots:
   anchor object:
     range: node

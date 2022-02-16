@@ -90,8 +90,12 @@ db/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
 #RG_PROPS = --property http://purl.obolibrary.org/obo/BFO_0000050
 RG_PROPS =
 
-inferences/%-inf.ttl: owl/%.owl
-	relation-graph --ontology-file $< --output-file $@ --equivalence-as-subclass true --output-subclasses true --reflexive-subclasses true $(RG_PROPS)
+# we still want to do graph walking even when incoherent
+inferences/%-no-disjoint.owl: owl/%.owl
+	robot remove -i $< --axioms disjoint -o $@
+
+inferences/%-inf.ttl: %-no-disjoint.owl
+	relation-graph  --disable-owl-nothing true --ontology-file $< --output-file $@.tmp --equivalence-as-subclass true --output-subclasses true --reflexive-subclasses true $(RG_PROPS) && mv $@.tmp $@
 .PRECIOUS: inferences/%-inf.ttl
 
 # currently tedious to get this back into a TSV that can be loaded into sqlite...
@@ -147,6 +151,8 @@ owl/go.owl:
 owl/monarch.owl:
 	robot merge -I http://purl.obolibrary.org/obo/upheno/monarch.owl -o $@
 
+#fma.owl:#
+	http://purl.org/sig/ont/fma.owl 
 
 # ---
 # GO Demo
