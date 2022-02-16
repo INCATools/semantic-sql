@@ -17,6 +17,8 @@ OUTPUT_DIR = os.path.join(cwd, 'outputs')
 
 class SubgraphTestCase(unittest.TestCase):
     """
+    Tests subgraph extraction
+
     https://github.com/cmungall/semantic-sql/issues/5
     """
     def test_subgraph(self):

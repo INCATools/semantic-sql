@@ -17,12 +17,19 @@ The basic idea is:
  * provide SQL Views for common constructs, avoiding low-level RDF operations
  * allow OWL and ontologies to be trivially used in combination with large data tables or existing relational databases
 
-E.g.
-
-using ontology hierarchy in queries:
+Basic lexical query:
 
 ```sql
-SELECT * FROM my_big_table WHERE col1='...' AND col2 IN (SELECT subject FROM entailed_edge WHERE predicate = 'rdfs:subClassOf' and object='UBERON:nnnnnnn');
+$ sqlite db/hp.db
+sqlite> 
+select * from rdfs_label_statement where value like 'Abnormality of %';
+```
+
+
+You can combine semsql tables/views with your own schema. For example, if your schema has a table `my_big_table` which has a column `tissue_source_id` with an uberon ID, you can do this:
+
+```sql
+SELECT * FROM my_big_table WHERE col1='...' AND tissue_source_id IN (SELECT subject FROM entailed_edge WHERE predicate = 'rdfs:subClassOf' and object='UBERON:nnnnnnn');
 ```
 
 ## Download sqlite DBs

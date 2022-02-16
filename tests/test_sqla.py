@@ -18,11 +18,14 @@ OUTPUT_DIR = os.path.join(cwd, 'outputs')
 
 class QueryTestCase(unittest.TestCase):
     def test_sqla(self):
+        """
+        Tests SQL Alchemy joins
+        """
         path = os.path.join(DB_DIR, 'pato.db')
         engine = create_engine(f"sqlite:///{path}")
         Session = sessionmaker(bind=engine)
         session = Session()
-        result = session.query(IriNode).join(RdfsLabelStatement) ## .filter(Invoice.amount == 8500)
+        result = session.query(IriNode).join(RdfsLabelStatement)
         for row in result[0:5]:
             print(f'Row = {row}')
             print(row.id)

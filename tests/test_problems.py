@@ -16,6 +16,9 @@ OUTPUT_DIR = os.path.join(cwd, 'outputs')
 class ProblemsTestCase(unittest.TestCase):
 
     def test_problems(self):
+        """
+        Tests a simple robot-report style QC check
+        """
         path = os.path.join(DB_DIR, 'go-nucleus.db')
         engine = create_engine(f"sqlite:///{path}")
         Session = sessionmaker(bind=engine)
