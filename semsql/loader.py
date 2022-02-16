@@ -4,13 +4,6 @@ import logging
 import subprocess
 from typing import List
 from sqlalchemy.sql import text
-from linkml_model import SchemaDefinition
-from linkml.utils.formatutils import underscore
-from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
-#from sqlalchemy_utils.functions import create_database
-from sqlalchemy import Column, ForeignKey, Integer, String, Text
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, sessionmaker, aliased
 from sqlalchemy import create_engine
 
 def get_sqlite_path(url: str) -> str:

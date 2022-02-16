@@ -1,1 +1,0 @@
-for downloaded owl files

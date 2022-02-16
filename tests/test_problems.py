@@ -14,16 +14,18 @@ DB_DIR = os.path.join(cwd, 'inputs')
 OUTPUT_DIR = os.path.join(cwd, 'outputs')
 
 class ProblemsTestCase(unittest.TestCase):
-    path = os.path.join(DB_DIR, 'go-nucleus.db')
-    engine = create_engine(f"sqlite:///{path}")
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    print('OWL query:')
-    q = session.query(AllProblems)
-    n = 0
-    for row in q.all():
-        n += 1
-        print(f'{n}: {row.subject} {row.predicate} {row.value}')
-    assert n > 0
+
+    def test_problems(self):
+        path = os.path.join(DB_DIR, 'go-nucleus.db')
+        engine = create_engine(f"sqlite:///{path}")
+        Session = sessionmaker(bind=engine)
+        session = Session()
+        print('OWL query:')
+        q = session.query(AllProblems)
+        n = 0
+        for row in q.all():
+            n += 1
+            print(f'{n}: {row.subject} {row.predicate} {row.value}')
+        assert n > 0
 
 

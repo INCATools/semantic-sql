@@ -1,5 +1,5 @@
 import click
-from linkml_model import SchemaDefinition
+from linkml_runtime.linkml_model import SchemaDefinition
 from linkml.utils.formatutils import underscore
 from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
 
