@@ -1,6 +1,6 @@
 import click
 from typing import List
-from linkml_model import SchemaDefinition, ClassDefinitionName, SlotDefinitionName
+from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinitionName, SlotDefinitionName
 from linkml.utils.formatutils import underscore
 from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
 from semsql.sqlutils.viewgen import get_viewdef
