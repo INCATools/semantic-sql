@@ -12,7 +12,7 @@ cwd = os.path.abspath(os.path.dirname(__file__))
 DB_DIR = os.path.join(cwd, 'inputs')
 OUTPUT_DIR = os.path.join(cwd, 'outputs')
 
-class OwlQueryTestCase(unittest.TestCase):
+class SQLAlchemyTestCase(unittest.TestCase):
 
     def test_basic_sqla(self):
         """
