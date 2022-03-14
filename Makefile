@@ -7,7 +7,7 @@ all: $(patsubst %,all-%,$(ALL_OBO_ONTS))
 selected: $(patsubst %,all-%,$(SELECTED_ONTS))
 
 all-%: db/%.db
-	echo $*
+	sqlite3 $< "SELECT COUNT(*) FROM statements"
 
 
 # ---
@@ -31,6 +31,16 @@ realclean-%:
 	rm target/$*.* ;
 	rm db/$*.db
 
+
+# ---
+# sqlite db creation and loading
+# ---
+db/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
+	./utils/create-semsql-db.sh -v -f -d $@ $<
+.PRECIOUS: db/%.db
+
+foo/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
+	./utils/create-semsql-db.sh -v -f -d $@ $<
 
 # ---
 ### RDFTab
@@ -75,12 +85,6 @@ list-onts:
 	echo $(ALL_OBO_ONTS)
 
 
-# ---
-# sqlite db creation and loading
-# ---
-db/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
-	./utils/create-semsql-db.sh -v -f -d $@ $<
-.PRECIOUS: db/%.db
 
 # ---
 # Inferences
@@ -93,8 +97,9 @@ RG_PROPS =
 # we still want to do graph walking even when incoherent
 inferences/%-no-disjoint.owl: owl/%.owl
 	robot remove -i $< --axioms disjoint -o $@
+.PRECIOUS: inferences/%-no-disjoint.owl
 
-inferences/%-inf.ttl: %-no-disjoint.owl
+inferences/%-inf.ttl: inferences/%-no-disjoint.owl
 	relation-graph  --disable-owl-nothing true --ontology-file $< --output-file $@.tmp --equivalence-as-subclass true --output-subclasses true --reflexive-subclasses true $(RG_PROPS) && mv $@.tmp $@
 .PRECIOUS: inferences/%-inf.ttl
 
