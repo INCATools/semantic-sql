@@ -4,9 +4,8 @@ from typing import Union, TextIO, Dict, List, Tuple
 import click
 import logging
 
-from sqlalchemy import *
 from linkml_runtime.linkml_model.meta import ClassDefinition, SlotDefinition, SchemaDefinition, ClassDefinitionName, SlotDefinitionName
-from linkml.utils.formatutils import underscore, camelcase
+from linkml_runtime.utils.formatutils import underscore, camelcase
 from linkml.utils.generator import Generator, shared_arguments
 from linkml.generators.sqlddlgen import RANGEMAP
 

@@ -1,121 +1,83 @@
-id: https://w3id.org/semsql/obo
 name: semsql_obo
+description: Abstractions for working with OBO ontologies. Assumes usage of OMO. Currently
+  this module contains mostly checks/reports, similar to ROBOT report
 title: Semantic SQL OBO module
-description: >-
-  Abstractions for working with OBO ontologies. Assumes usage of OMO.
-  Currently this module contains mostly checks/reports, similar to ROBOT report
+id: https://w3id.org/semsql/obo
+imports:
+- rdf
+- owl
+- omo
 license: https://creativecommons.org/publicdomain/zero/1.0/
-
 prefixes:
   semsql_obo: https://w3id.org/semsql/obo
   linkml: https://w3id.org/linkml/
-  
+default_curi_maps:
+- semweb_context
 default_prefix: semsql_obo
 default_range: string
-
-default_curi_maps:
-  - semweb_context
-
-imports:
-  - rdf
-  - owl
-  - omo
-
 classes:
-  ontology status statement:
-    is_a: node to value statement
+  ontology_status_statement:
     comments:
-      - sqlview>> SELECT * FROM statements WHERE predicate = '<http://obofoundry.github.io/vocabulary/activity_status>'
-      - sqlview>> SELECT * FROM statements WHERE predicate = 'pav:status'
-  repair action:
+    - sqlview>> SELECT * FROM statements WHERE predicate = '<http://obofoundry.github.io/vocabulary/activity_status>'
+    - sqlview>> SELECT * FROM statements WHERE predicate = 'pav:status'
+    is_a: node_to_value_statement
+  repair_action:
+    description: Represents an action that needs to be taken to repair a problem
     abstract: true
-    description: >-
-      Represents an action that needs to be taken to repair a problem
     slots:
-      - subject
-      - description
+    - subject
+    - description
     slot_usage:
       subject:
-        description: >-
-          The thing that is problematic
-
+        description: The thing that is problematic
   problem:
+    description: Represents an instance of a problem pertaining to conformance to
+      OBO guidelines
     abstract: true
-    description: >-
-      Represents an instance of a problem pertaining to conformance to OBO guidelines
     slots:
-      - subject
-      - predicate
-      - value
+    - subject
+    - predicate
+    - value
     slot_usage:
       subject:
-        description: >-
-          The thing that is problematic
+        description: The thing that is problematic
       predicate:
-        description: >-
-          The property of the thing that is problematic
-
-  lexical problem:
+        description: The property of the thing that is problematic
+  lexical_problem:
+    description: a problem with the textual value of an annotation property
+    is_a: problem
     abstract: true
-    is_a: problem
-    description: >-
-      a problem with the textual value of an annotation property
-
-  trailing whitespace problem:
-    is_a: problem
+  trailing_whitespace_problem:
     comments:
-      - >-
-        sqlview>>
-        SELECT
-          subject,
-          predicate,
-          value
-        FROM statements
-        WHERE VALUE like ' %' OR VALUE like '% '
-
-  property used with datatype values and objects:
+    - "sqlview>> SELECT\n  subject,\n  predicate,\n  value\nFROM statements WHERE\
+      \ VALUE like ' %' OR VALUE like '% '"
     is_a: problem
-    description: >-
-      A problem in which the same property is used two two different ways, one
-      in which the range is a literal value, the other where it is an object.
+  property_used_with_datatype_values_and_objects:
+    description: A problem in which the same property is used two two different ways,
+      one in which the range is a literal value, the other where it is an object.
+    comments:
+    - in OWL, if a property is typed as object or datatype, this will constrain its
+      use. However, annotation properties have no such constraints in OWL, but we
+      still consider this problematic and unintentional, unless it is a truly generic
+      predicate, such as owl:annotatedTarget or rdf:object
+    - "sqlview>>\n  SELECT\n    DISTINCT\n      s1.predicate AS subject,\n      s1.predicate,\n\
+      \      s1.datatype AS value\n  FROM statements AS s1, statements AS s2 ON (s1.predicate=s2.predicate)\n\
+      \  WHERE s1.value IS NOT NULL and s2.object IS NOT NULL"
     see_also:
-      - https://github.com/information-artifact-ontology/ontology-metadata/issues/67
+    - https://github.com/information-artifact-ontology/ontology-metadata/issues/67
+    is_a: problem
+  node_with_two_labels_problem:
     comments:
-      - >-
-        in OWL, if a property is typed as object or datatype, this will constrain its use.
-        However, annotation properties have no such constraints in OWL, but we still
-        consider this problematic and unintentional, unless it is a truly generic
-        predicate, such as owl:annotatedTarget or rdf:object
-      - >-
-        sqlview>>
-          SELECT
-            DISTINCT
-              s1.predicate AS subject,
-              s1.predicate,
-              s1.datatype AS value
-          FROM statements AS s1, statements AS s2 ON (s1.predicate=s2.predicate)
-          WHERE s1.value IS NOT NULL and s2.object IS NOT NULL
-
-  node with two labels problem:
+    - "sqlview>>\n  SELECT\n     s1.subject,\n     s1.predicate,\n     s1.value\n\
+      \  FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2\n  WHERE s1.subject=s2.subject\
+      \ AND s1.value != s2.value"
     is_a: problem
     attributes:
-      label1:
-      label2:
+      label1: {}
+      label2: {}
+  all_problems:
     comments:
-      - >-
-        sqlview>>
-          SELECT
-             s1.subject,
-             s1.predicate,
-             s1.value
-          FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2
-          WHERE s1.subject=s2.subject AND s1.value != s2.value
-  all problems:
+    - sqlview>> SELECT * FROM node_with_two_labels_problem
+    - sqlview>> SELECT * FROM trailing_whitespace_problem
     is_a: problem
-    # TODO: use union_of
-    comments:
-      - sqlview>> SELECT * FROM node_with_two_labels_problem
-      - sqlview>> SELECT * FROM trailing_whitespace_problem
-
-
-slots:
+source_file: ../semantic-sql/src/schema/obo.yaml

@@ -193,6 +193,11 @@ loadcams:
 # ---
 # Schema
 # ---
+# the section below here is only required for when changes to the schema is made;
+# changing the yaml triggers changes in
+#  - derived SQL DDL
+#  - SQL Alchemy objects
+#  - Docs
 
 MODULES = rdf owl obo omo relation_graph semsql
 
@@ -202,22 +207,26 @@ markdown-%: src/schema/%.yaml
 markdown: $(patsubst %, markdown-%, $(MODULES))
 	gen-markdown --no-mergeimports -d docs src/schema/semsql.yaml
 
+# Create SQL Create Table statements from linkml
+GENDDL = gen-sqlddl --dialect sqlite --no-use-foreign-keys
 gen-ddl: $(patsubst %, ddl/%.sql, $(MODULES))
 ddl/%.sql: src/schema/%.yaml
-	gen-sqlddl --dialect sqlite --no-use-foreign-keys $< > $@.tmp && \
+	$(GENDDL)  $< > $@.tmp && \
 	python semsql/sqlutils/viewgen.py $< >> $@.tmp && \
 	mv $@.tmp $@
 
 reports/query-%.sql: src/schema/%.yaml
 	python semsql/sqlutils/reportgen.py $< > $@
 
-
+# Generate SQL Alchemy
 gen-sqla: $(patsubst %, semsql/sqla/%.py, $(MODULES))
 
-# TODO: new sqla direct model
 # make SQL Alchemy models
-#semsql/sqla/%.py: src/schema/%.yaml
-#	gen-sqlddl --no-use-foreign-keys --sqla-file $@ $< 
+# TODO:
+# - suppress PK injection
+# - suppress FKs
+semsql/sqla/%.py: src/schema/%.yaml
+	gen-sqla --no-use-foreign-keys  $< >  $@
 
 
 
