@@ -1,135 +1,535 @@
-
-
-CREATE TABLE annotation_property_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE asymmetric_property_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE blank_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE class_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE deprecated_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE iri_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE irreflexive_property_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE named_individual_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE object_property_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE ontology_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE prefix (
-	prefix TEXT, 
-	base TEXT, 
-	PRIMARY KEY (prefix, base)
-);
-
-CREATE TABLE rdf_list_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE reflexive_property_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE symmetric_property_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE transitive_property_node (
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE count_of_instantiated_classes (
-	element TEXT, 
-	count_value INTEGER, 
-	PRIMARY KEY (element, count_value), 
-	FOREIGN KEY(element) REFERENCES node (id)
-);
-
-CREATE TABLE count_of_predicates (
-	element TEXT, 
-	count_value INTEGER, 
-	PRIMARY KEY (element, count_value), 
-	FOREIGN KEY(element) REFERENCES node (id)
-);
-
-CREATE TABLE count_of_subclasses (
-	element TEXT, 
-	count_value INTEGER, 
-	PRIMARY KEY (element, count_value), 
-	FOREIGN KEY(element) REFERENCES node (id)
-);
+-- # Class: "relation_graph_construct" Description: "A construct used as part of a Relation Graph"
+-- # Class: "edge" Description: "A relation graph edge that connects two entities by a predicate. Note an edge is distinct from a statement, in that an axiom such as A SubClassOf R some B is represented as multiple statements, but is a single relation graph edge"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+-- # Class: "subgraph_query" Description: "A subgraph query encompasses as subgraph edge and a seed/anchor object and seed/anchor predicate"
+--     * Slot: subject Description: subject of the subgraph edge
+--     * Slot: predicate Description: predicate of the subgraph edge
+--     * Slot: object Description: object of the subgraph edge
+--     * Slot: anchor_object Description: The entity that is used to seed the graph. The seed entity will bear some relationship to each subgraph edge; E.g. with an ancestor subgraph query, all edges will have a subject that descends from the ancestor
+--     * Slot: anchor_predicate Description: The predicate that is used to determine if an edge should be included based on relationship to the anchor_object.
+-- # Class: "subgraph_edge_by_ancestor" Description: "An edge within a subgraph anchored around a set of ancestor terms"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: anchor_object Description: The ancestor term
+--     * Slot: anchor_predicate Description: The entailed predicate that holds between each edge subject and the ancestor
+-- # Class: "subgraph_edge_by_descendant" Description: "An edge within a subgraph anchored around a set of descendant terms"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: anchor_object Description: The descendant term
+--     * Slot: anchor_predicate Description: The entailed predicate that holds between the descendant and each edge subject
+-- # Class: "subgraph_edge_by_ancestor_or_descendant" Description: ""
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: anchor_object Description: 
+--     * Slot: anchor_predicate Description: 
+-- # Class: "subgraph_edge_by_parent" Description: "An edge within a subgraph anchored around a set of parent terms"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: anchor_object Description: The parent term
+--     * Slot: anchor_predicate Description: The entailed predicate that holds between each edge subject and the parent
+-- # Class: "subgraph_edge_by_child" Description: "An edge within a subgraph anchored around a set of child terms"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: anchor_object Description: The child term
+--     * Slot: anchor_predicate Description: The entailed predicate that holds between the child and each edge subject
+-- # Class: "subgraph_edge_by_self" Description: "A special null form of a subgraph query where there is no expansion"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: anchor_object Description: 
+--     * Slot: anchor_predicate Description: 
+-- # Class: "entailed_edge" Description: "A relation graph edge that is inferred"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+-- # Class: "entailed_edge_cycle" Description: "An edge that composes with another edge to make a cycle"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: secondary_predicate Description: 
+-- # Class: "entailed_edge_same_predicate_cycle" Description: "An entailed_edge_cycle over a single predicate"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: secondary_predicate Description: 
+-- # Class: "transitive_edge" Description: "A relation graph edge that is formed from a chain of one or more edges"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+-- # Class: "ontology_node" Description: "A node representing an ontology"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "object_property_node" Description: "A node representing an OWL object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "transitive_property_node" Description: "A node representing an OWL transitive object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "symmetric_property_node" Description: "A node representing an OWL symmetric object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "reflexive_property_node" Description: "A node representing an OWL reflexive object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "irreflexive_property_node" Description: "A node representing an OWL irreflexive object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "asymmetric_property_node" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "annotation_property_node" Description: "A node representing an OWL annotation property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "deprecated_node" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_imports_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_inverse_of_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_complement_of_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_equivalent_class_statement" Description: "A statement that connects two class_nodes where both classes are equivalent"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
+--     * Slot: predicate Description: 
+--     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_same_as_statement" Description: "A statement that connects two individual nodes where both individual are equivalent"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
+--     * Slot: predicate Description: 
+--     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_disjoint_class_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: One of the two classes that are disjoint. No significance to subject vs object
+--     * Slot: predicate Description: 
+--     * Slot: object Description: One of the two classes that are disjoint. No significance to subject vs object
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_reified_axiom" Description: "An OWL axiom that has been reified - i.e. it includes an [id](id) field that uniquely identifies that axiom and which can be the subject of additional statements"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_axiom" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_axiom_annotation" Description: ""
+--     * Slot: axiom_predicate Description: 
+--     * Slot: axiom_object Description: 
+--     * Slot: axiom_value Description: 
+--     * Slot: axiom_language Description: 
+--     * Slot: axiom_datatype Description: 
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "anonymous_expression" Description: "An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "anonymous_class_expression" Description: "An OWL anonymous class expression, such as for example `SomeValuesFrom(partOf Hand)`"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "anonymous_property_expression" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "anonymous_individual_expression" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_restriction" Description: "An OWL restriction, such as `SomeValuesFrom(partOf Hand)`"
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: 
+--     * Slot: id Description: the id of the restriction
+-- # Class: "owl_some_values_from" Description: "An OWL SomeValuesFrom restriction"
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_all_values_from" Description: ""
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_has_value" Description: ""
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_has_self" Description: ""
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: This is Null for a self-restriction
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_complex_axiom" Description: "An axiom that is composed of two or more statements"
+-- # Class: "owl_subclass_of_some_values_from" Description: "Composition of subClassOf and SomeValuesFrom"
+--     * Slot: subject Description: the class C in the axiom C subClassOf P some D
+--     * Slot: predicate Description: the predicate P in the axiom C subClassOf P some D
+--     * Slot: object Description: the class D in the axiom C subClassOf P some D
+-- # Class: "owl_equivalent_to_intersection_member" Description: "Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`"
+--     * Slot: subject Description: the defined class
+--     * Slot: object Description: a class expression that forms the defining expression
+-- # Class: "prefix" Description: "Maps CURIEs to URIs"
+--     * Slot: prefix Description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
+--     * Slot: base Description: The base URI a prefix will expand to
+-- # Class: "statements" Description: "Represents an RDF triple"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "node_to_node_statement" Description: "A statement where object is non-null and value is not populated"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "node_to_value_statement" Description: "A statement where value is non-null and object is not populated"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdf_type_statement" Description: "A statement that indicates the asserted type of the subject entity"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: The entity type
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdfs_subclass_of_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: The subclass element of the triple
+--     * Slot: predicate Description: 
+--     * Slot: object Description: The superclass element of the triple
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdfs_subclass_of_named_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdfs_subproperty_of_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: The subproperty element of the triple
+--     * Slot: predicate Description: 
+--     * Slot: object Description: The superproperty element of the triple
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdfs_label_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: The label value
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdfs_domain_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdfs_range_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdf_list_statement" Description: "A statement that is used to represent aspects of RDF lists"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: The rdf:List to which the statement applies
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdf_first_statement" Description: "A statement that connects a list to its first element. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdf_rest_statement" Description: "A statement that connects a list to its remaining elements. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdf_rest_transitive_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "rdf_list_member_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "node" Description: "The basic unit of representation in an RDF or OWL graph"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "blank_node" Description: "A node with an ID that is not preserved between databases"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "rdf_list_node" Description: "A node representing an RDF list. Note that you will not likely need to use this directly."
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "iri_node" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "class_node" Description: "A node that represents an RDFS/OWL class"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "property_node" Description: "Note this only directly classifies nodes asserted to be rdf:Properties"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "named_individual_node" Description: "A node that represents an OWL Named Individual"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "rdf_level_summary_statistic" Description: "Abstract grouping for views/classes that provide some kind of count summary about an individual element"
+--     * Slot: element Description: 
+--     * Slot: count_value Description: 
+-- # Class: "count_of_predicates" Description: "Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL"
+--     * Slot: element Description: 
+--     * Slot: count_value Description: 
+-- # Class: "count_of_instantiated_classes" Description: "Number of distinct instantiations of a class. Note in many OBOs, classes are not directly instantiated"
+--     * Slot: element Description: 
+--     * Slot: count_value Description: 
+-- # Class: "count_of_subclasses" Description: "Number of subclasses for a given class"
+--     * Slot: element Description: 
+--     * Slot: count_value Description: 
+-- # Class: "node_trait" Description: "abstract groupings/properties for different aspects of the model"
+-- # Class: "class_trait" Description: ""
+-- # Class: "property_trait" Description: ""
+-- # Class: "individual_trait" Description: ""
+-- # Class: "is_report" Description: "Used to describe classes/views that have a reporting function"
 
 CREATE TABLE edge (
 	subject TEXT, 
 	predicate TEXT, 
-	object TEXT, 
-	PRIMARY KEY (subject, predicate, object), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
+	object TEXT
 );
-
+CREATE TABLE subgraph_query (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	anchor_object TEXT, 
+	anchor_predicate TEXT
+);
+CREATE TABLE subgraph_edge_by_ancestor (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	anchor_object TEXT, 
+	anchor_predicate TEXT
+);
+CREATE TABLE subgraph_edge_by_descendant (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	anchor_object TEXT, 
+	anchor_predicate TEXT
+);
+CREATE TABLE subgraph_edge_by_ancestor_or_descendant (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	anchor_object TEXT, 
+	anchor_predicate TEXT
+);
+CREATE TABLE subgraph_edge_by_parent (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	anchor_object TEXT, 
+	anchor_predicate TEXT
+);
+CREATE TABLE subgraph_edge_by_child (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	anchor_object TEXT, 
+	anchor_predicate TEXT
+);
+CREATE TABLE subgraph_edge_by_self (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	anchor_object TEXT, 
+	anchor_predicate TEXT
+);
 CREATE TABLE entailed_edge (
 	subject TEXT, 
 	predicate TEXT, 
+	object TEXT
+);
+CREATE TABLE entailed_edge_cycle (
+	subject TEXT, 
+	predicate TEXT, 
 	object TEXT, 
-	PRIMARY KEY (subject, predicate, object), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
+	secondary_predicate TEXT
 );
-
-CREATE TABLE owl_all_values_from (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(on_property) REFERENCES node (id), 
-	FOREIGN KEY(filler) REFERENCES class_node (id)
+CREATE TABLE entailed_edge_same_predicate_cycle (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	secondary_predicate TEXT
 );
-
+CREATE TABLE transitive_edge (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT
+);
+CREATE TABLE ontology_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE object_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE transitive_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE symmetric_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE reflexive_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE irreflexive_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE asymmetric_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE annotation_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE deprecated_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_imports_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_inverse_of_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_complement_of_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_equivalent_class_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_same_as_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_disjoint_class_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_reified_axiom (
+	id TEXT, 
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT, 
+	PRIMARY KEY (id)
+);
 CREATE TABLE owl_axiom (
+	id TEXT, 
 	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
@@ -137,327 +537,81 @@ CREATE TABLE owl_axiom (
 	value TEXT, 
 	datatype TEXT, 
 	language TEXT, 
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
+	PRIMARY KEY (id)
 );
-
 CREATE TABLE owl_axiom_annotation (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
 	axiom_predicate TEXT, 
 	axiom_object TEXT, 
 	axiom_value TEXT, 
 	axiom_language TEXT, 
 	axiom_datatype TEXT, 
-	PRIMARY KEY (stanza, subject, predicate, object, value, datatype, language, axiom_predicate, axiom_object, axiom_value, axiom_language, axiom_datatype), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
-);
-
-CREATE TABLE owl_complement_of_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, subject, predicate, value, datatype, language, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
-);
-
-CREATE TABLE owl_disjoint_class_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	subject TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, predicate, value, datatype, language, subject, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES class_node (id), 
-	FOREIGN KEY(object) REFERENCES class_node (id)
-);
-
-CREATE TABLE owl_equivalent_class_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	subject TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, predicate, value, datatype, language, subject, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES class_node (id), 
-	FOREIGN KEY(object) REFERENCES class_node (id)
-);
-
-CREATE TABLE owl_equivalent_to_intersection_member (
-	subject TEXT, 
-	object TEXT, 
-	PRIMARY KEY (subject, object), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
-);
-
-CREATE TABLE owl_has_self (
-	on_property TEXT, 
-	id TEXT NOT NULL, 
-	filler TEXT, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(on_property) REFERENCES node (id), 
-	FOREIGN KEY(filler) REFERENCES class_node (id)
-);
-
-CREATE TABLE owl_has_value (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(on_property) REFERENCES node (id), 
-	FOREIGN KEY(filler) REFERENCES class_node (id)
-);
-
-CREATE TABLE owl_imports_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, subject, predicate, value, datatype, language, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
-);
-
-CREATE TABLE owl_inverse_of_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, subject, predicate, value, datatype, language, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
-);
-
-CREATE TABLE owl_reified_axiom (
 	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
 	value TEXT, 
 	datatype TEXT, 
-	language TEXT, 
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
+	language TEXT
 );
-
-CREATE TABLE owl_same_as_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	subject TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, predicate, value, datatype, language, subject, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES named_individual_node (id), 
-	FOREIGN KEY(object) REFERENCES named_individual_node (id)
+CREATE TABLE anonymous_expression (
+	id TEXT, 
+	PRIMARY KEY (id)
 );
-
+CREATE TABLE anonymous_class_expression (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE anonymous_property_expression (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE anonymous_individual_expression (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_restriction (
+	on_property TEXT, 
+	filler TEXT, 
+	id TEXT, 
+	PRIMARY KEY (id)
+);
 CREATE TABLE owl_some_values_from (
 	on_property TEXT, 
 	filler TEXT, 
-	id TEXT NOT NULL, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(on_property) REFERENCES node (id), 
-	FOREIGN KEY(filler) REFERENCES class_node (id)
+	id TEXT, 
+	PRIMARY KEY (id)
 );
-
+CREATE TABLE owl_all_values_from (
+	on_property TEXT, 
+	filler TEXT, 
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_has_value (
+	on_property TEXT, 
+	filler TEXT, 
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_has_self (
+	on_property TEXT, 
+	filler TEXT, 
+	id TEXT, 
+	PRIMARY KEY (id)
+);
 CREATE TABLE owl_subclass_of_some_values_from (
 	subject TEXT, 
 	predicate TEXT, 
-	object TEXT, 
-	PRIMARY KEY (subject, predicate, object), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
+	object TEXT
 );
-
-CREATE TABLE rdf_first_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
+CREATE TABLE owl_equivalent_to_intersection_member (
 	subject TEXT, 
-	PRIMARY KEY (stanza, predicate, object, value, datatype, language, subject), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES rdf_list_node (id)
+	object TEXT
 );
-
-CREATE TABLE rdf_list_member_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	subject TEXT, 
-	PRIMARY KEY (stanza, predicate, object, value, datatype, language, subject), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES rdf_list_node (id)
+CREATE TABLE prefix (
+	prefix TEXT, 
+	base TEXT
 );
-
-CREATE TABLE rdf_rest_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	subject TEXT, 
-	PRIMARY KEY (stanza, predicate, object, value, datatype, language, subject), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES rdf_list_node (id)
-);
-
-CREATE TABLE rdf_rest_transitive_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	subject TEXT, 
-	PRIMARY KEY (stanza, predicate, object, value, datatype, language, subject), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES rdf_list_node (id)
-);
-
-CREATE TABLE rdf_type_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, subject, predicate, value, datatype, language, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES class_node (id)
-);
-
-CREATE TABLE rdfs_domain_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, subject, predicate, value, datatype, language, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
-);
-
-CREATE TABLE rdfs_label_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	value TEXT NOT NULL, 
-	PRIMARY KEY (stanza, subject, predicate, object, datatype, language, value), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
-);
-
-CREATE TABLE rdfs_range_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, subject, predicate, value, datatype, language, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
-);
-
-CREATE TABLE rdfs_subclass_of_named_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	subject TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, predicate, value, datatype, language, subject, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES class_node (id), 
-	FOREIGN KEY(object) REFERENCES class_node (id)
-);
-
-CREATE TABLE rdfs_subclass_of_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	subject TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, predicate, value, datatype, language, subject, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES class_node (id), 
-	FOREIGN KEY(object) REFERENCES class_node (id)
-);
-
-CREATE TABLE rdfs_subproperty_of_statement (
-	stanza TEXT, 
-	predicate TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	subject TEXT, 
-	object TEXT NOT NULL, 
-	PRIMARY KEY (stanza, predicate, value, datatype, language, subject, object), 
-	FOREIGN KEY(stanza) REFERENCES node (id)
-);
-
 CREATE TABLE statements (
 	stanza TEXT, 
 	subject TEXT, 
@@ -465,85 +619,178 @@ CREATE TABLE statements (
 	object TEXT, 
 	value TEXT, 
 	datatype TEXT, 
-	language TEXT, 
-	PRIMARY KEY (stanza, subject, predicate, object, value, datatype, language), 
-	FOREIGN KEY(stanza) REFERENCES node (id), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id)
+	language TEXT
 );
-
-CREATE TABLE subgraph_edge_by_ancestor (
+CREATE TABLE node_to_node_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE node_to_value_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT, 
-	PRIMARY KEY (subject, predicate, object, anchor_object, anchor_predicate), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(anchor_object) REFERENCES node (id)
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-
-CREATE TABLE subgraph_edge_by_ancestor_or_descendant (
+CREATE TABLE rdf_type_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE rdfs_subclass_of_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE rdfs_subclass_of_named_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE rdfs_subproperty_of_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE rdfs_label_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT, 
-	PRIMARY KEY (subject, predicate, object, anchor_object, anchor_predicate), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(anchor_object) REFERENCES node (id)
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-
-CREATE TABLE subgraph_edge_by_child (
+CREATE TABLE rdfs_domain_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE rdfs_range_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE rdf_list_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT, 
-	PRIMARY KEY (subject, predicate, object, anchor_object, anchor_predicate), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(anchor_object) REFERENCES node (id)
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
 );
-
-CREATE TABLE subgraph_edge_by_descendant (
+CREATE TABLE rdf_first_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT, 
-	PRIMARY KEY (subject, predicate, object, anchor_object, anchor_predicate), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(anchor_object) REFERENCES node (id)
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
 );
-
-CREATE TABLE subgraph_edge_by_parent (
+CREATE TABLE rdf_rest_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT, 
-	PRIMARY KEY (subject, predicate, object, anchor_object, anchor_predicate), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(anchor_object) REFERENCES node (id)
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
 );
-
-CREATE TABLE subgraph_edge_by_self (
+CREATE TABLE rdf_rest_transitive_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT, 
-	PRIMARY KEY (subject, predicate, object, anchor_object, anchor_predicate), 
-	FOREIGN KEY(subject) REFERENCES node (id), 
-	FOREIGN KEY(object) REFERENCES node (id), 
-	FOREIGN KEY(anchor_object) REFERENCES node (id)
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
 );
-
+CREATE TABLE rdf_list_member_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE blank_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE rdf_list_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE iri_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE class_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE named_individual_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE rdf_level_summary_statistic (
+	element TEXT, 
+	count_value INTEGER
+);
+CREATE TABLE count_of_predicates (
+	element TEXT, 
+	count_value INTEGER
+);
+CREATE TABLE count_of_instantiated_classes (
+	element TEXT, 
+	count_value INTEGER
+);
+CREATE TABLE count_of_subclasses (
+	element TEXT, 
+	count_value INTEGER
+);
 -- ** REWRITE TABLES AS VIEWS **
 -- SCHEMA: https://w3id.org/semsql/relation_graph
 
@@ -588,6 +835,32 @@ CREATE VIEW subgraph_edge_by_self AS SELECT
     edge.predicate AS anchor_predicate,
     edge.subject AS anchor_object
   FROM edge;
+
+DROP TABLE entailed_edge_cycle;
+CREATE VIEW entailed_edge_cycle AS SELECT e.*, e2.predicate AS secondary_predicate
+  FROM entailed_edge AS e,
+       entailed_edge AS e2
+  WHERE e.object_id = e2.subject_id AND e2.object_id=e.subject_id;
+
+DROP TABLE entailed_edge_same_predicate_cycle;
+CREATE VIEW entailed_edge_same_predicate_cycle AS SELECT * FROM entailed_edge_cycle WHERE predicate = secondary_predicate;
+
+DROP TABLE transitive_edge;
+CREATE VIEW transitive_edge AS WITH RECURSIVE transitive_edge
+               (
+                     subject, predicate, object, depth
+               )
+               AS
+               (SELECT subject, predicate, object, 1
+                  FROM edge
+                 UNION ALL
+                SELECT
+                     e.subject, e.predicate, a.object, a.depth+1
+                  FROM edge AS e
+                  JOIN transitive_edge AS a
+                    ON e.object = a.subject AND e.predicate = a.predicate
+               )
+            SELECT * FROM transitive_edge;
 
 DROP TABLE node_to_node_statement;
 CREATE VIEW node_to_node_statement AS SELECT * FROM statements WHERE object IS NOT NULL;

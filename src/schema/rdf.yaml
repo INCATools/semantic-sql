@@ -1,381 +1,315 @@
-id: https://w3id.org/semsql/rdf
 name: Semsql-RDF
+description: Abstractions for working with RDF and RDFS triples
 title: Semantic SQL RDF module
-description: >-
-  Abstractions for working with RDF and RDFS triples
+id: https://w3id.org/semsql/rdf
+imports:
+- linkml:types
+- rdf
 license: https://creativecommons.org/publicdomain/zero/1.0/
-
 prefixes:
   semsql_rdf: https://w3id.org/semsql/rdf
   linkml: https://w3id.org/linkml/
   sh: http://www.w3.org/ns/shacl#
-  
+default_curi_maps:
+- semweb_context
 default_prefix: semsql_rdf
 default_range: string
-
-default_curi_maps:
-  - semweb_context
-
-imports:
-  - linkml:types
-  - rdf
-
 subsets:
   export:
-    description: >-
-      Used to indicate a table/class that should be dumped as part of the export of a db
+    description: Used to indicate a table/class that should be dumped as part of the
+      export of a db
   base table:
-    description: >-
-      Indicates the class/table is typically not constructed from a view
-
+    description: Indicates the class/table is typically not constructed from a view
+types:
+  node id type:
+    description: IDs are either CURIEs, IRI, or blank nodes. IRIs are wrapped in <>s
+      to distinguish them from CURIEs, but in general it is good practice to populate
+      the [prefixes][Prefixes.md] table such that they are shortened to CURIEs. Blank
+      nodes are ids starting with `_:`.
+    see_also:
+    - https://github.com/ontodev/rdftab.rs/issues/18
+    typeof: uriorcurie
+  literal as string type:
+    typeof: string
+slots:
+  id:
+    description: An identifier for an element. Note blank node ids are not unique
+      across databases
+    identifier: true
+    range: node id type
+  subject:
+    slot_uri: rdf:subject
+    range: node
+  predicate:
+    slot_uri: rdf:predicate
+    range: property_node
+  object:
+    description: Note the range of this slot is always a node. If the triple represents
+      a literal, instead value will be populated
+    slot_uri: rdf:object
+    range: node
+  stanza:
+    see_also:
+    - https://github.com/ontodev/rdftab.rs#stanzas
+    range: node
+  datatype: {}
+  value:
+    close_mappings:
+    - rdf:object
+    description: Note the range of this slot is always a string. Only used the triple
+      represents a literal assertion
+    range: literal as string type
+  language:
+    todos:
+    - use an enum
+    range: string
+  prefix:
+    description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
+    slot_uri: sh:prefix
+    range: ncname
+  base:
+    description: The base URI a prefix will expand to
+    slot_uri: sh:namespace
+    range: uri
+  description:
+    slot_uri: dcterms:description
 classes:
   prefix:
-    description: >-
-      Maps CURIEs to URIs
-    slots:
-      - prefix
-      - base
-    class_uri: sh:PrefixDeclaration
+    description: Maps CURIEs to URIs
     in_subset:
-      - export
-      - base table
-
-  # -- triples --
+    - export
+    - base table
+    slots:
+    - prefix
+    - base
+    class_uri: sh:PrefixDeclaration
   statements:
     aliases:
-      - triple
-    description: >-
-      Represents an RDF triple
-    slots:
-      - stanza
-      - subject
-      - predicate
-      - object
-      - value
-      - datatype
-      - language
-    class_uri: rdf:Statement
+    - triple
+    description: Represents an RDF triple
     in_subset:
-      - base table
-
-  node to node statement:
-    abstract: true
+    - base table
+    slots:
+    - stanza
+    - subject
+    - predicate
+    - object
+    - value
+    - datatype
+    - language
+    class_uri: rdf:Statement
+  node_to_node_statement:
+    description: A statement where object is non-null and value is not populated
+    comments:
+    - sqlview>> SELECT * FROM statements WHERE object IS NOT NULL
     is_a: statements
-    description: >-
-      A statement where object is non-null and value is not populated
+    abstract: true
     slot_usage:
       object:
         required: true
+  node_to_value_statement:
+    description: A statement where value is non-null and object is not populated
     comments:
-      - sqlview>> SELECT * FROM statements WHERE object IS NOT NULL
-      
-  node to value statement:
-    abstract: true
+    - sqlview>> SELECT * FROM statements WHERE value IS NOT NULL
     is_a: statements
-    description: >-
-      A statement where value is non-null and object is not populated
+    abstract: true
     slot_usage:
       value:
         required: true
+  rdf_type_statement:
+    description: A statement that indicates the asserted type of the subject entity
     comments:
-      - sqlview>> SELECT * FROM statements WHERE value IS NOT NULL
-      
-      
-  rdf type statement:
-    is_a: node to node statement
-    description: >-
-      A statement that indicates the asserted type of the subject entity
-    comments:
-      - sqlview>> SELECT * FROM statements WHERE predicate='rdf:type'
+    - sqlview>> SELECT * FROM statements WHERE predicate='rdf:type'
+    is_a: node_to_node_statement
     slot_usage:
       object:
-        description: >-
-          The entity type
-        range: class node
-
-  rdfs subclass of statement:
-    is_a: node to node statement
+        description: The entity type
+        range: class_node
+  rdfs_subclass_of_statement:
     comments:
-      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:subClassOf'
+    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:subClassOf'
+    is_a: node_to_node_statement
     slot_usage:
       subject:
-        description: >-
-          The subclass element of the triple
-        range: class node
+        description: The subclass element of the triple
+        range: class_node
       object:
-        description: >-
-          The superclass element of the triple
-        range: class node
-
-  rdfs subclass of named statement:
-    is_a: rdfs subclass of statement
+        description: The superclass element of the triple
+        range: class_node
+  rdfs_subclass_of_named_statement:
     comments:
-      - sqlview>> SELECT * FROM rdfs_subclass_of_statement WHERE object NOT LIKE '_:%';
-
-  rdfs subproperty of statement:
-    is_a: node to node statement
+    - sqlview>> SELECT * FROM rdfs_subclass_of_statement WHERE object NOT LIKE '_:%';
+    is_a: rdfs_subclass_of_statement
+  rdfs_subproperty_of_statement:
     comments:
-      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:subPropertyOf'
+    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:subPropertyOf'
+    is_a: node_to_node_statement
     slot_usage:
       subject:
-        description: >-
-          The subproperty element of the triple
-        range: property node
+        description: The subproperty element of the triple
+        range: property_node
       object:
-        description: >-
-          The superproperty element of the triple
-        range: property node
-
-  rdfs label statement:
-    is_a: node to value statement
+        description: The superproperty element of the triple
+        range: property_node
+  rdfs_label_statement:
     comments:
-      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:label'
+    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:label'
+    is_a: node_to_value_statement
     slot_usage:
       value:
-        description: >-
-          The label value
+        description: The label value
         range: string
-
-  rdfs domain statement:
-    is_a: node to node statement
+  rdfs_domain_statement:
     comments:
-      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:domain'
-  rdfs range statement:
-    is_a: node to node statement
+    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:domain'
+    is_a: node_to_node_statement
+  rdfs_range_statement:
     comments:
-      - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:range'
-
-  rdf list statement:
-    abstract: true
+    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:range'
+    is_a: node_to_node_statement
+  rdf_list_statement:
+    description: A statement that is used to represent aspects of RDF lists
     is_a: statements
-    description: >-
-      A statement that is used to represent aspects of RDF lists
+    abstract: true
     slot_usage:
       subject:
         description: The rdf:List to which the statement applies
-        range: rdf list node
-
-  rdf first statement:
-    is_a: rdf list statement
-    description: >-
-      A statement that connects a list to its first element.
-      This is a low-level triple, it is unlikely you need to use this directly.
-      It is used to define rdf_list_member_statement, which is more useful
+        range: rdf_list_node
+  rdf_first_statement:
+    description: A statement that connects a list to its first element. This is a
+      low-level triple, it is unlikely you need to use this directly. It is used to
+      define rdf_list_member_statement, which is more useful
     comments:
-      - sqlview>> SELECT * FROM statements WHERE predicate='rdf:first'
-  rdf rest statement:
-    is_a: rdf list statement
-    description: >-
-      A statement that connects a list to its remaining elements.
-      This is a low-level triple, it is unlikely you need to use this directly.
-      It is used to define rdf_list_member_statement, which is more useful
+    - sqlview>> SELECT * FROM statements WHERE predicate='rdf:first'
+    is_a: rdf_list_statement
+  rdf_rest_statement:
+    description: A statement that connects a list to its remaining elements. This
+      is a low-level triple, it is unlikely you need to use this directly. It is used
+      to define rdf_list_member_statement, which is more useful
     comments:
-      - sqlview>> SELECT * FROM statements WHERE predicate='rdf:rest'
-  rdf rest transitive statement:
-    is_a: rdf list statement
+    - sqlview>> SELECT * FROM statements WHERE predicate='rdf:rest'
+    is_a: rdf_list_statement
+  rdf_rest_transitive_statement:
     comments:
-      - >-
-        sqlview>>
-          WITH RECURSIVE rdf_rest_transitive_statement
-                     (
-                           subject, object
-                     )
-                     AS
-                     (SELECT subject, object
-                        FROM rdf_rest_statement
-                       UNION ALL
-                      SELECT
-                           rest.subject, rest_t.object
-                        FROM rdf_rest_statement AS rest
-                        JOIN rdf_rest_transitive_statement AS rest_t
-                          ON rest.object = rest_t.subject
-                     )
-                  SELECT * FROM rdf_rest_transitive_statement
-  rdf list member statement:
-    is_a: rdf list statement
+    - "sqlview>>\n  WITH RECURSIVE rdf_rest_transitive_statement\n             (\n\
+      \                   subject, object\n             )\n             AS\n     \
+      \        (SELECT subject, object\n                FROM rdf_rest_statement\n\
+      \               UNION ALL\n              SELECT\n                   rest.subject,\
+      \ rest_t.object\n                FROM rdf_rest_statement AS rest\n         \
+      \       JOIN rdf_rest_transitive_statement AS rest_t\n                  ON rest.object\
+      \ = rest_t.subject\n             )\n          SELECT * FROM rdf_rest_transitive_statement"
+    is_a: rdf_list_statement
+  rdf_list_member_statement:
     comments:
-      - >-
-        sqlview>>
-          SELECT
-             rest_t.subject,
-             f.object
-            FROM rdf_rest_transitive_statement AS rest_t JOIN rdf_first_statement AS f ON (rest_t.object = f.subject)
-            UNION
-            SELECT subject,object FROM rdf_first_statement;
-
-  # -- nodes --
+    - "sqlview>>\n  SELECT\n     rest_t.subject,\n     f.object\n    FROM rdf_rest_transitive_statement\
+      \ AS rest_t JOIN rdf_first_statement AS f ON (rest_t.object = f.subject)\n \
+      \   UNION\n    SELECT subject,object FROM rdf_first_statement;"
+    is_a: rdf_list_statement
   node:
     aliases:
-      - object
-      - resource
-    description: >-
-      The basic unit of representation in an RDF or OWL graph
-    slots:
-      - id
+    - object
+    - resource
     exact_mappings:
-      - rdf:Resource
+    - rdf:Resource
+    description: The basic unit of representation in an RDF or OWL graph
     comments:
-      - sqlview>> SELECT distinct(subject) AS id FROM statements UNION SELECT distinct(object) AS id FROM statements WHERE datatype IS NOT NULL
-
-  blank node:
+    - sqlview>> SELECT distinct(subject) AS id FROM statements UNION SELECT distinct(object)
+      AS id FROM statements WHERE datatype IS NOT NULL
+    slots:
+    - id
+  blank_node:
+    description: A node with an ID that is not preserved between databases
+    comments:
+    - sqlview>> SELECT * FROM node WHERE id LIKE '_:%'
     is_a: node
-    description: >-
-      A node with an ID that is not preserved between databases
+  rdf_list_node:
+    description: A node representing an RDF list. Note that you will not likely need
+      to use this directly.
     comments:
-      - sqlview>> SELECT * FROM node WHERE id LIKE '_:%'
-
-  rdf list node:
-    is_a: blank node
-    description: >-
-      A node representing an RDF list. Note that you will not likely need to use this directly.
-    comments:
-      - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'rdf:List';
-  iri node:
+    - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object
+      = 'rdf:List';
+    is_a: blank_node
+  iri_node:
     aliases:
-      - IRI
-      - named entity
+    - IRI
+    - named entity
+    comments:
+    - sqlview>> SELECT * FROM node WHERE id NOT LIKE '_:%'
     is_a: node
     slot_usage:
       id:
-        pattern: "^_:"
+        pattern: '^_:'
+  class_node:
+    description: A node that represents an RDFS/OWL class
     comments:
-      - sqlview>> SELECT * FROM node WHERE id NOT LIKE '_:%'
-
-  class node:
+    - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object
+      = 'owl:Class';
     is_a: node
     mixins:
-      - class trait
-    description: >-
-      A node that represents an RDFS/OWL class
+    - class_trait
     class_uri: owl:Class
+  property_node:
+    description: Note this only directly classifies nodes asserted to be rdf:Properties
     comments:
-      - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:Class';
-  property node:
+    - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object
+      = 'owl:Property';
     is_a: node
     abstract: true
     class_uri: owl:Propery
-    description: >-
-      Note this only directly classifies nodes asserted to be rdf:Properties
+  named_individual_node:
+    description: A node that represents an OWL Named Individual
     comments:
-      - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:Property';
-  named individual node:
+    - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object
+      = 'owl:NamedIndividual';
     is_a: node
-    description: >-
-      A node that represents an OWL Named Individual
     class_uri: owl:NamedIndividual
-    comments:
-      - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object = 'owl:NamedIndividual';
-
-  # -- reporting/stats --
-
-  rdf level summary statistic:
+  rdf_level_summary_statistic:
+    description: Abstract grouping for views/classes that provide some kind of count
+      summary about an individual element
     abstract: true
-    description: >-
-      Abstract grouping for views/classes that provide some kind of count summary about an individual element
+    mixins:
+    - is_report
     attributes:
       element:
         range: node
       count_value:
         range: integer
-    mixins:
-      - is report
-
-  count of predicates:
-    is_a: rdf level summary statistic
-    description: >-
-      Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL
+  count_of_predicates:
+    description: 'Number of distinct usages of a predicate. NOTE MAY CHANGE: does
+      not currently count existential usage in OWL'
     comments:
-      - sqlview>> SELECT predicate AS element, count(*) AS count_value FROM statements GROUP BY predicate ORDER BY count_value DESC
-  count of instantiated classes:
-    is_a: rdf level summary statistic
-    description: >-
-      Number of distinct instantiations of a class. Note in many OBOs, classes are not directly instantiated
+    - sqlview>> SELECT predicate AS element, count(*) AS count_value FROM statements
+      GROUP BY predicate ORDER BY count_value DESC
+    is_a: rdf_level_summary_statistic
+  count_of_instantiated_classes:
+    description: Number of distinct instantiations of a class. Note in many OBOs,
+      classes are not directly instantiated
     comments:
-      - sqlview>> SELECT object AS element, count(*) AS count_value FROM rdf_type_statement GROUP BY element ORDER BY count_value DESC
-
-  count of subclasses:
-    is_a: rdf level summary statistic
-    description: >-
-      Number of subclasses for a given class
+    - sqlview>> SELECT object AS element, count(*) AS count_value FROM rdf_type_statement
+      GROUP BY element ORDER BY count_value DESC
+    is_a: rdf_level_summary_statistic
+  count_of_subclasses:
+    description: Number of subclasses for a given class
     comments:
-      - sqlview>> SELECT sc.object AS element, count(distinct sc.subject) AS count_value FROM rdfs_subclass_of_statement AS sc GROUP BY sc.object ORDER BY count_value DESC
-
-  # -- mixins --
-  node trait:
+    - sqlview>> SELECT sc.object AS element, count(distinct sc.subject) AS count_value
+      FROM rdfs_subclass_of_statement AS sc GROUP BY sc.object ORDER BY count_value
+      DESC
+    is_a: rdf_level_summary_statistic
+  node_trait:
+    description: abstract groupings/properties for different aspects of the model
     abstract: true
     mixin: true
-    description: >-
-      abstract groupings/properties for different aspects of the model
-  class trait:
+  class_trait:
+    is_a: node_trait
     mixin: true
-    is_a: node trait
-  property trait:
+  property_trait:
+    is_a: node_trait
     mixin: true
-    is_a: node trait
-  individual trait:
+  individual_trait:
+    is_a: node_trait
     mixin: true
-    is_a: node trait
-
-  is report:
-    mixin: true
+  is_report:
+    description: Used to describe classes/views that have a reporting function
     abstract: true
-    description: >-
-      Used to describe classes/views that have a reporting function
-
-slots:
-  id:
-    identifier: true
-    range: node id type
-    description: >-
-      An identifier for an element. Note blank node ids are not unique across databases
-  subject:
-    range: node
-    slot_uri: rdf:subject
-  predicate:
-    range: property node
-    slot_uri: rdf:predicate
-  object:
-    description: >-
-      Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
-    range: node
-    slot_uri: rdf:object
-  stanza:
-    range: node
-    see_also:
-      - https://github.com/ontodev/rdftab.rs#stanzas
-  datatype:
-  value:
-    description: >-
-      Note the range of this slot is always a string. Only used the triple represents a literal assertion
-    range: literal as string type
-    close_mappings:
-      - rdf:object
-  language:
-    range: string
-    todos:
-      - use an enum
-  prefix:
-    range: ncname
-    slot_uri: sh:prefix
-    description: >-
-      A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
-  base:
-    range: uri
-    slot_uri: sh:namespace
-    description: >-
-      The base URI a prefix will expand to
-  description:
-    slot_uri: dcterms:description
-
-types:
-  node id type:
-    typeof: uriorcurie
-    description: >-
-      IDs are either CURIEs, IRI, or blank nodes. IRIs are wrapped in <>s to distinguish them from
-      CURIEs, but in general it is good practice to populate the [prefixes][Prefixes.md] table such
-      that they are shortened to CURIEs. Blank nodes are ids starting with `_:`.
-    see_also:
-      - https://github.com/ontodev/rdftab.rs/issues/18
-  literal as string type:
-    typeof: string
-    
+    mixin: true
+source_file: ../semantic-sql/src/schema/rdf.yaml

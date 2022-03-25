@@ -1,117 +1,81 @@
-id: https://w3id.org/semsql/nlp
 name: semsql_nlp
+description: Module for representing results of simple NLTK/SpaCy type processing
 title: Semantic SQL NLP/TM module
-description: >-
-  Module for representing results of simple NLTK/SpaCy type processing
+id: https://w3id.org/semsql/nlp
+imports:
+- rdf
 license: https://creativecommons.org/publicdomain/zero/1.0/
-
 prefixes:
   semsql_nlp: https://w3id.org/semsql/nlp
   linkml: https://w3id.org/linkml/
-  
+default_curi_maps:
+- semweb_context
 default_prefix: semsql_nlp
 default_range: string
-
-default_curi_maps:
-  - semweb_context
-
-imports:
-  - rdf
-
+slots:
+  transformation_predicate: {}
+  transformed_value: {}
 classes:
-
-  subject prefix:
-    description: >-
-      This may move to another module as it is generally useful
-    slots:
-      - subject
-      - value
+  subject_prefix:
+    description: This may move to another module as it is generally useful
     comments:
-      - sqlview>> SELECT DISTINCT s.subject, prefix.prefix AS value FROM prefix, statements AS s WHERE INSTR(s.subject,prefix || ':')=1;
-
-  textual transformation:
-    description: >-
-      Represents a transformation of a subject text value, e.g. lemmatization
+    - sqlview>> SELECT DISTINCT s.subject, prefix.prefix AS value FROM prefix, statements
+      AS s WHERE INSTR(s.subject,prefix || ':')=1;
     slots:
-      - subject
-      - predicate
-      - value
+    - subject
+    - value
+  textual_transformation:
+    description: Represents a transformation of a subject text value, e.g. lemmatization
+    slots:
+    - subject
+    - predicate
+    - value
     slot_usage:
       subject:
+        description: The string value prior to processing. This may be for example
+          the value of an rdfs_label_statement
         range: string
-        description: >-
-          The string value prior to processing. This may be for example the value of an rdfs_label_statement
       predicate:
-        description: >-
-          The relation between subject and object, e.g stemming
+        description: The relation between subject and object, e.g stemming
       object:
+        description: The string value after processing. E.g. lemmatized value
         range: string
-        description: >-
-          The string value after processing. E.g. lemmatized value
-
-  processed statement:
+  processed_statement:
+    description: A statement that is enhanced with a processed/transformed text value
+    comments:
+    - "sqlview>>\n  SELECT s.*, t.predicate AS transformation_predicate, t.value AS\
+      \ transformed_value\n  FROM statements AS s JOIN textual_transformation AS t\
+      \ ON(s.value=t.subject)\n  WHERE datatype != 'xsd:boolean'"
     slots:
-      - subject
-      - predicate
-      - value
-      - transformation predicate
-      - transformed value
-    description: >-
-      A statement that is enhanced with a processed/transformed text value
-    comments:
-      - >-
-        sqlview>>
-          SELECT s.*, t.predicate AS transformation_predicate, t.value AS transformed_value
-          FROM statements AS s JOIN textual_transformation AS t ON(s.value=t.subject)
-          WHERE datatype != 'xsd:boolean'
-
-
+    - subject
+    - predicate
+    - value
+    - transformation_predicate
+    - transformed_value
   match:
-    attributes:
-      subject id:
-      subject label:
-      subject source:
-      subject match field:
-      subject preprocessing:
-      object id:
-      object label:
-      object source:
-      object match field:
-      object preprocessing:
-      match string:
-    description: >-
-      TODO: Reuse SSSOM here
+    description: 'TODO: Reuse SSSOM here'
     comments:
-      - >-
-        sqlview>>
-          SELECT
-           s1.subject AS subject_id,
-           s1l.value AS subject_label,
-           s1.predicate AS subject_match_field,
-           s1p.value AS subject_source,
-           s1.transformation_predicate AS subject_preprocessing,
-           s2.subject AS object_id,
-           s2l.value AS object_label,
-           s2.predicate AS object_match_field,
-           s2p.value AS object_source,
-           s2.transformation_predicate AS object_preprocessing,
-           s1.transformed_value AS match_field
-          FROM
-            processed_statement AS s1
-            JOIN processed_statement AS s2 ON (s1.transformed_value = s2.transformed_value)
-            JOIN rdfs_label_statement AS s1l ON (s1.subject=s1l.subject)
-            JOIN rdfs_label_statement AS s2l ON (s2.subject=s2l.subject)
-            JOIN subject_prefix AS s1p ON (s1.subject=s1p.subject)
-            JOIN subject_prefix AS s2p ON (s2.subject=s2p.subject)
-            WHERE s1.subject != s2.subject
-
-
-
-
-
-
-
-
-slots:
-  transformation predicate:
-  transformed value:
+    - "sqlview>>\n  SELECT\n   s1.subject AS subject_id,\n   s1l.value AS subject_label,\n\
+      \   s1.predicate AS subject_match_field,\n   s1p.value AS subject_source,\n\
+      \   s1.transformation_predicate AS subject_preprocessing,\n   s2.subject AS\
+      \ object_id,\n   s2l.value AS object_label,\n   s2.predicate AS object_match_field,\n\
+      \   s2p.value AS object_source,\n   s2.transformation_predicate AS object_preprocessing,\n\
+      \   s1.transformed_value AS match_field\n  FROM\n    processed_statement AS\
+      \ s1\n    JOIN processed_statement AS s2 ON (s1.transformed_value = s2.transformed_value)\n\
+      \    JOIN rdfs_label_statement AS s1l ON (s1.subject=s1l.subject)\n    JOIN\
+      \ rdfs_label_statement AS s2l ON (s2.subject=s2l.subject)\n    JOIN subject_prefix\
+      \ AS s1p ON (s1.subject=s1p.subject)\n    JOIN subject_prefix AS s2p ON (s2.subject=s2p.subject)\n\
+      \    WHERE s1.subject != s2.subject"
+    attributes:
+      subject_id: {}
+      subject_label: {}
+      subject_source: {}
+      subject_match_field: {}
+      subject_preprocessing: {}
+      object_id: {}
+      object_label: {}
+      object_source: {}
+      object_match_field: {}
+      object_preprocessing: {}
+      match_string: {}
+source_file: ../semantic-sql/src/schema/nlp.yaml
