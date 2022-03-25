@@ -222,14 +222,11 @@ reports/query-%.sql: src/schema/%.yaml
 gen-sqla: $(patsubst %, semsql/sqla/%.py, $(MODULES))
 
 # make SQL Alchemy models
-# TODO:
-# - suppress PK injection
-# - suppress FKs
+# requires linkml 1.2.5
 semsql/sqla/%.py: src/schema/%.yaml
 	gen-sqla --no-use-foreign-keys  $< >  $@
 
-
-
+# DOCKER
 
 # Building docker image
 VERSION = "v0.0.1"
