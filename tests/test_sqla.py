@@ -19,7 +19,9 @@ OUTPUT_DIR = os.path.join(cwd, 'outputs')
 class QueryTestCase(unittest.TestCase):
     def test_sqla(self):
         """
-        Tests SQL Alchemy joins
+        Tests SQL Alchemy joins where no explicit key is used
+
+        DEPRECATED: uses testmodel
         """
         path = os.path.join(DB_DIR, 'pato.db')
         engine = create_engine(f"sqlite:///{path}")

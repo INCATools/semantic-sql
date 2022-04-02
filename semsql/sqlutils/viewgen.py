@@ -21,6 +21,8 @@ def get_viewdef(schema: SchemaDefinition, c: ClassDefinition) -> str:
     if len(views) > 0:
         return " UNION ".join(views)
     else:
+        if c.union_of:
+            return " UNION ".join([f'SELECT * FROM {uc}' for uc in c.union_of])
         return None
 
 def generate_views_from_linkml(schema: SchemaDefinition, view=True, drop_tables=True) -> None:

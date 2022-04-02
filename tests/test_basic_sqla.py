@@ -23,14 +23,20 @@ class SQLAlchemyTestCase(unittest.TestCase):
         SessionClass = sessionmaker(bind=engine)
         session = SessionClass()
         logging.info('OWL query:')
-        q = session.query(RdfsSubclassOfStatement, OwlSomeValuesFrom).\
-            join(OwlSomeValuesFrom, RdfsSubclassOfStatement.object == OwlSomeValuesFrom.id)
+        #q = session.query(RdfsSubclassOfStatement, OwlSomeValuesFrom).\
+        #    join(OwlSomeValuesFrom, RdfsSubclassOfStatement.object == OwlSomeValuesFrom.id)
+        q = session.query(RdfsSubclassOfStatement)
+        q = q.add_entity(OwlSomeValuesFrom)
+        q = q.join(OwlSomeValuesFrom, RdfsSubclassOfStatement.object == OwlSomeValuesFrom.id)
+
         lines = []
         for ax, ex in q.all():
             line = f'{ax.subject} subClassOf {ex.on_property} SOME {ex.filler}'
             logging.info(line)
             lines.append(line)
         assert "GO:0016301 subClassOf BFO:0000050 SOME GO:0016310" in lines
+        assert len(lines) > 100
+        assert len(lines) < 200
         logging.info('As above, with labels')
         subclass_label = aliased(RdfsLabelStatement)
         filler_label = aliased(RdfsLabelStatement)
@@ -38,12 +44,36 @@ class SQLAlchemyTestCase(unittest.TestCase):
         q = session.query(RdfsSubclassOfStatement, OwlSomeValuesFrom, subclass_label, filler_label). \
             join(OwlSomeValuesFrom, RdfsSubclassOfStatement.object == OwlSomeValuesFrom.id). \
             join(subclass_label, subclass_label.subject == RdfsSubclassOfStatement.subject). \
-            join(filler_label, filler_label.subject == RdfsSubclassOfStatement.subject)
+            join(filler_label, filler_label.subject == OwlSomeValuesFrom.filler)
         lines = []
         for ax, ex, sl, fl in q.all():
             line = f'{ax.subject} "{sl.value}" subClassOf {ex.on_property} SOME {ex.filler} "{fl.value}"'
             logging.info(line)
+            #print(line)
             lines.append(line)
-        assert 'GO:0012505 "endomembrane system" subClassOf BFO:0000051 SOME GO:0005886 "endomembrane system"' \
+        assert 'GO:0012505 "endomembrane system" subClassOf BFO:0000051 SOME GO:0005773 "vacuole"' \
                in lines
+
+        # alternate way of doing the same thing
+        q = session.query(RdfsSubclassOfStatement)
+        q = q.add_entity(OwlSomeValuesFrom)
+        q = q.join(OwlSomeValuesFrom, RdfsSubclassOfStatement.object == OwlSomeValuesFrom.id)
+        def add_label(q, join_slot):
+            entity_label = aliased(RdfsLabelStatement)
+            q = q.add_entity(entity_label)
+            q = q.join(entity_label, entity_label.subject == join_slot, isouter=True)
+            return q
+        q = add_label(q, RdfsSubclassOfStatement.subject)
+        q = add_label(q, OwlSomeValuesFrom.filler)
+        null = "NONE"
+        for ax, ex, sl, fl in q.all():
+            line = f'{ax.subject} "{sl.value if sl else null}" subClassOf {ex.on_property} SOME {ex.filler} "{fl.value if fl else null}"'
+            logging.info(line)
+            #print(line)
+            lines.append(line)
+        print(len(lines))
+        assert 'GO:0012505 "endomembrane system" subClassOf BFO:0000051 SOME GO:0005773 "vacuole"' \
+               in lines
+
+
 

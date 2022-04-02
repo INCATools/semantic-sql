@@ -6,17 +6,19 @@ import tempfile
 import subprocess
 import shutil
 from enum import Enum, unique
-from semsql.sqla.rdf import RdfsLabelStatement, Prefix
-from semsql.sqla.omo import HasOioSynonymStatement, HasTextDefinitionStatement
+
+from semsql.common_queries import get_prefixes, get_label, get_text_definition, term_search, PREFIX_MAP, CURIE
+from semsql.sqla.rdf import RdfsLabelStatement
+from semsql.sqla.omo import HasOioSynonymStatement
 from semsql.sqla.relation_graph import SubgraphEdgeByAncestor, SubgraphEdgeByDescendant, \
     SubgraphEdgeBySelf, SubgraphEdgeByChild, SubgraphEdgeByParent, SubgraphEdgeByAncestorOrDescendant
-from typing import List, Optional, Dict
-from sqlalchemy.orm import relationship, sessionmaker, aliased
+from typing import List, Dict
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 logger = logging.getLogger(__name__)
 
-CURIE = str
+
 Row = dict
 OboGraphDict = dict
 TRAVERSAL_VIEWS = {
@@ -58,83 +60,6 @@ class OutputFormat(Enum):
     def list():
         return list(map(lambda c: c.value, OutputFormat))
 
-def get_prefixes(session) -> List:
-    """
-    All prefixes
-    :param session:
-    :return:
-    """
-    return {r.prefix: r.base for r in session.query(Prefix)}
-
-
-def get_label(session, id: CURIE, **args) -> Optional[str]:
-    """
-    fetches the label/name for a term id
-    :param session:
-    :param id: CURIE
-    :param args:
-    :return:
-    """
-    return get_single_value(session, id, view=RdfsLabelStatement, **args)
-
-def get_text_definition(session, id: CURIE, **args) -> Optional[str]:
-    """
-    Fetch label for an entity
-
-    If >1 found, returns an arbitrary one
-    If none found, returns None
-
-    Note: it may be slow to call this 1000s of times, consider using a join instead
-    :param session:
-    :param id:
-    :param args:
-    :return:
-    """
-    return get_single_value(session, id, view=HasTextDefinitionStatement, **args)
-
-def get_single_value(session, id: CURIE, view=None, strict=False) -> Optional[str]:
-    q = session.query(view).where(view.subject == id)
-    val = None
-    for s in q.all():
-        if not strict:
-            return s.value
-        else:
-            if val is None:
-                val = s.value
-            elif val != s.value:
-                raise Exception(f'Multiple values for {view} where id={id}')
-    return val
-
-def map_terms_to_ids(session, terms: List[str], view = None) -> List[CURIE]:
-    """
-    Maps a list of terms (e.g. labels, synonyms, or IDs) to a list of IDs
-
-    The intended use for this is to take a user query where a user may want to query
-    either by IDs, or to provide a list of exact terms (e.g. "forelimb"), or queries
-    (e.g. "%limb%"), and expand the term list to IDs
-
-    The caller can specify a view, which is the SQLAlchemy model class used in the query;
-    this should be a subtype of Statements.
-
-    If view is none, then the output simply matches the input (i.e the user knows IDs already)
-
-    :param session:
-    :param terms: list of query terms
-    :param view: view to use, e.g. RdfsLabelView
-    :return: list of IDs from expansion
-    """
-    if view == None:
-        return terms
-    ids = set()
-    for t in terms:
-        q = session.query(view).filter(view.value.like(t))
-        n = 0
-        for row in q.all():
-            ids.add(str(row.subject))
-            n += 1
-        if n == 0:
-            logging.warning(f'No match for query: {t}')
-    return list(ids)
 
 def extract_subgraph(session, terms: List[CURIE], predicates: List[CURIE] = None,
                      anchor_predicates: List[CURIE] = None,
@@ -252,7 +177,7 @@ def to_obo_format(g: OboGraphDict) -> None:
                 else:
                     print(f'relationship: {p} {o}{cmt}')
 
-def to_markdown(g: OboGraphDict, prefixes: Dict[str,str]={}, definitions=True) -> None:
+def to_markdown(g: OboGraphDict, prefixes: PREFIX_MAP={}, definitions=True) -> None:
     """
     Serialization to markdown
 
@@ -428,7 +353,7 @@ def cli(db: str, terms: List[str], predicates: str, anchor_predicates: str, to_f
     Session = sessionmaker(bind=engine)
     session = Session()
     logger.info(f'QUERY: {terms}')
-    ids = map_terms_to_ids(session, terms, TERM_QUERY_VIEWS[match_criteria])
+    ids = term_search(session, terms, TERM_QUERY_VIEWS[match_criteria])
     logger.debug(f'SEED CURIES: {ids}')
     if to_format != 'viz':
         if stylemap is not None:
