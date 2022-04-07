@@ -21,8 +21,9 @@ def cli(inputs, limit: int):
                 if c.mixin:
                     continue
                 if len(c.slots) > 0:
-                    sql_table = underscore(cn)
-                    print(f'SELECT * FROM {sql_table} LIMIT {limit};')
+                    if not c.abstract and not c.mixin:
+                        sql_table = underscore(cn)
+                        print(f'SELECT * FROM {sql_table} LIMIT {limit};')
                 else:
                     print(f'-- No slots for {cn}')
 
