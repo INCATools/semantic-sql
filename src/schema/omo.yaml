@@ -98,4 +98,7 @@ classes:
     comments:
     - sqlview>> SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref'
     is_a: owl_axiom_annotation
-source_file: ../semantic-sql/src/schema/omo.yaml
+slots:
+  evidence_type:
+  publication:
+  source:

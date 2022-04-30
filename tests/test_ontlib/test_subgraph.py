@@ -1,18 +1,14 @@
 import unittest
-
-import logging
-import unittest
 import os
-from semsql.sqla.rdf import RdfsLabelStatement
 from semsql.sqla.relation_graph import SubgraphEdgeByAncestor, SubgraphEdgeByDescendant
-from semsql.subgraph import extract_subgraph
-from sqlalchemy.orm import relationship, sessionmaker, aliased
+from semsql.ontlib.subgraph import extract_subgraph
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 
 cwd = os.path.abspath(os.path.dirname(__file__))
-DB_DIR = os.path.join(cwd, 'inputs')
-OUTPUT_DIR = os.path.join(cwd, 'outputs')
+DB_DIR = os.path.join(cwd, '../inputs')
+OUTPUT_DIR = os.path.join(cwd, '../outputs')
 
 class SubgraphTestCase(unittest.TestCase):
     """

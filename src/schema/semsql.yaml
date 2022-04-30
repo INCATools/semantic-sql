@@ -23,7 +23,7 @@ description: |-
   This schema is best browsed online: https://cmungall.github.io/semantic-sql/
 
   Note that things are in flux, and there some oddities that need ironed out, see
-  issues for details
+  issues for details.
 
   See the [github repo](https://github.com/cmungall/semantic-sql) for code to convert
   from the linkml yaml into SQL DDL
@@ -47,4 +47,5 @@ imports:
   - obo
   - omo
   - relation_graph
+  - term_associations
   - nlp

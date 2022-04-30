@@ -1,6 +1,0 @@
-linkml >= 1.2.4
-pyyaml
-mkdocs
-sqlalchemy
-sqlalchemy_utils
-click

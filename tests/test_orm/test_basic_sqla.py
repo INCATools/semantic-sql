@@ -9,8 +9,8 @@ from sqlalchemy.orm import relationship, sessionmaker, aliased
 from sqlalchemy import create_engine
 
 cwd = os.path.abspath(os.path.dirname(__file__))
-DB_DIR = os.path.join(cwd, 'inputs')
-OUTPUT_DIR = os.path.join(cwd, 'outputs')
+DB_DIR = os.path.join(cwd, '../inputs')
+OUTPUT_DIR = os.path.join(cwd, '../outputs')
 
 class SQLAlchemyTestCase(unittest.TestCase):
 

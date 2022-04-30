@@ -6,8 +6,8 @@ from linkml_runtime import SchemaView
 from semsql.sqlutils.viewgen import generate_views_from_linkml
 
 cwd = os.path.abspath(os.path.dirname(__file__))
-SCHEMA_DIR = os.path.join(cwd, '../src/schema')
-OUTPUT_DIR = os.path.join(cwd, 'outputs')
+SCHEMA_DIR = os.path.join(cwd, '../../src/schema')
+OUTPUT_DIR = os.path.join(cwd, '../outputs')
 
 
 class ViewTestCase(unittest.TestCase):

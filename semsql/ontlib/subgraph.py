@@ -7,12 +7,12 @@ import subprocess
 import shutil
 from enum import Enum, unique
 
-from semsql.common_queries import get_prefixes, get_label, get_text_definition, term_search, PREFIX_MAP, CURIE
+from semsql.ontlib.common_queries import get_prefixes, get_label, get_text_definition, term_search, PREFIX_MAP, CURIE
 from semsql.sqla.rdf import RdfsLabelStatement
 from semsql.sqla.omo import HasOioSynonymStatement
 from semsql.sqla.relation_graph import SubgraphEdgeByAncestor, SubgraphEdgeByDescendant, \
     SubgraphEdgeBySelf, SubgraphEdgeByChild, SubgraphEdgeByParent, SubgraphEdgeByAncestorOrDescendant
-from typing import List, Dict
+from typing import List
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 

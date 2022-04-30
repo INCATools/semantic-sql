@@ -249,6 +249,9 @@
 --     * Slot: filler Description: This is Null for a self-restriction
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "owl_complex_axiom" Description: "An axiom that is composed of two or more statements"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 -- # Class: "owl_subclass_of_some_values_from" Description: "Composition of subClassOf and SomeValuesFrom"
 --     * Slot: subject Description: the class C in the axiom C subClassOf P some D
 --     * Slot: predicate Description: the predicate P in the axiom C subClassOf P some D
@@ -256,6 +259,7 @@
 -- # Class: "owl_equivalent_to_intersection_member" Description: "Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`"
 --     * Slot: subject Description: the defined class
 --     * Slot: object Description: a class expression that forms the defining expression
+--     * Slot: predicate Description: 
 -- # Class: "prefix" Description: "Maps CURIEs to URIs"
 --     * Slot: prefix Description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
 --     * Slot: base Description: The base URI a prefix will expand to
@@ -723,6 +727,11 @@ CREATE TABLE owl_has_self (
 	id TEXT, 
 	PRIMARY KEY (id)
 );
+CREATE TABLE owl_complex_axiom (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT
+);
 CREATE TABLE owl_subclass_of_some_values_from (
 	subject TEXT, 
 	predicate TEXT, 
@@ -730,7 +739,8 @@ CREATE TABLE owl_subclass_of_some_values_from (
 );
 CREATE TABLE owl_equivalent_to_intersection_member (
 	subject TEXT, 
-	object TEXT
+	object TEXT, 
+	predicate TEXT
 );
 CREATE TABLE prefix (
 	prefix TEXT, 
@@ -933,6 +943,9 @@ CREATE VIEW has_narrow_synonym_statement AS SELECT * FROM statements WHERE predi
 DROP TABLE has_related_synonym_statement;
 CREATE VIEW has_related_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasRelatedSynonym';
 
+DROP TABLE has_synonym_statement;
+CREATE VIEW has_synonym_statement AS SELECT * FROM has_exact_synonym_statement UNION SELECT * FROM has_broad_synonym_statement UNION SELECT * FROM has_narrow_synonym_statement UNION SELECT * FROM has_related_synonym_statement;
+
 DROP TABLE has_exact_match_statement;
 CREATE VIEW has_exact_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasExactMatch';
 
@@ -945,8 +958,14 @@ CREATE VIEW has_narrow_match_statement AS SELECT * FROM statements WHERE predica
 DROP TABLE has_related_match_statement;
 CREATE VIEW has_related_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasRelatedMatch';
 
+DROP TABLE has_match_statement;
+CREATE VIEW has_match_statement AS SELECT * FROM has_exact_match_statement UNION SELECT * FROM has_broad_match_statement UNION SELECT * FROM has_narrow_match_statement UNION SELECT * FROM has_related_match_statement;
+
 DROP TABLE has_dbxref_statement;
 CREATE VIEW has_dbxref_statement AS SELECT * FROM statements WHERE predicate='oio:hasDbXref';
+
+DROP TABLE has_mapping_statement;
+CREATE VIEW has_mapping_statement AS SELECT * FROM has_match_statement UNION SELECT * FROM has_dbxref_statement;
 
 DROP TABLE axiom_dbxref_annotation;
 CREATE VIEW axiom_dbxref_annotation AS SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref';

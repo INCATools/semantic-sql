@@ -1,3 +1,5 @@
+RUN = poetry run
+
 ALL_OBO_ONTS := $(shell cat reports/obo.tsv)
 SELECTED_ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm doid chebi pr wbphenotype fbbt dron
 
@@ -15,7 +17,7 @@ all-%: db/%.db
 # ---
 test: test_build unittest
 unittest:
-	python -s -m unittest tests/test_*.py
+	$(RUN) python -s -m unittest 
 
 cp-%: tests/inputs/%.owl
 	cp $< owl/
@@ -25,6 +27,7 @@ test_build: setup_tests $(patsubst %, test-build-%,$(TEST_ONTOLOGIES))
 test-build-%: inferences/%-inf.tsv
 	./utils/create-semsql-db.sh -v -f -r -d db/$*.db owl/$*.owl && cp db/$*.db tests/inputs/
 
+# copy from tests/input to staging area
 setup_tests: $(patsubst %, cp-%,$(TEST_ONTOLOGIES))
 
 realclean-%:
@@ -39,8 +42,8 @@ db/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
 	./utils/create-semsql-db.sh -v -f -d $@ $<
 .PRECIOUS: db/%.db
 
-foo/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
-	./utils/create-semsql-db.sh -v -f -d $@ $<
+#foo/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
+#	./utils/create-semsql-db.sh -v -f -d $@ $<
 
 # ---
 ### RDFTab
@@ -61,9 +64,9 @@ bin/rdftab:
 	curl -L -o $@ $(RDFTAB_URL)
 	chmod +x $@
 
-RG_VERSION=2.0
+RG_VERSION=2.2.0
 bin/relation-graph:
-	curl -L -s https://github.com/balhoff/relation-graph/releases/download/v$(RG_VERSION)/relation-graph-$(RG_VERSION).tgz | tar -zxv  && mv relation-graph-$(RG_VERSION) relation-graph && (cd bin && ln -s ../relation-graph/bin/relation-graph)
+	curl -L -s https://github.com/balhoff/relation-graph/releases/download/v$(RG_VERSION)/relation-graph-cli-$(RG_VERSION).tgz | tar -zxv  && mv relation-graph-cli-$(RG_VERSION) relation-graph && (cd bin && ln -s ../relation-graph/bin/relation-graph)
 
 # ---
 # OBO Registry
@@ -94,7 +97,7 @@ list-onts:
 #RG_PROPS = --property http://purl.obolibrary.org/obo/BFO_0000050
 RG_PROPS =
 
-# we still want to do graph walking even when incoherent
+# we still want to do graph walking even when ontology is incoherent
 inferences/%-no-disjoint.owl: owl/%.owl
 	robot remove -i $< --axioms disjoint -o $@
 .PRECIOUS: inferences/%-no-disjoint.owl
@@ -104,6 +107,8 @@ inferences/%-inf.ttl: inferences/%-no-disjoint.owl
 .PRECIOUS: inferences/%-inf.ttl
 
 # currently tedious to get this back into a TSV that can be loaded into sqlite...
+# https://github.com/balhoff/relation-graph/issues/123
+# https://github.com/balhoff/relation-graph/issues/25
 inferences/%-inf.owl: inferences/%-inf.ttl
 	riot --out RDFXML $< > $@.tmp && mv $@.tmp $@
 .PRECIOUS: inferences/%-inf.owl
@@ -145,6 +150,7 @@ prefixes/prefixes.csv: prefixes/prefixes_curated.csv prefixes/obo_prefixes.csv
 # Downloads
 # ---
 
+# download OWL, ensuring converted to RDF/XML
 owl/%.owl:
 #	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp && mv $@.tmp $@
 	robot merge -I http://purl.obolibrary.org/obo/$*.owl -o $@
@@ -157,11 +163,12 @@ owl/monarch.owl:
 	robot merge -I http://purl.obolibrary.org/obo/upheno/monarch.owl -o $@
 
 #fma.owl:#
-	http://purl.org/sig/ont/fma.owl 
+#	http://purl.org/sig/ont/fma.owl 
 
 # ---
 # GO Demo
 # ---
+# TODO: move this
 demo/gaf/%.gaf.tsv:
 	curl -L -s http://current.geneontology.org/annotations/$*.gaf.gz | gzip -dc | ./utils/gaf2tsv > $@
 demo/gaf/%.gpi.tsv:
@@ -203,20 +210,23 @@ MODULES = rdf owl obo omo relation_graph semsql
 
 # TODO: markdown gen should make modular output
 markdown-%: src/schema/%.yaml
-	gen-markdown --no-mergeimports -d docs $< && mv docs/index.md docs/$*_index.md
+	$(RUN) gen-markdown --no-mergeimports -d docs $< && mv docs/index.md docs/$*_index.md
 markdown: $(patsubst %, markdown-%, $(MODULES))
-	gen-markdown --no-mergeimports -d docs src/schema/semsql.yaml
+	$(RUN) gen-markdown --no-mergeimports -d docs src/schema/semsql.yaml
+
+gen-project: src/schema/semsql.yaml
+	$(RUN) gen-project $< -d project
 
 # Create SQL Create Table statements from linkml
-GENDDL = gen-sqlddl --dialect sqlite --no-use-foreign-keys
+GENDDL = $(RUN) gen-sqlddl --dialect sqlite --no-use-foreign-keys
 gen-ddl: $(patsubst %, ddl/%.sql, $(MODULES))
 ddl/%.sql: src/schema/%.yaml
 	$(GENDDL)  $< > $@.tmp && \
-	python semsql/sqlutils/viewgen.py $< >> $@.tmp && \
+	$(RUN) python semsql/sqlutils/viewgen.py $< >> $@.tmp && \
 	mv $@.tmp $@
 
 reports/query-%.sql: src/schema/%.yaml
-	python semsql/sqlutils/reportgen.py $< > $@
+	$(RUN) python semsql/sqlutils/reportgen.py $< > $@
 
 # Generate SQL Alchemy
 gen-sqla: $(patsubst %, semsql/sqla/%.py, $(MODULES))
@@ -224,7 +234,7 @@ gen-sqla: $(patsubst %, semsql/sqla/%.py, $(MODULES))
 # make SQL Alchemy models
 # requires linkml 1.2.5
 semsql/sqla/%.py: src/schema/%.yaml
-	gen-sqla --no-use-foreign-keys  $< >  $@
+	$(RUN) gen-sqla --no-use-foreign-keys  $< >  $@
 
 # DOCKER
 
@@ -233,19 +243,19 @@ VERSION = "v0.0.1"
 IM=cmungall/semantic-sql
 
 docker-build-no-cache:
-	@docker build  --build-arg ODK_VERSION=$(VERSION) $(ROBOT_JAR_ARGS) --no-cache -t $(IM):$(VERSION) . \
+	@docker build  --build-arg SEMSQL_VERSION=$(VERSION) $(ROBOT_JAR_ARGS) --no-cache -t $(IM):$(VERSION) . \
 	&& docker tag $(IM):$(VERSION) $(IM):latest && docker tag $(IM):$(VERSION) $(DEV):latest && \
 	docker build -f docker/odklite/Dockerfile -t $(IMLITE):$(VERSION) . \
 	&& docker tag $(IMLITE):$(VERSION) $(IMLITE):latest && cd docker/robot/ && make docker-build
 
 docker-build:
-	@docker build --build-arg ODK_VERSION=$(VERSION)  $(ROBOT_JAR_ARGS)  -t $(IM):$(VERSION) . \
+	@docker build --build-arg SEMSQL_VERSION=$(VERSION)  $(ROBOT_JAR_ARGS)  -t $(IM):$(VERSION) . \
 	&& docker tag $(IM):$(VERSION) $(IM) && docker tag $(IM):$(VERSION) $(DEV):latest && \
 	docker build -f docker/odklite/Dockerfile -t $(IMLITE):$(VERSION) . \
 	&& docker tag $(IMLITE):$(VERSION) $(IMLITE):latest && cd docker/robot/ && make docker-build
 
 docker-build-dev:
-	@docker build --build-arg ODK_VERSION=$(VERSION) -t $(DEV):$(VERSION) . \
+	@docker build --build-arg SEMSQL_VERSION=$(VERSION) -t $(DEV):$(VERSION) . \
 	&& docker tag $(DEV):$(VERSION) $(DEV):latest
 
 docker-clean:

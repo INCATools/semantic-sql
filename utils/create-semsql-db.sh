@@ -56,7 +56,7 @@ fi
 export PATH="$DIR/bin:$PATH"
 
 cat $DIR/ddl/semsql.sql | sqlite3 $db
-sqlite3 $db -cmd ".mode csv" -cmd ".import $DIR/prefixes/prefixes.csv prefix" "SELECT COUNT(*) FROM prefix"
+sqlite3 -echo $db -cmd ".mode csv" -cmd ".import $DIR/prefixes/prefixes.csv prefix" "SELECT COUNT(*) FROM prefix"
 
 echo loading "$@"
 if [[ "$@" == "" ]]; then
@@ -88,7 +88,7 @@ do
     fi
 done
 echo "## Indexing"
-cat $DIR/sql/indexes.sql | sqlite3 $db
+cat $DIR/indexes/indexes.sql | sqlite3 $db
 
 if [[ $report == 1 ]]; then
     echo "## Problems"

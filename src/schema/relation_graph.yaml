@@ -193,9 +193,12 @@ classes:
   entailed_edge_cycle:
     description: An edge that composes with another edge to make a cycle
     comments:
-    - "sqlview>>\n  SELECT e.*, e2.predicate AS secondary_predicate\n  FROM entailed_edge\
-      \ AS e,\n       entailed_edge AS e2\n  WHERE e.object_id = e2.subject_id AND\
-      \ e2.object_id=e.subject_id"
+    - |-
+      sqlview>>
+      SELECT e.*, e2.predicate AS secondary_predicate
+      FROM entailed_edge AS e,
+      entailed_edge AS e2
+      WHERE e.object = e2.subject AND e2.object=e.subject
     is_a: relation_graph_construct
     slots:
     - subject
@@ -227,4 +230,3 @@ classes:
     - subject
     - predicate
     - object
-source_file: ../semantic-sql/src/schema/relation_graph.yaml

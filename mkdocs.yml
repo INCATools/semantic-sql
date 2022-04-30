@@ -10,5 +10,5 @@ nav:
   - OBO: obo_index.md
   - OMO: omo_index.md
   - Relation Graph: relation_graph_index.md
-site_url: https://cmungall.github.io/semantic-sql/
-repo_url: https://github.com/cmungall/semantic-sql
+site_url: https://incatools.github.io/semantic-sql/
+repo_url: https://github.com/incatools/semantic-sql

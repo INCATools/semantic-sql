@@ -1,10 +1,9 @@
-# semantic-sql
+# semantic-sql: standard SQL views for ontologies
 
-This is an experimental repo that provides useful tools for working
-with RDF, OWL, and ontologies using SQL databases, as a performant and
-composable alternative to SPARQL.
+This repo provides a SQL **schema definitions** for working with
+ontologies, together with tools for being able to load these from RDF/OWL files.
 
-Currently only sqlite is supported, but this would be easy to adapt to postgres
+These SQL databases can then be used with the [ontology-access-kit](https://github.com/INCATools/ontology-access-kit)
 
 It leverages [rdftab.rs](https://github.com/ontodev/rdftab.rs) but can be used independently.
 
@@ -20,7 +19,8 @@ The basic idea is:
 Basic lexical query:
 
 ```sql
-$ sqlite db/hp.db
+$ wget https://s3.amazonaws.com/bbop-sqlite/hp.db -O hp.db
+$ sqlite hp.db
 sqlite> 
 select * from rdfs_label_statement where value like 'Abnormality of %';
 ```
@@ -54,19 +54,7 @@ caveats:
  - the version of the schema may be different from this repo
  - some dbs may have additional tables loaded; e.g go.db may have gafs loaded
 
-You can easily build a sqlite db from OWL yourself, see below:
-
-## In flux
-
-Some parts of this repo are in-flux, see https://github.com/cmungall/semantic-sql/issues/4
-
-One particularly confusing thing is that there are two sets of semi-redundant VIEW definitions in 2 folders:
-
- * sql/
- * ddl/
-
-The ones in ddl are generated from the YAML, and they will eventually replace the ones in sql/
-
+You can easily build a sqlite db from OWL yourself, see below
 
 ## Requirements
 
@@ -167,6 +155,9 @@ sqlite> select count(*) from rdfs_subclass_of_statement;
 
 
 ## Python
+
+NOTE: the functionality here is now better accessed via
+[ontology-access-kit](https://github.com/INCATools/ontology-access-kit)
 
 ```bash
 pip install -r requirements.txt
@@ -278,7 +269,7 @@ variety of performant tools can be written.
 
 ## Schema
 
-See [LinkML Docs](https://cmungall.github.io/semantic-sql/)
+See [LinkML Docs](https://incatools.github.io/semantic-sql/)
 
 SQL views can be generated automatically. For now the linkml schema can be used to explore the structure
 
