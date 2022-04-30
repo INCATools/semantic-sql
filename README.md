@@ -1,4 +1,4 @@
-# semantic-sql: standard SQL views for ontologies
+# Semantic-Sql: standard SQL views for ontologies
 
 This repo provides a SQL **schema definitions** for working with
 ontologies, together with tools for being able to load these from RDF/OWL files.
@@ -156,33 +156,13 @@ sqlite> select count(*) from rdfs_subclass_of_statement;
 
 ## Python
 
-NOTE: the functionality here is now better accessed via
+See:
+
 [ontology-access-kit](https://github.com/INCATools/ontology-access-kit)
 
 ```bash
-pip install -r requirements.txt
+runoak -i db/envo.db search t~biome
 ```
-
-
-for visualization, install: https://github.com/cmungall/obographviz
-
-```bash
-npm install -g graphviz
-```
-
-
-visualize all terms starting with the string "nucle" and their ancestors using obographviz, with subClassOf as a containment relation:
-
-
-```bash
-subgraph-d tests/inputs/go-nucleus.db -m label nucle% -f viz -p s,BFO:0000050 \
-            -s conf/obograph-style.json -C 'containmentRelations: [rdfs:subClassOf]'
-```
-
-Generates:
-
-![image](https://user-images.githubusercontent.com/50745/119427094-4659d580-bcbf-11eb-8c79-ed8559ed4886.png)
-
 
 
 ## Modules
@@ -230,10 +210,6 @@ The module [relation-graph](sql/relation-graph.sql) provides useful
 views for querying ontologies such as GO, that incorporate critical
 information in existential axioms, the view `edge` provides a union of
 subclass between named classes and subclasses of existentials.
-
-### OBO-Checks
-
-This is an experiment to try and replicate ROBOT checks. See below
 
 ### GO
 
