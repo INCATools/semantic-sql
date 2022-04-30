@@ -9,7 +9,7 @@ LABEL maintainer="cjmungall@lbl.gov" \
 ENV JAVA_HOME="/usr"
 WORKDIR /tools
 ENV PATH "/tools/:$PATH"
-COPY requirements.txt /tools/
+COPY pyproject.toml /tools/
 COPY ./utils/create-semsql-db.sh /tools/
 ##COPY utils/* /tools/
 
@@ -55,7 +55,7 @@ RUN apt-get update &&\
 #ENV PATH "/tools/node_modules/obographviz/bin/:$PATH"
 
 ###### ROBOT ######
-ENV ROBOT v1.8.1
+ENV ROBOT v1.8.3
 ARG ROBOT_JAR=https://github.com/ontodev/robot/releases/download/$ROBOT/robot.jar
 ENV ROBOT_JAR ${ROBOT_JAR}
 # LAYERSIZE ~66MB
@@ -69,17 +69,17 @@ RUN wget $ROBOT_JAR -O /tools/robot.jar && \
 ENV COURSIER_CACHE "/tools/.coursier-cache"
 
 ###### JENA ######
-ENV JENA 3.12.0
+ENV JENA 4.4.0
 RUN wget http://archive.apache.org/dist/jena/binaries/apache-jena-$JENA.tar.gz -O- | tar xzC /tools 
 ENV PATH "/tools/apache-jena-$JENA/bin:$PATH"
 
 ###### relation-graph ######
-ENV RGVERSION=1.1
+ENV RGVERSION=2.2.0
 ENV PATH "/tools/relation-graph/bin:$PATH"
 # LAYERSIZE ~200MB
-RUN wget -nv https://github.com/balhoff/relation-graph/releases/download/v$RGVERSION/relation-graph-$RGVERSION.tgz \
-&& tar -zxvf relation-graph-$RGVERSION.tgz \
-&& mv relation-graph-$RGVERSION /tools/relation-graph \
+RUN wget -nv https://github.com/balhoff/relation-graph/releases/download/v$RGVERSION/relation-graph-cli-$RGVERSION.tgz \
+&& tar -zxvf relation-graph-cli-$RGVERSION.tgz \
+&& mv relation-graph-cli-$RGVERSION /tools/relation-graph \
 && chmod +x /tools/relation-graph 
 
 ### TODO REVIEW THIS. As we speak, jq is official still stalled at 1.5, but for the walk function, we

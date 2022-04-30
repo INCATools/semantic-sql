@@ -3,18 +3,15 @@ import unittest
 import logging
 import unittest
 import os
-import subprocess
 from shutil import copyfile
 
 from semsql.sqla.rdf import Statements, RdfsLabelStatement
 from sqlalchemy.orm import relationship, sessionmaker, aliased
 from sqlalchemy import create_engine
 
-
-
 cwd = os.path.abspath(os.path.dirname(__file__))
-DB_DIR = os.path.join(cwd, 'inputs')
-OUTPUT_DIR = os.path.join(cwd, 'outputs')
+DB_DIR = os.path.join(cwd, '../inputs')
+OUTPUT_DIR = os.path.join(cwd, '../outputs')
 SRC_DB = os.path.join(DB_DIR, 'go-nucleus.db')
 TEST_DB = os.path.join(DB_DIR, 'go-nucleus-copy.db')
 

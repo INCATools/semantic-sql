@@ -177,74 +177,139 @@
 -- # Class: "property_trait" Description: ""
 -- # Class: "individual_trait" Description: ""
 -- # Class: "is_report" Description: "Used to describe classes/views that have a reporting function"
--- # Class: "relation_graph_construct" Description: "A construct used as part of a Relation Graph"
+-- # Class: "term_association" Description: "A minimal datamodel for relating a subject entity to an object term"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
--- # Class: "edge" Description: "A relation graph edge that connects two entities by a predicate. Note an edge is distinct from a statement, in that an axiom such as A SubClassOf R some B is represented as multiple statements, but is a single relation graph edge"
+--     * Slot: evidence_type Description: 
+--     * Slot: publication Description: 
+--     * Slot: source Description: 
+-- # Class: "has_text_definition_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
--- # Class: "subgraph_query" Description: "A subgraph query encompasses as subgraph edge and a seed/anchor object and seed/anchor predicate"
---     * Slot: subject Description: subject of the subgraph edge
---     * Slot: predicate Description: predicate of the subgraph edge
---     * Slot: object Description: object of the subgraph edge
---     * Slot: anchor_object Description: The entity that is used to seed the graph. The seed entity will bear some relationship to each subgraph edge; E.g. with an ancestor subgraph query, all edges will have a subject that descends from the ancestor
---     * Slot: anchor_predicate Description: The predicate that is used to determine if an edge should be included based on relationship to the anchor_object.
--- # Class: "subgraph_edge_by_ancestor" Description: "An edge within a subgraph anchored around a set of ancestor terms"
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_oio_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: anchor_object Description: The ancestor term
---     * Slot: anchor_predicate Description: The entailed predicate that holds between each edge subject and the ancestor
--- # Class: "subgraph_edge_by_descendant" Description: "An edge within a subgraph anchored around a set of descendant terms"
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_exact_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: anchor_object Description: The descendant term
---     * Slot: anchor_predicate Description: The entailed predicate that holds between the descendant and each edge subject
--- # Class: "subgraph_edge_by_ancestor_or_descendant" Description: ""
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_broad_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: anchor_object Description: 
---     * Slot: anchor_predicate Description: 
--- # Class: "subgraph_edge_by_parent" Description: "An edge within a subgraph anchored around a set of parent terms"
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_narrow_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: anchor_object Description: The parent term
---     * Slot: anchor_predicate Description: The entailed predicate that holds between each edge subject and the parent
--- # Class: "subgraph_edge_by_child" Description: "An edge within a subgraph anchored around a set of child terms"
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_related_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: anchor_object Description: The child term
---     * Slot: anchor_predicate Description: The entailed predicate that holds between the child and each edge subject
--- # Class: "subgraph_edge_by_self" Description: "A special null form of a subgraph query where there is no expansion"
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: anchor_object Description: 
---     * Slot: anchor_predicate Description: 
--- # Class: "entailed_edge" Description: "A relation graph edge that is inferred"
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_exact_match_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
--- # Class: "entailed_edge_cycle" Description: "An edge that composes with another edge to make a cycle"
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_broad_match_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: secondary_predicate Description: 
--- # Class: "entailed_edge_same_predicate_cycle" Description: "An entailed_edge_cycle over a single predicate"
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_narrow_match_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: secondary_predicate Description: 
--- # Class: "transitive_edge" Description: "A relation graph edge that is formed from a chain of one or more edges"
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_related_match_statement" Description: ""
+--     * Slot: stanza Description: 
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_match_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_dbxref_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_mapping_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "axiom_dbxref_annotation" Description: ""
+--     * Slot: axiom_predicate Description: 
+--     * Slot: axiom_object Description: 
+--     * Slot: axiom_value Description: 
+--     * Slot: axiom_language Description: 
+--     * Slot: axiom_datatype Description: 
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
 -- # Class: "ontology_node" Description: "A node representing an ontology"
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "object_property_node" Description: "A node representing an OWL object property"
@@ -382,131 +447,74 @@
 --     * Slot: subject Description: the defined class
 --     * Slot: object Description: a class expression that forms the defining expression
 --     * Slot: predicate Description: 
--- # Class: "has_text_definition_statement" Description: ""
---     * Slot: stanza Description: 
+-- # Class: "relation_graph_construct" Description: "A construct used as part of a Relation Graph"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_oio_synonym_statement" Description: ""
---     * Slot: stanza Description: 
+-- # Class: "edge" Description: "A relation graph edge that connects two entities by a predicate. Note an edge is distinct from a statement, in that an axiom such as A SubClassOf R some B is represented as multiple statements, but is a single relation graph edge"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_exact_synonym_statement" Description: ""
---     * Slot: stanza Description: 
+-- # Class: "subgraph_query" Description: "A subgraph query encompasses as subgraph edge and a seed/anchor object and seed/anchor predicate"
+--     * Slot: subject Description: subject of the subgraph edge
+--     * Slot: predicate Description: predicate of the subgraph edge
+--     * Slot: object Description: object of the subgraph edge
+--     * Slot: anchor_object Description: The entity that is used to seed the graph. The seed entity will bear some relationship to each subgraph edge; E.g. with an ancestor subgraph query, all edges will have a subject that descends from the ancestor
+--     * Slot: anchor_predicate Description: The predicate that is used to determine if an edge should be included based on relationship to the anchor_object.
+-- # Class: "subgraph_edge_by_ancestor" Description: "An edge within a subgraph anchored around a set of ancestor terms"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_broad_synonym_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: anchor_object Description: The ancestor term
+--     * Slot: anchor_predicate Description: The entailed predicate that holds between each edge subject and the ancestor
+-- # Class: "subgraph_edge_by_descendant" Description: "An edge within a subgraph anchored around a set of descendant terms"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_narrow_synonym_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: anchor_object Description: The descendant term
+--     * Slot: anchor_predicate Description: The entailed predicate that holds between the descendant and each edge subject
+-- # Class: "subgraph_edge_by_ancestor_or_descendant" Description: ""
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_related_synonym_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: anchor_object Description: 
+--     * Slot: anchor_predicate Description: 
+-- # Class: "subgraph_edge_by_parent" Description: "An edge within a subgraph anchored around a set of parent terms"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_synonym_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: anchor_object Description: The parent term
+--     * Slot: anchor_predicate Description: The entailed predicate that holds between each edge subject and the parent
+-- # Class: "subgraph_edge_by_child" Description: "An edge within a subgraph anchored around a set of child terms"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_exact_match_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: anchor_object Description: The child term
+--     * Slot: anchor_predicate Description: The entailed predicate that holds between the child and each edge subject
+-- # Class: "subgraph_edge_by_self" Description: "A special null form of a subgraph query where there is no expansion"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_broad_match_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: anchor_object Description: 
+--     * Slot: anchor_predicate Description: 
+-- # Class: "entailed_edge" Description: "A relation graph edge that is inferred"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_narrow_match_statement" Description: ""
---     * Slot: stanza Description: 
+-- # Class: "entailed_edge_cycle" Description: "An edge that composes with another edge to make a cycle"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_related_match_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: secondary_predicate Description: 
+-- # Class: "entailed_edge_same_predicate_cycle" Description: "An entailed_edge_cycle over a single predicate"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_match_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: secondary_predicate Description: 
+-- # Class: "transitive_edge" Description: "A relation graph edge that is formed from a chain of one or more edges"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_dbxref_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_mapping_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "axiom_dbxref_annotation" Description: ""
---     * Slot: axiom_predicate Description: 
---     * Slot: axiom_object Description: 
---     * Slot: axiom_value Description: 
---     * Slot: axiom_language Description: 
---     * Slot: axiom_datatype Description: 
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
 -- # Class: "ontology_status_statement" Description: ""
 --     * Slot: stanza Description: 
 --     * Slot: subject Description: 
@@ -757,86 +765,155 @@ CREATE TABLE count_of_subclasses (
 	element TEXT, 
 	count_value INTEGER
 );
-CREATE TABLE relation_graph_construct (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT
-);
-CREATE TABLE edge (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT
-);
-CREATE TABLE subgraph_query (
+CREATE TABLE term_association (
+	id TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT
+	evidence_type TEXT, 
+	publication TEXT, 
+	source TEXT, 
+	PRIMARY KEY (id)
 );
-CREATE TABLE subgraph_edge_by_ancestor (
+CREATE TABLE has_text_definition_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-CREATE TABLE subgraph_edge_by_descendant (
+CREATE TABLE has_oio_synonym_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-CREATE TABLE subgraph_edge_by_ancestor_or_descendant (
+CREATE TABLE has_exact_synonym_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-CREATE TABLE subgraph_edge_by_parent (
+CREATE TABLE has_broad_synonym_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-CREATE TABLE subgraph_edge_by_child (
+CREATE TABLE has_narrow_synonym_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-CREATE TABLE subgraph_edge_by_self (
+CREATE TABLE has_related_synonym_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	anchor_object TEXT, 
-	anchor_predicate TEXT
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-CREATE TABLE entailed_edge (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT
-);
-CREATE TABLE entailed_edge_cycle (
+CREATE TABLE has_synonym_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	secondary_predicate TEXT
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-CREATE TABLE entailed_edge_same_predicate_cycle (
+CREATE TABLE has_exact_match_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	secondary_predicate TEXT
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
 );
-CREATE TABLE transitive_edge (
+CREATE TABLE has_broad_match_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
-	object TEXT
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_narrow_match_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_related_match_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_match_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_dbxref_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_mapping_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE axiom_dbxref_annotation (
+	axiom_predicate TEXT, 
+	axiom_object TEXT, 
+	axiom_value TEXT, 
+	axiom_language TEXT, 
+	axiom_datatype TEXT, 
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
 );
 CREATE TABLE ontology_node (
 	id TEXT, 
@@ -1025,145 +1102,86 @@ CREATE TABLE owl_equivalent_to_intersection_member (
 	object TEXT, 
 	predicate TEXT
 );
-CREATE TABLE has_text_definition_statement (
-	stanza TEXT, 
+CREATE TABLE relation_graph_construct (
 	subject TEXT, 
 	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	object TEXT
 );
-CREATE TABLE has_oio_synonym_statement (
-	stanza TEXT, 
+CREATE TABLE edge (
 	subject TEXT, 
 	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	object TEXT
 );
-CREATE TABLE has_exact_synonym_statement (
-	stanza TEXT, 
+CREATE TABLE subgraph_query (
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	anchor_object TEXT, 
+	anchor_predicate TEXT
 );
-CREATE TABLE has_broad_synonym_statement (
-	stanza TEXT, 
+CREATE TABLE subgraph_edge_by_ancestor (
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	anchor_object TEXT, 
+	anchor_predicate TEXT
 );
-CREATE TABLE has_narrow_synonym_statement (
-	stanza TEXT, 
+CREATE TABLE subgraph_edge_by_descendant (
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	anchor_object TEXT, 
+	anchor_predicate TEXT
 );
-CREATE TABLE has_related_synonym_statement (
-	stanza TEXT, 
+CREATE TABLE subgraph_edge_by_ancestor_or_descendant (
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	anchor_object TEXT, 
+	anchor_predicate TEXT
 );
-CREATE TABLE has_synonym_statement (
-	stanza TEXT, 
+CREATE TABLE subgraph_edge_by_parent (
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	anchor_object TEXT, 
+	anchor_predicate TEXT
 );
-CREATE TABLE has_exact_match_statement (
-	stanza TEXT, 
+CREATE TABLE subgraph_edge_by_child (
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	anchor_object TEXT, 
+	anchor_predicate TEXT
 );
-CREATE TABLE has_broad_match_statement (
-	stanza TEXT, 
+CREATE TABLE subgraph_edge_by_self (
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	anchor_object TEXT, 
+	anchor_predicate TEXT
 );
-CREATE TABLE has_narrow_match_statement (
-	stanza TEXT, 
+CREATE TABLE entailed_edge (
 	subject TEXT, 
 	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	object TEXT
 );
-CREATE TABLE has_related_match_statement (
-	stanza TEXT, 
+CREATE TABLE entailed_edge_cycle (
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	secondary_predicate TEXT
 );
-CREATE TABLE has_match_statement (
-	stanza TEXT, 
+CREATE TABLE entailed_edge_same_predicate_cycle (
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
+	secondary_predicate TEXT
 );
-CREATE TABLE has_dbxref_statement (
-	stanza TEXT, 
+CREATE TABLE transitive_edge (
 	subject TEXT, 
 	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_mapping_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE axiom_dbxref_annotation (
-	axiom_predicate TEXT, 
-	axiom_object TEXT, 
-	axiom_value TEXT, 
-	axiom_language TEXT, 
-	axiom_datatype TEXT, 
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT
+	object TEXT
 );
 CREATE TABLE ontology_status_statement (
 	stanza TEXT, 
@@ -1543,9 +1561,9 @@ CREATE VIEW subgraph_edge_by_self AS SELECT
 
 DROP TABLE entailed_edge_cycle;
 CREATE VIEW entailed_edge_cycle AS SELECT e.*, e2.predicate AS secondary_predicate
-  FROM entailed_edge AS e,
-       entailed_edge AS e2
-  WHERE e.object_id = e2.subject_id AND e2.object_id=e.subject_id;
+FROM entailed_edge AS e,
+entailed_edge AS e2
+WHERE e.object = e2.subject AND e2.object=e.subject;
 
 DROP TABLE entailed_edge_same_predicate_cycle;
 CREATE VIEW entailed_edge_same_predicate_cycle AS SELECT * FROM entailed_edge_cycle WHERE predicate = secondary_predicate;

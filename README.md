@@ -1,10 +1,9 @@
-# semantic-sql
+# Semantic-Sql: standard SQL views for ontologies
 
-This is an experimental repo that provides useful tools for working
-with RDF, OWL, and ontologies using SQL databases, as a performant and
-composable alternative to SPARQL.
+This repo provides a SQL **schema definitions** for working with
+ontologies, together with tools for being able to load these from RDF/OWL files.
 
-Currently only sqlite is supported, but this would be easy to adapt to postgres
+These SQL databases can then be used with the [ontology-access-kit](https://github.com/INCATools/ontology-access-kit)
 
 It leverages [rdftab.rs](https://github.com/ontodev/rdftab.rs) but can be used independently.
 
@@ -20,7 +19,8 @@ The basic idea is:
 Basic lexical query:
 
 ```sql
-$ sqlite db/hp.db
+$ wget https://s3.amazonaws.com/bbop-sqlite/hp.db -O hp.db
+$ sqlite hp.db
 sqlite> 
 select * from rdfs_label_statement where value like 'Abnormality of %';
 ```
@@ -54,19 +54,7 @@ caveats:
  - the version of the schema may be different from this repo
  - some dbs may have additional tables loaded; e.g go.db may have gafs loaded
 
-You can easily build a sqlite db from OWL yourself, see below:
-
-## In flux
-
-Some parts of this repo are in-flux, see https://github.com/cmungall/semantic-sql/issues/4
-
-One particularly confusing thing is that there are two sets of semi-redundant VIEW definitions in 2 folders:
-
- * sql/
- * ddl/
-
-The ones in ddl are generated from the YAML, and they will eventually replace the ones in sql/
-
+You can easily build a sqlite db from OWL yourself, see below
 
 ## Requirements
 
@@ -168,30 +156,13 @@ sqlite> select count(*) from rdfs_subclass_of_statement;
 
 ## Python
 
-```bash
-pip install -r requirements.txt
-```
+See:
 
-
-for visualization, install: https://github.com/cmungall/obographviz
+[ontology-access-kit](https://github.com/INCATools/ontology-access-kit)
 
 ```bash
-npm install -g graphviz
+runoak -i db/envo.db search t~biome
 ```
-
-
-visualize all terms starting with the string "nucle" and their ancestors using obographviz, with subClassOf as a containment relation:
-
-
-```bash
-subgraph-d tests/inputs/go-nucleus.db -m label nucle% -f viz -p s,BFO:0000050 \
-            -s conf/obograph-style.json -C 'containmentRelations: [rdfs:subClassOf]'
-```
-
-Generates:
-
-![image](https://user-images.githubusercontent.com/50745/119427094-4659d580-bcbf-11eb-8c79-ed8559ed4886.png)
-
 
 
 ## Modules
@@ -240,10 +211,6 @@ views for querying ontologies such as GO, that incorporate critical
 information in existential axioms, the view `edge` provides a union of
 subclass between named classes and subclasses of existentials.
 
-### OBO-Checks
-
-This is an experiment to try and replicate ROBOT checks. See below
-
 ### GO
 
 ## Validation
@@ -278,7 +245,7 @@ variety of performant tools can be written.
 
 ## Schema
 
-See [LinkML Docs](https://cmungall.github.io/semantic-sql/)
+See [LinkML Docs](https://incatools.github.io/semantic-sql/)
 
 SQL views can be generated automatically. For now the linkml schema can be used to explore the structure
 

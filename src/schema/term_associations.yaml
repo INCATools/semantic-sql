@@ -1,0 +1,28 @@
+name: term-associations
+description: >-
+  Generic datamodel of associations to a term
+title: Term Association module
+id: https://w3id.org/semsql/term-associations
+imports:
+- rdf
+- owl
+- omo
+license: https://creativecommons.org/publicdomain/zero/1.0/
+prefixes:
+  semsql_ta: https://w3id.org/semsql/term_associations
+  linkml: https://w3id.org/linkml/
+default_curi_maps:
+- semweb_context
+default_prefix: semsql_ta
+default_range: string
+classes:
+  term_association:
+    description: A minimal datamodel for relating a subject entity to an object term
+    slots:
+      - id
+      - subject
+      - predicate
+      - object
+      - evidence_type
+      - publication
+      - source

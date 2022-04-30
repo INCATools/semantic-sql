@@ -1,4 +1,7 @@
 -- # Class: "relation_graph_construct" Description: "A construct used as part of a Relation Graph"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 -- # Class: "edge" Description: "A relation graph edge that connects two entities by a predicate. Note an edge is distinct from a statement, in that an axiom such as A SubClassOf R some B is represented as multiple statements, but is a single relation graph edge"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
@@ -189,6 +192,9 @@
 --     * Slot: filler Description: This is Null for a self-restriction
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "owl_complex_axiom" Description: "An axiom that is composed of two or more statements"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 -- # Class: "owl_subclass_of_some_values_from" Description: "Composition of subClassOf and SomeValuesFrom"
 --     * Slot: subject Description: the class C in the axiom C subClassOf P some D
 --     * Slot: predicate Description: the predicate P in the axiom C subClassOf P some D
@@ -196,6 +202,7 @@
 -- # Class: "owl_equivalent_to_intersection_member" Description: "Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`"
 --     * Slot: subject Description: the defined class
 --     * Slot: object Description: a class expression that forms the defining expression
+--     * Slot: predicate Description: 
 -- # Class: "prefix" Description: "Maps CURIEs to URIs"
 --     * Slot: prefix Description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
 --     * Slot: base Description: The base URI a prefix will expand to
@@ -351,6 +358,11 @@
 -- # Class: "individual_trait" Description: ""
 -- # Class: "is_report" Description: "Used to describe classes/views that have a reporting function"
 
+CREATE TABLE relation_graph_construct (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT
+);
 CREATE TABLE edge (
 	subject TEXT, 
 	predicate TEXT, 
@@ -599,6 +611,11 @@ CREATE TABLE owl_has_self (
 	id TEXT, 
 	PRIMARY KEY (id)
 );
+CREATE TABLE owl_complex_axiom (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT
+);
 CREATE TABLE owl_subclass_of_some_values_from (
 	subject TEXT, 
 	predicate TEXT, 
@@ -606,7 +623,8 @@ CREATE TABLE owl_subclass_of_some_values_from (
 );
 CREATE TABLE owl_equivalent_to_intersection_member (
 	subject TEXT, 
-	object TEXT
+	object TEXT, 
+	predicate TEXT
 );
 CREATE TABLE prefix (
 	prefix TEXT, 
@@ -838,9 +856,9 @@ CREATE VIEW subgraph_edge_by_self AS SELECT
 
 DROP TABLE entailed_edge_cycle;
 CREATE VIEW entailed_edge_cycle AS SELECT e.*, e2.predicate AS secondary_predicate
-  FROM entailed_edge AS e,
-       entailed_edge AS e2
-  WHERE e.object_id = e2.subject_id AND e2.object_id=e.subject_id;
+FROM entailed_edge AS e,
+entailed_edge AS e2
+WHERE e.object = e2.subject AND e2.object=e.subject;
 
 DROP TABLE entailed_edge_same_predicate_cycle;
 CREATE VIEW entailed_edge_same_predicate_cycle AS SELECT * FROM entailed_edge_cycle WHERE predicate = secondary_predicate;

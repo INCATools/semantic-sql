@@ -1,0 +1,30 @@
+id: https://w3id.org/semsql/ro
+name: ro
+title: ro module
+description: |-
+  Module for RO relations
+
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  semsql_ro: https://w3id.org/semsql/ro/
+  linkml: https://w3id.org/linkml/
+
+default_prefix: semsql_ro
+default_range: string
+
+default_curi_maps:
+  - semweb_context
+
+imports:
+  - rdf
+  - owl
+  - relation_graph
+
+classes:
+
+  conjugate acid of edge:
+    slot_uri: obo:chebi#is_conjugate_acid_of
+    is_a: edge
+    comments:
+      - sqlview>> SELECT * FROM edge WHERE predicate = 'obo:chebi#is_conjugate_acid_of';
