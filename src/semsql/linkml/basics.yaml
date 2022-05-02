@@ -13,4 +13,4 @@ default_range: string
 slots:
   id:
     identifier: true
-source_file: ../semantic-sql/src/schema/basics.yaml
+source_file: ../semantic-sql/src/linkml/basics.yaml

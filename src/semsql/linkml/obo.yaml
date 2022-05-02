@@ -80,4 +80,4 @@ classes:
     - sqlview>> SELECT * FROM node_with_two_labels_problem
     - sqlview>> SELECT * FROM trailing_whitespace_problem
     is_a: problem
-source_file: ../semantic-sql/src/schema/obo.yaml
+source_file: ../semantic-sql/src/linkml/obo.yaml

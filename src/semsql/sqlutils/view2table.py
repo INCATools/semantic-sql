@@ -2,8 +2,8 @@ import click
 from typing import List
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinitionName, SlotDefinitionName
 from linkml.utils.formatutils import underscore
-from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
-from semsql.sqlutils.viewgen import get_viewdef
+from linkml.utils.schemaloader import SchemaLoader
+from semsql import get_viewdef
 
 def all_slots(schema: SchemaDefinition, cn: ClassDefinitionName) -> List[SlotDefinitionName]:
     c = schema.classes[cn]
@@ -27,7 +27,7 @@ def cli(inputs, name: str, index: bool):
 
     Example usage:
     ```
-    python -m semsql.sqlutils.view2table src/schema/rdf.yaml -n rdfs_label_statement | sqlite3 db/pato.db
+    python -m semsql.sqlutils.view2table src/linkml/rdf.yaml -n rdfs_label_statement | sqlite3 db/pato.db
     ```
     """
     for input in inputs:

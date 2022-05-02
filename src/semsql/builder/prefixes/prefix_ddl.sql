@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS prefix (
+  prefix TEXT PRIMARY KEY,
+  base TEXT NOT NULL
+);

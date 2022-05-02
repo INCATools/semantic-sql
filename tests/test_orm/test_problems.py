@@ -1,10 +1,7 @@
 import unittest
-
-import logging
-import unittest
 import os
-from semsql.sqla.obo import AllProblems
-from sqlalchemy.orm import relationship, sessionmaker, aliased
+from semsql.sqla.semsql import AllProblems
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 
