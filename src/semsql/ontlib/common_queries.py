@@ -1,8 +1,8 @@
 import logging
-from typing import Optional, List, Dict, Type
+from typing import Optional, List, Dict
 
-from semsql.sqla.omo import HasTextDefinitionStatement
-from semsql.sqla.rdf import Prefix, RdfsLabelStatement
+from semsql.sqla.semsql import HasTextDefinitionStatement
+from semsql.sqla.semsql import Prefix, RdfsLabelStatement
 
 PREFIX_MAP = Dict[str, str]
 CURIE = str

@@ -7,7 +7,7 @@ from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
 @click.argument('inputs', nargs=-1)
 def cli(inputs, limit: int):
     """
-    Generates SQL VIEW commands from hints embedded in linkml schema
+    Generates SQL VIEW commands from hints embedded in linkml linkml
     """
     for input in inputs:
         with open(input, 'r') as stream:

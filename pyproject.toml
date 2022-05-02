@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "semsql"
+version = "0.1.0"
+description = ""
+authors = ["cmungall <cjm@berkeleybop.org>"]
+
+[tool.poetry.dependencies]
+python = "^3.9.5"
+linkml = "^1.2.10"
+SQLAlchemy-Utils = "^0.38.2"
+click = "^8.1.3"
+
+[tool.poetry.dev-dependencies]
+mkdocs = "^1.3.0"
+
+[tool.poetry.scripts]
+semsql = "semsql.builder.cli:main"
+gen-semsql-views = "semsql.sqlutils.viewgen:cli"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

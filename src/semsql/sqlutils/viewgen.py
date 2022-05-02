@@ -27,10 +27,10 @@ def get_viewdef(schema: SchemaDefinition, c: ClassDefinition) -> str:
 
 def generate_views_from_linkml(schema: SchemaDefinition, view=True, drop_tables=True) -> None:
     """
-    Generates SQL VIEW statements from hints in LinkML schema
+    Generates SQL VIEW statements from hints in LinkML linkml
 
     View hints are encoded in comments section in classes/tables section
-    :param schema: LinkML schema containing hints
+    :param schema: LinkML linkml containing hints
     """
     for cn, c in schema.classes.items():
         viewdef = get_viewdef(schema, c)
@@ -49,7 +49,7 @@ def generate_views_from_linkml(schema: SchemaDefinition, view=True, drop_tables=
 @click.option('--view/--no-view', default=True)
 def cli(inputs, view: bool):
     """
-    Generates SQL VIEW commands from hints embedded in linkml schema
+    Generates SQL VIEW commands from hints embedded in linkml
     """
     for input in inputs:
         with open(input, 'r') as stream:

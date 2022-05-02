@@ -1,12 +1,9 @@
 import unittest
-
-import logging
-import unittest
 import os
 from shutil import copyfile
 
-from semsql.sqla.rdf import Statements, RdfsLabelStatement
-from sqlalchemy.orm import relationship, sessionmaker, aliased
+from semsql.sqla.semsql import Statements
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 cwd = os.path.abspath(os.path.dirname(__file__))

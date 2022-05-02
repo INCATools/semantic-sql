@@ -1,7 +1,7 @@
 import unittest
 import os
 from semsql.sqla.relation_graph import SubgraphEdgeByAncestor, SubgraphEdgeByDescendant
-from semsql.ontlib.subgraph import extract_subgraph
+from semsql.ontlib import extract_subgraph
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 

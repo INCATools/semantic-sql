@@ -2,7 +2,7 @@ import unittest
 import os
 
 from semsql.ontlib.common_queries import term_search
-from semsql.sqla.rdf import RdfsLabelStatement
+from semsql.sqla.semsql import RdfsLabelStatement
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 

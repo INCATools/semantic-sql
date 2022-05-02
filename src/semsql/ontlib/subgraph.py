@@ -1,3 +1,7 @@
+"""
+Deprecated -- use oaklib instead
+
+"""
 import click
 import logging
 import json
@@ -8,8 +12,8 @@ import shutil
 from enum import Enum, unique
 
 from semsql.ontlib.common_queries import get_prefixes, get_label, get_text_definition, term_search, PREFIX_MAP, CURIE
-from semsql.sqla.rdf import RdfsLabelStatement
-from semsql.sqla.omo import HasOioSynonymStatement
+from semsql.sqla.semsql import RdfsLabelStatement
+from semsql.sqla.semsql import HasOioSynonymStatement
 from semsql.sqla.relation_graph import SubgraphEdgeByAncestor, SubgraphEdgeByDescendant, \
     SubgraphEdgeBySelf, SubgraphEdgeByChild, SubgraphEdgeByParent, SubgraphEdgeByAncestorOrDescendant
 from typing import List
@@ -338,14 +342,14 @@ def cli(db: str, terms: List[str], predicates: str, anchor_predicates: str, to_f
         (requires obographviz)
     \b
         As above, with stylesheet:
-            $ subgraph-d tests/inputs/go-nucleus.db -m label nucle% -f viz -s conf/obograph-style.json
+            $ subgraph-d tests/inputs/go-nucleus.db -m label nucle% -f viz -s builder/obograph-style.json
     \b
         As above, with additional stylesheet configuration, and filtering relations
             $ subgraph-d tests/inputs/go-nucleus.db -m label nucle% -f viz -p s,BFO:0000050 \
-            -s conf/obograph-style.json -C 'containmentRelations: [rdfs:subClassOf]'
+            -s builder/obograph-style.json -C 'containmentRelations: [rdfs:subClassOf]'
     \b
         As above, but visualizing edges that are descendants of query
-            $ subgraph-d tests/inputs/go-nucleus.db -V down -m label nucle% -f viz -s conf/obograph-style.json
+            $ subgraph-d tests/inputs/go-nucleus.db -V down -m label nucle% -f viz -s builder/obograph-style.json
 
     """
     logging.basicConfig(level=LOGLEVEL[verbose])

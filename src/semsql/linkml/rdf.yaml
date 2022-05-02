@@ -312,4 +312,4 @@ classes:
     description: Used to describe classes/views that have a reporting function
     abstract: true
     mixin: true
-source_file: ../semantic-sql/src/schema/rdf.yaml
+source_file: ../semantic-sql/src/linkml/rdf.yaml

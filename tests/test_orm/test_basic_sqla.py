@@ -1,11 +1,9 @@
-import unittest
-
 import logging
 import unittest
 import os
-from semsql.sqla.owl import OwlSomeValuesFrom
-from semsql.sqla.rdf import RdfsLabelStatement, RdfsSubclassOfStatement
-from sqlalchemy.orm import relationship, sessionmaker, aliased
+from semsql.sqla.semsql import OwlSomeValuesFrom
+from semsql.sqla.semsql import RdfsLabelStatement, RdfsSubclassOfStatement
+from sqlalchemy.orm import sessionmaker, aliased
 from sqlalchemy import create_engine
 
 cwd = os.path.abspath(os.path.dirname(__file__))

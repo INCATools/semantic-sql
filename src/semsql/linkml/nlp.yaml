@@ -78,4 +78,4 @@ classes:
       object_match_field: {}
       object_preprocessing: {}
       match_string: {}
-source_file: ../semantic-sql/src/schema/nlp.yaml
+source_file: ../semantic-sql/src/linkml/nlp.yaml

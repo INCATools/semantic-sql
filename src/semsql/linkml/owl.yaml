@@ -291,4 +291,4 @@ classes:
       object:
         description: a class expression that forms the defining expression
         role: filler
-source_file: ../semantic-sql/src/schema/owl.yaml
+source_file: ../semantic-sql/src/linkml/owl.yaml

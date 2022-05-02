@@ -1,12 +1,10 @@
 import click
-import io
-import sys
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 from sqlalchemy import create_engine
-from sqlalchemy.orm import relationship, sessionmaker, aliased
-from semsql.sqla.rdf import Statements
-from semsql.sqla.nlp import TextualTransformation
+from sqlalchemy.orm import sessionmaker
+from src.semsql.sqla import Statements
+from src.semsql.sqla import TextualTransformation
 
 
 

@@ -1,0 +1,110 @@
+name: taxon_constraints
+description: Module for representing taxon_constraints.
+title: taxon_constraints module
+see_also:
+- https://github.com/obophenotype/uberon/issues/2137
+id: https://w3id.org/semsql/taxon_constraints
+imports:
+- rdf
+- owl
+- relation_graph
+license: https://creativecommons.org/publicdomain/zero/1.0/
+prefixes:
+  semsql_rg: https://w3id.org/semsql/relation_graph
+  linkml: https://w3id.org/linkml/
+default_curi_maps:
+- semweb_context
+default_prefix: semsql_rg
+default_range: string
+slots:
+  query_taxon: {}
+  node_with_constraint: {}
+  class_with_constraint: {}
+classes:
+  taxon:
+    comments:
+    - "sqlview>>\n  SELECT DISTINCT(subject) AS id FROM entailed_edge\n  WHERE predicate='rdfs:subClassOf'\
+      \ AND object='NCBITaxon:1'"
+    is_a: node
+  class_to_taxon_edge:
+    description: An edge that connects a node of interest to an organismal taxon
+    is_a: edge
+    abstract: true
+    slots:
+    - query_taxon
+    - node_with_constraint
+    - class_with_constraint
+  direct_taxon_constraint:
+    description: A direct asserted edge that connects a node of interest to a taxon
+      as part of a taxon constraint
+    is_a: class_to_taxon_edge
+    abstract: true
+  direct_never_in_taxon:
+    description: A direct taxon constraint that asserts a node is NOT found in the
+      given taxon
+    todos:
+    - add a UNION to capture cases where no encoded as OWL TBox axiom
+    comments:
+    - "sqlview>>\n  SELECT subject, predicate, object FROM statements WHERE predicate\
+      \ = 'RO:0002161'"
+    is_a: direct_taxon_constraint
+  direct_in_taxon:
+    description: A direct taxon constraint that asserts a node is ONLY found in the
+      given taxon
+    comments:
+    - "sqlview>>\n  SELECT subject, predicate, object FROM edge WHERE (predicate =\
+      \ 'RO:0002162' or predicate = 'RO:0002160')\n  AND subject != 'owl:Nothing'"
+    is_a: direct_taxon_constraint
+  inferred_taxon_constraint:
+    description: A taxon constraint that is inferred
+    is_a: class_to_taxon_edge
+    abstract: true
+  inferred_never_in_taxon_direct:
+    description: A never_in_taxon constraint that is propagated to descendant nodes
+      of the constrained class
+    comments:
+    - "sqlview>>\n  SELECT\n    e.subject,\n    e.predicate,\n    e.object AS node_with_constraint,\n\
+      \    te.object AS taxon_with_constraint\n  FROM direct_never_in_taxon AS te\n\
+      \  INNER JOIN entailed_edge AS e ON (e.object=te.subject)"
+    is_a: inferred_taxon_constraint
+  inferred_in_taxon_direct:
+    description: An in_taxon constraint that is propagated to descendant nodes of
+      the constrained class
+    comments:
+    - "sqlview>>\n  SELECT\n    e.subject,\n    e.predicate,\n    e.object AS node_with_constraint,\n\
+      \    te.object AS taxon_with_constraint\n  FROM direct_in_taxon AS te\n  INNER\
+      \ JOIN entailed_edge AS e ON (e.object=te.subject)"
+    is_a: inferred_taxon_constraint
+  inferred_never_in_taxon_1:
+    description: An inferred taxon constraint where the subject node is inapplicable
+      to the taxon by virtue of a inferred_never_in_taxon_direct constraint
+    comments:
+    - "sqlview>>\n  SELECT ie.*, sc.subject AS query_taxon\n  FROM inferred_never_in_taxon_direct\
+      \ AS ie\n  INNER JOIN entailed_edge AS sc ON (ie.taxon_with_constraint=sc.object)\n\
+      \  WHERE sc.predicate='rdfs:subClassOf'"
+    is_a: inferred_taxon_constraint
+  inferred_never_in_taxon_2:
+    description: An inferred taxon constraint where the subject node is inapplicable
+      to the taxon by virtue of a inferred_in_taxon_direct constraint
+    comments:
+    - "sqlview>>\n  SELECT ie.*, taxon.id AS query_taxon\n  FROM inferred_in_taxon_direct\
+      \ AS ie,\n       taxon\n  WHERE taxon.id NOT IN (\n    SELECT sc.subject FROM\
+      \ entailed_subclass_of_edge AS sc\n    WHERE sc.object=ie.taxon_with_constraint\n\
+      \  )"
+    is_a: inferred_taxon_constraint
+  inferred_never_in_taxon:
+    description: An inferred taxon constraint where the subject node is inapplicable
+      to the taxon by virtue of either a inferred_in_taxon_direct constraint or a
+      inferred_never_in_taxon_direct constraint
+    comments:
+    - "sqlview>>\n  SELECT * FROM inferred_never_in_taxon_1 UNION SELECT * FROM inferred_never_in_taxon_2"
+    is_a: inferred_taxon_constraint
+  most_specific_inferred_in_taxon:
+    comments:
+    - "sqlview>>\n  SELECT ct.* FROM inferred_in_taxon_direct AS ct\n  WHERE NOT EXISTS\
+      \ (\n     SELECT\n     FROM taxon_with_constraint AS msct,\n          entailed_subclass_of_edge\
+      \ AS sc\n     WHERE sc.object = ie.taxon_with_constraint\n      AND  sc.subject\
+      \ = msct.taxon_with_constraint\n      AND  sc.subject != sc.object\n      AND\
+      \  msct.subject = ct.subject\n  )"
+    is_a: inferred_taxon_constraint
+source_file: ../semantic-sql/src/linkml/taxon_constraints.yaml
