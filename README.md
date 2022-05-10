@@ -1,5 +1,9 @@
 # SemSQL: standard SQL views for RDF/OWL ontologies
 
+[![PyPI version](https://badge.fury.io/py/semsql.svg)](https://badge.fury.io/py/semsql)
+![](https://github.com/incatools/semantic-sql/workflows/Build/badge.svg)
+
+
 This project provides a standard collection of SQL tables/views for ontologies, such that you can make queries like:
 
 ```sql
@@ -47,6 +51,29 @@ See [LinkML Schema Docs](https://incatools.github.io/semantic-sql/)
 
 The source schema is in LinkML - this is then compiled down to SQL Tables and Views
 
+## ORM Layer
+
+A SemSQL relational database can be accessed in exactly the same way as any other SQLdb
+
+For convenience, we provide a Python ORM layer using SQL Alchemy. This allows code like the following, which joins [RdfsSubclassOfStatement](https://incatools.github.io/semantic-sql/RdfsSubclassOfStatement) and [existential restrictions](https://incatools.github.io/semantic-sql/OwlSomeValuesFrom):
+
+```python
+engine = create_engine(f"sqlite:////path/to/go.db")
+SessionClass = sessionmaker(bind=engine)
+session = SessionClass()
+q = session.query(RdfsSubclassOfStatement)
+q = q.add_entity(OwlSomeValuesFrom)
+q = q.join(OwlSomeValuesFrom, RdfsSubclassOfStatement.object == OwlSomeValuesFrom.id)
+
+lines = []
+for ax, ex in q.all():
+    line = f'{ax.subject} subClassOf {ex.on_property} SOME {ex.filler}'
+    logging.info(line)
+    lines.append(line)
+```    
+
+(this example is just for illustration - to do the same thing there is a simpler Edge relation)
+
 ## Applications
 
 The semsql python library is intentionally low level - we recommend using the [ontology-access-kit](https://github.com/INCATools/ontology-access-kit)
@@ -56,4 +83,29 @@ For example:
 ```bash
 runoak -i db/envo.db search t~biome
 ```
+
+You can also pass in an OWL file and have the sqlite be made on the fly
+
+```bash
+runoak -i envo.owl search t~biome
+```
+
+
+
+
+https://www.ncbi.nlm.nih.gov/cdd?term=TIGR00010
+
+https://ftp.ncbi.nlm.nih.gov/hmm/TIGRFAMs/license_and_availability.txt
+
+
+https://ftp.ncbi.nlm.nih.gov/hmm/TIGRFAMs/release_15.0/TIGRFAMS_GO_LINK
+
+
+pfam2go
+
+Pfam:PF00539 Tat > GO:RNA-binding transcription regulator activity ; GO:0001070
+Pfam:PF00539 Tat > GO:positive regulation of viral transcription ; GO:0050434
+Pfam:PF00539 Tat > GO:host cell nucleus ; GO:0042025
+
+NF012749.2      PF00539.20      Tat     22.5    22.5    63      domain  Y       Y       N       tat protein                     GO:0042025      10506122,2478293,7502045,7515512,9126842                          0       EBI-EMBL        Transactivating regulatory protein (Tat)
 

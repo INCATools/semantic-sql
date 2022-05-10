@@ -34,7 +34,7 @@ help:
 # (2) SQL Schema (primarily views)
 $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql
 	cat $< | sqlite3 $@.tmp && \
-	sqlite3 -echo $@.tmp -cmd ".mode csv" -cmd ".import $(THIS_DIR)/prefixes/prefixes.csv prefix" && \
+	sqlite3 -echo $@.tmp -cmd ".mode csv" -cmd ".import $(THIS_DIR)/prefixes/prefixes.csv prefix" -cmd ".exit" && \
 	mv $@.tmp $@
 .PRECIOUS: $(TEMPLATE)
 
@@ -46,6 +46,7 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql
 	cp $(TEMPLATE) $@.tmp && \
 	rdftab $@.tmp < $< && \
 	sqlite3 $@.tmp -cmd '.separator "\t"' ".import $*-$(RGSUFFIX).tsv entailed_edge" && \
+	gzip $*-$(RGSUFFIX).tsv && \
 	cat $(THIS_DIR)/indexes/*.sql | sqlite3 $@.tmp && \
 	mv $@.tmp $@
 .PRECIOUS: %.db

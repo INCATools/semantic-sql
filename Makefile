@@ -68,14 +68,10 @@ $(PREFIX_DIR)/prefixes.csv: $(PREFIX_DIR)/prefixes_curated.csv $(PREFIX_DIR)/obo
 # ---
 # sqlite db creation and loading
 # ---
-# @Deprecated - use new makefile
-db/%.db: owl/%.owl inferences/%-inf.tsv bin/rdftab
-	./utils/create-semsql-db.sh -v -f -d $@ $<
+db/%.db: db/%.owl
+	$(RUN) semsql make $@
 .PRECIOUS: db/%.db
 
-# NEW
-owl/%.db: owl/%.owl
-	make -f $(BUILDER_DIR)/build.Makefile $@
 
 # ---
 # OBO Registry
@@ -112,16 +108,19 @@ reports/%.problems.tsv: db/%.db target/%.views
 # ---
 
 # download OWL, ensuring converted to RDF/XML
-owl/%.owl:
+db/%.owl:
 #	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp && mv $@.tmp $@
 	robot merge -I http://purl.obolibrary.org/obo/$*.owl -o $@
-.PRECIOUS: owl/%.owl 
+.PRECIOUS: db/%.owl 
 
-owl/go.owl:
+db/go.owl:
 	curl -L -s http://purl.obolibrary.org/obo/go/extensions/go-plus.owl > $@
 
-owl/monarch.owl:
+db/monarch.owl:
 	robot merge -I http://purl.obolibrary.org/obo/upheno/monarch.owl -o $@
+
+db/efo.owl:
+	robot merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
 
 #fma.owl:#
 #	http://purl.org/sig/ont/fma.owl 
@@ -168,8 +167,19 @@ gen-sqla: $(patsubst %, $(SQLA_DIR)/%.py, $(MODULES))
 $(SQLA_DIR)/%.py: $(YAML_DIR)/%.yaml
 	$(RUN) gen-sqla --no-use-foreign-keys  $< >  $@
 
+# -- makes bin/semsql --
+# this is useful for core developers of semsql -
+# this will create a one line bash script that
+# can be added to your $PATH that will execute the
+# version of semsql used in github
+bin/%:
+	echo `poetry run which $*` '$$*' > $@ && chmod +x $@
+
 
 ### DEPLOY
 
+DATE = $(shell date -u +"%Y-%m-%d")
+
 s3-deploy:
-	aws s3 sync db s3://bbop-sqlite --acl public-read
+	aws s3 sync db s3://bbop-sqlite --acl public-read && \
+	aws s3 sync db s3://bbop-sqlite/releases/$(DATE) --acl public-read
