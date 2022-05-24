@@ -6,7 +6,7 @@ authors = ["cmungall <cjm@berkeleybop.org>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-linkml = "^1.2.10"
+linkml = "^1.2.11"
 SQLAlchemy-Utils = "^0.38.2"
 click = "^8.1.3"
 
