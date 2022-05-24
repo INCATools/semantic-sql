@@ -91,21 +91,3 @@ runoak -i envo.owl search t~biome
 ```
 
 
-
-
-https://www.ncbi.nlm.nih.gov/cdd?term=TIGR00010
-
-https://ftp.ncbi.nlm.nih.gov/hmm/TIGRFAMs/license_and_availability.txt
-
-
-https://ftp.ncbi.nlm.nih.gov/hmm/TIGRFAMs/release_15.0/TIGRFAMS_GO_LINK
-
-
-pfam2go
-
-Pfam:PF00539 Tat > GO:RNA-binding transcription regulator activity ; GO:0001070
-Pfam:PF00539 Tat > GO:positive regulation of viral transcription ; GO:0050434
-Pfam:PF00539 Tat > GO:host cell nucleus ; GO:0042025
-
-NF012749.2      PF00539.20      Tat     22.5    22.5    63      domain  Y       Y       N       tat protein                     GO:0042025      10506122,2478293,7502045,7515512,9126842                          0       EBI-EMBL        Transactivating regulatory protein (Tat)
-
