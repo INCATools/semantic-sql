@@ -38,6 +38,9 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql
 	mv $@.tmp $@
 .PRECIOUS: $(TEMPLATE)
 
+%-min.owl: %.owl
+	robot remove -i $< --axioms "equivalent disjoint annotation" -o $@
+
 # -- MAIN TARGET --
 # A db is constructed from
 # (1) triples loaded using rdftab
@@ -61,7 +64,7 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql
 # will be simplified in future. See:
 #  - https://github.com/balhoff/relation-graph/issues/123
 #  - https://github.com/balhoff/relation-graph/issues/25
-%-$(RGSUFFIX).tsv: %.owl
+%-$(RGSUFFIX).tsv: %-min.owl
 	$(RG) --disable-owl-nothing true \
                        --ontology-file $<\
                        --output-file $@.ttl.tmp \

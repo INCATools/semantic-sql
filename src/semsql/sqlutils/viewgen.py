@@ -1,12 +1,11 @@
 import click
-from typing import List
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition
 from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
 from linkml_runtime.utils.formatutils import underscore
 
 VIEW_CODE = 'sqlview>>'
 
-def get_viewdef(schema: SchemaDefinition, c: ClassDefinition) -> str:
+def get_viewdef(c: ClassDefinition) -> str:
     """
     Return all VIEW definitions for a class
     :param schema:

@@ -1,19 +1,13 @@
 import click
 from typing import List
-from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinitionName, SlotDefinitionName
-from linkml.utils.formatutils import underscore
-from linkml.utils.schemaloader import SchemaLoader
-from semsql import get_viewdef
 
-def all_slots(schema: SchemaDefinition, cn: ClassDefinitionName) -> List[SlotDefinitionName]:
-    c = schema.classes[cn]
-    slots = list(c.slots)
-    if c.is_a:
-        slots += all_slots(schema, c.is_a)
-    if c.mixins:
-        for m in c.mixins:
-            slots += all_slots(schema, m)
-    return slots
+from linkml_runtime import SchemaView
+from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinitionName, SlotDefinitionName
+from linkml_runtime.utils.formatutils import underscore
+from semsql.sqlutils.viewgen import get_viewdef
+
+
+
 
 @click.command()
 @click.argument('inputs', nargs=-1)
@@ -32,16 +26,17 @@ def cli(inputs, name: str, index: bool):
     """
     for input in inputs:
         with open(input, 'r') as stream:
-            schema = SchemaLoader(input).schema
-            for cn, c in schema.classes.items():
+            sv = SchemaView(input)
+            schema = sv.schema
+            for cn, c in sv.all_classes().items():
                 tn = underscore(cn)
                 if name is None or str(cn) == name or tn == name:
-                    view = get_viewdef(schema, c)
+                    view = get_viewdef(c)
                     if view is not None:
                         print(f'DROP VIEW {tn};')
                         print(f'CREATE TABLE {tn} AS {view};')
                         if index:
-                            for sn in all_slots(schema, cn):
+                            for sn in sv.class_slots(cn):
                                 colname = underscore(sn)
                                 print(f'CREATE INDEX {tn}_{colname} ON {tn}({colname});')
 
