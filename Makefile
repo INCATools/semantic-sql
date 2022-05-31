@@ -107,19 +107,28 @@ reports/%.problems.tsv: db/%.db target/%.views
 # Downloads
 # ---
 
+STAMP:
+	touch $@
+
 # download OWL, ensuring converted to RDF/XML
-db/%.owl:
+db/%.owl: STAMP
 #	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp && mv $@.tmp $@
 	robot merge -I http://purl.obolibrary.org/obo/$*.owl -o $@
 .PRECIOUS: db/%.owl 
 
-db/go.owl:
+db/go.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/go/extensions/go-plus.owl > $@
 
 db/monarch.owl:
 	robot merge -I http://purl.obolibrary.org/obo/upheno/monarch.owl -o $@
 
-db/efo.owl:
+db/phenio.owl:
+	curl -L -s https://kg-hub.berkeleybop.io/frozen_incoming_data/phenio-base.owl.tar.gz > $@.tmp && mv $@.tmp $@
+
+db/bero.owl:
+	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp && mv $@.tmp $@
+
+db/efo.owl: STAMP
 	robot merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
 
 #fma.owl:#

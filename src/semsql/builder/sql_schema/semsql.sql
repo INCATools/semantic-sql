@@ -1,28 +1,287 @@
--- # Class: "subject_prefix" Description: "This may move to another module as it is generally useful"
---     * Slot: subject Description: 
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
--- # Class: "textual_transformation" Description: "Represents a transformation of a subject text value, e.g. lemmatization"
---     * Slot: subject Description: The string value prior to processing. This may be for example the value of an rdfs_label_statement
---     * Slot: predicate Description: The relation between subject and object, e.g stemming
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
--- # Class: "processed_statement" Description: "A statement that is enhanced with a processed/transformed text value"
+-- # Class: "term_association" Description: "A minimal datamodel for relating a subject entity to an object term"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: evidence_type Description: 
+--     * Slot: publication Description: 
+--     * Slot: source Description: 
+-- # Class: "has_text_definition_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: transformation_predicate Description: 
---     * Slot: transformed_value Description: 
--- # Class: "match" Description: "TODO: Reuse SSSOM here"
---     * Slot: subject_id Description: 
---     * Slot: subject_label Description: 
---     * Slot: subject_source Description: 
---     * Slot: subject_match_field Description: 
---     * Slot: subject_preprocessing Description: 
---     * Slot: object_id Description: 
---     * Slot: object_label Description: 
---     * Slot: object_source Description: 
---     * Slot: object_match_field Description: 
---     * Slot: object_preprocessing Description: 
---     * Slot: match_string Description: 
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_oio_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_exact_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_broad_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_narrow_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_related_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_synonym_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_exact_match_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_broad_match_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_narrow_match_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_related_match_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_match_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_dbxref_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "has_mapping_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "axiom_dbxref_annotation" Description: ""
+--     * Slot: annotation_subject Description: 
+--     * Slot: annotation_predicate Description: 
+--     * Slot: annotation_object Description: 
+--     * Slot: annotation_value Description: 
+--     * Slot: annotation_language Description: 
+--     * Slot: annotation_datatype Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+--     * Slot: axiom_predicate Description: 
+--     * Slot: axiom_object Description: 
+--     * Slot: axiom_value Description: 
+--     * Slot: axiom_language Description: 
+--     * Slot: axiom_datatype Description: 
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "ontology_node" Description: "A node representing an ontology"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "object_property_node" Description: "A node representing an OWL object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "transitive_property_node" Description: "A node representing an OWL transitive object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "symmetric_property_node" Description: "A node representing an OWL symmetric object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "reflexive_property_node" Description: "A node representing an OWL reflexive object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "irreflexive_property_node" Description: "A node representing an OWL irreflexive object property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "asymmetric_property_node" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "annotation_property_node" Description: "A node representing an OWL annotation property"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "deprecated_node" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_imports_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_inverse_of_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_complement_of_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_equivalent_class_statement" Description: "A statement that connects two class_nodes where both classes are equivalent"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
+--     * Slot: predicate Description: 
+--     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_same_as_statement" Description: "A statement that connects two individual nodes where both individual are equivalent"
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
+--     * Slot: predicate Description: 
+--     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_disjoint_class_statement" Description: ""
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: One of the two classes that are disjoint. No significance to subject vs object
+--     * Slot: predicate Description: 
+--     * Slot: object Description: One of the two classes that are disjoint. No significance to subject vs object
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_reified_axiom" Description: "An OWL axiom that has been reified - i.e. it includes an [id](id) field that uniquely identifies that axiom and which can be the subject of additional statements"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_axiom" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "owl_axiom_annotation" Description: ""
+--     * Slot: annotation_subject Description: 
+--     * Slot: annotation_predicate Description: 
+--     * Slot: annotation_object Description: 
+--     * Slot: annotation_value Description: 
+--     * Slot: annotation_language Description: 
+--     * Slot: annotation_datatype Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+--     * Slot: axiom_predicate Description: 
+--     * Slot: axiom_object Description: 
+--     * Slot: axiom_value Description: 
+--     * Slot: axiom_language Description: 
+--     * Slot: axiom_datatype Description: 
+--     * Slot: stanza Description: 
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
+--     * Slot: datatype Description: 
+--     * Slot: language Description: 
+-- # Class: "anonymous_expression" Description: "An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "anonymous_class_expression" Description: "An OWL anonymous class expression, such as for example `SomeValuesFrom(partOf Hand)`"
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "anonymous_property_expression" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "anonymous_individual_expression" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_restriction" Description: "An OWL restriction, such as `SomeValuesFrom(partOf Hand)`"
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: 
+--     * Slot: id Description: the id of the restriction
+-- # Class: "owl_some_values_from" Description: "An OWL SomeValuesFrom restriction"
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_all_values_from" Description: ""
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_has_value" Description: ""
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_has_self" Description: ""
+--     * Slot: on_property Description: 
+--     * Slot: filler Description: This is Null for a self-restriction
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "owl_complex_axiom" Description: "An axiom that is composed of two or more statements"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+-- # Class: "owl_subclass_of_some_values_from" Description: "Composition of subClassOf and SomeValuesFrom"
+--     * Slot: subject Description: the class C in the axiom C subClassOf P some D
+--     * Slot: predicate Description: the predicate P in the axiom C subClassOf P some D
+--     * Slot: object Description: the class D in the axiom C subClassOf P some D
+-- # Class: "owl_equivalent_to_intersection_member" Description: "Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`"
+--     * Slot: subject Description: the defined class
+--     * Slot: object Description: a class expression that forms the defining expression
+--     * Slot: predicate Description: 
 -- # Class: "prefix" Description: "Maps CURIEs to URIs"
 --     * Slot: prefix Description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
 --     * Slot: base Description: The base URI a prefix will expand to
@@ -177,276 +436,6 @@
 -- # Class: "property_trait" Description: ""
 -- # Class: "individual_trait" Description: ""
 -- # Class: "is_report" Description: "Used to describe classes/views that have a reporting function"
--- # Class: "term_association" Description: "A minimal datamodel for relating a subject entity to an object term"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: evidence_type Description: 
---     * Slot: publication Description: 
---     * Slot: source Description: 
--- # Class: "has_text_definition_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_oio_synonym_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_exact_synonym_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_broad_synonym_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_narrow_synonym_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_related_synonym_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_synonym_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_exact_match_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_broad_match_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_narrow_match_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_related_match_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_match_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_dbxref_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "has_mapping_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "axiom_dbxref_annotation" Description: ""
---     * Slot: axiom_predicate Description: 
---     * Slot: axiom_object Description: 
---     * Slot: axiom_value Description: 
---     * Slot: axiom_language Description: 
---     * Slot: axiom_datatype Description: 
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "ontology_node" Description: "A node representing an ontology"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "object_property_node" Description: "A node representing an OWL object property"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "transitive_property_node" Description: "A node representing an OWL transitive object property"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "symmetric_property_node" Description: "A node representing an OWL symmetric object property"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "reflexive_property_node" Description: "A node representing an OWL reflexive object property"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "irreflexive_property_node" Description: "A node representing an OWL irreflexive object property"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "asymmetric_property_node" Description: ""
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "annotation_property_node" Description: "A node representing an OWL annotation property"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "deprecated_node" Description: ""
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "owl_imports_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "owl_inverse_of_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "owl_complement_of_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "owl_equivalent_class_statement" Description: "A statement that connects two class_nodes where both classes are equivalent"
---     * Slot: stanza Description: 
---     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
---     * Slot: predicate Description: 
---     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "owl_same_as_statement" Description: "A statement that connects two individual nodes where both individual are equivalent"
---     * Slot: stanza Description: 
---     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
---     * Slot: predicate Description: 
---     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "owl_disjoint_class_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: One of the two classes that are disjoint. No significance to subject vs object
---     * Slot: predicate Description: 
---     * Slot: object Description: One of the two classes that are disjoint. No significance to subject vs object
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "owl_reified_axiom" Description: "An OWL axiom that has been reified - i.e. it includes an [id](id) field that uniquely identifies that axiom and which can be the subject of additional statements"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "owl_axiom" Description: ""
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "owl_axiom_annotation" Description: ""
---     * Slot: axiom_predicate Description: 
---     * Slot: axiom_object Description: 
---     * Slot: axiom_value Description: 
---     * Slot: axiom_language Description: 
---     * Slot: axiom_datatype Description: 
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
--- # Class: "anonymous_expression" Description: "An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "anonymous_class_expression" Description: "An OWL anonymous class expression, such as for example `SomeValuesFrom(partOf Hand)`"
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "anonymous_property_expression" Description: ""
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "anonymous_individual_expression" Description: ""
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "owl_restriction" Description: "An OWL restriction, such as `SomeValuesFrom(partOf Hand)`"
---     * Slot: on_property Description: 
---     * Slot: filler Description: 
---     * Slot: id Description: the id of the restriction
--- # Class: "owl_some_values_from" Description: "An OWL SomeValuesFrom restriction"
---     * Slot: on_property Description: 
---     * Slot: filler Description: 
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "owl_all_values_from" Description: ""
---     * Slot: on_property Description: 
---     * Slot: filler Description: 
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "owl_has_value" Description: ""
---     * Slot: on_property Description: 
---     * Slot: filler Description: 
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "owl_has_self" Description: ""
---     * Slot: on_property Description: 
---     * Slot: filler Description: This is Null for a self-restriction
---     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
--- # Class: "owl_complex_axiom" Description: "An axiom that is composed of two or more statements"
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
--- # Class: "owl_subclass_of_some_values_from" Description: "Composition of subClassOf and SomeValuesFrom"
---     * Slot: subject Description: the class C in the axiom C subClassOf P some D
---     * Slot: predicate Description: the predicate P in the axiom C subClassOf P some D
---     * Slot: object Description: the class D in the axiom C subClassOf P some D
--- # Class: "owl_equivalent_to_intersection_member" Description: "Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`"
---     * Slot: subject Description: the defined class
---     * Slot: object Description: a class expression that forms the defining expression
---     * Slot: predicate Description: 
 -- # Class: "relation_graph_construct" Description: "A construct used as part of a Relation Graph"
 --     * Slot: subject Description: 
 --     * Slot: predicate Description: 
@@ -553,34 +542,358 @@
 --     * Slot: predicate Description: 
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 
-CREATE TABLE subject_prefix (
-	subject TEXT, 
-	value TEXT
-);
-CREATE TABLE textual_transformation (
+CREATE TABLE term_association (
+	id TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
-	value TEXT
+	object TEXT, 
+	evidence_type TEXT, 
+	publication TEXT, 
+	source TEXT, 
+	PRIMARY KEY (id)
 );
-CREATE TABLE processed_statement (
+CREATE TABLE has_text_definition_statement (
+	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_oio_synonym_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_exact_synonym_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_broad_synonym_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_narrow_synonym_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_related_synonym_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_synonym_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_exact_match_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_broad_match_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_narrow_match_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_related_match_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_match_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_dbxref_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE has_mapping_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT NOT NULL, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE axiom_dbxref_annotation (
+	annotation_subject TEXT, 
+	annotation_predicate TEXT, 
+	annotation_object TEXT, 
+	annotation_value TEXT, 
+	annotation_language TEXT, 
+	annotation_datatype TEXT, 
+	id TEXT, 
+	axiom_predicate TEXT, 
+	axiom_object TEXT, 
+	axiom_value TEXT, 
+	axiom_language TEXT, 
+	axiom_datatype TEXT, 
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
 	value TEXT, 
-	transformation_predicate TEXT, 
-	transformed_value TEXT
+	datatype TEXT, 
+	language TEXT, 
+	PRIMARY KEY (id)
 );
-CREATE TABLE "match" (
-	subject_id TEXT, 
-	subject_label TEXT, 
-	subject_source TEXT, 
-	subject_match_field TEXT, 
-	subject_preprocessing TEXT, 
-	object_id TEXT, 
-	object_label TEXT, 
-	object_source TEXT, 
-	object_match_field TEXT, 
-	object_preprocessing TEXT, 
-	match_string TEXT
+CREATE TABLE ontology_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE object_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE transitive_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE symmetric_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE reflexive_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE irreflexive_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE asymmetric_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE annotation_property_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE deprecated_node (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_imports_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_inverse_of_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_complement_of_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_equivalent_class_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_same_as_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_disjoint_class_statement (
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT NOT NULL, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT
+);
+CREATE TABLE owl_reified_axiom (
+	id TEXT, 
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_axiom (
+	id TEXT, 
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_axiom_annotation (
+	annotation_subject TEXT, 
+	annotation_predicate TEXT, 
+	annotation_object TEXT, 
+	annotation_value TEXT, 
+	annotation_language TEXT, 
+	annotation_datatype TEXT, 
+	id TEXT, 
+	axiom_predicate TEXT, 
+	axiom_object TEXT, 
+	axiom_value TEXT, 
+	axiom_language TEXT, 
+	axiom_datatype TEXT, 
+	stanza TEXT, 
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT, 
+	value TEXT, 
+	datatype TEXT, 
+	language TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE anonymous_expression (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE anonymous_class_expression (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE anonymous_property_expression (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE anonymous_individual_expression (
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_restriction (
+	on_property TEXT, 
+	filler TEXT, 
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_some_values_from (
+	on_property TEXT, 
+	filler TEXT, 
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_all_values_from (
+	on_property TEXT, 
+	filler TEXT, 
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_has_value (
+	on_property TEXT, 
+	filler TEXT, 
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_has_self (
+	on_property TEXT, 
+	filler TEXT, 
+	id TEXT, 
+	PRIMARY KEY (id)
+);
+CREATE TABLE owl_complex_axiom (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT
+);
+CREATE TABLE owl_subclass_of_some_values_from (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT
+);
+CREATE TABLE owl_equivalent_to_intersection_member (
+	subject TEXT, 
+	object TEXT, 
+	predicate TEXT
 );
 CREATE TABLE prefix (
 	prefix TEXT, 
@@ -765,343 +1078,6 @@ CREATE TABLE count_of_subclasses (
 	element TEXT, 
 	count_value INTEGER
 );
-CREATE TABLE term_association (
-	id TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	evidence_type TEXT, 
-	publication TEXT, 
-	source TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE has_text_definition_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_oio_synonym_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_exact_synonym_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_broad_synonym_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_narrow_synonym_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_related_synonym_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_synonym_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_exact_match_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_broad_match_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_narrow_match_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_related_match_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_match_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_dbxref_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE has_mapping_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE axiom_dbxref_annotation (
-	axiom_predicate TEXT, 
-	axiom_object TEXT, 
-	axiom_value TEXT, 
-	axiom_language TEXT, 
-	axiom_datatype TEXT, 
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE ontology_node (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE object_property_node (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE transitive_property_node (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE symmetric_property_node (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE reflexive_property_node (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE irreflexive_property_node (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE asymmetric_property_node (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE annotation_property_node (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE deprecated_node (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE owl_imports_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE owl_inverse_of_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE owl_complement_of_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE owl_equivalent_class_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE owl_same_as_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE owl_disjoint_class_statement (
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE owl_reified_axiom (
-	id TEXT, 
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE owl_axiom (
-	id TEXT, 
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE owl_axiom_annotation (
-	axiom_predicate TEXT, 
-	axiom_object TEXT, 
-	axiom_value TEXT, 
-	axiom_language TEXT, 
-	axiom_datatype TEXT, 
-	stanza TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT
-);
-CREATE TABLE anonymous_expression (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE anonymous_class_expression (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE anonymous_property_expression (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE anonymous_individual_expression (
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE owl_restriction (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE owl_some_values_from (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE owl_all_values_from (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE owl_has_value (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE owl_has_self (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT, 
-	PRIMARY KEY (id)
-);
-CREATE TABLE owl_complex_axiom (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT
-);
-CREATE TABLE owl_subclass_of_some_values_from (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT
-);
-CREATE TABLE owl_equivalent_to_intersection_member (
-	subject TEXT, 
-	object TEXT, 
-	predicate TEXT
-);
 CREATE TABLE relation_graph_construct (
 	subject TEXT, 
 	predicate TEXT, 
@@ -1228,8 +1204,200 @@ CREATE TABLE all_problems (
 	predicate TEXT, 
 	value TEXT
 );
--- ** REWRITE TABLES AS VIEWS **
--- SCHEMA: https://w3id.org/kgcl/semsql
+
+DROP TABLE has_text_definition_statement;
+CREATE VIEW has_text_definition_statement AS SELECT * FROM statements WHERE predicate='IAO:0000115';
+
+DROP TABLE has_exact_synonym_statement;
+CREATE VIEW has_exact_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasExactSynonym';
+
+DROP TABLE has_broad_synonym_statement;
+CREATE VIEW has_broad_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasBroadSynonym';
+
+DROP TABLE has_narrow_synonym_statement;
+CREATE VIEW has_narrow_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasNarrowSynonym';
+
+DROP TABLE has_related_synonym_statement;
+CREATE VIEW has_related_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasRelatedSynonym';
+
+DROP TABLE has_synonym_statement;
+CREATE VIEW has_synonym_statement AS SELECT * FROM has_exact_synonym_statement UNION SELECT * FROM has_broad_synonym_statement UNION SELECT * FROM has_narrow_synonym_statement UNION SELECT * FROM has_related_synonym_statement;
+
+DROP TABLE has_exact_match_statement;
+CREATE VIEW has_exact_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasExactMatch';
+
+DROP TABLE has_broad_match_statement;
+CREATE VIEW has_broad_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasBroadMatch';
+
+DROP TABLE has_narrow_match_statement;
+CREATE VIEW has_narrow_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasNarrowMatch';
+
+DROP TABLE has_related_match_statement;
+CREATE VIEW has_related_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasRelatedMatch';
+
+DROP TABLE has_match_statement;
+CREATE VIEW has_match_statement AS SELECT * FROM has_exact_match_statement UNION SELECT * FROM has_broad_match_statement UNION SELECT * FROM has_narrow_match_statement UNION SELECT * FROM has_related_match_statement;
+
+DROP TABLE has_dbxref_statement;
+CREATE VIEW has_dbxref_statement AS SELECT * FROM statements WHERE predicate='oio:hasDbXref';
+
+DROP TABLE has_mapping_statement;
+CREATE VIEW has_mapping_statement AS SELECT * FROM has_match_statement UNION SELECT * FROM has_dbxref_statement;
+
+DROP TABLE axiom_dbxref_annotation;
+CREATE VIEW axiom_dbxref_annotation AS SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref';
+
+DROP TABLE ontology_node;
+CREATE VIEW ontology_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:Ontology';
+
+DROP TABLE object_property_node;
+CREATE VIEW object_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ObjectProperty';
+
+DROP TABLE transitive_property_node;
+CREATE VIEW transitive_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:TransitiveProperty';
+
+DROP TABLE symmetric_property_node;
+CREATE VIEW symmetric_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:SymmetricProperty';
+
+DROP TABLE reflexive_property_node;
+CREATE VIEW reflexive_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:IrreflexiveProperty';
+
+DROP TABLE irreflexive_property_node;
+CREATE VIEW irreflexive_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ReflexiveProperty';
+
+DROP TABLE asymmetric_property_node;
+CREATE VIEW asymmetric_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AsymmetricProperty';
+
+DROP TABLE annotation_property_node;
+CREATE VIEW annotation_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotationProperty';
+
+DROP TABLE deprecated_node;
+CREATE VIEW deprecated_node AS SELECT DISTINCT subject AS id FROM statements WHERE predicate='owl:deprecated' AND value='true';
+
+DROP TABLE owl_imports_statement;
+CREATE VIEW owl_imports_statement AS SELECT * FROM statements WHERE predicate='owl:imports';
+
+DROP TABLE owl_inverse_of_statement;
+CREATE VIEW owl_inverse_of_statement AS SELECT * FROM statements WHERE predicate='owl:inverseOf';
+
+DROP TABLE owl_complement_of_statement;
+CREATE VIEW owl_complement_of_statement AS SELECT * FROM statements WHERE predicate='owl:complementOf';
+
+DROP TABLE owl_equivalent_class_statement;
+CREATE VIEW owl_equivalent_class_statement AS SELECT * FROM statements WHERE predicate='owl:equivalentClass';
+
+DROP TABLE owl_same_as_statement;
+CREATE VIEW owl_same_as_statement AS SELECT * FROM statements WHERE predicate='owl:sameAs';
+
+DROP TABLE owl_disjoint_class_statement;
+CREATE VIEW owl_disjoint_class_statement AS SELECT * FROM statements WHERE predicate='owl:disjointClass';
+
+DROP TABLE owl_reified_axiom;
+CREATE VIEW owl_reified_axiom AS SELECT axs.subject AS id, axs.stanza AS stanza, axs.object AS subject, axp.object AS predicate, axo.object AS object, axo.value AS value, axo.datatype AS datatype, axo.language AS language FROM statements AS axs, statements AS axp, statements AS axo WHERE axs.predicate = 'owl:annotatedSource' AND axp.predicate = 'owl:annotatedProperty' AND axo.predicate = 'owl:annotatedTarget' AND axs.subject = axp.subject AND axs.subject = axo.subject;
+
+DROP TABLE owl_axiom;
+CREATE VIEW owl_axiom AS SELECT * FROM owl_reified_axiom UNION SELECT NULL AS id, * FROM statements;
+
+DROP TABLE owl_axiom_annotation;
+CREATE VIEW owl_axiom_annotation AS SELECT
+   axpv.stanza AS stanza,
+   axs.object AS subject,
+   axp.object AS predicate,
+   axo.object AS object,
+   axo.value AS value,
+   axo.datatype AS datatype,
+   axo.language AS language,
+   axpv.subject AS id,
+   axpv.subject AS annotation_subject,
+   axpv.predicate AS annotation_predicate,
+   axpv.object AS annotation_object,
+   axpv.value AS annotation_value,
+   axpv.language AS annotation_language,
+   axpv.datatype AS annotation_datatype
+  FROM
+   statements AS axs,
+   statements AS axp,
+   statements AS axo,
+   statements AS axpv
+  WHERE
+   axs.predicate = 'owl:annotatedSource' AND
+   axp.predicate = 'owl:annotatedProperty' AND
+   axo.predicate = 'owl:annotatedTarget' AND
+   axs.subject = axpv.subject AND
+   axp.subject = axpv.subject AND axo.subject = axpv.subject AND
+   axpv.predicate NOT IN ('owl:annotatedSource', 'owl:annotatedProperty', 'owl:annotatedTarget', 'rdf:type');
+
+DROP TABLE owl_some_values_from;
+CREATE VIEW owl_some_values_from AS SELECT onProperty.subject AS id,
+            onProperty.object AS on_property,
+            f.object AS filler
+            FROM
+       statements AS onProperty,
+       statements AS f
+     WHERE
+       onProperty.predicate = 'owl:onProperty' AND
+       onProperty.subject=f.subject AND
+       f.predicate='owl:someValuesFrom';
+
+DROP TABLE owl_all_values_from;
+CREATE VIEW owl_all_values_from AS SELECT onProperty.subject AS id,
+            onProperty.object AS on_property,
+            f.object AS filler
+            FROM
+       statements AS onProperty,
+       statements AS f
+     WHERE
+       onProperty.predicate = 'owl:onProperty' AND
+       onProperty.subject=f.subject AND
+       f.predicate='owl:allValuesFrom';
+
+DROP TABLE owl_has_value;
+CREATE VIEW owl_has_value AS SELECT onProperty.subject AS id,
+            onProperty.object AS on_property,
+            f.object AS filler
+            FROM
+       statements AS onProperty,
+       statements AS f
+     WHERE
+       onProperty.predicate = 'owl:onProperty' AND
+       onProperty.subject=f.subject AND
+       f.predicate='owl:hasValue';
+
+DROP TABLE owl_has_self;
+CREATE VIEW owl_has_self AS SELECT onProperty.subject AS id,
+            onProperty.object AS on_property,
+            f.object AS filler
+            FROM
+       statements AS onProperty,
+       statements AS f
+     WHERE
+       onProperty.predicate = 'owl:onProperty' AND
+       onProperty.subject=f.subject AND
+       f.predicate='owl:hasSelf' AND
+       f.value='true';
+
+DROP TABLE owl_subclass_of_some_values_from;
+CREATE VIEW owl_subclass_of_some_values_from AS SELECT subClassOf.stanza,
+         subClassOf.subject,
+         svf.on_property AS predicate,
+         svf.filler AS object
+         FROM
+    statements AS subClassOf, 
+    owl_some_values_from AS svf
+  WHERE
+    subClassOf.predicate = 'rdfs:subClassOf' AND
+    svf.id=subClassOf.object;
+
+DROP TABLE owl_equivalent_to_intersection_member;
+CREATE VIEW owl_equivalent_to_intersection_member AS SELECT e.stanza,
+           e.subject,
+           m.object
+           FROM
+      owl_equivalent_class_statement AS e JOIN
+      statements AS i ON (e.object=i.subject) JOIN
+      rdf_list_member_statement AS m ON (i.object=m.subject)
+    WHERE
+      i.predicate = 'owl:intersectionOf';
 
 DROP TABLE node_to_node_statement;
 CREATE VIEW node_to_node_statement AS SELECT * FROM statements WHERE object IS NOT NULL;
@@ -1319,204 +1487,6 @@ CREATE VIEW count_of_instantiated_classes AS SELECT object AS element, count(*) 
 DROP TABLE count_of_subclasses;
 CREATE VIEW count_of_subclasses AS SELECT sc.object AS element, count(distinct sc.subject) AS count_value FROM rdfs_subclass_of_statement AS sc GROUP BY sc.object ORDER BY count_value DESC;
 
-DROP TABLE ontology_node;
-CREATE VIEW ontology_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:Ontology';
-
-DROP TABLE object_property_node;
-CREATE VIEW object_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ObjectProperty';
-
-DROP TABLE transitive_property_node;
-CREATE VIEW transitive_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:TransitiveProperty';
-
-DROP TABLE symmetric_property_node;
-CREATE VIEW symmetric_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:SymmetricProperty';
-
-DROP TABLE reflexive_property_node;
-CREATE VIEW reflexive_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:IrreflexiveProperty';
-
-DROP TABLE irreflexive_property_node;
-CREATE VIEW irreflexive_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ReflexiveProperty';
-
-DROP TABLE asymmetric_property_node;
-CREATE VIEW asymmetric_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AsymmetricProperty';
-
-DROP TABLE annotation_property_node;
-CREATE VIEW annotation_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotatonProperty';
-
-DROP TABLE deprecated_node;
-CREATE VIEW deprecated_node AS SELECT DISTINCT subject AS id FROM statements WHERE predicate='owl:deprecated' AND value='true';
-
-DROP TABLE owl_imports_statement;
-CREATE VIEW owl_imports_statement AS SELECT * FROM statements WHERE predicate='owl:imports';
-
-DROP TABLE owl_inverse_of_statement;
-CREATE VIEW owl_inverse_of_statement AS SELECT * FROM statements WHERE predicate='owl:inverseOf';
-
-DROP TABLE owl_complement_of_statement;
-CREATE VIEW owl_complement_of_statement AS SELECT * FROM statements WHERE predicate='owl:complementOf';
-
-DROP TABLE owl_equivalent_class_statement;
-CREATE VIEW owl_equivalent_class_statement AS SELECT * FROM statements WHERE predicate='owl:equivalentClass';
-
-DROP TABLE owl_same_as_statement;
-CREATE VIEW owl_same_as_statement AS SELECT * FROM statements WHERE predicate='owl:sameAs';
-
-DROP TABLE owl_disjoint_class_statement;
-CREATE VIEW owl_disjoint_class_statement AS SELECT * FROM statements WHERE predicate='owl:disjointClass';
-
-DROP TABLE owl_reified_axiom;
-CREATE VIEW owl_reified_axiom AS SELECT axs.subject AS id, axs.stanza AS stanza, axs.object AS subject, axp.object AS predicate, axo.object AS object, axo.value AS value, axo.datatype AS datatype, axo.language AS language FROM statements AS axs, statements AS axp, statements AS axo WHERE axs.predicate = 'owl:annotatedSource' AND axp.predicate = 'owl:annotatedProperty' AND axo.predicate = 'owl:annotatedTarget' AND axs.subject = axp.subject AND axs.subject = axo.subject;
-
-DROP TABLE owl_axiom;
-CREATE VIEW owl_axiom AS SELECT * FROM owl_reified_axiom UNION SELECT NULL AS id, * FROM statements;
-
-DROP TABLE owl_axiom_annotation;
-CREATE VIEW owl_axiom_annotation AS SELECT axpv.stanza AS stanza, axs.object AS subject, axp.object AS predicate, axo.object AS object, axo.value AS value, axo.datatype AS datatype, axo.language AS language, axpv.subject AS id, axpv.predicate AS annotation_predicate, axpv.object AS annotation_iri, axpv.value AS annotation_value, axpv.language AS annotation_language, axpv.datatype AS annotation_datatype FROM statements AS axs, statements AS axp, statements AS axo, statements AS axpv WHERE axs.predicate = 'owl:annotatedSource' AND axp.predicate = 'owl:annotatedProperty' AND axo.predicate = 'owl:annotatedTarget' AND axs.subject = axpv.subject AND axp.subject = axpv.subject AND axo.subject = axpv.subject AND axpv.predicate NOT IN ('owl:annotatedSource', 'owl:annotatedProperty', 'owl:annotatedTarget', 'rdf:type');
-
-DROP TABLE owl_some_values_from;
-CREATE VIEW owl_some_values_from AS SELECT onProperty.subject AS id,
-            onProperty.object AS on_property,
-            f.object AS filler
-            FROM
-       statements AS onProperty,
-       statements AS f
-     WHERE
-       onProperty.predicate = 'owl:onProperty' AND
-       onProperty.subject=f.subject AND
-       f.predicate='owl:someValuesFrom';
-
-DROP TABLE owl_all_values_from;
-CREATE VIEW owl_all_values_from AS SELECT onProperty.subject AS id,
-            onProperty.object AS on_property,
-            f.object AS filler
-            FROM
-       statements AS onProperty,
-       statements AS f
-     WHERE
-       onProperty.predicate = 'owl:onProperty' AND
-       onProperty.subject=f.subject AND
-       f.predicate='owl:allValuesFrom';
-
-DROP TABLE owl_has_value;
-CREATE VIEW owl_has_value AS SELECT onProperty.subject AS id,
-            onProperty.object AS on_property,
-            f.object AS filler
-            FROM
-       statements AS onProperty,
-       statements AS f
-     WHERE
-       onProperty.predicate = 'owl:onProperty' AND
-       onProperty.subject=f.subject AND
-       f.predicate='owl:hasValue';
-
-DROP TABLE owl_has_self;
-CREATE VIEW owl_has_self AS SELECT onProperty.subject AS id,
-            onProperty.object AS on_property,
-            f.object AS filler
-            FROM
-       statements AS onProperty,
-       statements AS f
-     WHERE
-       onProperty.predicate = 'owl:onProperty' AND
-       onProperty.subject=f.subject AND
-       f.predicate='owl:hasSelf' AND
-       f.value='true';
-
-DROP TABLE owl_subclass_of_some_values_from;
-CREATE VIEW owl_subclass_of_some_values_from AS SELECT subClassOf.stanza,
-         subClassOf.subject,
-         svf.on_property AS predicate,
-         svf.filler AS object
-         FROM
-    statements AS subClassOf, 
-    owl_some_values_from AS svf
-  WHERE
-    subClassOf.predicate = 'rdfs:subClassOf' AND
-    svf.id=subClassOf.object;
-
-DROP TABLE owl_equivalent_to_intersection_member;
-CREATE VIEW owl_equivalent_to_intersection_member AS SELECT e.stanza,
-           e.subject,
-           m.object
-           FROM
-      owl_equivalent_class_statement AS e JOIN
-      statements AS i ON (e.object=i.subject) JOIN
-      rdf_list_member_statement AS m ON (i.object=m.subject)
-    WHERE
-      i.predicate = 'owl:intersectionOf';
-
-DROP TABLE ontology_status_statement;
-CREATE VIEW ontology_status_statement AS SELECT * FROM statements WHERE predicate = '<http://obofoundry.github.io/vocabulary/activity_status>' UNION SELECT * FROM statements WHERE predicate = 'pav:status';
-
-DROP TABLE trailing_whitespace_problem;
-CREATE VIEW trailing_whitespace_problem AS SELECT
-  subject,
-  predicate,
-  value
-FROM statements WHERE VALUE like ' %' OR VALUE like '% ';
-
-DROP TABLE property_used_with_datatype_values_and_objects;
-CREATE VIEW property_used_with_datatype_values_and_objects AS SELECT
-    DISTINCT
-      s1.predicate AS subject,
-      s1.predicate,
-      s1.datatype AS value
-  FROM statements AS s1, statements AS s2 ON (s1.predicate=s2.predicate)
-  WHERE s1.value IS NOT NULL and s2.object IS NOT NULL;
-
-DROP TABLE node_with_two_labels_problem;
-CREATE VIEW node_with_two_labels_problem AS SELECT
-     s1.subject,
-     s1.predicate,
-     s1.value
-  FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2
-  WHERE s1.subject=s2.subject AND s1.value != s2.value;
-
-DROP TABLE all_problems;
-CREATE VIEW all_problems AS SELECT * FROM node_with_two_labels_problem UNION SELECT * FROM trailing_whitespace_problem;
-
-DROP TABLE has_text_definition_statement;
-CREATE VIEW has_text_definition_statement AS SELECT * FROM statements WHERE predicate='IAO:0000115';
-
-DROP TABLE has_exact_synonym_statement;
-CREATE VIEW has_exact_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasExactSynonym';
-
-DROP TABLE has_broad_synonym_statement;
-CREATE VIEW has_broad_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasBroadSynonym';
-
-DROP TABLE has_narrow_synonym_statement;
-CREATE VIEW has_narrow_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasNarrowSynonym';
-
-DROP TABLE has_related_synonym_statement;
-CREATE VIEW has_related_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasRelatedSynonym';
-
-DROP TABLE has_synonym_statement;
-CREATE VIEW has_synonym_statement AS SELECT * FROM has_exact_synonym_statement UNION SELECT * FROM has_broad_synonym_statement UNION SELECT * FROM has_narrow_synonym_statement UNION SELECT * FROM has_related_synonym_statement;
-
-DROP TABLE has_exact_match_statement;
-CREATE VIEW has_exact_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasExactMatch';
-
-DROP TABLE has_broad_match_statement;
-CREATE VIEW has_broad_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasBroadMatch';
-
-DROP TABLE has_narrow_match_statement;
-CREATE VIEW has_narrow_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasNarrowMatch';
-
-DROP TABLE has_related_match_statement;
-CREATE VIEW has_related_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasRelatedMatch';
-
-DROP TABLE has_match_statement;
-CREATE VIEW has_match_statement AS SELECT * FROM has_exact_match_statement UNION SELECT * FROM has_broad_match_statement UNION SELECT * FROM has_narrow_match_statement UNION SELECT * FROM has_related_match_statement;
-
-DROP TABLE has_dbxref_statement;
-CREATE VIEW has_dbxref_statement AS SELECT * FROM statements WHERE predicate='oio:hasDbXref';
-
-DROP TABLE has_mapping_statement;
-CREATE VIEW has_mapping_statement AS SELECT * FROM has_match_statement UNION SELECT * FROM has_dbxref_statement;
-
-DROP TABLE axiom_dbxref_annotation;
-CREATE VIEW axiom_dbxref_annotation AS SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref';
-
 DROP TABLE edge;
 CREATE VIEW edge AS SELECT subject, predicate, object FROM owl_subclass_of_some_values_from UNION
     SELECT subject, predicate, object FROM rdfs_subclass_of_named_statement;
@@ -1585,32 +1555,32 @@ CREATE VIEW transitive_edge AS WITH RECURSIVE transitive_edge
                )
             SELECT * FROM transitive_edge;
 
-DROP TABLE subject_prefix;
-CREATE VIEW subject_prefix AS SELECT DISTINCT s.subject, prefix.prefix AS value FROM prefix, statements AS s WHERE INSTR(s.subject,prefix || ':')=1;
+DROP TABLE ontology_status_statement;
+CREATE VIEW ontology_status_statement AS SELECT * FROM statements WHERE predicate = '<http://obofoundry.github.io/vocabulary/activity_status>' UNION SELECT * FROM statements WHERE predicate = 'pav:status';
 
-DROP TABLE processed_statement;
-CREATE VIEW processed_statement AS SELECT s.*, t.predicate AS transformation_predicate, t.value AS transformed_value
-  FROM statements AS s JOIN textual_transformation AS t ON(s.value=t.subject)
-  WHERE datatype != 'xsd:boolean';
+DROP TABLE trailing_whitespace_problem;
+CREATE VIEW trailing_whitespace_problem AS SELECT
+  subject,
+  predicate,
+  value
+FROM statements WHERE VALUE like ' %' OR VALUE like '% ';
 
-DROP TABLE match;
-CREATE VIEW match AS SELECT
-   s1.subject AS subject_id,
-   s1l.value AS subject_label,
-   s1.predicate AS subject_match_field,
-   s1p.value AS subject_source,
-   s1.transformation_predicate AS subject_preprocessing,
-   s2.subject AS object_id,
-   s2l.value AS object_label,
-   s2.predicate AS object_match_field,
-   s2p.value AS object_source,
-   s2.transformation_predicate AS object_preprocessing,
-   s1.transformed_value AS match_field
-  FROM
-    processed_statement AS s1
-    JOIN processed_statement AS s2 ON (s1.transformed_value = s2.transformed_value)
-    JOIN rdfs_label_statement AS s1l ON (s1.subject=s1l.subject)
-    JOIN rdfs_label_statement AS s2l ON (s2.subject=s2l.subject)
-    JOIN subject_prefix AS s1p ON (s1.subject=s1p.subject)
-    JOIN subject_prefix AS s2p ON (s2.subject=s2p.subject)
-    WHERE s1.subject != s2.subject;
+DROP TABLE property_used_with_datatype_values_and_objects;
+CREATE VIEW property_used_with_datatype_values_and_objects AS SELECT
+    DISTINCT
+      s1.predicate AS subject,
+      s1.predicate,
+      s1.datatype AS value
+  FROM statements AS s1, statements AS s2 ON (s1.predicate=s2.predicate)
+  WHERE s1.value IS NOT NULL and s2.object IS NOT NULL;
+
+DROP TABLE node_with_two_labels_problem;
+CREATE VIEW node_with_two_labels_problem AS SELECT
+     s1.subject,
+     s1.predicate,
+     s1.value
+  FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2
+  WHERE s1.subject=s2.subject AND s1.value != s2.value;
+
+DROP TABLE all_problems;
+CREATE VIEW all_problems AS SELECT * FROM node_with_two_labels_problem UNION SELECT * FROM trailing_whitespace_problem;

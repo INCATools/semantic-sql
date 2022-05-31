@@ -48,4 +48,3 @@ imports:
   - omo
   - relation_graph
   - term_associations
-  - nlp

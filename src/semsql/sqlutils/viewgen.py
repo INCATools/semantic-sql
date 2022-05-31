@@ -1,6 +1,9 @@
+import sys
+from typing import TextIO
+
 import click
+from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition
-from linkml.utils.schemaloader import load_raw_schema, SchemaLoader
 from linkml_runtime.utils.formatutils import underscore
 
 VIEW_CODE = 'sqlview>>'
@@ -22,9 +25,25 @@ def get_viewdef(c: ClassDefinition) -> str:
     else:
         if c.union_of:
             return " UNION ".join([f'SELECT * FROM {uc}' for uc in c.union_of])
-        return None
+        elif c.classification_rules:
+            rule = c.classification_rules[0]
+            if len(c.classification_rules) > 1:
+                raise ValueError(f'Max 1 classification rule in {c}')
+            if rule.is_a is None:
+                raise NotImplementedError(f'Expected exactly one is-a')
+            where = []
+            for sn, slot in rule.slot_conditions.items():
+                v = slot.equals_string
+                where.append(f"{sn}='{v}'")
+            if len(where) == 0:
+                raise ValueError(f'no WHERE in {rule.slot_conditions}')
+            v = f'SELECT * FROM {rule.is_a} WHERE {" AND ".join(where)}'
+            return v
+        else:
+            return None
 
-def generate_views_from_linkml(schema: SchemaDefinition, view=True, drop_tables=True) -> None:
+def generate_views_from_linkml(schema: SchemaDefinition, view=True, drop_tables=True,
+                               output: TextIO = sys.stdout) -> None:
     """
     Generates SQL VIEW statements from hints in LinkML linkml
 
@@ -32,32 +51,31 @@ def generate_views_from_linkml(schema: SchemaDefinition, view=True, drop_tables=
     :param schema: LinkML linkml containing hints
     """
     for cn, c in schema.classes.items():
-        viewdef = get_viewdef(schema, c)
+        viewdef = get_viewdef(c)
         sql_table = underscore(cn)
         if viewdef is not None:
-            print()
+            output.write("\n")
             if drop_tables:
-                print(f'DROP TABLE {sql_table};')
+                output.write(f'DROP TABLE {sql_table};\n')
             if view:
-                print(f'CREATE VIEW {sql_table} AS {viewdef};')
+                output.write(f'CREATE VIEW {sql_table} AS {viewdef};\n')
             else:
-                print(f'INSERT INTO {sql_table} AS {viewdef};')
+                output.write(f'INSERT INTO {sql_table} AS {viewdef};\n')
 
 @click.command()
 @click.argument('inputs', nargs=-1)
 @click.option('--view/--no-view', default=True)
-def cli(inputs, view: bool):
+@click.option('--mergeimports/--no-mergeimports', default=True)
+def cli(inputs, mergeimports: bool, view: bool):
     """
-    Generates SQL VIEW commands from hints embedded in linkml
+    Generates SQL VIEW commands from LinkML schema
     """
     for input in inputs:
-        with open(input, 'r') as stream:
-            schema = load_raw_schema(input)
-            print('-- ** REWRITE TABLES AS VIEWS **')
-            print(f'-- SCHEMA: {schema.id}')
-            loader = SchemaLoader(schema, mergeimports=True)
-            loader.resolve()
-            generate_views_from_linkml(schema, view)
+        sv = SchemaView(input)
+        if mergeimports:
+            sv.merge_imports()
+        generate_views_from_linkml(sv.schema, view=view)
+
 
 if __name__ == '__main__':
     cli()

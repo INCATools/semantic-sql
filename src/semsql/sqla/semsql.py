@@ -9,85 +9,42 @@ Base = declarative_base()
 metadata = Base.metadata
 
 
-class SubjectPrefix(Base):
+class TermAssociation(Base):
     """
-    This may move to another module as it is generally useful
+    A minimal datamodel for relating a subject entity to an object term
     """
-    __tablename__ = 'subject_prefix'
+    __tablename__ = 'term_association'
     
+    id = Column(Text(), primary_key=True)
     subject = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    evidence_type = Column(Text(), primary_key=True)
+    publication = Column(Text(), primary_key=True)
+    source = Column(Text(), primary_key=True)
     
     
     def __repr__(self):
-        return f"subject_prefix(subject={self.subject},value={self.value},)"
+        return f"term_association(id={self.id},subject={self.subject},predicate={self.predicate},object={self.object},evidence_type={self.evidence_type},publication={self.publication},source={self.source},)"
         
     
         
     
 
 
-class TextualTransformation(Base):
+class OwlComplexAxiom(Base):
     """
-    Represents a transformation of a subject text value, e.g. lemmatization
+    An axiom that is composed of two or more statements
     """
-    __tablename__ = 'textual_transformation'
+    __tablename__ = 'owl_complex_axiom'
     
     subject = Column(Text(), primary_key=True)
     predicate = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
     
     
     def __repr__(self):
-        return f"textual_transformation(subject={self.subject},predicate={self.predicate},value={self.value},)"
-        
-    
-        
-    
-
-
-class ProcessedStatement(Base):
-    """
-    A statement that is enhanced with a processed/transformed text value
-    """
-    __tablename__ = 'processed_statement'
-    
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    transformation_predicate = Column(Text(), primary_key=True)
-    transformed_value = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"processed_statement(subject={self.subject},predicate={self.predicate},value={self.value},transformation_predicate={self.transformation_predicate},transformed_value={self.transformed_value},)"
-        
-    
-        
-    
-
-
-class Match(Base):
-    """
-    TODO: Reuse SSSOM here
-    """
-    __tablename__ = 'match'
-    
-    subject_id = Column(Text(), primary_key=True)
-    subject_label = Column(Text(), primary_key=True)
-    subject_source = Column(Text(), primary_key=True)
-    subject_match_field = Column(Text(), primary_key=True)
-    subject_preprocessing = Column(Text(), primary_key=True)
-    object_id = Column(Text(), primary_key=True)
-    object_label = Column(Text(), primary_key=True)
-    object_source = Column(Text(), primary_key=True)
-    object_match_field = Column(Text(), primary_key=True)
-    object_preprocessing = Column(Text(), primary_key=True)
-    match_string = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"match(subject_id={self.subject_id},subject_label={self.subject_label},subject_source={self.subject_source},subject_match_field={self.subject_match_field},subject_preprocessing={self.subject_preprocessing},object_id={self.object_id},object_label={self.object_label},object_source={self.object_source},object_match_field={self.object_match_field},object_preprocessing={self.object_preprocessing},match_string={self.match_string},)"
+        return f"owl_complex_axiom(subject={self.subject},predicate={self.predicate},object={self.object},)"
         
     
         
@@ -189,25 +146,6 @@ class RelationGraphConstruct(Base):
     
 
 
-class OwlComplexAxiom(Base):
-    """
-    An axiom that is composed of two or more statements
-    """
-    __tablename__ = 'owl_complex_axiom'
-    
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_complex_axiom(subject={self.subject},predicate={self.predicate},object={self.object},)"
-        
-    
-        
-    
-
-
 class RepairAction(Base):
     """
     Represents an action that needs to be taken to repair a problem
@@ -242,6 +180,191 @@ class Problem(Base):
         
     
         
+    
+
+
+class OntologyNode(Node):
+    """
+    A node representing an ontology
+    """
+    __tablename__ = 'ontology_node'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"ontology_node(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class DeprecatedNode(Node):
+    """
+    
+    """
+    __tablename__ = 'deprecated_node'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"deprecated_node(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlReifiedAxiom(Statements):
+    """
+    An OWL axiom that has been reified - i.e. it includes an [id](id) field that uniquely identifies that axiom and which can be the subject of additional statements
+    """
+    __tablename__ = 'owl_reified_axiom'
+    
+    id = Column(Text(), primary_key=True)
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_reified_axiom(id={self.id},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlAxiom(Statements):
+    """
+    
+    """
+    __tablename__ = 'owl_axiom'
+    
+    id = Column(Text(), primary_key=True)
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_axiom(id={self.id},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlAxiomAnnotation(Statements):
+    """
+    
+    """
+    __tablename__ = 'owl_axiom_annotation'
+    
+    annotation_subject = Column(Text(), primary_key=True)
+    annotation_predicate = Column(Text(), primary_key=True)
+    annotation_object = Column(Text(), primary_key=True)
+    annotation_value = Column(Text(), primary_key=True)
+    annotation_language = Column(Text(), primary_key=True)
+    annotation_datatype = Column(Text(), primary_key=True)
+    id = Column(Text(), primary_key=True)
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_axiom_annotation(annotation_subject={self.annotation_subject},annotation_predicate={self.annotation_predicate},annotation_object={self.annotation_object},annotation_value={self.annotation_value},annotation_language={self.annotation_language},annotation_datatype={self.annotation_datatype},id={self.id},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlSubclassOfSomeValuesFrom(OwlComplexAxiom):
+    """
+    Composition of subClassOf and SomeValuesFrom
+    """
+    __tablename__ = 'owl_subclass_of_some_values_from'
+    
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_subclass_of_some_values_from(subject={self.subject},predicate={self.predicate},object={self.object},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlEquivalentToIntersectionMember(OwlComplexAxiom):
+    """
+    Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`
+    """
+    __tablename__ = 'owl_equivalent_to_intersection_member'
+    
+    subject = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_equivalent_to_intersection_member(subject={self.subject},object={self.object},predicate={self.predicate},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
     
 
 
@@ -631,189 +754,6 @@ class TransitiveEdge(RelationGraphConstruct):
     
 
 
-class OntologyNode(Node):
-    """
-    A node representing an ontology
-    """
-    __tablename__ = 'ontology_node'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"ontology_node(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class DeprecatedNode(Node):
-    """
-    
-    """
-    __tablename__ = 'deprecated_node'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"deprecated_node(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlReifiedAxiom(Statements):
-    """
-    An OWL axiom that has been reified - i.e. it includes an [id](id) field that uniquely identifies that axiom and which can be the subject of additional statements
-    """
-    __tablename__ = 'owl_reified_axiom'
-    
-    id = Column(Text(), primary_key=True)
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_reified_axiom(id={self.id},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlAxiom(Statements):
-    """
-    
-    """
-    __tablename__ = 'owl_axiom'
-    
-    id = Column(Text(), primary_key=True)
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_axiom(id={self.id},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlAxiomAnnotation(Statements):
-    """
-    
-    """
-    __tablename__ = 'owl_axiom_annotation'
-    
-    axiom_predicate = Column(Text(), primary_key=True)
-    axiom_object = Column(Text(), primary_key=True)
-    axiom_value = Column(Text(), primary_key=True)
-    axiom_language = Column(Text(), primary_key=True)
-    axiom_datatype = Column(Text(), primary_key=True)
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_axiom_annotation(axiom_predicate={self.axiom_predicate},axiom_object={self.axiom_object},axiom_value={self.axiom_value},axiom_language={self.axiom_language},axiom_datatype={self.axiom_datatype},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlSubclassOfSomeValuesFrom(OwlComplexAxiom):
-    """
-    Composition of subClassOf and SomeValuesFrom
-    """
-    __tablename__ = 'owl_subclass_of_some_values_from'
-    
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_subclass_of_some_values_from(subject={self.subject},predicate={self.predicate},object={self.object},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlEquivalentToIntersectionMember(OwlComplexAxiom):
-    """
-    Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`
-    """
-    __tablename__ = 'owl_equivalent_to_intersection_member'
-    
-    subject = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_equivalent_to_intersection_member(subject={self.subject},object={self.object},predicate={self.predicate},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
 class LexicalProblem(Problem):
     """
     a problem with the textual value of an annotation property
@@ -925,6 +865,415 @@ class AllProblems(Problem):
     
     def __repr__(self):
         return f"all_problems(subject={self.subject},predicate={self.predicate},value={self.value},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class HasTextDefinitionStatement(NodeToValueStatement):
+    """
+    
+    """
+    __tablename__ = 'has_text_definition_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"has_text_definition_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class HasOioSynonymStatement(NodeToValueStatement):
+    """
+    
+    """
+    __tablename__ = 'has_oio_synonym_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"has_oio_synonym_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class HasSynonymStatement(NodeToValueStatement):
+    """
+    
+    """
+    __tablename__ = 'has_synonym_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"has_synonym_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class HasMatchStatement(NodeToValueStatement):
+    """
+    
+    """
+    __tablename__ = 'has_match_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"has_match_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class HasMappingStatement(NodeToValueStatement):
+    """
+    
+    """
+    __tablename__ = 'has_mapping_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"has_mapping_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class AxiomDbxrefAnnotation(OwlAxiomAnnotation):
+    """
+    
+    """
+    __tablename__ = 'axiom_dbxref_annotation'
+    
+    annotation_subject = Column(Text(), primary_key=True)
+    annotation_predicate = Column(Text(), primary_key=True)
+    annotation_object = Column(Text(), primary_key=True)
+    annotation_value = Column(Text(), primary_key=True)
+    annotation_language = Column(Text(), primary_key=True)
+    annotation_datatype = Column(Text(), primary_key=True)
+    id = Column(Text(), primary_key=True)
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"axiom_dbxref_annotation(annotation_subject={self.annotation_subject},annotation_predicate={self.annotation_predicate},annotation_object={self.annotation_object},annotation_value={self.annotation_value},annotation_language={self.annotation_language},annotation_datatype={self.annotation_datatype},id={self.id},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class ObjectPropertyNode(PropertyNode):
+    """
+    A node representing an OWL object property
+    """
+    __tablename__ = 'object_property_node'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"object_property_node(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class AnnotationPropertyNode(PropertyNode):
+    """
+    A node representing an OWL annotation property
+    """
+    __tablename__ = 'annotation_property_node'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"annotation_property_node(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlImportsStatement(NodeToNodeStatement):
+    """
+    
+    """
+    __tablename__ = 'owl_imports_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_imports_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlInverseOfStatement(NodeToNodeStatement):
+    """
+    
+    """
+    __tablename__ = 'owl_inverse_of_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_inverse_of_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlComplementOfStatement(NodeToNodeStatement):
+    """
+    
+    """
+    __tablename__ = 'owl_complement_of_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_complement_of_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlEquivalentClassStatement(NodeToNodeStatement):
+    """
+    A statement that connects two class_nodes where both classes are equivalent
+    """
+    __tablename__ = 'owl_equivalent_class_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_equivalent_class_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlSameAsStatement(NodeToNodeStatement):
+    """
+    A statement that connects two individual nodes where both individual are equivalent
+    """
+    __tablename__ = 'owl_same_as_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_same_as_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class OwlDisjointClassStatement(NodeToNodeStatement):
+    """
+    
+    """
+    __tablename__ = 'owl_disjoint_class_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"owl_disjoint_class_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class AnonymousExpression(BlankNode):
+    """
+    An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves
+    """
+    __tablename__ = 'anonymous_expression'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"anonymous_expression(id={self.id},)"
         
     
         
@@ -1419,413 +1768,6 @@ class EntailedEdgeSamePredicateCycle(EntailedEdgeCycle):
     
 
 
-class ObjectPropertyNode(PropertyNode):
-    """
-    A node representing an OWL object property
-    """
-    __tablename__ = 'object_property_node'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"object_property_node(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class AnnotationPropertyNode(PropertyNode):
-    """
-    A node representing an OWL annotation property
-    """
-    __tablename__ = 'annotation_property_node'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"annotation_property_node(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlImportsStatement(NodeToNodeStatement):
-    """
-    
-    """
-    __tablename__ = 'owl_imports_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_imports_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlInverseOfStatement(NodeToNodeStatement):
-    """
-    
-    """
-    __tablename__ = 'owl_inverse_of_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_inverse_of_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlComplementOfStatement(NodeToNodeStatement):
-    """
-    
-    """
-    __tablename__ = 'owl_complement_of_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_complement_of_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlEquivalentClassStatement(NodeToNodeStatement):
-    """
-    A statement that connects two class_nodes where both classes are equivalent
-    """
-    __tablename__ = 'owl_equivalent_class_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_equivalent_class_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlSameAsStatement(NodeToNodeStatement):
-    """
-    A statement that connects two individual nodes where both individual are equivalent
-    """
-    __tablename__ = 'owl_same_as_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_same_as_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class OwlDisjointClassStatement(NodeToNodeStatement):
-    """
-    
-    """
-    __tablename__ = 'owl_disjoint_class_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"owl_disjoint_class_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class AnonymousExpression(BlankNode):
-    """
-    An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves
-    """
-    __tablename__ = 'anonymous_expression'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"anonymous_expression(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class HasTextDefinitionStatement(NodeToValueStatement):
-    """
-    
-    """
-    __tablename__ = 'has_text_definition_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"has_text_definition_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class HasOioSynonymStatement(NodeToValueStatement):
-    """
-    
-    """
-    __tablename__ = 'has_oio_synonym_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"has_oio_synonym_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class HasSynonymStatement(NodeToValueStatement):
-    """
-    
-    """
-    __tablename__ = 'has_synonym_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"has_synonym_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class HasMatchStatement(NodeToValueStatement):
-    """
-    
-    """
-    __tablename__ = 'has_match_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"has_match_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class HasMappingStatement(NodeToValueStatement):
-    """
-    
-    """
-    __tablename__ = 'has_mapping_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"has_mapping_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class AxiomDbxrefAnnotation(OwlAxiomAnnotation):
-    """
-    
-    """
-    __tablename__ = 'axiom_dbxref_annotation'
-    
-    axiom_predicate = Column(Text(), primary_key=True)
-    axiom_object = Column(Text(), primary_key=True)
-    axiom_value = Column(Text(), primary_key=True)
-    axiom_language = Column(Text(), primary_key=True)
-    axiom_datatype = Column(Text(), primary_key=True)
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"axiom_dbxref_annotation(axiom_predicate={self.axiom_predicate},axiom_object={self.axiom_object},axiom_value={self.axiom_value},axiom_language={self.axiom_language},axiom_datatype={self.axiom_datatype},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
 class OntologyStatusStatement(NodeToValueStatement):
     """
     
@@ -1843,210 +1785,6 @@ class OntologyStatusStatement(NodeToValueStatement):
     
     def __repr__(self):
         return f"ontology_status_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class RdfsSubclassOfNamedStatement(RdfsSubclassOfStatement):
-    """
-    
-    """
-    __tablename__ = 'rdfs_subclass_of_named_statement'
-    
-    stanza = Column(Text(), primary_key=True)
-    subject = Column(Text(), primary_key=True)
-    predicate = Column(Text(), primary_key=True)
-    object = Column(Text(), primary_key=True)
-    value = Column(Text(), primary_key=True)
-    datatype = Column(Text(), primary_key=True)
-    language = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"rdfs_subclass_of_named_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class TransitivePropertyNode(ObjectPropertyNode):
-    """
-    A node representing an OWL transitive object property
-    """
-    __tablename__ = 'transitive_property_node'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"transitive_property_node(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class SymmetricPropertyNode(ObjectPropertyNode):
-    """
-    A node representing an OWL symmetric object property
-    """
-    __tablename__ = 'symmetric_property_node'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"symmetric_property_node(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class ReflexivePropertyNode(ObjectPropertyNode):
-    """
-    A node representing an OWL reflexive object property
-    """
-    __tablename__ = 'reflexive_property_node'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"reflexive_property_node(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class IrreflexivePropertyNode(ObjectPropertyNode):
-    """
-    A node representing an OWL irreflexive object property
-    """
-    __tablename__ = 'irreflexive_property_node'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"irreflexive_property_node(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class AsymmetricPropertyNode(ObjectPropertyNode):
-    """
-    
-    """
-    __tablename__ = 'asymmetric_property_node'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"asymmetric_property_node(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class AnonymousClassExpression(AnonymousExpression):
-    """
-    An OWL anonymous class expression, such as for example `SomeValuesFrom(partOf Hand)`
-    """
-    __tablename__ = 'anonymous_class_expression'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"anonymous_class_expression(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class AnonymousPropertyExpression(AnonymousExpression):
-    """
-    
-    """
-    __tablename__ = 'anonymous_property_expression'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"anonymous_property_expression(id={self.id},)"
-        
-    
-        
-    
-    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
-    __mapper_args__ = {
-        'concrete': True
-    }
-    
-
-
-class AnonymousIndividualExpression(AnonymousExpression):
-    """
-    
-    """
-    __tablename__ = 'anonymous_individual_expression'
-    
-    id = Column(Text(), primary_key=True)
-    
-    
-    def __repr__(self):
-        return f"anonymous_individual_expression(id={self.id},)"
         
     
         
@@ -2299,6 +2037,210 @@ class HasDbxrefStatement(HasMappingStatement):
     
     def __repr__(self):
         return f"has_dbxref_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class TransitivePropertyNode(ObjectPropertyNode):
+    """
+    A node representing an OWL transitive object property
+    """
+    __tablename__ = 'transitive_property_node'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"transitive_property_node(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class SymmetricPropertyNode(ObjectPropertyNode):
+    """
+    A node representing an OWL symmetric object property
+    """
+    __tablename__ = 'symmetric_property_node'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"symmetric_property_node(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class ReflexivePropertyNode(ObjectPropertyNode):
+    """
+    A node representing an OWL reflexive object property
+    """
+    __tablename__ = 'reflexive_property_node'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"reflexive_property_node(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class IrreflexivePropertyNode(ObjectPropertyNode):
+    """
+    A node representing an OWL irreflexive object property
+    """
+    __tablename__ = 'irreflexive_property_node'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"irreflexive_property_node(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class AsymmetricPropertyNode(ObjectPropertyNode):
+    """
+    
+    """
+    __tablename__ = 'asymmetric_property_node'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"asymmetric_property_node(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class AnonymousClassExpression(AnonymousExpression):
+    """
+    An OWL anonymous class expression, such as for example `SomeValuesFrom(partOf Hand)`
+    """
+    __tablename__ = 'anonymous_class_expression'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"anonymous_class_expression(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class AnonymousPropertyExpression(AnonymousExpression):
+    """
+    
+    """
+    __tablename__ = 'anonymous_property_expression'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"anonymous_property_expression(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class AnonymousIndividualExpression(AnonymousExpression):
+    """
+    
+    """
+    __tablename__ = 'anonymous_individual_expression'
+    
+    id = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"anonymous_individual_expression(id={self.id},)"
+        
+    
+        
+    
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {
+        'concrete': True
+    }
+    
+
+
+class RdfsSubclassOfNamedStatement(RdfsSubclassOfStatement):
+    """
+    
+    """
+    __tablename__ = 'rdfs_subclass_of_named_statement'
+    
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+    
+    
+    def __repr__(self):
+        return f"rdfs_subclass_of_named_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
         
     
         

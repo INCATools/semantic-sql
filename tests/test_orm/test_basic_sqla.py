@@ -1,7 +1,7 @@
 import logging
 import unittest
 import os
-from semsql.sqla.semsql import OwlSomeValuesFrom
+from semsql.sqla.semsql import OwlSomeValuesFrom, OwlAxiomAnnotation
 from semsql.sqla.semsql import RdfsLabelStatement, RdfsSubclassOfStatement
 from sqlalchemy.orm import sessionmaker, aliased
 from sqlalchemy import create_engine
@@ -12,14 +12,17 @@ OUTPUT_DIR = os.path.join(cwd, '../outputs')
 
 class SQLAlchemyTestCase(unittest.TestCase):
 
+    def setUp(self) -> None:
+        path = os.path.join(DB_DIR, 'go-nucleus.db')
+        engine = create_engine(f"sqlite:///{path}")
+        SessionClass = sessionmaker(bind=engine)
+        self.session = SessionClass()
+
     def test_basic_sqla(self):
         """
         Tests using SQL Alchemy to join/compose SubClassOf and SomeValuesFrom
         """
-        path = os.path.join(DB_DIR, 'go-nucleus.db')
-        engine = create_engine(f"sqlite:///{path}")
-        SessionClass = sessionmaker(bind=engine)
-        session = SessionClass()
+        session = self.session
         logging.info('OWL query:')
         #q = session.query(RdfsSubclassOfStatement, OwlSomeValuesFrom).\
         #    join(OwlSomeValuesFrom, RdfsSubclassOfStatement.object == OwlSomeValuesFrom.id)
@@ -72,6 +75,20 @@ class SQLAlchemyTestCase(unittest.TestCase):
         print(len(lines))
         assert 'GO:0012505 "endomembrane system" subClassOf BFO:0000051 SOME GO:0005773 "vacuole"' \
                in lines
+
+    def test_axiom_annotation(self):
+        session = self.session
+        n = 0
+        ok1 = False
+        for row in session.query(OwlAxiomAnnotation).filter(OwlAxiomAnnotation.subject == 'GO:0005575'):
+            logging.info(row)
+            n += 1
+            if row.predicate == 'IAO:0000115' and row.value.startswith('A location') and \
+                row.annotation_predicate == 'oio:hasDbXref' and \
+                row.annotation_value == 'NIF_Subcellular:sao1337158144':
+                ok1 = True
+        assert ok1
+
 
 
 

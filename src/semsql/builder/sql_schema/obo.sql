@@ -148,6 +148,13 @@
 --     * Slot: datatype Description: 
 --     * Slot: language Description: 
 -- # Class: "axiom_dbxref_annotation" Description: ""
+--     * Slot: annotation_subject Description: 
+--     * Slot: annotation_predicate Description: 
+--     * Slot: annotation_object Description: 
+--     * Slot: annotation_value Description: 
+--     * Slot: annotation_language Description: 
+--     * Slot: annotation_datatype Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 --     * Slot: axiom_predicate Description: 
 --     * Slot: axiom_object Description: 
 --     * Slot: axiom_value Description: 
@@ -245,6 +252,13 @@
 --     * Slot: datatype Description: 
 --     * Slot: language Description: 
 -- # Class: "owl_axiom_annotation" Description: ""
+--     * Slot: annotation_subject Description: 
+--     * Slot: annotation_predicate Description: 
+--     * Slot: annotation_object Description: 
+--     * Slot: annotation_value Description: 
+--     * Slot: annotation_language Description: 
+--     * Slot: annotation_datatype Description: 
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 --     * Slot: axiom_predicate Description: 
 --     * Slot: axiom_object Description: 
 --     * Slot: axiom_value Description: 
@@ -286,6 +300,9 @@
 --     * Slot: filler Description: This is Null for a self-restriction
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "owl_complex_axiom" Description: "An axiom that is composed of two or more statements"
+--     * Slot: subject Description: 
+--     * Slot: predicate Description: 
+--     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 -- # Class: "owl_subclass_of_some_values_from" Description: "Composition of subClassOf and SomeValuesFrom"
 --     * Slot: subject Description: the class C in the axiom C subClassOf P some D
 --     * Slot: predicate Description: the predicate P in the axiom C subClassOf P some D
@@ -293,6 +310,7 @@
 -- # Class: "owl_equivalent_to_intersection_member" Description: "Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`"
 --     * Slot: subject Description: the defined class
 --     * Slot: object Description: a class expression that forms the defining expression
+--     * Slot: predicate Description: 
 -- # Class: "prefix" Description: "Maps CURIEs to URIs"
 --     * Slot: prefix Description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
 --     * Slot: base Description: The base URI a prefix will expand to
@@ -620,6 +638,13 @@ CREATE TABLE has_mapping_statement (
 	language TEXT
 );
 CREATE TABLE axiom_dbxref_annotation (
+	annotation_subject TEXT, 
+	annotation_predicate TEXT, 
+	annotation_object TEXT, 
+	annotation_value TEXT, 
+	annotation_language TEXT, 
+	annotation_datatype TEXT, 
+	id TEXT, 
 	axiom_predicate TEXT, 
 	axiom_object TEXT, 
 	axiom_value TEXT, 
@@ -631,7 +656,8 @@ CREATE TABLE axiom_dbxref_annotation (
 	object TEXT, 
 	value TEXT, 
 	datatype TEXT, 
-	language TEXT
+	language TEXT, 
+	PRIMARY KEY (id)
 );
 CREATE TABLE ontology_node (
 	id TEXT, 
@@ -746,6 +772,13 @@ CREATE TABLE owl_axiom (
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_axiom_annotation (
+	annotation_subject TEXT, 
+	annotation_predicate TEXT, 
+	annotation_object TEXT, 
+	annotation_value TEXT, 
+	annotation_language TEXT, 
+	annotation_datatype TEXT, 
+	id TEXT, 
 	axiom_predicate TEXT, 
 	axiom_object TEXT, 
 	axiom_value TEXT, 
@@ -757,7 +790,8 @@ CREATE TABLE owl_axiom_annotation (
 	object TEXT, 
 	value TEXT, 
 	datatype TEXT, 
-	language TEXT
+	language TEXT, 
+	PRIMARY KEY (id)
 );
 CREATE TABLE anonymous_expression (
 	id TEXT, 
@@ -805,6 +839,11 @@ CREATE TABLE owl_has_self (
 	id TEXT, 
 	PRIMARY KEY (id)
 );
+CREATE TABLE owl_complex_axiom (
+	subject TEXT, 
+	predicate TEXT, 
+	object TEXT
+);
 CREATE TABLE owl_subclass_of_some_values_from (
 	subject TEXT, 
 	predicate TEXT, 
@@ -812,7 +851,8 @@ CREATE TABLE owl_subclass_of_some_values_from (
 );
 CREATE TABLE owl_equivalent_to_intersection_member (
 	subject TEXT, 
-	object TEXT
+	object TEXT, 
+	predicate TEXT
 );
 CREATE TABLE prefix (
 	prefix TEXT, 
@@ -1140,7 +1180,7 @@ DROP TABLE asymmetric_property_node;
 CREATE VIEW asymmetric_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AsymmetricProperty';
 
 DROP TABLE annotation_property_node;
-CREATE VIEW annotation_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotatonProperty';
+CREATE VIEW annotation_property_node AS SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotationProperty';
 
 DROP TABLE deprecated_node;
 CREATE VIEW deprecated_node AS SELECT DISTINCT subject AS id FROM statements WHERE predicate='owl:deprecated' AND value='true';
@@ -1170,7 +1210,33 @@ DROP TABLE owl_axiom;
 CREATE VIEW owl_axiom AS SELECT * FROM owl_reified_axiom UNION SELECT NULL AS id, * FROM statements;
 
 DROP TABLE owl_axiom_annotation;
-CREATE VIEW owl_axiom_annotation AS SELECT axpv.stanza AS stanza, axs.object AS subject, axp.object AS predicate, axo.object AS object, axo.value AS value, axo.datatype AS datatype, axo.language AS language, axpv.subject AS id, axpv.predicate AS annotation_predicate, axpv.object AS annotation_iri, axpv.value AS annotation_value, axpv.language AS annotation_language, axpv.datatype AS annotation_datatype FROM statements AS axs, statements AS axp, statements AS axo, statements AS axpv WHERE axs.predicate = 'owl:annotatedSource' AND axp.predicate = 'owl:annotatedProperty' AND axo.predicate = 'owl:annotatedTarget' AND axs.subject = axpv.subject AND axp.subject = axpv.subject AND axo.subject = axpv.subject AND axpv.predicate NOT IN ('owl:annotatedSource', 'owl:annotatedProperty', 'owl:annotatedTarget', 'rdf:type');
+CREATE VIEW owl_axiom_annotation AS SELECT
+   axpv.stanza AS stanza,
+   axs.object AS subject,
+   axp.object AS predicate,
+   axo.object AS object,
+   axo.value AS value,
+   axo.datatype AS datatype,
+   axo.language AS language,
+   axpv.subject AS id,
+   axpv.subject AS annotation_subject,
+   axpv.predicate AS annotation_predicate,
+   axpv.object AS annotation_object,
+   axpv.value AS annotation_value,
+   axpv.language AS annotation_language,
+   axpv.datatype AS annotation_datatype
+  FROM
+   statements AS axs,
+   statements AS axp,
+   statements AS axo,
+   statements AS axpv
+  WHERE
+   axs.predicate = 'owl:annotatedSource' AND
+   axp.predicate = 'owl:annotatedProperty' AND
+   axo.predicate = 'owl:annotatedTarget' AND
+   axs.subject = axpv.subject AND
+   axp.subject = axpv.subject AND axo.subject = axpv.subject AND
+   axpv.predicate NOT IN ('owl:annotatedSource', 'owl:annotatedProperty', 'owl:annotatedTarget', 'rdf:type');
 
 DROP TABLE owl_some_values_from;
 CREATE VIEW owl_some_values_from AS SELECT onProperty.subject AS id,
@@ -1259,6 +1325,9 @@ CREATE VIEW has_narrow_synonym_statement AS SELECT * FROM statements WHERE predi
 DROP TABLE has_related_synonym_statement;
 CREATE VIEW has_related_synonym_statement AS SELECT * FROM statements WHERE predicate='oio:hasRelatedSynonym';
 
+DROP TABLE has_synonym_statement;
+CREATE VIEW has_synonym_statement AS SELECT * FROM has_exact_synonym_statement UNION SELECT * FROM has_broad_synonym_statement UNION SELECT * FROM has_narrow_synonym_statement UNION SELECT * FROM has_related_synonym_statement;
+
 DROP TABLE has_exact_match_statement;
 CREATE VIEW has_exact_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasExactMatch';
 
@@ -1271,8 +1340,14 @@ CREATE VIEW has_narrow_match_statement AS SELECT * FROM statements WHERE predica
 DROP TABLE has_related_match_statement;
 CREATE VIEW has_related_match_statement AS SELECT * FROM statements WHERE predicate='skos:hasRelatedMatch';
 
+DROP TABLE has_match_statement;
+CREATE VIEW has_match_statement AS SELECT * FROM has_exact_match_statement UNION SELECT * FROM has_broad_match_statement UNION SELECT * FROM has_narrow_match_statement UNION SELECT * FROM has_related_match_statement;
+
 DROP TABLE has_dbxref_statement;
 CREATE VIEW has_dbxref_statement AS SELECT * FROM statements WHERE predicate='oio:hasDbXref';
+
+DROP TABLE has_mapping_statement;
+CREATE VIEW has_mapping_statement AS SELECT * FROM has_match_statement UNION SELECT * FROM has_dbxref_statement;
 
 DROP TABLE axiom_dbxref_annotation;
 CREATE VIEW axiom_dbxref_annotation AS SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref';

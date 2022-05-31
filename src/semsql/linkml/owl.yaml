@@ -19,11 +19,28 @@ slots:
     range: node
   filler:
     range: class_node
-  axiom_predicate: {}
-  axiom_object: {}
-  axiom_value: {}
-  axiom_language: {}
-  axiom_datatype: {}
+  annotation_subject:
+    is_a: subject
+  annotation_predicate:
+    is_a: predicate
+  annotation_object:
+    is_a: object
+  annotation_value:
+    is_a: value
+  annotation_language:
+    is_a: language
+  annotation_datatype:
+    is_a: datatype
+  axiom_predicate:
+    deprecated: use annotation_* instead
+  axiom_object:
+    deprecated: use annotation_* instead
+  axiom_value:
+    deprecated: use annotation_* instead
+  axiom_language:
+    deprecated: use annotation_* instead
+  axiom_datatype:
+    deprecated: use annotation_* instead
 classes:
   ontology_node:
     description: A node representing an ontology
@@ -66,7 +83,7 @@ classes:
   annotation_property_node:
     description: A node representing an OWL annotation property
     comments:
-    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotatonProperty'
+    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotationProperty'
     is_a: property_node
   deprecated_node:
     aliases:
@@ -152,23 +169,45 @@ classes:
     - id
   owl_axiom_annotation:
     comments:
-    - sqlview>> SELECT axpv.stanza AS stanza, axs.object AS subject, axp.object AS
-      predicate, axo.object AS object, axo.value AS value, axo.datatype AS datatype,
-      axo.language AS language, axpv.subject AS id, axpv.predicate AS annotation_predicate,
-      axpv.object AS annotation_iri, axpv.value AS annotation_value, axpv.language
-      AS annotation_language, axpv.datatype AS annotation_datatype FROM statements
-      AS axs, statements AS axp, statements AS axo, statements AS axpv WHERE axs.predicate
-      = 'owl:annotatedSource' AND axp.predicate = 'owl:annotatedProperty' AND axo.predicate
-      = 'owl:annotatedTarget' AND axs.subject = axpv.subject AND axp.subject = axpv.subject
-      AND axo.subject = axpv.subject AND axpv.predicate NOT IN ('owl:annotatedSource',
-      'owl:annotatedProperty', 'owl:annotatedTarget', 'rdf:type');
+    - |-
+      sqlview>>
+        SELECT
+         axpv.stanza AS stanza,
+         axs.object AS subject,
+         axp.object AS predicate,
+         axo.object AS object,
+         axo.value AS value,
+         axo.datatype AS datatype,
+         axo.language AS language,
+         axpv.subject AS id,
+         axpv.subject AS annotation_subject,
+         axpv.predicate AS annotation_predicate,
+         axpv.object AS annotation_object,
+         axpv.value AS annotation_value,
+         axpv.language AS annotation_language,
+         axpv.datatype AS annotation_datatype
+        FROM
+         statements AS axs,
+         statements AS axp,
+         statements AS axo,
+         statements AS axpv
+        WHERE
+         axs.predicate = 'owl:annotatedSource' AND
+         axp.predicate = 'owl:annotatedProperty' AND
+         axo.predicate = 'owl:annotatedTarget' AND
+         axs.subject = axpv.subject AND
+         axp.subject = axpv.subject AND axo.subject = axpv.subject AND
+         axpv.predicate NOT IN ('owl:annotatedSource', 'owl:annotatedProperty', 'owl:annotatedTarget', 'rdf:type');
     is_a: statements
     slots:
-    - axiom_predicate
-    - axiom_object
-    - axiom_value
-    - axiom_language
-    - axiom_datatype
+    - annotation_subject
+    - annotation_predicate
+    - annotation_object
+    - annotation_value
+    - annotation_language
+    - annotation_datatype
+    ## deprecated
+    - id
   anonymous_expression:
     description: An OWL expression, such as a class expression. Expressions are "anonymous"
       as they are a composition of named elements rather than a named element themselves

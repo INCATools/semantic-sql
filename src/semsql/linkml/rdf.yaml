@@ -118,16 +118,17 @@ classes:
         required: true
   rdf_type_statement:
     description: A statement that indicates the asserted type of the subject entity
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='rdf:type'
     is_a: node_to_node_statement
     slot_usage:
       object:
         description: The entity type
         range: class_node
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "rdf:type"
   rdfs_subclass_of_statement:
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:subClassOf'
     is_a: node_to_node_statement
     slot_usage:
       subject:
@@ -136,13 +137,16 @@ classes:
       object:
         description: The superclass element of the triple
         range: class_node
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "rdfs:subClassOf"
   rdfs_subclass_of_named_statement:
     comments:
     - sqlview>> SELECT * FROM rdfs_subclass_of_statement WHERE object NOT LIKE '_:%';
     is_a: rdfs_subclass_of_statement
   rdfs_subproperty_of_statement:
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:subPropertyOf'
     is_a: node_to_node_statement
     slot_usage:
       subject:
@@ -151,14 +155,22 @@ classes:
       object:
         description: The superproperty element of the triple
         range: property_node
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "rdfs:subPropertyOf"
   rdfs_label_statement:
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:label'
     is_a: node_to_value_statement
     slot_usage:
       value:
         description: The label value
         range: string
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "rdfs:label"
   rdfs_domain_statement:
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:domain'
@@ -312,4 +324,4 @@ classes:
     description: Used to describe classes/views that have a reporting function
     abstract: true
     mixin: true
-source_file: ../semantic-sql/src/linkml/rdf.yaml
+

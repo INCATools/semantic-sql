@@ -212,11 +212,13 @@ class OwlAxiomAnnotation(Statements):
     """
     __tablename__ = 'owl_axiom_annotation'
     
-    axiom_predicate = Column(Text(), primary_key=True)
-    axiom_object = Column(Text(), primary_key=True)
-    axiom_value = Column(Text(), primary_key=True)
-    axiom_language = Column(Text(), primary_key=True)
-    axiom_datatype = Column(Text(), primary_key=True)
+    annotation_subject = Column(Text(), primary_key=True)
+    annotation_predicate = Column(Text(), primary_key=True)
+    annotation_object = Column(Text(), primary_key=True)
+    annotation_value = Column(Text(), primary_key=True)
+    annotation_language = Column(Text(), primary_key=True)
+    annotation_datatype = Column(Text(), primary_key=True)
+    id = Column(Text(), primary_key=True)
     stanza = Column(Text(), primary_key=True)
     subject = Column(Text(), primary_key=True)
     predicate = Column(Text(), primary_key=True)
@@ -227,7 +229,7 @@ class OwlAxiomAnnotation(Statements):
     
     
     def __repr__(self):
-        return f"owl_axiom_annotation(axiom_predicate={self.axiom_predicate},axiom_object={self.axiom_object},axiom_value={self.axiom_value},axiom_language={self.axiom_language},axiom_datatype={self.axiom_datatype},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        return f"owl_axiom_annotation(annotation_subject={self.annotation_subject},annotation_predicate={self.annotation_predicate},annotation_object={self.annotation_object},annotation_value={self.annotation_value},annotation_language={self.annotation_language},annotation_datatype={self.annotation_datatype},id={self.id},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
         
     
         
