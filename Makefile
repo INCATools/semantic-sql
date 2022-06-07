@@ -128,6 +128,13 @@ db/phenio.owl:
 db/bero.owl:
 	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp && mv $@.tmp $@
 
+db/bao.owl:
+	robot merge -I http://www.bioassayontology.org/bao/bao_complete.owl -o $@
+
+# https://github.com/enanomapper/ontologies/issues/323
+db/enanomapper.owl:
+	robot merge -I https://raw.githubusercontent.com/enanomapper/ontologies/master/enanomapper.owl -o $@
+
 db/efo.owl: STAMP
 	robot merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
 

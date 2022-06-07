@@ -21,6 +21,8 @@ IEDB,http://iedb.org/
 iedb-protein,http://iedb.org/taxon-protein/
 CoVIC,https://cvdb.ontodev.com/antibody/
 EXAMPLE,http://purl.obolibrary.org/obo/EXAMPLE_
+ENM,http://purl.enanomapper.org/onto/ENM_
+BAO,http://www.bioassayontology.org/bao#BAO_
 PSO,http://purl.obolibrary.org/obo/PSO_
 CHIRO,http://purl.obolibrary.org/obo/CHIRO_
 PW,http://purl.obolibrary.org/obo/PW_
@@ -220,3 +222,4 @@ PLANA,http://purl.obolibrary.org/obo/PLANA_
 BTO,http://purl.obolibrary.org/obo/BTO_
 PLANP,http://purl.obolibrary.org/obo/PLANP_
 CARO,http://purl.obolibrary.org/obo/CARO_
+NPO,http://purl.bioontology.org/ontology/npo#NPO_

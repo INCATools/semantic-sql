@@ -21,3 +21,5 @@ IEDB,http://iedb.org/
 iedb-protein,http://iedb.org/taxon-protein/
 CoVIC,https://cvdb.ontodev.com/antibody/
 EXAMPLE,http://purl.obolibrary.org/obo/EXAMPLE_
+ENM,http://purl.enanomapper.org/onto/ENM_
+BAO,http://www.bioassayontology.org/bao#BAO_
