@@ -26,7 +26,12 @@ def main(verbose: int, quiet: bool):
 
 @main.command()
 @click.argument('path')
-def make(path):
+@click.option('--docker/--no-docker',
+              default=False,
+              show_default=True,
+              help="Uses ODK docker image"
+              )
+def make(path, docker):
     """
     Makes a specified target, such as a db file
 
@@ -36,7 +41,11 @@ def make(path):
 
     (assumes envo.owl is in the same folder)
     """
-    builder.make(path)
+    if docker:
+        docker_config = builder.DockerConfig()
+    else:
+        docker_config = None
+    builder.make(path, docker_config=docker_config)
 
 
 @main.command()
