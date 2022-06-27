@@ -13,11 +13,16 @@ SELECTED_ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm
 
 TEST_ONTOLOGIES = go-nucleus robot-example
 
-all: $(patsubst %,all-%,$(ALL_OBO_ONTS))
+all: build_all stage_all
+build_all: $(patsubst %,all-%,$(ALL_OBO_ONTS))
+stage_all: $(patsubst %,stage/%.db.gz,$(ALL_OBO_ONTS))
+
 selected: $(patsubst %,all-%,$(SELECTED_ONTS))
 
 all-%: db/%.db
 	sqlite3 $< "SELECT COUNT(*) FROM statements"
+stage/%.db.gz: db/%.db
+	gzip -c $< > $@.tmp && mv $@.tmp $@
 
 # INSTALL
 include install.Makefile
@@ -49,6 +54,7 @@ realclean-%:
 # Prefixes
 # ---
 # TODO: sync with bioregistry
+# NOTE: this is now managed in build folder
 
 build_prefixes: $(PREFIX_DIR)/prefixes.csv
 
@@ -197,5 +203,5 @@ bin/%:
 DATE = $(shell date -u +"%Y-%m-%d")
 
 s3-deploy:
-	aws s3 sync db s3://bbop-sqlite --acl public-read && \
-	aws s3 sync db s3://bbop-sqlite/releases/$(DATE) --acl public-read
+	aws s3 sync stage s3://bbop-sqlite --acl public-read && \
+	aws s3 sync stage s3://bbop-sqlite/releases/$(DATE) --acl public-read

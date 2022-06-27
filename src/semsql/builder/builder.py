@@ -1,5 +1,7 @@
+import gzip
 import logging
 import os
+import shutil
 import subprocess
 from dataclasses import field
 from pathlib import Path
@@ -70,9 +72,16 @@ def download_obo_sqlite(ontology: str, destination: str):
     :param destination:
     :return:
     """
-    url = f'https://s3.amazonaws.com/bbop-sqlite/{ontology}.db'
+    db = f'{ontology}.db'
+    url = f'https://s3.amazonaws.com/bbop-sqlite/{db}.gz'
     r = requests.get(url, allow_redirects=True)
-    open(destination, 'wb').write(r.content)
+    destination_gzip = f'{destination}.gz'
+    open(destination_gzip, 'wb').write(r.content)
+    with gzip.open(destination_gzip, 'rb') as f_in:
+        with open(destination, 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+            os.remove(destination_gzip)
+
 
 
 def connect(owl_file: str):
