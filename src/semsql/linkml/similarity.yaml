@@ -1,0 +1,46 @@
+name: semsql_similarity
+description: Module for representing and calculating similarities
+title: Semantic similarity module
+id: https://w3id.org/semsql/nlp
+imports:
+- rdf
+- relation_graph
+license: https://creativecommons.org/publicdomain/zero/1.0/
+prefixes:
+  semsql_similarity: https://w3id.org/semsql/similarity
+  linkml: https://w3id.org/linkml/
+default_curi_maps:
+- semweb_context
+default_prefix: semsql_nlp
+default_range: string
+
+classes:
+  node_pairwise_similarity:
+    abstract: true
+  slots:
+    - node1
+    - node2
+  node_pairwise_graph_similarity:
+    is_a: node_pairwise_similarity
+    abstract: true
+    slots:
+      - num_ancestors
+      - predicate1
+      - predicate2
+  node_pairwise_overlap:
+    is_a: node_pairwise_graph_similarity
+    comments:
+      - |-
+        sqlview>>
+          SELECT
+           e1.subject AS node1,
+           e2.subject AS node2,
+           e1.predicate AS predicate1,
+           e2.predicate AS predicate2,
+           COUNT(DISTINCT e1.object) AS num_ancestors
+          FROM entailed_edge AS e1 AND
+               entailed_edge AS e2
+          WHERE e1.object = e2.object
+
+
+
