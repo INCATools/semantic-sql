@@ -1,3 +1,4 @@
+OBO = http://purl.obolibrary.org/obo
 RUN = poetry run
 SRC_DIR = src/semsql/linkml
 BUILDER_DIR = src/semsql/builder
@@ -118,9 +119,11 @@ STAMP:
 
 # download OWL, ensuring converted to RDF/XML
 db/%.owl: STAMP
-#	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp && mv $@.tmp $@
 	robot merge -I http://purl.obolibrary.org/obo/$*.owl -o $@
 .PRECIOUS: db/%.owl 
+
+db/foodon.owl: STAMP
+	robot merge -I $(OBO)/foodon.owl relax reduce -c true -o $@
 
 db/go.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/go/extensions/go-plus.owl > $@
