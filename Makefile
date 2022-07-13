@@ -1,5 +1,6 @@
 OBO = http://purl.obolibrary.org/obo
 RUN = poetry run
+VERSION = $(shell git tag | tail -1)
 SRC_DIR = src/semsql/linkml
 BUILDER_DIR = src/semsql/builder
 DDL_DIR = $(BUILDER_DIR)/sql_schema
@@ -55,7 +56,7 @@ realclean-%:
 # Prefixes
 # ---
 # TODO: sync with bioregistry
-# NOTE: this is now managed in build folder
+# NOTE: move this to build folder
 
 build_prefixes: $(PREFIX_DIR)/prefixes.csv
 
@@ -137,8 +138,18 @@ db/phenio.owl:
 db/bero.owl:
 	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp && mv $@.tmp $@
 
+db/reacto.owl:
+	curl -L -s http://purl.obolibrary.org/obo/go/extensions/reacto.owl > $@.tmp && mv $@.tmp $@
+
+db/go-lego.owl:
+	curl -L -s http://purl.obolibrary.org/obo/go/extensions/go-lego.owl > $@.tmp && mv $@.tmp $@
+
 db/bao.owl:
 	robot merge -I http://www.bioassayontology.org/bao/bao_complete.owl -o $@
+
+# https://github.com/ontodev/rdftab.rs/issues/21
+db/biopax.owl:
+	robot convert -I http://www.biopax.org/release/biopax-level3.owl -o $@
 
 # https://github.com/enanomapper/ontologies/issues/323
 db/enanomapper.owl:
@@ -146,6 +157,14 @@ db/enanomapper.owl:
 
 db/efo.owl: STAMP
 	robot merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
+
+
+db/reactome-Homo-sapiens.owl: download/reactome-biopax.zip db/biopax.owl
+	unzip -p $< Homo_sapiens.owl > $@.tmp &&\
+	robot merge -i $@.tmp  -i db/biopax.owl -o $@
+
+download/reactome-biopax.zip:
+	curl -L -s https://reactome.org/download/current/biopax.zip > $@
 
 #fma.owl:#
 #	http://purl.org/sig/ont/fma.owl 
@@ -208,3 +227,43 @@ DATE = $(shell date -u +"%Y-%m-%d")
 s3-deploy:
 	aws s3 sync stage s3://bbop-sqlite --acl public-read && \
 	aws s3 sync stage s3://bbop-sqlite/releases/$(DATE) --acl public-read
+
+################################################
+#### Commands for building the Docker image ####
+################################################
+
+IM=linkml/semantic-sql
+
+docker-build-no-cache:
+	@docker build --no-cache -t $(IM):$(VERSION) . \
+	&& docker tag $(IM):$(VERSION) $(IM):latest
+
+docker-build:
+	@docker build -t $(IM):$(VERSION) . \
+	&& docker tag $(IM):$(VERSION) $(IM):latest
+
+docker-build-use-cache-dev:
+	@docker build -t $(DEV):$(VERSION) . \
+	&& docker tag $(DEV):$(VERSION) $(DEV):latest
+
+docker-clean:
+	docker kill $(IM) || echo not running ;
+	docker rm $(IM) || echo not made 
+
+docker-publish-no-build:
+	@docker push $(IM):$(VERSION) \
+	&& docker push $(IM):latest
+
+docker-publish-dev-no-build:
+	@docker push $(DEV):$(VERSION) \
+	&& docker push $(DEV):latest
+
+docker-publish: docker-build
+	@docker push $(IM):$(VERSION) \
+	&& docker push $(IM):latest
+
+docker-run:
+	@docker run  -v $(PWD):/work -w /work -ti $(IM):$(VERSION) 
+
+test-docker-run:
+	cd docker-test && docker run  -v `pwd`/db:/semsql/db -w /semsql -ti $(IM):$(VERSION) make -k all RUN=

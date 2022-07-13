@@ -5,6 +5,7 @@
 # Directory containing this Makefile
 # https://stackoverflow.com/questions/18136918/how-to-get-current-relative-directory-of-your-makefile
 THIS_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+PREFIX_DIR = $(THIS_DIR)/prefixes
 
 # Template sqlite database
 TEMPLATE = .template.db
@@ -69,12 +70,32 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql
                        --ontology-file $<\
                        --output-file $@.ttl.tmp \
                        --equivalence-as-subclass true \
+	               --output-individuals true \
 	               --output-subclasses true \
                        --reflexive-subclasses true && \
-	riot --out RDFXML $@.ttl.tmp > $@.owl.tmp && \
+	riot --out RDFXML --syntax turtle $@.ttl.tmp > $@.owl.tmp && \
 	sqlite3 $@.db.tmp -cmd ".mode csv" ".import $(THIS_DIR)/prefixes/prefixes.csv prefix" && \
 	rdftab $@.db.tmp < $@.owl.tmp && \
 	sqlite3 $@.db.tmp -cmd '.separator "\t"' -cmd '.header on' "SELECT subject,predicate,object FROM statements " > $@.tmp && \
 	mv $@.tmp $@ && \
 	rm $@.*.tmp
 .PRECIOUS: %-$(RGSUFFIX).tsv
+
+# ---
+# Prefixes
+# ---
+
+build_prefixes: $(PREFIX_DIR)/prefixes.csv
+
+$(PREFIX_DIR)/obo_prefixes.owl:
+	robot convert -I http://purl.obolibrary.org/meta/obo_prefixes.ttl -o $@
+
+$(PREFIX_DIR)/obo_prefixes.db: $(PREFIX_DIR)/obo_prefixes.owl
+	sqlite3 $@ < $(PREFIX_DIR)/prefix_ddl.sql && ./bin/rdftab $@ < $<
+
+$(PREFIX_DIR)/obo_prefixes.csv: $(PREFIX_DIR)/obo_prefixes.db
+	sqlite3 $< -cmd ".separator ','" "SELECT p.value AS prefix, ns.value AS base FROM statements AS p JOIN statements AS ns ON (p.subject=ns.subject) WHERE p.predicate='<http://www.w3.org/ns/shacl#prefix>' AND ns.predicate='<http://www.w3.org/ns/shacl#namespace>'" > $@
+
+$(PREFIX_DIR)/prefixes.csv: $(PREFIX_DIR)/prefixes_curated.csv $(PREFIX_DIR)/obo_prefixes.csv
+	cat $^ > $@
+
