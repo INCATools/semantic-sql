@@ -70,6 +70,7 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql
                        --ontology-file $<\
                        --output-file $@.ttl.tmp \
                        --equivalence-as-subclass true \
+	               --output-individuals true \
 	               --output-subclasses true \
                        --reflexive-subclasses true && \
 	riot --out RDFXML $@.ttl.tmp > $@.owl.tmp && \
