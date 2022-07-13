@@ -73,7 +73,7 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql
 	               --output-individuals true \
 	               --output-subclasses true \
                        --reflexive-subclasses true && \
-	riot --out RDFXML $@.ttl.tmp > $@.owl.tmp && \
+	riot --out RDFXML --syntax turtle $@.ttl.tmp > $@.owl.tmp && \
 	sqlite3 $@.db.tmp -cmd ".mode csv" ".import $(THIS_DIR)/prefixes/prefixes.csv prefix" && \
 	rdftab $@.db.tmp < $@.owl.tmp && \
 	sqlite3 $@.db.tmp -cmd '.separator "\t"' -cmd '.header on' "SELECT subject,predicate,object FROM statements " > $@.tmp && \
