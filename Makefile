@@ -147,6 +147,9 @@ db/go-lego.owl:
 db/bao.owl:
 	robot merge -I http://www.bioassayontology.org/bao/bao_complete.owl -o $@
 
+# https://github.com/ontodev/rdftab.rs/issues/21
+db/biopax.owl:
+	robot convert -I http://www.biopax.org/release/biopax-level3.owl -o $@
 
 # https://github.com/enanomapper/ontologies/issues/323
 db/enanomapper.owl:
