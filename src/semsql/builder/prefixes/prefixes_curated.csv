@@ -23,3 +23,5 @@ CoVIC,https://cvdb.ontodev.com/antibody/
 EXAMPLE,http://purl.obolibrary.org/obo/EXAMPLE_
 ENM,http://purl.enanomapper.org/onto/ENM_
 BAO,http://www.bioassayontology.org/bao#BAO_
+biopax,http://www.biopax.org/release/biopax-level3.owl#
+reactome.biopax,http://www.reactome.org/biopax/81/48887#
