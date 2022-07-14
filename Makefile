@@ -158,6 +158,8 @@ db/enanomapper.owl:
 db/efo.owl: STAMP
 	robot merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
 
+db/sweetAll.owl:
+	robot merge -I http://sweetontology.net/sweetAll -o $@
 
 db/reactome-Homo-sapiens.owl: download/reactome-biopax.zip db/biopax.owl
 	unzip -p $< Homo_sapiens.owl > $@.tmp &&\
