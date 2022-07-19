@@ -87,7 +87,7 @@ runoak -i db/envo.db search t~biome
 You can also pass in an OWL file and have the sqlite be made on the fly
 
 ```bash
-runoak -i envo.owl search t~biome
+runoak -i sqlite:envo.owl search t~biome
 ```
 
 
