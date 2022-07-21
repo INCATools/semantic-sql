@@ -45,8 +45,16 @@ classes:
     notes:
     - this should hold direct edges. See also entailed_edge
     comments:
-    - "sqlview>>\n  SELECT subject, predicate, object FROM owl_subclass_of_some_values_from\
-      \ UNION\n    SELECT subject, predicate, object FROM rdfs_subclass_of_named_statement"
+    - |-
+      sqlview>>
+        SELECT subject, predicate, object
+        FROM owl_subclass_of_some_values_from
+         UNION
+        SELECT subject, predicate, object
+        FROM rdfs_subclass_of_named_statement
+         UNION
+        SELECT subject, predicate, object
+        FROM rdf_type_statement WHERE object IN (SELECT id FROM class_node)
     in_subset:
     - base table
     is_a: relation_graph_construct

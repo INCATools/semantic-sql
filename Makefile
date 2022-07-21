@@ -133,7 +133,7 @@ db/monarch.owl:
 	robot merge -I http://purl.obolibrary.org/obo/upheno/monarch.owl -o $@
 
 db/phenio.owl:
-	curl -L -s https://kg-hub.berkeleybop.io/frozen_incoming_data/phenio-base.owl.tar.gz > $@.tmp && mv $@.tmp $@
+	curl -L -s https://github.com/monarch-initiative/phenio/releases/download/latest/phenio.owl > $@.tmp && mv $@.tmp $@
 
 db/bero.owl:
 	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp && mv $@.tmp $@
@@ -157,6 +157,9 @@ db/enanomapper.owl:
 
 db/efo.owl: STAMP
 	robot merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
+
+db/edam.owl:
+	curl -L -s http://edamontology.org/EDAM.owl > $@
 
 db/sweetAll.owl:
 	robot merge -I http://sweetontology.net/sweetAll -o $@

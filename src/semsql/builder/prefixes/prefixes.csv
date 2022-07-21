@@ -9,9 +9,13 @@ dct,http://purl.org/dc/terms/
 foaf,http://xmlns.com/foaf/0.1/
 protege,http://protege.stanford.edu/plugins/owl/protege#
 skos,http://www.w3.org/2004/02/skos/core#
+dbpedia,http://dbpedia.org/resource/
 ex,http://example.com/
 obo,http://purl.obolibrary.org/obo/
 gocam,http://model.geneontology.org/
+EDAM,http://edamontology.org/
+EFO,http://www.ebi.ac.uk/efo/EFO_
+ORDO,http://www.orpha.net/ORDO/Orphanet_
 UP,http://purl.uniprot.org/uniprot/
 UC,http://purl.uniprot.org/core/
 PRO,http://www.uniprot.org/annotation/PRO_
@@ -25,6 +29,7 @@ ENM,http://purl.enanomapper.org/onto/ENM_
 BAO,http://www.bioassayontology.org/bao#BAO_
 biopax,http://www.biopax.org/release/biopax-level3.owl#
 reactome.biopax,http://www.reactome.org/biopax/81/48887#
+sweet,http://sweetontology.net/
 PSO,http://purl.obolibrary.org/obo/PSO_
 CHIRO,http://purl.obolibrary.org/obo/CHIRO_
 PW,http://purl.obolibrary.org/obo/PW_
