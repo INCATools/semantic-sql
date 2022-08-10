@@ -30,3 +30,8 @@ BAO,http://www.bioassayontology.org/bao#BAO_
 biopax,http://www.biopax.org/release/biopax-level3.owl#
 reactome.biopax,http://www.reactome.org/biopax/81/48887#
 sweet,http://sweetontology.net/
+qudt,http://qudt.org/schema/qudt#
+allotrope.property,http://purl.allotrope.org/ontologies/property#
+allotrope.role,http://purl.allotrope.org/ontologies/role#
+allotrope.equipment,http://purl.allotrope.org/ontologies/equipment#
+allotrope,http://purl.allotrope.org/ontologies/
