@@ -30,20 +30,43 @@ Or simply download using URL of the form:
 
 ## Creating a SQLite database from an OWL file
 
-Requirements; EITHER:
+There are two protocols for doing this:
+
+1. install build dependencies
+2. use Docker
+
+In either case:
+
+- The input MUST be in RDF/XML serialization and have the suffix `.owl`:
+- use robot to convert if format is different
+
+### 1. Build a SQLite database directly
+
+Requirements:
 
 - [rdftab.rs](https://github.com/ontodev/rdftab.rs)
 - [relation-graph](https://github.com/balhoff/relation-graph)
 
-OR use the ODK docker image
-
-The input MUST be in RDF/XML serialization and have the suffix `.owl`:
+After installing these and putting both in your path:
 
 ```bash
 semsql make foo.db
 ```
 
-foo.db must be in the same directory
+This assumes `foo.owl` is in the same folder
+
+### 2. Use Docker
+
+There are two docker images that can be used:
+
+- ODK
+- [semantic-sql](https://hub.docker.com/repository/docker/linkml/semantic-sql)
+
+The ODK image may lag behind
+
+```bash
+docker run  -v $PWD:/work -w /work -ti linkml/semantic-sql semsql make foo.db
+```
 
 ## Schema
 
