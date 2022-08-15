@@ -4,21 +4,43 @@
 ![](https://github.com/incatools/semantic-sql/workflows/Build/badge.svg)
 
 
-This project provides a standard collection of SQL tables/views for ontologies, such that you can make queries like:
+This project provides a standard collection of SQL tables/views for ontologies, such that you can make queries like this,
+to find all terms starting with `Abnormality` in [HPO](https://obofoundry.org/ontology/hp).
 
 ```sql
-SELECT * FROM rdfs_label_statement WHERE value LIKE 'Abnormality of %';
+$ sqlite db/hp.db
+sqlite> SELECT * FROM rdfs_label_statement WHERE value LIKE 'Abnormality of %';
 ```
 
-Ready-made ontologies can also be downloaded for any ontology in [OBO](http://obofoundry.org)
+|stanza|subject|predicate|object|value|datatype|language|
+|---|---|---|---|---|---|---|
+|HP:0000002|HP:0000002|rdfs:label||Abnormality of body height|xsd:string||
+|HP:0000014|HP:0000014|rdfs:label||Abnormality of the bladder|xsd:string||
+|HP:0000022|HP:0000022|rdfs:label||Abnormality of male internal genitalia|xsd:string||
+|HP:0000032|HP:0000032|rdfs:label||Abnormality of male external genitalia|xsd:string||
+
+
+Ready-made ontologies can also be downloaded for any ontology in [OBO](http://obofoundry.org), using URLs such as https://s3.amazonaws.com/bbop-sqlite/hp.db
+
+[relation-graph](https://github.com/balhoff/relation-graph/) is used to pre-generate tables of [entailed edges](https://incatools.github.io/semantic-sql/EntailedEdge/). For example,
+all is-a and part-of ancestors of [finger](http://purl.obolibrary.org/obo/UBERON_0002389) in Uberon:
+
+sqlite> SELECT * FROM entailed_edge WHERE subject='UBERON:0002389' and predicate IN ('rdfs:subClassOf', 'BFO:0000050');
+
 
 ## Installation
+
+SemSQL comes with a helper Python library. Use of this is optional. To install:
 
 ```bash
 pip install semsql
 ```
 
 ## Download ready-made SQLite databases
+
+Pre-generated SQLite database are created weekly for all OBO ontologies and a selection of others.
+
+To download:
 
 ```bash
 semsql download obi -o obi.db
@@ -40,14 +62,19 @@ In either case:
 - The input MUST be in RDF/XML serialization and have the suffix `.owl`:
 - use robot to convert if format is different
 
+We are planning to simplify this process in future.
+
 ### 1. Build a SQLite database directly
+
+This requires some basic technical knowledge about how to install things on your machine
+and how to put things in your PATH. It does not require Docker.
 
 Requirements:
 
 - [rdftab.rs](https://github.com/ontodev/rdftab.rs)
 - [relation-graph](https://github.com/balhoff/relation-graph)
 
-After installing these and putting both in your path:
+After installing these and putting both `relation-graph` and `rdftab.rs` in your path:
 
 ```bash
 semsql make foo.db
@@ -70,15 +97,16 @@ docker run  -v $PWD:/work -w /work -ti linkml/semantic-sql semsql make foo.db
 
 ## Schema
 
-See [LinkML Schema Docs](https://incatools.github.io/semantic-sql/)
+See [Schema Documentation](https://incatools.github.io/semantic-sql/)
 
-The source schema is in LinkML - this is then compiled down to SQL Tables and Views
+The [source schema](https://github.com/INCATools/semantic-sql/tree/main/src/semsql/linkml) is in [LinkML](https://linkml.io) - this is then compiled down to SQL Tables and Views
 
 ## ORM Layer
 
 A SemSQL relational database can be accessed in exactly the same way as any other SQLdb
 
-For convenience, we provide a Python ORM layer using SQL Alchemy. This allows code like the following, which joins [RdfsSubclassOfStatement](https://incatools.github.io/semantic-sql/RdfsSubclassOfStatement) and [existential restrictions](https://incatools.github.io/semantic-sql/OwlSomeValuesFrom):
+For convenience, we provide a Python Object-Relational Mapping (ORM) layer using SQL Alchemy.
+This allows for code uchlike the following, which joins [RdfsSubclassOfStatement](https://incatools.github.io/semantic-sql/RdfsSubclassOfStatement) and [existential restrictions](https://incatools.github.io/semantic-sql/OwlSomeValuesFrom):
 
 ```python
 engine = create_engine(f"sqlite:////path/to/go.db")
@@ -113,4 +141,5 @@ You can also pass in an OWL file and have the sqlite be made on the fly
 runoak -i sqlite:envo.owl search t~biome
 ```
 
+Even if using OAK, it can be useful to access SQL tables directly to do complex multi-join queries in a performant way.
 

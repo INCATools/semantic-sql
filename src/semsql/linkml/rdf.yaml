@@ -1,10 +1,9 @@
-name: Semsql-RDF
+name: rdf
 description: Abstractions for working with RDF and RDFS triples
 title: Semantic SQL RDF module
 id: https://w3id.org/semsql/rdf
 imports:
 - linkml:types
-- rdf
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
   semsql_rdf: https://w3id.org/semsql/rdf
@@ -38,12 +37,25 @@ slots:
     identifier: true
     range: node id type
   subject:
+    aliases:
+      - about
+      - source
+      - head
     slot_uri: rdf:subject
     range: node
+    description: The subject of the statement
   predicate:
+    aliases:
+      - relationship type
+      - property
     slot_uri: rdf:predicate
     range: property_node
+    description: The predicate of the statement
   object:
+    aliases:
+      - target
+      - sink
+      - tail
     description: Note the range of this slot is always a node. If the triple represents
       a literal, instead value will be populated
     slot_uri: rdf:object
@@ -52,17 +64,26 @@ slots:
     see_also:
     - https://github.com/ontodev/rdftab.rs#stanzas
     range: node
-  datatype: {}
+    deprecated: this will disappear in future versions
+    description: the term which this statement is about
+  datatype:
+    description: the rdf datatype of the value, for example, xsd:string
+    comments:
+      - only used when value is populated
   value:
     close_mappings:
     - rdf:object
     description: Note the range of this slot is always a string. Only used the triple
       represents a literal assertion
     range: literal as string type
+    slot_uri: rdf:object
   language:
     todos:
     - use an enum
     range: string
+    description: the human language in which the value is encoded, e.g. en
+    comments:
+      - only used when value is populated
   prefix:
     description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
     slot_uri: sh:prefix

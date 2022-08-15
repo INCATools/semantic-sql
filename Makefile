@@ -186,11 +186,13 @@ download/reactome-biopax.zip:
 
 MODULES = rdf owl obo omo relation_graph semsql
 
+GENDOC_ARGS = --no-mergeimports -d docs --template-directory docgen-templates
+
 # TODO: markdown gen should make modular output
 markdown-%: $(YAML_DIR)/%.yaml
-	$(RUN) gen-markdown --no-mergeimports -d docs $< && mv docs/index.md docs/$*_index.md
+	$(RUN) gen-doc $(GENDOC_ARGS) $< && mv docs/index.md docs/$*_index.md
 markdown: $(patsubst %, markdown-%, $(MODULES))
-	$(RUN) gen-markdown --no-mergeimports -d docs $(YAML_DIR)/semsql.yaml
+	$(RUN) gen-doc $(GENDOC_ARGS) $(YAML_DIR)/semsql.yaml
 
 gen-project: $(YAML_DIR)/semsql.yaml
 	$(RUN) gen-project $< -d project

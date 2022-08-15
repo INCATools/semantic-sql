@@ -3,6 +3,9 @@ theme:
   name: readthedocs
   analytics:
     gtag: G-2SYBSJVZ23
+plugins:
+  - search
+  - mermaid2
 nav:
   - Home: index.md
   - RDF: rdf_index.md
