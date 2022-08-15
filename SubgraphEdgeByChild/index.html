@@ -1,237 +1,466 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  <link rel="canonical" href="https://cmungall.github.io/semantic-sql/SubgraphEdgeByChild/">
-  <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Class: SubgraphEdgeByChild - Semantic SQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://incatools.github.io/semantic-sql/SubgraphEdgeByChild/" rel="canonical"/>
+<link href="../img/favicon.ico" rel="shortcut icon"/>
+<title>Class: SubgraphEdgeByChild - Semantic SQL</title>
+<link href="../css/theme.css" rel="stylesheet"/>
+<link href="../css/theme_extra.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" rel="stylesheet"/>
+<script>
+        // Current page data
+        var mkdocs_page_name = "Class: SubgraphEdgeByChild";
+        var mkdocs_page_input_path = "SubgraphEdgeByChild.md";
+        var mkdocs_page_url = "/semantic-sql/SubgraphEdgeByChild/";
+      </script>
+<script defer="" src="../js/jquery-3.6.0.min.js"></script>
+<!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-2SYBSJVZ23"></script>
+<script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-  <link rel="stylesheet" href="../css/theme.css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Class: SubgraphEdgeByChild";
-    var mkdocs_page_input_path = "SubgraphEdgeByChild.md";
-    var mkdocs_page_url = "/semantic-sql/SubgraphEdgeByChild/";
-  </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+        gtag('config', 'G-2SYBSJVZ23');
+      </script>
 </head>
-
 <body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Semantic SQL</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side stickynav" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href=".."> Semantic SQL
+        </a><div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" title="Type search term here" type="text"/>
+</form>
 </div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../rdf_index/">RDF</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../owl_index/">OWL</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
-                    </li>
-                </ul>
-      </div>
-    </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Semantic SQL</a>
-      </nav>
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>Class: SubgraphEdgeByChild</li>
-    <li class="wy-breadcrumbs-aside">
-      
-        <a href="https://github.com/cmungall/semantic-sql/edit/master/docs/SubgraphEdgeByChild.md"
-          class="icon icon-github"> Edit on GitHub</a>
-      
-    </li>
-  </ul>
-  
-  <hr/>
 </div>
-          <div role="main">
-            <div class="section">
-              
-                <h1 id="class-subgraphedgebychild">Class: SubgraphEdgeByChild</h1>
-<p>An edge within a subgraph anchored around a set of child terms</p>
-<p>URI: <a href="https://w3id.org/semsql/SubgraphEdgeByChild">semsql:SubgraphEdgeByChild</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[SubgraphQuery],[Node]&lt;anchor%20object%200..1-%20[SubgraphEdgeByChild&#124;anchor_predicate:string%20%3F],[Node]&lt;object%200..1-%20[SubgraphEdgeByChild],[PropertyNode]&lt;predicate%200..1-%20[SubgraphEdgeByChild],[Node]&lt;subject%200..1-%20[SubgraphEdgeByChild],[SubgraphQuery]^-[SubgraphEdgeByChild],[PropertyNode],[Node]" /></p>
-<h2 id="parents">Parents</h2>
+<div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
 <ul>
-<li>is_a: <a href="../SubgraphQuery/">SubgraphQuery</a> - A subgraph query encompasses as subgraph edge and a seed/anchor object and seed/anchor predicate</li>
+<li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+</li>
 </ul>
-<h2 id="referenced-by-class">Referenced by class</h2>
-<h2 id="attributes">Attributes</h2>
-<h3 id="own">Own</h3>
 <ul>
-<li><a href="../anchor_object/">anchor object</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../Node/">Node</a></li>
-</ul>
-</li>
-<li><a href="../anchor_predicate/">anchor predicate</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/String/">String</a></li>
-</ul>
-</li>
-<li><a href="../object/">object</a>  <sub>OPT</sub><ul>
-<li>Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated</li>
-<li>range: <a href="../Node/">Node</a></li>
-</ul>
-</li>
-<li><a href="../predicate/">predicate</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../PropertyNode/">PropertyNode</a></li>
-</ul>
-</li>
-<li><a href="../subgraph_edge_by_child_anchor_object/">subgraph edge by child➞anchor object</a>  <sub>OPT</sub><ul>
-<li>Description: The child term</li>
-<li>range: <a href="../Node/">Node</a></li>
-</ul>
-</li>
-<li><a href="../subgraph_edge_by_child_anchor_predicate/">subgraph edge by child➞anchor predicate</a>  <sub>OPT</sub><ul>
-<li>Description: The entailed predicate that holds between the child and each edge subject</li>
-<li>range: <a href="../types/String/">String</a></li>
-</ul>
-</li>
-<li><a href="../subject/">subject</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../Node/">Node</a></li>
-</ul>
+<li class="toctree-l1"><a class="reference internal" href="../rdf_index/">RDF</a>
 </li>
 </ul>
-<h2 id="other-properties">Other properties</h2>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../owl_index/">OWL</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="Mobile navigation menu" class="wy-nav-top" role="navigation">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="..">Semantic SQL</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content"><div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a alt="Docs" class="icon icon-home" href=".."></a> »</li><li>Class: SubgraphEdgeByChild</li>
+<li class="wy-breadcrumbs-aside">
+<a class="icon icon-github" href="https://github.com/incatools/semantic-sql/edit/master/docs/SubgraphEdgeByChild.md"> Edit on GitHub</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div class="section" itemprop="articleBody">
+<h1 id="class-subgraphedgebychild">Class: SubgraphEdgeByChild</h1>
+<p><em>An edge within a subgraph anchored around a set of child terms</em></p>
+<p>URI: <a href="semsql_rg:SubgraphEdgeByChild">semsql_rg:SubgraphEdgeByChild</a></p>
+<div class="mermaid"> classDiagram
+      SubgraphQuery &lt;|-- SubgraphEdgeByChild
+
+      SubgraphEdgeByChild : anchor_object
+      SubgraphEdgeByChild : anchor_predicate
+      SubgraphEdgeByChild : object
+      SubgraphEdgeByChild : predicate
+      SubgraphEdgeByChild : subject
+
+
+</div>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-sql">SELECT * FROM subgraph_edge_by_child;
+</code></pre>
+<h2 id="inheritance">Inheritance</h2>
+<ul>
+<li><a href="../RelationGraphConstruct/">RelationGraphConstruct</a><ul>
+<li><a href="../SubgraphQuery/">SubgraphQuery</a><ul>
+<li><strong>SubgraphEdgeByChild</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="slots">Slots</h2>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
-<th></th>
+<th>Name</th>
+<th>Cardinality and Range</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Comments:</strong></td>
-<td></td>
-<td>sqlview&gt;&gt;</td>
+<td><a href="../subject/">subject</a></td>
+<td>0..1 <br/> <a href="../Node/">Node</a></td>
+<td>The subject of the statement</td>
 </tr>
 <tr>
-<td>SELECT</td>
-<td></td>
-<td></td>
+<td><a href="../predicate/">predicate</a></td>
+<td>0..1 <br/> <a href="../PropertyNode/">PropertyNode</a></td>
+<td>The predicate of the statement</td>
 </tr>
 <tr>
-<td>edge.*,</td>
-<td></td>
-<td></td>
+<td><a href="../object/">object</a></td>
+<td>0..1 <br/> <a href="../Node/">Node</a></td>
+<td>Note the range of this slot is always a node</td>
 </tr>
 <tr>
-<td>ee.predicate AS anchor_predicate,</td>
-<td></td>
-<td></td>
+<td><a href="../anchor_object/">anchor_object</a></td>
+<td>0..1 <br/> <a href="../Node/">Node</a></td>
+<td>The child term</td>
 </tr>
 <tr>
-<td>ee.subject AS anchor_object</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>FROM edge JOIN edge AS ee ON (edge.subject = ee.object)</td>
-<td></td>
-<td></td>
+<td><a href="../anchor_predicate/">anchor_predicate</a></td>
+<td>0..1 <br/> <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a></td>
+<td>The entailed predicate that holds between the child and each edge subject</td>
 </tr>
 </tbody>
 </table>
-              
-            </div>
-          </div>
-          <footer>
-  
+<h2 id="usages">Usages</h2>
+<h2 id="comments">Comments</h2>
+<ul>
+<li>sqlview&gt;&gt;
+  SELECT
+    edge.*,
+    ee.predicate AS anchor_predicate,
+    ee.subject AS anchor_object
+  FROM edge JOIN edge AS ee ON (edge.subject = ee.object)</li>
+</ul>
+<h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
+<h3 id="schema-source">Schema Source</h3>
+<ul>
+<li>from schema: https://w3id.org/semsql/relation_graph</li>
+</ul>
+<h2 id="sql-view">SQL View</h2>
+<p>This class has a SQL view definition:</p>
+<pre><code>sqlview&gt;&gt;
+  SELECT
+    edge.*,
+    ee.predicate AS anchor_predicate,
+    ee.subject AS anchor_object
+  FROM edge JOIN edge AS ee ON (edge.subject = ee.object)
+</code></pre>
+<h2 id="mappings">Mappings</h2>
+<table>
+<thead>
+<tr>
+<th>Mapping Type</th>
+<th>Mapped Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>self</td>
+<td>['semsql_rg:SubgraphEdgeByChild']</td>
+</tr>
+<tr>
+<td>native</td>
+<td>['semsql_rg:SubgraphEdgeByChild']</td>
+</tr>
+</tbody>
+</table>
+<h2 id="linkml-specification">LinkML Specification</h2>
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+<h3 id="direct">Direct</h3>
+<details>
+<pre><code class="language-yaml">name: subgraph_edge_by_child
+description: An edge within a subgraph anchored around a set of child terms
+comments:
+- "sqlview&gt;&gt;\n  SELECT\n    edge.*,\n    ee.predicate AS anchor_predicate,\n    ee.subject\
+  \ AS anchor_object\n  FROM edge JOIN edge AS ee ON (edge.subject = ee.object)"
+from_schema: https://w3id.org/semsql/relation_graph
+rank: 1000
+is_a: subgraph_query
+slots:
+- subject
+- predicate
+- object
+- anchor_object
+- anchor_predicate
+slot_usage:
+  anchor_object:
+    name: anchor_object
+    description: The child term
+    domain_of:
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+  anchor_predicate:
+    name: anchor_predicate
+    description: The entailed predicate that holds between the child and each edge
+      subject
+    domain_of:
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
 
-  <hr/>
+</code></pre>
+</details>
+<h3 id="induced">Induced</h3>
+<details>
+<pre><code class="language-yaml">name: subgraph_edge_by_child
+description: An edge within a subgraph anchored around a set of child terms
+comments:
+- "sqlview&gt;&gt;\n  SELECT\n    edge.*,\n    ee.predicate AS anchor_predicate,\n    ee.subject\
+  \ AS anchor_object\n  FROM edge JOIN edge AS ee ON (edge.subject = ee.object)"
+from_schema: https://w3id.org/semsql/relation_graph
+rank: 1000
+is_a: subgraph_query
+slot_usage:
+  anchor_object:
+    name: anchor_object
+    description: The child term
+    domain_of:
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+  anchor_predicate:
+    name: anchor_predicate
+    description: The entailed predicate that holds between the child and each edge
+      subject
+    domain_of:
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+attributes:
+  subject:
+    name: subject
+    description: The subject of the statement
+    from_schema: https://w3id.org/semsql/rdf
+    aliases:
+    - about
+    - source
+    - head
+    rank: 1000
+    slot_uri: rdf:subject
+    alias: subject
+    owner: subgraph_edge_by_child
+    domain_of:
+    - term_association
+    - owl_complex_axiom
+    - owl_subclass_of_some_values_from
+    - owl_equivalent_to_intersection_member
+    - statements
+    - relation_graph_construct
+    - edge
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    - entailed_edge
+    - entailed_edge_cycle
+    - transitive_edge
+    - repair_action
+    - problem
+    range: node
+  predicate:
+    name: predicate
+    description: The predicate of the statement
+    from_schema: https://w3id.org/semsql/rdf
+    aliases:
+    - relationship type
+    - property
+    rank: 1000
+    slot_uri: rdf:predicate
+    alias: predicate
+    owner: subgraph_edge_by_child
+    domain_of:
+    - term_association
+    - owl_complex_axiom
+    - owl_subclass_of_some_values_from
+    - statements
+    - relation_graph_construct
+    - edge
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    - entailed_edge
+    - entailed_edge_cycle
+    - transitive_edge
+    - problem
+    range: property_node
+  object:
+    name: object
+    description: Note the range of this slot is always a node. If the triple represents
+      a literal, instead value will be populated
+    from_schema: https://w3id.org/semsql/rdf
+    aliases:
+    - target
+    - sink
+    - tail
+    rank: 1000
+    slot_uri: rdf:object
+    alias: object
+    owner: subgraph_edge_by_child
+    domain_of:
+    - term_association
+    - owl_complex_axiom
+    - owl_subclass_of_some_values_from
+    - owl_equivalent_to_intersection_member
+    - statements
+    - relation_graph_construct
+    - edge
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    - entailed_edge
+    - entailed_edge_cycle
+    - transitive_edge
+    range: node
+  anchor_object:
+    name: anchor_object
+    description: The child term
+    from_schema: https://w3id.org/semsql/relation_graph
+    rank: 1000
+    alias: anchor_object
+    owner: subgraph_edge_by_child
+    domain_of:
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    range: node
+  anchor_predicate:
+    name: anchor_predicate
+    description: The entailed predicate that holds between the child and each edge
+      subject
+    from_schema: https://w3id.org/semsql/relation_graph
+    rank: 1000
+    alias: anchor_predicate
+    owner: subgraph_edge_by_child
+    domain_of:
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    - subgraph_query
+    - subgraph_edge_by_ancestor
+    - subgraph_edge_by_descendant
+    - subgraph_edge_by_parent
+    - subgraph_edge_by_child
+    - subgraph_edge_by_self
+    range: string
 
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-    
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
-      
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-          <a href="https://github.com/cmungall/semantic-sql/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
-      
-      
-      
-    </span>
+</code></pre>
+</details>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
+</div><footer>
+<hr/>
+<div role="contentinfo">
+<!-- Copyright etc -->
+</div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="Versions" class="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span>
+<a class="fa fa-github" href="https://github.com/incatools/semantic-sql" style="color: #fcfcfc"> GitHub</a>
+</span>
+</span>
+</div>
+<script>var base_url = '..';</script>
+<script defer="" src="../js/theme_extra.js"></script>
+<script defer="" src="../js/theme.js"></script>
+<script defer="" src="../search/main.js"></script>
+<script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
-
-</body>
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script><script>mermaid.initialize({});</script></body>
 </html>

@@ -1,188 +1,244 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  <link rel="canonical" href="https://cmungall.github.io/semantic-sql/CountOfSubclasses/">
-  <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Class: CountOfSubclasses - Semantic SQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://incatools.github.io/semantic-sql/CountOfSubclasses/" rel="canonical"/>
+<link href="../img/favicon.ico" rel="shortcut icon"/>
+<title>Class: CountOfSubclasses - Semantic SQL</title>
+<link href="../css/theme.css" rel="stylesheet"/>
+<link href="../css/theme_extra.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" rel="stylesheet"/>
+<script>
+        // Current page data
+        var mkdocs_page_name = "Class: CountOfSubclasses";
+        var mkdocs_page_input_path = "CountOfSubclasses.md";
+        var mkdocs_page_url = "/semantic-sql/CountOfSubclasses/";
+      </script>
+<script defer="" src="../js/jquery-3.6.0.min.js"></script>
+<!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-2SYBSJVZ23"></script>
+<script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-  <link rel="stylesheet" href="../css/theme.css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Class: CountOfSubclasses";
-    var mkdocs_page_input_path = "CountOfSubclasses.md";
-    var mkdocs_page_url = "/semantic-sql/CountOfSubclasses/";
-  </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+        gtag('config', 'G-2SYBSJVZ23');
+      </script>
 </head>
-
 <body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Semantic SQL</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side stickynav" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href=".."> Semantic SQL
+        </a><div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" title="Type search term here" type="text"/>
+</form>
 </div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../rdf_index/">RDF</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../owl_index/">OWL</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
-                    </li>
-                </ul>
-      </div>
-    </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Semantic SQL</a>
-      </nav>
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>Class: CountOfSubclasses</li>
-    <li class="wy-breadcrumbs-aside">
-      
-        <a href="https://github.com/cmungall/semantic-sql/edit/master/docs/CountOfSubclasses.md"
-          class="icon icon-github"> Edit on GitHub</a>
-      
-    </li>
-  </ul>
-  
-  <hr/>
 </div>
-          <div role="main">
-            <div class="section">
-              
-                <h1 id="class-countofsubclasses">Class: CountOfSubclasses</h1>
-<p>Number of subclasses for a given class</p>
-<p>URI: <a href="https://w3id.org/semsql/CountOfSubclasses">semsql:CountOfSubclasses</a></p>
-<p><img alt="img" src="http://yuml.me/diagram/nofunky;dir:TB/class/[RdfLevelSummaryStatistic],[Node],[RdfLevelSummaryStatistic]^-[CountOfSubclasses&#124;count_value(i):integer%20%3F]" /></p>
-<h2 id="parents">Parents</h2>
+<div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
 <ul>
-<li>is_a: <a href="../RdfLevelSummaryStatistic/">RdfLevelSummaryStatistic</a> - Abstract grouping for views/classes that provide some kind of count summary about an individual element</li>
-</ul>
-<h2 id="attributes">Attributes</h2>
-<h3 id="inherited-from-rdf-level-summary-statistic">Inherited from rdf level summary statistic:</h3>
-<ul>
-<li><a href="../rdfLevelSummaryStatistic__count_value/">➞count_value</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../types/Integer/">Integer</a></li>
-</ul>
+<li class="toctree-l1"><a class="reference internal" href="..">Home</a>
 </li>
-<li><a href="../rdfLevelSummaryStatistic__element/">➞element</a>  <sub>OPT</sub><ul>
-<li>range: <a href="../Node/">Node</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rdf_index/">RDF</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../owl_index/">OWL</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../omo_index/">OMO</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="Mobile navigation menu" class="wy-nav-top" role="navigation">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="..">Semantic SQL</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content"><div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a alt="Docs" class="icon icon-home" href=".."></a> »</li><li>Class: CountOfSubclasses</li>
+<li class="wy-breadcrumbs-aside">
+<a class="icon icon-github" href="https://github.com/incatools/semantic-sql/edit/master/docs/CountOfSubclasses.md"> Edit on GitHub</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div class="section" itemprop="articleBody">
+<h1 id="class-countofsubclasses">Class: CountOfSubclasses</h1>
+<p><em>Number of subclasses for a given class</em></p>
+<p>URI: <a href="https://w3id.org/semsql/rdfCountOfSubclasses">semsql_rdf:CountOfSubclasses</a></p>
+<div class="mermaid"> classDiagram
+      RdfLevelSummaryStatistic &lt;|-- CountOfSubclasses
+
+      CountOfSubclasses : count_value
+      CountOfSubclasses : element
+
+
+</div>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-sql">SELECT * FROM count_of_subclasses;
+</code></pre>
+<h2 id="inheritance">Inheritance</h2>
+<ul>
+<li><a href="../RdfLevelSummaryStatistic/">RdfLevelSummaryStatistic</a> [ is_report]<ul>
+<li><strong>CountOfSubclasses</strong></li>
 </ul>
 </li>
 </ul>
-<h2 id="other-properties">Other properties</h2>
+<h2 id="slots">Slots</h2>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
-<th></th>
+<th>Name</th>
+<th>Cardinality and Range</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Comments:</strong></td>
+<td><a href="../element/">element</a></td>
+<td>0..1 <br/> <a href="../Node/">Node</a></td>
 <td></td>
-<td>sqlview&gt;&gt; SELECT sc.object AS element, count(distinct sc.subject) AS count_value FROM rdfs_subclass_of_statement AS sc GROUP BY sc.object ORDER BY count_value DESC</td>
+</tr>
+<tr>
+<td><a href="../count_value/">count_value</a></td>
+<td>0..1 <br/> <a href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-              
-            </div>
-          </div>
-          <footer>
-  
+<h2 id="usages">Usages</h2>
+<h2 id="comments">Comments</h2>
+<ul>
+<li>sqlview&gt;&gt; SELECT sc.object AS element, count(distinct sc.subject) AS count_value FROM rdfs_subclass_of_statement AS sc GROUP BY sc.object ORDER BY count_value DESC</li>
+</ul>
+<h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
+<h3 id="schema-source">Schema Source</h3>
+<ul>
+<li>from schema: https://w3id.org/semsql/rdf</li>
+</ul>
+<h2 id="sql-view">SQL View</h2>
+<p>This class has a SQL view definition:</p>
+<pre><code>sqlview&gt;&gt; SELECT sc.object AS element, count(distinct sc.subject) AS count_value FROM rdfs_subclass_of_statement AS sc GROUP BY sc.object ORDER BY count_value DESC
+</code></pre>
+<h2 id="mappings">Mappings</h2>
+<table>
+<thead>
+<tr>
+<th>Mapping Type</th>
+<th>Mapped Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>self</td>
+<td>['semsql_rdf:CountOfSubclasses']</td>
+</tr>
+<tr>
+<td>native</td>
+<td>['semsql_rdf:CountOfSubclasses']</td>
+</tr>
+</tbody>
+</table>
+<h2 id="linkml-specification">LinkML Specification</h2>
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+<h3 id="direct">Direct</h3>
+<details>
+<pre><code class="language-yaml">name: count_of_subclasses
+description: Number of subclasses for a given class
+comments:
+- sqlview&gt;&gt; SELECT sc.object AS element, count(distinct sc.subject) AS count_value
+  FROM rdfs_subclass_of_statement AS sc GROUP BY sc.object ORDER BY count_value DESC
+from_schema: https://w3id.org/semsql/rdf
+rank: 1000
+is_a: rdf_level_summary_statistic
 
-  <hr/>
+</code></pre>
+</details>
+<h3 id="induced">Induced</h3>
+<details>
+<pre><code class="language-yaml">name: count_of_subclasses
+description: Number of subclasses for a given class
+comments:
+- sqlview&gt;&gt; SELECT sc.object AS element, count(distinct sc.subject) AS count_value
+  FROM rdfs_subclass_of_statement AS sc GROUP BY sc.object ORDER BY count_value DESC
+from_schema: https://w3id.org/semsql/rdf
+rank: 1000
+is_a: rdf_level_summary_statistic
+attributes:
+  element:
+    name: element
+    from_schema: https://w3id.org/semsql/rdf
+    rank: 1000
+    alias: element
+    owner: count_of_subclasses
+    domain_of:
+    - rdf_level_summary_statistic
+    range: node
+  count_value:
+    name: count_value
+    from_schema: https://w3id.org/semsql/rdf
+    rank: 1000
+    alias: count_value
+    owner: count_of_subclasses
+    domain_of:
+    - rdf_level_summary_statistic
+    range: integer
 
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-    
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
-      
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-          <a href="https://github.com/cmungall/semantic-sql/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
-      
-      
-      
-    </span>
+</code></pre>
+</details>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
+</div><footer>
+<hr/>
+<div role="contentinfo">
+<!-- Copyright etc -->
+</div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="Versions" class="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span>
+<a class="fa fa-github" href="https://github.com/incatools/semantic-sql" style="color: #fcfcfc"> GitHub</a>
+</span>
+</span>
+</div>
+<script>var base_url = '..';</script>
+<script defer="" src="../js/theme_extra.js"></script>
+<script defer="" src="../js/theme.js"></script>
+<script defer="" src="../search/main.js"></script>
+<script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
-
-</body>
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script><script>mermaid.initialize({});</script></body>
 </html>

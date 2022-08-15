@@ -1,380 +1,698 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  <link rel="canonical" href="https://cmungall.github.io/semantic-sql/omo_index/">
-  <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>OMO - Semantic SQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://incatools.github.io/semantic-sql/omo_index/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>OMO - Semantic SQL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "OMO";
+        var mkdocs_page_input_path = "omo_index.md";
+        var mkdocs_page_url = "/semantic-sql/omo_index/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-2SYBSJVZ23"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-  <link rel="stylesheet" href="../css/theme.css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "OMO";
-    var mkdocs_page_input_path = "omo_index.md";
-    var mkdocs_page_url = "/semantic-sql/omo_index/";
-  </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+        gtag('config', 'G-2SYBSJVZ23');
+      </script>
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Semantic SQL</a>
-        <div role="search">
+          <a href=".." class="icon icon-home"> Semantic SQL
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../rdf_index/">RDF</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../owl_index/">OWL</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
-                    </li>
-                </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">OMO</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../rdf_index/">RDF</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../owl_index/">OWL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../obo_index/">OBO</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">OMO</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#mixins">Mixins</a>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#slots">Slots</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#enums">Enums</a>
+    <li class="toctree-l2"><a class="reference internal" href="#enumerations">Enumerations</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#types">Types</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#built-in">Built in</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#defined">Defined</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#subsets">Subsets</a>
     </li>
     </ul>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
-                    </li>
-                </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../relation_graph_index/">Relation Graph</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Semantic SQL</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Semantic SQL</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>OMO</li>
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>OMO</li>
     <li class="wy-breadcrumbs-aside">
-      
-        <a href="https://github.com/cmungall/semantic-sql/edit/master/docs/omo_index.md"
+        <a href="https://github.com/incatools/semantic-sql/edit/master/docs/omo_index.md"
           class="icon icon-github"> Edit on GitHub</a>
-      
     </li>
   </ul>
-  
   <hr/>
 </div>
-          <div role="main">
-            <div class="section">
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
-                <h1 id="semsql_omo-schema">Semsql_Omo schema</h1>
+                <h1 id="semantic-sql-omo-module">Semantic SQL OMO module</h1>
 <p>Module representing OBO Metadata Ontology abstractions</p>
-<h3 id="classes">Classes</h3>
-<ul>
-<li><a href="../Node/">Node</a> - The basic unit of representation in an RDF or OWL graph<ul>
-<li><a href="../BlankNode/">BlankNode</a> - A node with an ID that is not preserved between databases<ul>
-<li><a href="../AnonymousExpression/">AnonymousExpression</a> - An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves<ul>
-<li><a href="../AnonymousClassExpression/">AnonymousClassExpression</a> - An OWL anonymous class expression, such as for example <code>SomeValuesFrom(partOf Hand)</code><ul>
-<li><a href="../OwlRestriction/">OwlRestriction</a> - An OWL restriction, such as <code>SomeValuesFrom(partOf Hand)</code><ul>
-<li><a href="../OwlAllValuesFrom/">OwlAllValuesFrom</a></li>
-<li><a href="../OwlHasSelf/">OwlHasSelf</a></li>
-<li><a href="../OwlHasValue/">OwlHasValue</a></li>
-<li><a href="../OwlSomeValuesFrom/">OwlSomeValuesFrom</a> - An OWL SomeValuesFrom restriction</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="../AnonymousIndividualExpression/">AnonymousIndividualExpression</a></li>
-<li><a href="../AnonymousPropertyExpression/">AnonymousPropertyExpression</a></li>
-</ul>
-</li>
-<li><a href="../RdfListNode/">RdfListNode</a> - A node representing an RDF list. Note that you will not likely need to use this directly.</li>
-</ul>
-</li>
-<li><a href="../ClassNode/">ClassNode</a> - A node that represents an RDFS/OWL class</li>
-<li><a href="../DeprecatedNode/">DeprecatedNode</a></li>
-<li><a href="../IriNode/">IriNode</a></li>
-<li><a href="../NamedIndividualNode/">NamedIndividualNode</a> - A node that represents an OWL Named Individual</li>
-<li><a href="../OntologyNode/">OntologyNode</a> - A node representing an ontology</li>
-<li><a href="../PropertyNode/">PropertyNode</a> - Note this only directly classifies nodes asserted to be rdf:Properties<ul>
-<li><a href="../AnnotationPropertyNode/">AnnotationPropertyNode</a> - A node representing an OWL annotation property</li>
-<li><a href="../ObjectPropertyNode/">ObjectPropertyNode</a> - A node representing an OWL object property<ul>
-<li><a href="../AsymmetricPropertyNode/">AsymmetricPropertyNode</a></li>
-<li><a href="../IrreflexivePropertyNode/">IrreflexivePropertyNode</a> - A node representing an OWL irreflexive object property</li>
-<li><a href="../ReflexivePropertyNode/">ReflexivePropertyNode</a> - A node representing an OWL reflexive object property</li>
-<li><a href="../SymmetricPropertyNode/">SymmetricPropertyNode</a> - A node representing an OWL symmetric object property</li>
-<li><a href="../TransitivePropertyNode/">TransitivePropertyNode</a> - A node representing an OWL transitive object property</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="../OwlComplexAxiom/">OwlComplexAxiom</a> - An axiom that is composed of two or more statements<ul>
-<li><a href="../OwlEquivalentToIntersectionMember/">OwlEquivalentToIntersectionMember</a> - Composition of <code>OwlEquivalentClass</code>, <code>OwlIntersectionOf</code>, and <code>RdfListMember</code>; <code>C = X1 and ... and Xn</code></li>
-<li><a href="../OwlSubclassOfSomeValuesFrom/">OwlSubclassOfSomeValuesFrom</a> - Composition of subClassOf and SomeValuesFrom</li>
-</ul>
-</li>
-<li><a href="Prefix.md">Prefix</a> - Maps CURIEs to URIs</li>
-<li><a href="../RdfLevelSummaryStatistic/">RdfLevelSummaryStatistic</a> - Abstract grouping for views/classes that provide some kind of count summary about an individual element<ul>
-<li><a href="../CountOfInstantiatedClasses/">CountOfInstantiatedClasses</a> - Number of distinct instantiations of a class. Note in many OBOs, classes are not directly instantiated</li>
-<li><a href="../CountOfPredicates/">CountOfPredicates</a> - Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL</li>
-<li><a href="../CountOfSubclasses/">CountOfSubclasses</a> - Number of subclasses for a given class</li>
-</ul>
-</li>
-<li><a href="../Statements/">Statements</a> - Represents an RDF triple<ul>
-<li><a href="../NodeToNodeStatement/">NodeToNodeStatement</a> - A statement where object is non-null and value is not populated<ul>
-<li><a href="../OwlComplementOfStatement/">OwlComplementOfStatement</a></li>
-<li><a href="../OwlDisjointClassStatement/">OwlDisjointClassStatement</a></li>
-<li><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a> - A statement that connects two class nodes where both classes are equivalent</li>
-<li><a href="../OwlImportsStatement/">OwlImportsStatement</a></li>
-<li><a href="../OwlInverseOfStatement/">OwlInverseOfStatement</a></li>
-<li><a href="../OwlSameAsStatement/">OwlSameAsStatement</a> - A statement that connects two individual nodes where both individual are equivalent</li>
-<li><a href="../RdfTypeStatement/">RdfTypeStatement</a> - A statement that indicates the asserted type of the subject entity</li>
-<li><a href="../RdfsDomainStatement/">RdfsDomainStatement</a></li>
-<li><a href="../RdfsRangeStatement/">RdfsRangeStatement</a></li>
-<li><a href="RdfsSubclassOfStatement.md">RdfsSubclassOfStatement</a><ul>
-<li><a href="../RdfsSubclassOfNamedStatement/">RdfsSubclassOfNamedStatement</a></li>
-</ul>
-</li>
-<li><a href="../RdfsSubpropertyOfStatement/">RdfsSubpropertyOfStatement</a></li>
-</ul>
-</li>
-<li><a href="../NodeToValueStatement/">NodeToValueStatement</a> - A statement where value is non-null and object is not populated<ul>
-<li><a href="../HasMappingStatement/">HasMappingStatement</a><ul>
-<li><a href="../HasDbxrefStatement/">HasDbxrefStatement</a></li>
-</ul>
-</li>
-<li><a href="../HasMatchStatement/">HasMatchStatement</a><ul>
-<li><a href="../HasBroadMatchStatement/">HasBroadMatchStatement</a></li>
-<li><a href="../HasExactMatchStatement/">HasExactMatchStatement</a></li>
-<li><a href="../HasNarrowMatchStatement/">HasNarrowMatchStatement</a></li>
-<li><a href="../HasRelatedMatchStatement/">HasRelatedMatchStatement</a></li>
-</ul>
-</li>
-<li><a href="../HasOioSynonymStatement/">HasOioSynonymStatement</a><ul>
-<li><a href="../HasBroadSynonymStatement/">HasBroadSynonymStatement</a></li>
-<li><a href="../HasExactSynonymStatement/">HasExactSynonymStatement</a></li>
-<li><a href="../HasNarrowSynonymStatement/">HasNarrowSynonymStatement</a></li>
-<li><a href="../HasRelatedSynonymStatement/">HasRelatedSynonymStatement</a></li>
-</ul>
-</li>
-<li><a href="../HasSynonymStatement/">HasSynonymStatement</a></li>
-<li><a href="../HasTextDefinitionStatement/">HasTextDefinitionStatement</a></li>
-<li><a href="../RdfsLabelStatement/">RdfsLabelStatement</a></li>
-</ul>
-</li>
-<li><a href="../OwlAxiom/">OwlAxiom</a></li>
-<li><a href="../OwlAxiomAnnotation/">OwlAxiomAnnotation</a><ul>
-<li><a href="../AxiomDbxrefAnnotation/">AxiomDbxrefAnnotation</a></li>
-</ul>
-</li>
-<li><a href="../OwlReifiedAxiom/">OwlReifiedAxiom</a> - An OWL axiom that has been reified - i.e. it includes an <a href="id">id</a> field that uniquely identifies that axiom and which can be the subject of additional statements</li>
-<li><a href="../RdfListStatement/">RdfListStatement</a> - A statement that is used to represent aspects of RDF lists<ul>
-<li><a href="../RdfFirstStatement/">RdfFirstStatement</a> - A statement that connects a list to its first element. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful</li>
-<li><a href="../RdfListMemberStatement/">RdfListMemberStatement</a></li>
-<li><a href="../RdfRestStatement/">RdfRestStatement</a> - A statement that connects a list to its remaining elements. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful</li>
-<li><a href="../RdfRestTransitiveStatement/">RdfRestTransitiveStatement</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="mixins">Mixins</h3>
-<ul>
-<li><a href="../ClassTrait/">ClassTrait</a></li>
-<li><a href="../IndividualTrait/">IndividualTrait</a></li>
-<li><a href="../IsReport/">IsReport</a> - Used to describe classes/views that have a reporting function</li>
-<li><a href="../NodeTrait/">NodeTrait</a> - abstract groupings/properties for different aspects of the model<ul>
-<li><a href="../ClassTrait/">ClassTrait</a></li>
-<li><a href="../IndividualTrait/">IndividualTrait</a></li>
-<li><a href="../PropertyTrait/">PropertyTrait</a></li>
-</ul>
-</li>
-<li><a href="../PropertyTrait/">PropertyTrait</a></li>
-</ul>
-<h3 id="slots">Slots</h3>
-<ul>
-<li><a href="../axiom_datatype/">axiom datatype</a></li>
-<li><a href="../axiom_language/">axiom language</a></li>
-<li><a href="../axiom_object/">axiom object</a></li>
-<li><a href="../axiom_predicate/">axiom predicate</a></li>
-<li><a href="../axiom_value/">axiom value</a></li>
-<li><a href="../base/">base</a> - The base URI a prefix will expand to</li>
-<li><a href="../datatype/">datatype</a></li>
-<li><a href="../description/">description</a></li>
-<li><a href="../filler/">filler</a><ul>
-<li><a href="../owl_has_self_filler/">owl has self➞filler</a> - This is Null for a self-restriction</li>
-</ul>
-</li>
-<li><a href="../id/">id</a> - An identifier for an element. Note blank node ids are not unique across databases<ul>
-<li><a href="../iri_node_id/">iri node➞id</a></li>
-<li><a href="../owl_restriction_id/">owl restriction➞id</a> - the id of the restriction</li>
-</ul>
-</li>
-<li><a href="../language/">language</a></li>
-<li><a href="../object/">object</a> - Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated<ul>
-<li><a href="../node_to_node_statement_object/">node to node statement➞object</a><ul>
-<li><a href="../owl_disjoint_class_statement_object/">owl disjoint class statement➞object</a> - One of the two classes that are disjoint. No significance to subject vs object</li>
-<li><a href="../owl_equivalent_class_statement_object/">owl equivalent class statement➞object</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
-<li><a href="../owl_same_as_statement_object/">owl same as statement➞object</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
-<li><a href="../rdf_type_statement_object/">rdf type statement➞object</a> - The entity type</li>
-<li><a href="../rdfs_subclass_of_statement_object/">rdfs subclass of statement➞object</a> - The superclass element of the triple</li>
-<li><a href="../rdfs_subproperty_of_statement_object/">rdfs subproperty of statement➞object</a> - The superproperty element of the triple</li>
-</ul>
-</li>
-<li><a href="../owl_equivalent_to_intersection_member_object/">owl equivalent to intersection member➞object</a> - a class expression that forms the defining expression</li>
-<li><a href="../owl_subclass_of_some_values_from_object/">owl subclass of some values from➞object</a> - the class D in the axiom C subClassOf P some D</li>
-</ul>
-</li>
-<li><a href="../on_property/">on property</a></li>
-<li><a href="../predicate/">predicate</a><ul>
-<li><a href="../owl_subclass_of_some_values_from_predicate/">owl subclass of some values from➞predicate</a> - the predicate P in the axiom C subClassOf P some D</li>
-</ul>
-</li>
-<li><a href="../prefix/">prefix</a> - A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'</li>
-<li><a href="../rdfLevelSummaryStatistic__count_value/">➞count_value</a></li>
-<li><a href="../rdfLevelSummaryStatistic__element/">➞element</a></li>
-<li><a href="../restriction/">restriction</a></li>
-<li><a href="../stanza/">stanza</a></li>
-<li><a href="../subject/">subject</a><ul>
-<li><a href="../owl_disjoint_class_statement_subject/">owl disjoint class statement➞subject</a> - One of the two classes that are disjoint. No significance to subject vs object</li>
-<li><a href="../owl_equivalent_class_statement_subject/">owl equivalent class statement➞subject</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
-<li><a href="../owl_equivalent_to_intersection_member_subject/">owl equivalent to intersection member➞subject</a> - the defined class</li>
-<li><a href="../owl_same_as_statement_subject/">owl same as statement➞subject</a> - One of the two classes that are equivalent. No significance to subject vs object</li>
-<li><a href="../owl_subclass_of_some_values_from_subject/">owl subclass of some values from➞subject</a> - the class C in the axiom C subClassOf P some D</li>
-<li><a href="../rdf_list_statement_subject/">rdf list statement➞subject</a> - The rdf:List to which the statement applies</li>
-<li><a href="../rdfs_subclass_of_statement_subject/">rdfs subclass of statement➞subject</a> - The subclass element of the triple</li>
-<li><a href="../rdfs_subproperty_of_statement_subject/">rdfs subproperty of statement➞subject</a> - The subproperty element of the triple</li>
-</ul>
-</li>
-<li><a href="../value/">value</a> - Note the range of this slot is always a string. Only used the triple represents a literal assertion<ul>
-<li><a href="../node_to_value_statement_value/">node to value statement➞value</a><ul>
-<li><a href="../rdfs_label_statement_value/">rdfs label statement➞value</a> - The label value</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="enums">Enums</h3>
-<h3 id="types">Types</h3>
-<h4 id="built-in">Built in</h4>
-<ul>
-<li><strong>Bool</strong></li>
-<li><strong>Decimal</strong></li>
-<li><strong>ElementIdentifier</strong></li>
-<li><strong>NCName</strong></li>
-<li><strong>NodeIdentifier</strong></li>
-<li><strong>URI</strong></li>
-<li><strong>URIorCURIE</strong></li>
-<li><strong>XSDDate</strong></li>
-<li><strong>XSDDateTime</strong></li>
-<li><strong>XSDTime</strong></li>
-<li><strong>float</strong></li>
-<li><strong>int</strong></li>
-<li><strong>str</strong></li>
-</ul>
-<h4 id="defined">Defined</h4>
-<ul>
-<li><a href="../types/Boolean/">Boolean</a>  (<strong>Bool</strong>)  - A binary (true or false) value</li>
-<li><a href="../types/Date/">Date</a>  (<strong>XSDDate</strong>)  - a date (year, month and day) in an idealized calendar</li>
-<li><a href="../types/Datetime/">Datetime</a>  (<strong>XSDDateTime</strong>)  - The combination of a date and time</li>
-<li><a href="../types/Decimal/">Decimal</a>  (<strong>Decimal</strong>)  - A real number with arbitrary precision that conforms to the xsd:decimal specification</li>
-<li><a href="../types/Double/">Double</a>  (<strong>float</strong>)  - A real number that conforms to the xsd:double specification</li>
-<li><a href="../types/Float/">Float</a>  (<strong>float</strong>)  - A real number that conforms to the xsd:float specification</li>
-<li><a href="../types/Integer/">Integer</a>  (<strong>int</strong>)  - An integer</li>
-<li><a href="../types/LiteralAsStringType/">LiteralAsStringType</a>  (<a href="../types/String/">String</a>) </li>
-<li><a href="../types/Ncname/">Ncname</a>  (<strong>NCName</strong>)  - Prefix part of CURIE</li>
-<li><a href="../types/NodeIdType/">NodeIdType</a>  (<a href="../types/Uriorcurie/">Uriorcurie</a>) </li>
-<li><a href="../types/Nodeidentifier/">Nodeidentifier</a>  (<strong>NodeIdentifier</strong>)  - A URI, CURIE or BNODE that represents a node in a model.</li>
-<li><a href="../types/Objectidentifier/">Objectidentifier</a>  (<strong>ElementIdentifier</strong>)  - A URI or CURIE that represents an object in the model.</li>
-<li><a href="../types/String/">String</a>  (<strong>str</strong>)  - A character string</li>
-<li><a href="../types/Time/">Time</a>  (<strong>XSDTime</strong>)  - A time object represents a (local) time of day, independent of any particular day</li>
-<li><a href="../types/Uri/">Uri</a>  (<strong>URI</strong>)  - a complete URI</li>
-<li><a href="../types/Uriorcurie/">Uriorcurie</a>  (<strong>URIorCURIE</strong>)  - a URI or a CURIE</li>
-</ul>
+<p>URI: https://w3id.org/semsql/omo
+Name: semsql_omo</p>
+<h2 id="classes">Classes</h2>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../AnnotationPropertyNode/">AnnotationPropertyNode</a></td>
+<td>A node representing an OWL annotation property</td>
+</tr>
+<tr>
+<td><a href="../AnonymousClassExpression/">AnonymousClassExpression</a></td>
+<td>An OWL anonymous class expression, such as for example `SomeValuesFrom(partOf...</td>
+</tr>
+<tr>
+<td><a href="../AnonymousExpression/">AnonymousExpression</a></td>
+<td>An OWL expression, such as a class expression</td>
+</tr>
+<tr>
+<td><a href="../AnonymousIndividualExpression/">AnonymousIndividualExpression</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../AnonymousPropertyExpression/">AnonymousPropertyExpression</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../AsymmetricPropertyNode/">AsymmetricPropertyNode</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../AxiomDbxrefAnnotation/">AxiomDbxrefAnnotation</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../BlankNode/">BlankNode</a></td>
+<td>A node with an ID that is not preserved between databases</td>
+</tr>
+<tr>
+<td><a href="../ClassNode/">ClassNode</a></td>
+<td>A node that represents an RDFS/OWL class</td>
+</tr>
+<tr>
+<td><a href="../ClassTrait/">ClassTrait</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../CountOfInstantiatedClasses/">CountOfInstantiatedClasses</a></td>
+<td>Number of distinct instantiations of a class</td>
+</tr>
+<tr>
+<td><a href="../CountOfPredicates/">CountOfPredicates</a></td>
+<td>Number of distinct usages of a predicate</td>
+</tr>
+<tr>
+<td><a href="../CountOfSubclasses/">CountOfSubclasses</a></td>
+<td>Number of subclasses for a given class</td>
+</tr>
+<tr>
+<td><a href="../DeprecatedNode/">DeprecatedNode</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasBroadMatchStatement/">HasBroadMatchStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasBroadSynonymStatement/">HasBroadSynonymStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasDbxrefStatement/">HasDbxrefStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasExactMatchStatement/">HasExactMatchStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasExactSynonymStatement/">HasExactSynonymStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasMappingStatement/">HasMappingStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasMatchStatement/">HasMatchStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasNarrowMatchStatement/">HasNarrowMatchStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasNarrowSynonymStatement/">HasNarrowSynonymStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasOioSynonymStatement/">HasOioSynonymStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasRelatedMatchStatement/">HasRelatedMatchStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasRelatedSynonymStatement/">HasRelatedSynonymStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasSynonymStatement/">HasSynonymStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../HasTextDefinitionStatement/">HasTextDefinitionStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../IndividualTrait/">IndividualTrait</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../IriNode/">IriNode</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../IrreflexivePropertyNode/">IrreflexivePropertyNode</a></td>
+<td>A node representing an OWL irreflexive object property</td>
+</tr>
+<tr>
+<td><a href="../IsReport/">IsReport</a></td>
+<td>Used to describe classes/views that have a reporting function</td>
+</tr>
+<tr>
+<td><a href="../NamedIndividualNode/">NamedIndividualNode</a></td>
+<td>A node that represents an OWL Named Individual</td>
+</tr>
+<tr>
+<td><a href="../Node/">Node</a></td>
+<td>The basic unit of representation in an RDF or OWL graph</td>
+</tr>
+<tr>
+<td><a href="../NodeToNodeStatement/">NodeToNodeStatement</a></td>
+<td>A statement where object is non-null and value is not populated</td>
+</tr>
+<tr>
+<td><a href="../NodeToValueStatement/">NodeToValueStatement</a></td>
+<td>A statement where value is non-null and object is not populated</td>
+</tr>
+<tr>
+<td><a href="../NodeTrait/">NodeTrait</a></td>
+<td>abstract groupings/properties for different aspects of the model</td>
+</tr>
+<tr>
+<td><a href="../ObjectPropertyNode/">ObjectPropertyNode</a></td>
+<td>A node representing an OWL object property</td>
+</tr>
+<tr>
+<td><a href="../OntologyNode/">OntologyNode</a></td>
+<td>A node representing an ontology</td>
+</tr>
+<tr>
+<td><a href="../OwlAllValuesFrom/">OwlAllValuesFrom</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../OwlAxiom/">OwlAxiom</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../OwlAxiomAnnotation/">OwlAxiomAnnotation</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../OwlComplementOfStatement/">OwlComplementOfStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../OwlComplexAxiom/">OwlComplexAxiom</a></td>
+<td>An axiom that is composed of two or more statements</td>
+</tr>
+<tr>
+<td><a href="../OwlDisjointClassStatement/">OwlDisjointClassStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../OwlEquivalentClassStatement/">OwlEquivalentClassStatement</a></td>
+<td>A statement that connects two class_nodes where both classes are equivalent</td>
+</tr>
+<tr>
+<td><a href="../OwlEquivalentToIntersectionMember/">OwlEquivalentToIntersectionMember</a></td>
+<td>Composition of <code>OwlEquivalentClass</code>, <code>OwlIntersectionOf</code>, and <code>RdfListMember</code>...</td>
+</tr>
+<tr>
+<td><a href="../OwlHasSelf/">OwlHasSelf</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../OwlHasValue/">OwlHasValue</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../OwlImportsStatement/">OwlImportsStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../OwlInverseOfStatement/">OwlInverseOfStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../OwlReifiedAxiom/">OwlReifiedAxiom</a></td>
+<td>An OWL axiom that has been reified - i</td>
+</tr>
+<tr>
+<td><a href="../OwlRestriction/">OwlRestriction</a></td>
+<td>An OWL restriction, such as <code>SomeValuesFrom(partOf Hand)</code></td>
+</tr>
+<tr>
+<td><a href="../OwlSameAsStatement/">OwlSameAsStatement</a></td>
+<td>A statement that connects two individual nodes where both individual are equi...</td>
+</tr>
+<tr>
+<td><a href="../OwlSomeValuesFrom/">OwlSomeValuesFrom</a></td>
+<td>An OWL SomeValuesFrom restriction</td>
+</tr>
+<tr>
+<td><a href="../OwlSubclassOfSomeValuesFrom/">OwlSubclassOfSomeValuesFrom</a></td>
+<td>Composition of subClassOf and SomeValuesFrom</td>
+</tr>
+<tr>
+<td><a href="Prefix.md">Prefix</a></td>
+<td>Maps CURIEs to URIs</td>
+</tr>
+<tr>
+<td><a href="../PropertyNode/">PropertyNode</a></td>
+<td>Note this only directly classifies nodes asserted to be rdf:Properties</td>
+</tr>
+<tr>
+<td><a href="../PropertyTrait/">PropertyTrait</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../RdfFirstStatement/">RdfFirstStatement</a></td>
+<td>A statement that connects a list to its first element</td>
+</tr>
+<tr>
+<td><a href="../RdfLevelSummaryStatistic/">RdfLevelSummaryStatistic</a></td>
+<td>Abstract grouping for views/classes that provide some kind of count summary a...</td>
+</tr>
+<tr>
+<td><a href="../RdfListMemberStatement/">RdfListMemberStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../RdfListNode/">RdfListNode</a></td>
+<td>A node representing an RDF list</td>
+</tr>
+<tr>
+<td><a href="../RdfListStatement/">RdfListStatement</a></td>
+<td>A statement that is used to represent aspects of RDF lists</td>
+</tr>
+<tr>
+<td><a href="../RdfRestStatement/">RdfRestStatement</a></td>
+<td>A statement that connects a list to its remaining elements</td>
+</tr>
+<tr>
+<td><a href="../RdfRestTransitiveStatement/">RdfRestTransitiveStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../RdfTypeStatement/">RdfTypeStatement</a></td>
+<td>A statement that indicates the asserted type of the subject entity</td>
+</tr>
+<tr>
+<td><a href="../RdfsDomainStatement/">RdfsDomainStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../RdfsLabelStatement/">RdfsLabelStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../RdfsRangeStatement/">RdfsRangeStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../RdfsSubclassOfNamedStatement/">RdfsSubclassOfNamedStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="RdfsSubclassOfStatement.md">RdfsSubclassOfStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../RdfsSubpropertyOfStatement/">RdfsSubpropertyOfStatement</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../ReflexivePropertyNode/">ReflexivePropertyNode</a></td>
+<td>A node representing an OWL reflexive object property</td>
+</tr>
+<tr>
+<td><a href="../Statements/">Statements</a></td>
+<td>Represents an RDF triple</td>
+</tr>
+<tr>
+<td><a href="../SymmetricPropertyNode/">SymmetricPropertyNode</a></td>
+<td>A node representing an OWL symmetric object property</td>
+</tr>
+<tr>
+<td><a href="../TransitivePropertyNode/">TransitivePropertyNode</a></td>
+<td>A node representing an OWL transitive object property</td>
+</tr>
+</tbody>
+</table>
+<h2 id="slots">Slots</h2>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../annotation_datatype/">annotation_datatype</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../annotation_language/">annotation_language</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../annotation_object/">annotation_object</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../annotation_predicate/">annotation_predicate</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../annotation_subject/">annotation_subject</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../annotation_value/">annotation_value</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../axiom_datatype/">axiom_datatype</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../axiom_language/">axiom_language</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../axiom_object/">axiom_object</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../axiom_predicate/">axiom_predicate</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../axiom_value/">axiom_value</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../base/">base</a></td>
+<td>The base URI a prefix will expand to</td>
+</tr>
+<tr>
+<td><a href="../count_value/">count_value</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../datatype/">datatype</a></td>
+<td>the rdf datatype of the value, for example, xsd:string</td>
+</tr>
+<tr>
+<td><a href="../description/">description</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../element/">element</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../evidence_type/">evidence_type</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../filler/">filler</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../id/">id</a></td>
+<td>An identifier for an element</td>
+</tr>
+<tr>
+<td><a href="../language/">language</a></td>
+<td>the human language in which the value is encoded, e</td>
+</tr>
+<tr>
+<td><a href="../object/">object</a></td>
+<td>Note the range of this slot is always a node</td>
+</tr>
+<tr>
+<td><a href="../on_property/">on_property</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../predicate/">predicate</a></td>
+<td>The predicate of the statement</td>
+</tr>
+<tr>
+<td><a href="../prefix/">prefix</a></td>
+<td>A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'</td>
+</tr>
+<tr>
+<td><a href="../publication/">publication</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../restriction/">restriction</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../source/">source</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../stanza/">stanza</a></td>
+<td>the term which this statement is about</td>
+</tr>
+<tr>
+<td><a href="../subject/">subject</a></td>
+<td>The subject of the statement</td>
+</tr>
+<tr>
+<td><a href="../value/">value</a></td>
+<td>Note the range of this slot is always a string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="enumerations">Enumerations</h2>
+<table>
+<thead>
+<tr>
+<th>Enumeration</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="types">Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#boolean">xsd:boolean</a></td>
+<td>A binary (true or false) value</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#date">xsd:date</a></td>
+<td>a date (year, month and day) in an idealized calendar</td>
+</tr>
+<tr>
+<td><a href="https://w3id.org/linkml/DateOrDatetime">linkml:DateOrDatetime</a></td>
+<td>Either a date or a datetime</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#dateTime">xsd:dateTime</a></td>
+<td>The combination of a date and time</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#decimal">xsd:decimal</a></td>
+<td>A real number with arbitrary precision that conforms to the xsd:decimal speci...</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#double">xsd:double</a></td>
+<td>A real number that conforms to the xsd:double specification</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#float">xsd:float</a></td>
+<td>A real number that conforms to the xsd:float specification</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a></td>
+<td>An integer</td>
+</tr>
+<tr>
+<td><a href="../LiteralAsStringType/">LiteralAsStringType</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a></td>
+<td>Prefix part of CURIE</td>
+</tr>
+<tr>
+<td><a href="../NodeIdType/">NodeIdType</a></td>
+<td>IDs are either CURIEs, IRI, or blank nodes</td>
+</tr>
+<tr>
+<td><a href="shex:nonLiteral">shex:nonLiteral</a></td>
+<td>A URI, CURIE or BNODE that represents a node in a model</td>
+</tr>
+<tr>
+<td><a href="shex:iri">shex:iri</a></td>
+<td>A URI or CURIE that represents an object in the model</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a></td>
+<td>A character string</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#dateTime">xsd:dateTime</a></td>
+<td>A time object represents a (local) time of day, independent of any particular...</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#anyURI">xsd:anyURI</a></td>
+<td>a complete URI</td>
+</tr>
+<tr>
+<td><a href="http://www.w3.org/2001/XMLSchema#anyURI">xsd:anyURI</a></td>
+<td>a URI or a CURIE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="subsets">Subsets</h2>
+<table>
+<thead>
+<tr>
+<th>Subset</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../BaseTable/">BaseTable</a></td>
+<td>Indicates the class/table is typically not constructed from a view</td>
+</tr>
+<tr>
+<td><a href="../Export/">Export</a></td>
+<td>Used to indicate a table/class that should be dumped as part of the export of...</td>
+</tr>
+</tbody>
+</table>
               
             </div>
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../obo_index/" class="btn btn-neutral float-left" title="OBO"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../relation_graph_index/" class="btn btn-neutral float-right" title="Relation Graph">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../obo_index/" class="btn btn-neutral" title="OBO"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -382,20 +700,23 @@
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-          <a href="https://github.com/cmungall/semantic-sql/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
-      
-      
-        <span><a href="../obo_index/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../relation_graph_index/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/incatools/semantic-sql" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../obo_index/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../relation_graph_index/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
 </div>
     <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
     <script src="../js/theme.js" defer></script>
       <script src="../search/main.js" defer></script>
     <script defer>
