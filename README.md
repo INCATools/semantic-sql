@@ -20,13 +20,33 @@ sqlite> SELECT * FROM rdfs_label_statement WHERE value LIKE 'Abnormality of %';
 |HP:0000032|HP:0000032|rdfs:label||Abnormality of male external genitalia|xsd:string||
 
 
-Ready-made ontologies can also be downloaded for any ontology in [OBO](http://obofoundry.org), using URLs such as https://s3.amazonaws.com/bbop-sqlite/hp.db
+Ready-made SQLite3 builds can also be downloaded for any ontology in [OBO](http://obofoundry.org), using URLs such as https://s3.amazonaws.com/bbop-sqlite/hp.db
 
 [relation-graph](https://github.com/balhoff/relation-graph/) is used to pre-generate tables of [entailed edges](https://incatools.github.io/semantic-sql/EntailedEdge/). For example,
 all is-a and part-of ancestors of [finger](http://purl.obolibrary.org/obo/UBERON_0002389) in Uberon:
 
+```sql
+$ sqlite db/uberon.db
 sqlite> SELECT * FROM entailed_edge WHERE subject='UBERON:0002389' and predicate IN ('rdfs:subClassOf', 'BFO:0000050');
+```
 
+|subject, predicate, object|
+|---|
+|UBERON:0002389, BFO:0000050, UBERON:0015212|
+|UBERON:0002389, BFO:0000050, UBERON:5002389|
+|UBERON:0002389, BFO:0000050, UBERON:5002544|
+|UBERON:0002389, rdfs:subClassOf, UBERON:0000061|
+|UBERON:0002389, rdfs:subClassOf, UBERON:0000465|
+|UBERON:0002389, rdfs:subClassOf, UBERON:0000475|
+
+SQLite provides many advantages
+
+- files can be downloaded and subsequently queried without network latency
+- compared to querying a static rdf, owl, or obo file, there is no startup/parse delay
+- robust and performant
+- excellent support in many languages
+
+Although the focus is on SQLite, this library can also be used for other DBMSs like PostgreSQL, MySQL, Oracle, etc
 
 ## Installation
 
@@ -100,6 +120,16 @@ docker run  -v $PWD:/work -w /work -ti linkml/semantic-sql semsql make foo.db
 See [Schema Documentation](https://incatools.github.io/semantic-sql/)
 
 The [source schema](https://github.com/INCATools/semantic-sql/tree/main/src/semsql/linkml) is in [LinkML](https://linkml.io) - this is then compiled down to SQL Tables and Views
+
+The basic idea is as follows:
+
+There are a small number of "base tables":
+
+* [statements](https://incatools.github.io/semantic-sql/Statements/)
+* [prefix](https://incatools.github.io/semantic-sql/Prefix/)
+* [entailed_edge](https://incatools.github.io/semantic-sql/EntailedEdge/) - populated by relation-graph
+
+All other tables are actually views (derived tables), and are provided for convenience.
 
 ## ORM Layer
 
