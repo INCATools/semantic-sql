@@ -48,6 +48,11 @@ SQLite provides many advantages
 
 Although the focus is on SQLite, this library can also be used for other DBMSs like PostgreSQL, MySQL, Oracle, etc
 
+## Tutorials
+
+- SemSQL: [notebooks/SemanticSQL-Tutorial.ipynb](https://github.com/INCATools/semantic-sql/blob/main/notebooks/SemanticSQL-Tutorial.ipynb)
+- Using OAK: [part 7 of OAK tutorial](https://incatools.github.io/ontology-access-kit/intro/tutorial07.html)
+
 ## Installation
 
 SemSQL comes with a helper Python library. Use of this is optional. To install:
