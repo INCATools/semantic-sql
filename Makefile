@@ -138,6 +138,9 @@ db/phenio.owl:
 db/bero.owl:
 	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp && mv $@.tmp $@
 
+db/aio.owl:
+	curl -L -s https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl > $@.tmp && mv $@.tmp $@
+
 db/reacto.owl:
 	curl -L -s http://purl.obolibrary.org/obo/go/extensions/reacto.owl > $@.tmp && mv $@.tmp $@
 
@@ -146,6 +149,9 @@ db/go-lego.owl:
 
 db/bao.owl:
 	robot merge -I http://www.bioassayontology.org/bao/bao_complete.owl -o $@
+
+db/biolink.owl:
+	robot merge -I https://w3id.org/biolink/biolink-model.owl.ttl -o $@
 
 # https://github.com/ontodev/rdftab.rs/issues/21
 db/biopax.owl:
