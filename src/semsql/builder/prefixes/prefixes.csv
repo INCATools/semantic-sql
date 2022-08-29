@@ -10,7 +10,8 @@ foaf,http://xmlns.com/foaf/0.1/
 protege,http://protege.stanford.edu/plugins/owl/protege#
 skos,http://www.w3.org/2004/02/skos/core#
 dbpedia,http://dbpedia.org/resource/
-ex,http://example.com/
+ex,http://example.org/
+ex2,https://example.org/
 obo,http://purl.obolibrary.org/obo/
 gocam,http://model.geneontology.org/
 EDAM,http://edamontology.org/
@@ -35,6 +36,7 @@ allotrope.property,http://purl.allotrope.org/ontologies/property#
 allotrope.role,http://purl.allotrope.org/ontologies/role#
 allotrope.equipment,http://purl.allotrope.org/ontologies/equipment#
 allotrope,http://purl.allotrope.org/ontologies/
+aio,https://w3id.org/aio/
 PSO,http://purl.obolibrary.org/obo/PSO_
 CHIRO,http://purl.obolibrary.org/obo/CHIRO_
 PW,http://purl.obolibrary.org/obo/PW_
