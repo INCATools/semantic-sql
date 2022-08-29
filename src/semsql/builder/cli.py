@@ -1,12 +1,12 @@
 import logging
 
 import click
-import logging
-import semsql.builder.builder as builder
 from linkml_runtime import SchemaView
 from linkml_runtime.utils.formatutils import underscore
-from semsql.sqlutils.viewgen import get_viewdef
 from sqlalchemy import text
+
+import semsql.builder.builder as builder
+from semsql.sqlutils.viewgen import get_viewdef
 
 
 @click.group()
@@ -25,12 +25,13 @@ def main(verbose: int, quiet: bool):
 
 
 @main.command()
-@click.argument('path')
-@click.option('--docker/--no-docker',
-              default=False,
-              show_default=True,
-              help="Uses ODK docker image"
-              )
+@click.argument("path")
+@click.option(
+    "--docker/--no-docker",
+    default=False,
+    show_default=True,
+    help="Uses ODK docker image",
+)
 def make(path, docker):
     """
     Makes a specified target, such as a db file
@@ -49,8 +50,8 @@ def make(path, docker):
 
 
 @main.command()
-@click.option('-o', '--output')
-@click.argument('ontology')
+@click.option("-o", "--output")
+@click.argument("ontology")
 def download(ontology, output):
     """
     Download a read-made SQLite db for an OBO ontology
@@ -63,8 +64,8 @@ def download(ontology, output):
 
 
 @main.command()
-@click.option('-i', '--input')
-@click.argument('query')
+@click.option("-i", "--input")
+@click.argument("query")
 def query(input, query):
     """
     Performs a SQL query on an OWL file
@@ -81,9 +82,13 @@ def query(input, query):
 
 
 @main.command()
-@click.argument('inputs', nargs=-1)
-@click.option('--index/--no-index', default=True, help='Create indexes on each column')
-@click.option('--name', '-n', help='Name of class/view to materialize. If blank, will perform for ALL')
+@click.argument("inputs", nargs=-1)
+@click.option("--index/--no-index", default=True, help="Create indexes on each column")
+@click.option(
+    "--name",
+    "-n",
+    help="Name of class/view to materialize. If blank, will perform for ALL",
+)
 def view2table(inputs, name: str, index: bool):
     """
     Generates a command that turns a view into a table
@@ -96,24 +101,23 @@ def view2table(inputs, name: str, index: bool):
     ```
     """
     for input in inputs:
-        with open(input, 'r') as stream:
-            sv = SchemaView(input)
-            schema = sv.schema
-            for cn, c in sv.all_classes().items():
-                tn = underscore(cn)
-                if name is None or str(cn) == name or tn == name:
-                    view = get_viewdef(c)
-                    if view is not None:
-                        print(f'DROP VIEW {tn};')
-                        print(f'CREATE TABLE {tn} AS {view};')
-                        if index:
-                            for sn in sv.class_slots(cn):
-                                colname = underscore(sn)
-                                print(f'CREATE INDEX {tn}_{colname} ON {tn}({colname});')
-                    else:
-                        logging.error(f'No view for {cn}')
+        sv = SchemaView(input)
+        for cn, c in sv.all_classes().items():
+            tn = underscore(cn)
+            if name is None or str(cn) == name or tn == name:
+                view = get_viewdef(c)
+                if view is not None:
+                    print(f"DROP VIEW {tn};")
+                    print(f"CREATE TABLE {tn} AS {view};")
+                    if index:
+                        for sn in sv.class_slots(cn):
+                            colname = underscore(sn)
+                            print(
+                                f"CREATE INDEX {tn}_{colname} ON {tn}({colname});"
+                            )
+                else:
+                    logging.error(f"No view for {cn}")
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

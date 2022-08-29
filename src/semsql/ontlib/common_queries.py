@@ -1,11 +1,13 @@
 import logging
-from typing import Optional, List, Dict
+from typing import Dict, List, Optional
 
-from semsql.sqla.semsql import HasTextDefinitionStatement
-from semsql.sqla.semsql import Prefix, RdfsLabelStatement
+from semsql.sqla.semsql import (HasTextDefinitionStatement,
+                                Prefix,
+                                RdfsLabelStatement)
 
 PREFIX_MAP = Dict[str, str]
 CURIE = str
+
 
 def get_prefixes(session) -> PREFIX_MAP:
     """
@@ -55,7 +57,7 @@ def get_single_value(session, id: CURIE, view=None, strict=False) -> Optional[st
             if val is None:
                 val = s.value
             elif val != s.value:
-                raise Exception(f'Multiple values for {view} where id={id}')
+                raise Exception(f"Multiple values for {view} where id={id}")
     return val
 
 
@@ -87,5 +89,5 @@ def term_search(session, terms: List[str], view=None) -> List[CURIE]:
             ids.add(str(row.subject))
             n += 1
         if n == 0:
-            logging.warning(f'No match for query: {t}')
+            logging.warning(f"No match for query: {t}")
     return list(ids)

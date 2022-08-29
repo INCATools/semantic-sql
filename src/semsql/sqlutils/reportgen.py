@@ -4,8 +4,8 @@ from linkml_runtime.utils.formatutils import underscore
 
 
 @click.command()
-@click.option('--limit', '-l', default=20)
-@click.argument('inputs', nargs=-1)
+@click.option("--limit", "-l", default=20)
+@click.argument("inputs", nargs=-1)
 def cli(inputs, limit: int):
     """
     Generates report queries
@@ -14,8 +14,8 @@ def cli(inputs, limit: int):
         sv = SchemaView(input)
         sv.merge_imports()
         schema = sv.schema
-        print('-- ** REPORTS **')
-        print(f'-- SCHEMA: {schema.id}')
+        print("-- ** REPORTS **")
+        print(f"-- SCHEMA: {schema.id}")
         for cn, c in sv.all_classes().items():
             if c.mixin:
                 continue
@@ -24,10 +24,10 @@ def cli(inputs, limit: int):
             slots = sv.class_induced_slots(cn)
             if len(slots) > 0:
                 sql_table = underscore(cn)
-                print(f'SELECT * FROM {sql_table} LIMIT {limit};')
+                print(f"SELECT * FROM {sql_table} LIMIT {limit};")
             else:
-                print(f'-- No slots for {cn}')
+                print(f"-- No slots for {cn}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()
