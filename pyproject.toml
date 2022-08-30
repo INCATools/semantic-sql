@@ -3,6 +3,7 @@ name = "semsql"
 version = "0.2.1"
 description = ""
 authors = ["cmungall <cjm@berkeleybop.org>"]
+readme=README.md
 
 [tool.poetry.dependencies]
 python = "^3.8"
