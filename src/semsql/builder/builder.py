@@ -7,8 +7,11 @@ from pathlib import Path
 from typing import Optional
 
 import requests
+from linkml_runtime.loaders import yaml_loader
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+from semsql.builder.registry import registry_schema
 
 this_path = Path(__file__).parent
 
@@ -103,3 +106,27 @@ def connect(owl_file: str):
     Session = sessionmaker(bind=engine)
     session = Session()
     return session
+
+def compile_registry(registry_path: str) -> str:
+    """
+    Generate makefile content from registry
+
+    :param registry_path:
+    :return:
+    """
+    registry: registry_schema.Registry
+    registry = yaml_loader.load(registry_path, target_class=registry_schema.Registry)
+    mkfile = ""
+    onts = []
+    for ont in registry.ontologies.values():
+        target = f"db/{ont.id}.owl"
+        dependencies = ["STAMP"]
+        if ont.has_imports or (ont.format and ont.format != 'rdfxml'):
+            command = f"robot merge -I {ont.url} -o $@"
+        else:
+            command = f"curl -L -s {ont.url} > $@.tmp && mv $@.tmp $@"
+        dependencies_str = " ".join(dependencies)
+        mkfile += f"{target}: {dependencies_str}\n\t{command}\n\n"
+        onts.append(ont.id)
+    mkfile += f"EXTRA_ONTOLOGIES = {' '.join(onts)}"
+    return mkfile

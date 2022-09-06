@@ -51,6 +51,15 @@ def make(path, docker):
 
 
 @main.command()
+@click.argument("registry")
+def generate_makefile(registry):
+    """
+    Generates makefile
+    """
+    print(builder.compile_registry(registry))
+
+
+@main.command()
 @click.option("-o", "--output")
 @click.argument("ontology")
 def download(ontology, output):
