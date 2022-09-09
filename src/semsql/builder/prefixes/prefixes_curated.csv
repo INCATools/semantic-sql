@@ -47,3 +47,5 @@ SIO,http://semanticscience.org/resource/SIO_
 doap,http://usefulinc.com/ns/doap#
 wikidata,http://www.wikidata.org/entity/
 schema,https://schema.org/
+ICD10CM,http://purl.bioontology.org/ontology/ICD10CM/
+ICD10WHO,https://icd.who.int/browse10/2019/en#/
