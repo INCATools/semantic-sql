@@ -37,6 +37,16 @@ allotrope.role,http://purl.allotrope.org/ontologies/role#
 allotrope.equipment,http://purl.allotrope.org/ontologies/equipment#
 allotrope,http://purl.allotrope.org/ontologies/
 aio,https://w3id.org/aio/
+NPO,http://purl.bioontology.org/ontology/npo#NPO_
+CHEMINF,http://semanticscience.org/resource/CHEMINF_
+aopkb,http://aopkb.org/aop_ontology#
+ENM.net,http://purl.enanomapper.net/onto/ENM_
+cito,http://purl.org/spar/cito/
+fabio,http://purl.org/spar/fabio/
+SIO,http://semanticscience.org/resource/SIO_
+doap,http://usefulinc.com/ns/doap#
+wikidata,http://www.wikidata.org/entity/
+schema,https://schema.org/
 ICD10CM,http://purl.bioontology.org/ontology/ICD10CM/
 ICD10WHO,https://icd.who.int/browse10/2019/en#/
 PSO,http://purl.obolibrary.org/obo/PSO_

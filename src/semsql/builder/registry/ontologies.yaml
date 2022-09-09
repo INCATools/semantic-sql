@@ -1,0 +1,48 @@
+id: semantic-sql-registry
+description: Registry overlap for Semantic-SQL designed to supplement OBO vocabularies
+license: CC0
+ontologies:
+  phenio:
+    description: Monarch Phenomics Integrated Ontology
+    url: https://github.com/monarch-initiative/phenio/releases/download/latest/phenio.owl
+  bero:
+    url: https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl
+  aio:
+    url: https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl
+  reacto:
+    url: http://purl.obolibrary.org/obo/go/extensions/reacto.owl
+  go-lego:
+    url: http://purl.obolibrary.org/obo/go/extensions/go-lego.owl
+  bao:
+    url: http://www.bioassayontology.org/bao/bao_complete.owl
+    has_imports: true
+  biolink:
+    url: https://w3id.org/biolink/biolink-model.owl.ttl
+    jsonld_context: https://biolink.github.io/biolink-model/context.jsonld
+    format: turtle
+    #
+  biopax:
+    url: http://www.biopax.org/release/biopax-level3.owl
+  enanomapper:
+    url: http://enanomapper.github.io/ontologies/enanomapper.owl
+    has_imports: true
+    prefixmap:
+      evs.ncit: http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
+      fix: http://purl.org/obo/owl/FIX#
+  efo:
+    url: http://www.ebi.ac.uk/efo/efo.owl
+    has_imports: true
+  edam:
+    url: http://edamontology.org/EDAM.owl
+  sweetAll:
+    url: http://sweetontology.net/sweetAll
+    has_imports: true
+    named_prefixmaps:
+      - sweet
+      - prefixcc
+  lov:
+    url: https://lov.linkeddata.es/lov.n3.gz
+    format: n3
+    compression: gzip
+  schema-dot-org:
+    url: https://schema.org/version/latest/schemaorg-current-https.rdf

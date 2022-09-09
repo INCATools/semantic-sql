@@ -28,6 +28,7 @@ stage/%.db.gz: db/%.db
 
 # INSTALL
 include install.Makefile
+#include ontologies.Makefile
 
 # ---
 # tests
@@ -132,43 +133,6 @@ db/go.owl: STAMP
 db/monarch.owl:
 	robot merge -I http://purl.obolibrary.org/obo/upheno/monarch.owl -o $@
 
-db/phenio.owl:
-	curl -L -s https://github.com/monarch-initiative/phenio/releases/download/latest/phenio.owl > $@.tmp && mv $@.tmp $@
-
-db/bero.owl:
-	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp && mv $@.tmp $@
-
-db/aio.owl:
-	curl -L -s https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl > $@.tmp && mv $@.tmp $@
-
-db/reacto.owl:
-	curl -L -s http://purl.obolibrary.org/obo/go/extensions/reacto.owl > $@.tmp && mv $@.tmp $@
-
-db/go-lego.owl:
-	curl -L -s http://purl.obolibrary.org/obo/go/extensions/go-lego.owl > $@.tmp && mv $@.tmp $@
-
-db/bao.owl:
-	robot merge -I http://www.bioassayontology.org/bao/bao_complete.owl -o $@
-
-db/biolink.owl:
-	robot merge -I https://w3id.org/biolink/biolink-model.owl.ttl -o $@
-
-# https://github.com/ontodev/rdftab.rs/issues/21
-db/biopax.owl:
-	robot convert -I http://www.biopax.org/release/biopax-level3.owl -o $@
-
-# https://github.com/enanomapper/ontologies/issues/323
-db/enanomapper.owl:
-	robot merge -I https://raw.githubusercontent.com/enanomapper/ontologies/master/enanomapper.owl -o $@
-
-db/efo.owl: STAMP
-	robot merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
-
-db/edam.owl:
-	curl -L -s http://edamontology.org/EDAM.owl > $@
-
-db/sweetAll.owl:
-	robot merge -I http://sweetontology.net/sweetAll -o $@
 
 db/reactome-Homo-sapiens.owl: download/reactome-biopax.zip db/biopax.owl
 	unzip -p $< Homo_sapiens.owl > $@.tmp &&\
@@ -176,6 +140,18 @@ db/reactome-Homo-sapiens.owl: download/reactome-biopax.zip db/biopax.owl
 
 download/reactome-biopax.zip:
 	curl -L -s https://reactome.org/download/current/biopax.zip > $@
+
+## Additional ontologies
+
+src/semsql/builder/registry/registry_schema.py: src/semsql/builder/registry/registry_schema.yaml
+	$(RUN) gen-python $< > $@
+
+ontologies.Makefile: src/semsql/builder/registry/ontologies.yaml
+	$(RUN) semsql generate-makefile $< > $@.tmp && mv $@.tmp $@
+
+include ontologies.Makefile
+
+
 
 #fma.owl:#
 #	http://purl.org/sig/ont/fma.owl 
@@ -231,7 +207,6 @@ $(SQLA_DIR)/%.py: $(YAML_DIR)/%.yaml
 # version of semsql used in github
 bin/%:
 	echo `poetry run which $*` '$$*' > $@ && chmod +x $@
-
 
 ### DEPLOY
 

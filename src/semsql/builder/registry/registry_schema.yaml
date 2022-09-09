@@ -1,0 +1,115 @@
+id: https://w3id.org/semsql/registry
+name: ontology_registry
+description: Ontology Registry
+imports:
+- linkml:types
+prefixes:
+  linkml: https://w3id.org/linkml/
+  semsql_registry: https://w3id.org/semsql/registry
+default_prefix: semsql_registry
+types:
+  identifier:
+    typeof: string
+  https identifier:
+    typeof: string
+  http identifier:
+    typeof: string
+enums:
+  format_enum:
+    permissible_values:
+      n3:
+        description: n3
+  compression_enum:
+    permissible_values:
+      gzip:
+        description: gzip
+slots:
+  description:
+    examples:
+    - value: Monarch Phenomics Integrated Ontology
+    range: string
+  url:
+    examples:
+    - value: https://lov.linkeddata.es/lov.n3.gz
+    range: identifier
+  id:
+    examples:
+    - value: lov
+    identifier: true
+    range: string
+  has_imports:
+    examples:
+    - value: 'True'
+    range: integer
+  jsonld_context:
+    examples:
+    - value: https://biolink.github.io/biolink-model/context.jsonld
+    range: https identifier
+  prefixmap:
+    examples:
+    - value: '[''$ref:Prefixmap'', ''$ref:Prefixmap'']'
+    multivalued: true
+    range: PrefixMap
+  named_prefixmaps:
+    examples:
+    - value: '[''sweet'', ''prefixcc'']'
+    multivalued: true
+    range: string
+  format:
+    examples:
+    - value: n3
+    #range: format_enum
+  compression:
+    examples:
+    - value: gzip
+    range: compression_enum
+  prefix:
+    examples:
+    - value: fix
+    identifier: true
+    range: string
+  prefix_value:
+    examples:
+    - value: http://purl.org/obo/owl/FIX#
+    range: http identifier
+  license:
+    examples:
+    - value: CC0
+    range: string
+  ontologies:
+    examples:
+    - value: '[''$ref:Ontology'', ''$ref:Ontology'', ''$ref:Ontology'', ''$ref:Ontology'',
+        ''$ref:Ontology'', ''$ref:Ontology'', ''$ref:Ontology'', ''$ref:Ontology'',
+        ''$ref:Ontology'', ''$ref:Ontology'', ''$ref:Ontology'', ''$ref:Ontology'',
+        ''$ref:Ontology'']'
+    multivalued: true
+    inlined: true
+    inlined_as_list: false
+    range: Ontology
+  suppress:
+    range: boolean
+classes:
+  Ontology:
+    slots:
+    - description
+    - url
+    - id
+    - has_imports
+    - jsonld_context
+    - prefixmap
+    - named_prefixmaps
+    - format
+    - compression
+    - suppress
+  PrefixMap:
+    slots:
+    - prefix
+    - prefix_value
+  Registry:
+    slots:
+    - id
+    - description
+    - license
+    - ontologies
+    tree_root: true
+
