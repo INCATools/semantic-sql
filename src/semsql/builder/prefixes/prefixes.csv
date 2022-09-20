@@ -49,6 +49,11 @@ wikidata,http://www.wikidata.org/entity/
 schema,https://schema.org/
 ICD10CM,http://purl.bioontology.org/ontology/ICD10CM/
 ICD10WHO,https://icd.who.int/browse10/2019/en#/
+prefix,base
+MSIO,http://purl.obolibrary.org/obo/MSIO_
+nmrCV,http://nmrML.org/nmrCV#NMR:
+evs.ncit,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
+old.fix,http://purl.org/obo/owl/FIX#
 PSO,http://purl.obolibrary.org/obo/PSO_
 CHIRO,http://purl.obolibrary.org/obo/CHIRO_
 PW,http://purl.obolibrary.org/obo/PW_

@@ -51,12 +51,16 @@ def make(path, docker):
 
 
 @main.command()
+@click.option("--local-prefixes",
+              "-P",
+              type=click.File(mode="w"),
+              help="path to local prefixes file (will be overridden)")
 @click.argument("registry")
-def generate_makefile(registry):
+def generate_makefile(registry, local_prefixes):
     """
     Generates makefile
     """
-    print(builder.compile_registry(registry))
+    print(builder.compile_registry(registry, local_prefix_file=local_prefixes))
 
 
 @main.command()

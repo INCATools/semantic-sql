@@ -2,6 +2,11 @@ id: semantic-sql-registry
 description: Registry overlap for Semantic-SQL designed to supplement OBO vocabularies
 license: CC0
 ontologies:
+  msio:
+    url: https://raw.githubusercontent.com/MSI-Metabolomics-Standards-Initiative/MSIO/master/releases/latest_release/MSIO-merged-reasoned.owl
+    prefixmap:
+      MSIO: http://purl.obolibrary.org/obo/MSIO_
+      nmrCV: "http://nmrML.org/nmrCV#NMR:"
   phenio:
     description: Monarch Phenomics Integrated Ontology
     url: https://github.com/monarch-initiative/phenio/releases/download/latest/phenio.owl
@@ -28,7 +33,7 @@ ontologies:
     has_imports: true
     prefixmap:
       evs.ncit: http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
-      fix: http://purl.org/obo/owl/FIX#
+      old.fix: http://purl.org/obo/owl/FIX#
   efo:
     url: http://www.ebi.ac.uk/efo/efo.owl
     has_imports: true

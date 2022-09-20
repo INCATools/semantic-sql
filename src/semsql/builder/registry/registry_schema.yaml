@@ -50,6 +50,7 @@ slots:
     - value: '[''$ref:Prefixmap'', ''$ref:Prefixmap'']'
     multivalued: true
     range: PrefixMap
+    inlined: true
   named_prefixmaps:
     examples:
     - value: '[''sweet'', ''prefixcc'']'

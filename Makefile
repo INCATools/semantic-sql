@@ -146,8 +146,8 @@ download/reactome-biopax.zip:
 src/semsql/builder/registry/registry_schema.py: src/semsql/builder/registry/registry_schema.yaml
 	$(RUN) gen-python $< > $@
 
-ontologies.Makefile: src/semsql/builder/registry/ontologies.yaml
-	$(RUN) semsql generate-makefile $< > $@.tmp && mv $@.tmp $@
+ontologies.Makefile: src/semsql/builder/registry/ontologies.yaml 
+	$(RUN) semsql generate-makefile -P src/semsql/builder/prefixes/prefixes_local.csv $< > $@.tmp && mv $@.tmp $@
 
 include ontologies.Makefile
 

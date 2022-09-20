@@ -4,7 +4,7 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
-from typing import Optional
+from typing import Optional, TextIO
 
 import requests
 from linkml_runtime.loaders import yaml_loader
@@ -107,17 +107,20 @@ def connect(owl_file: str):
     session = Session()
     return session
 
-def compile_registry(registry_path: str) -> str:
+def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> str:
     """
     Generate makefile content from registry
 
     :param registry_path:
+    :param local_prefix_file:
     :return:
     """
     registry: registry_schema.Registry
     registry = yaml_loader.load(registry_path, target_class=registry_schema.Registry)
     mkfile = ""
     onts = []
+    if local_prefix_file:
+        local_prefix_file.write("prefix,base\n")
     for ont in registry.ontologies.values():
         target = f"db/{ont.id}.owl"
         dependencies = ["STAMP"]
@@ -128,5 +131,8 @@ def compile_registry(registry_path: str) -> str:
         dependencies_str = " ".join(dependencies)
         mkfile += f"{target}: {dependencies_str}\n\t{command}\n\n"
         onts.append(ont.id)
+        if local_prefix_file:
+            for pn in ont.prefixmap.values():
+                local_prefix_file.write(f"{pn.prefix},{pn.prefix_value}\n")
     mkfile += f"EXTRA_ONTOLOGIES = {' '.join(onts)}"
     return mkfile

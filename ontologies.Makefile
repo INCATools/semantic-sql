@@ -1,3 +1,6 @@
+db/msio.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/MSI-Metabolomics-Standards-Initiative/MSIO/master/releases/latest_release/MSIO-merged-reasoned.owl > $@.tmp && mv $@.tmp $@
+
 db/phenio.owl: STAMP
 	curl -L -s https://github.com/monarch-initiative/phenio/releases/download/latest/phenio.owl > $@.tmp && mv $@.tmp $@
 
@@ -40,4 +43,4 @@ db/lov.owl: STAMP
 db/schema-dot-org.owl: STAMP
 	curl -L -s https://schema.org/version/latest/schemaorg-current-https.rdf > $@.tmp && mv $@.tmp $@
 
-
+EXTRA_ONTOLOGIES = msio phenio bero aio reacto go-lego bao biolink biopax enanomapper efo edam sweetAll lov schema-dot-org
