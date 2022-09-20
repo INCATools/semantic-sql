@@ -1,5 +1,5 @@
 # Auto generated from registry_schema.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-09-05T18:53:50
+# Generation date: 2022-09-17T15:44:28
 # Schema: ontology_registry
 #
 # id: https://w3id.org/semsql/registry
@@ -22,7 +22,8 @@ from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from rdflib import Namespace, URIRef
 from linkml_runtime.utils.curienamespace import CurieNamespace
-from linkml_runtime.linkml_model.types import Integer, String
+from linkml_runtime.linkml_model.types import Boolean, Integer, String
+from linkml_runtime.utils.metamodelcore import Bool
 
 metamodel_version = "1.7.0"
 version = None
@@ -86,10 +87,11 @@ class Ontology(YAMLRoot):
     url: Optional[Union[str, Identifier]] = None
     has_imports: Optional[int] = None
     jsonld_context: Optional[Union[str, HttpsIdentifier]] = None
-    prefixmap: Optional[Union[Union[str, PrefixMapPrefix], List[Union[str, PrefixMapPrefix]]]] = empty_list()
+    prefixmap: Optional[Union[Dict[Union[str, PrefixMapPrefix], Union[dict, "PrefixMap"]], List[Union[dict, "PrefixMap"]]]] = empty_dict()
     named_prefixmaps: Optional[Union[str, List[str]]] = empty_list()
     format: Optional[str] = None
     compression: Optional[Union[str, "CompressionEnum"]] = None
+    suppress: Optional[Union[bool, Bool]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -109,9 +111,7 @@ class Ontology(YAMLRoot):
         if self.jsonld_context is not None and not isinstance(self.jsonld_context, HttpsIdentifier):
             self.jsonld_context = HttpsIdentifier(self.jsonld_context)
 
-        if not isinstance(self.prefixmap, list):
-            self.prefixmap = [self.prefixmap] if self.prefixmap is not None else []
-        self.prefixmap = [v if isinstance(v, PrefixMapPrefix) else PrefixMapPrefix(v) for v in self.prefixmap]
+        self._normalize_inlined_as_dict(slot_name="prefixmap", slot_type=PrefixMap, key_name="prefix", keyed=True)
 
         if not isinstance(self.named_prefixmaps, list):
             self.named_prefixmaps = [self.named_prefixmaps] if self.named_prefixmaps is not None else []
@@ -122,6 +122,9 @@ class Ontology(YAMLRoot):
 
         if self.compression is not None and not isinstance(self.compression, CompressionEnum):
             self.compression = CompressionEnum(self.compression)
+
+        if self.suppress is not None and not isinstance(self.suppress, Bool):
+            self.suppress = Bool(self.suppress)
 
         super().__post_init__(**kwargs)
 
@@ -220,7 +223,7 @@ slots.jsonld_context = Slot(uri=SEMSQL_REGISTRY.jsonld_context, name="jsonld_con
                    model_uri=SEMSQL_REGISTRY.jsonld_context, domain=None, range=Optional[Union[str, HttpsIdentifier]])
 
 slots.prefixmap = Slot(uri=SEMSQL_REGISTRY.prefixmap, name="prefixmap", curie=SEMSQL_REGISTRY.curie('prefixmap'),
-                   model_uri=SEMSQL_REGISTRY.prefixmap, domain=None, range=Optional[Union[Union[str, PrefixMapPrefix], List[Union[str, PrefixMapPrefix]]]])
+                   model_uri=SEMSQL_REGISTRY.prefixmap, domain=None, range=Optional[Union[Dict[Union[str, PrefixMapPrefix], Union[dict, PrefixMap]], List[Union[dict, PrefixMap]]]])
 
 slots.named_prefixmaps = Slot(uri=SEMSQL_REGISTRY.named_prefixmaps, name="named_prefixmaps", curie=SEMSQL_REGISTRY.curie('named_prefixmaps'),
                    model_uri=SEMSQL_REGISTRY.named_prefixmaps, domain=None, range=Optional[Union[str, List[str]]])
@@ -242,3 +245,6 @@ slots.license = Slot(uri=SEMSQL_REGISTRY.license, name="license", curie=SEMSQL_R
 
 slots.ontologies = Slot(uri=SEMSQL_REGISTRY.ontologies, name="ontologies", curie=SEMSQL_REGISTRY.curie('ontologies'),
                    model_uri=SEMSQL_REGISTRY.ontologies, domain=None, range=Optional[Union[Dict[Union[str, OntologyId], Union[dict, Ontology]], List[Union[dict, Ontology]]]])
+
+slots.suppress = Slot(uri=SEMSQL_REGISTRY.suppress, name="suppress", curie=SEMSQL_REGISTRY.curie('suppress'),
+                   model_uri=SEMSQL_REGISTRY.suppress, domain=None, range=Optional[Union[bool, Bool]])

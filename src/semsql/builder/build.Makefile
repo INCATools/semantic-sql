@@ -33,7 +33,7 @@ help:
 # All dbs are made from an initial template containing
 # (1) prefixes
 # (2) SQL Schema (primarily views)
-$(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql
+$(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
 	cat $< | sqlite3 $@.tmp && \
 	echo .exit | sqlite3 -echo $@.tmp -cmd ".mode csv" -cmd ".import $(THIS_DIR)/prefixes/prefixes.csv prefix" && \
 	mv $@.tmp $@
@@ -96,6 +96,6 @@ $(PREFIX_DIR)/obo_prefixes.db: $(PREFIX_DIR)/obo_prefixes.owl
 $(PREFIX_DIR)/obo_prefixes.csv: $(PREFIX_DIR)/obo_prefixes.db
 	sqlite3 $< -cmd ".separator ','" "SELECT p.value AS prefix, ns.value AS base FROM statements AS p JOIN statements AS ns ON (p.subject=ns.subject) WHERE p.predicate='<http://www.w3.org/ns/shacl#prefix>' AND ns.predicate='<http://www.w3.org/ns/shacl#namespace>'" > $@
 
-$(PREFIX_DIR)/prefixes.csv: $(PREFIX_DIR)/prefixes_curated.csv $(PREFIX_DIR)/obo_prefixes.csv
+$(PREFIX_DIR)/prefixes.csv: $(PREFIX_DIR)/prefixes_curated.csv $(PREFIX_DIR)/prefixes_local.csv $(PREFIX_DIR)/obo_prefixes.csv
 	cat $^ > $@
 
