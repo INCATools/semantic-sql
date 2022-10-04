@@ -89,7 +89,7 @@ db/%.db: db/%.owl
 
 
 # first fetch ontology list in rdf/owl;
-owl/obo-ontologies.owl:
+db/obo-ontologies.owl:
 	robot convert -I http://purl.obolibrary.org/meta/ontologies.ttl -o $@
 
 # depends on .db build of rdf/owl - then export to TSV
