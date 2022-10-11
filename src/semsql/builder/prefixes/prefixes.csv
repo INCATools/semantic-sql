@@ -5,7 +5,7 @@ xsd,http://www.w3.org/2001/XMLSchema#
 owl,http://www.w3.org/2002/07/owl#
 oio,http://www.geneontology.org/formats/oboInOwl#
 dce,http://purl.org/dc/elements/1.1/
-dct,http://purl.org/dc/terms/
+dcterms,http://purl.org/dc/terms/
 foaf,http://xmlns.com/foaf/0.1/
 protege,http://protege.stanford.edu/plugins/owl/protege#
 skos,http://www.w3.org/2004/02/skos/core#
@@ -49,12 +49,6 @@ wikidata,http://www.wikidata.org/entity/
 schema,https://schema.org/
 ICD10CM,http://purl.bioontology.org/ontology/ICD10CM/
 ICD10WHO,https://icd.who.int/browse10/2019/en#/
-prefix,base
-MSIO,http://purl.obolibrary.org/obo/MSIO_
-nmrCV,http://nmrML.org/nmrCV#NMR:
-evs.ncit,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
-old.fix,http://purl.org/obo/owl/FIX#
-co_324,https://cropontology.org/rdf/CO_324:
 RBO,http://purl.obolibrary.org/obo/RBO_
 CLYH,http://purl.obolibrary.org/obo/CLYH_
 RO,http://purl.obolibrary.org/obo/RO_
