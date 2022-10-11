@@ -43,4 +43,10 @@ db/lov.owl: STAMP
 db/schema-dot-org.owl: STAMP
 	curl -L -s https://schema.org/version/latest/schemaorg-current-https.rdf > $@.tmp && mv $@.tmp $@
 
-EXTRA_ONTOLOGIES = msio phenio bero aio reacto go-lego bao biolink biopax enanomapper efo edam sweetAll lov schema-dot-org
+db/cosmo.owl: STAMP
+	robot merge -I https://micra.com/COSMO/COSMO.owl -o $@
+
+db/co_324.owl: STAMP
+	curl -L -s https://cropontology.org/ontology/CO_324/rdf > $@.tmp && mv $@.tmp $@
+
+EXTRA_ONTOLOGIES = msio phenio bero aio reacto go-lego bao biolink biopax enanomapper efo edam sweetAll lov schema-dot-org cosmo co_324

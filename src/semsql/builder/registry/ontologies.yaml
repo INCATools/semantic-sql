@@ -51,3 +51,19 @@ ontologies:
     compression: gzip
   schema-dot-org:
     url: https://schema.org/version/latest/schemaorg-current-https.rdf
+  cosmo:
+    url: https://micra.com/COSMO/COSMO.owl
+    has_imports: true
+  #empathi:
+  #  url: https://raw.githubusercontent.com/shekarpour/empathi.io/master/empathi.owl
+  #  format: owlx
+  #  named_prefixmaps:
+  #    - prefixcc
+  #  prefixmap:
+  #    empathi: https://w3id.org/empathi/
+
+## CROP ONTOLOGIES
+  co_324:
+    url: https://cropontology.org/ontology/CO_324/rdf
+    prefixmap:
+      co_324: "https://cropontology.org/rdf/CO_324:"
