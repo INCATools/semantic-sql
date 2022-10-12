@@ -34,6 +34,11 @@ ontologies:
     prefixmap:
       evs.ncit: http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
       old.fix: http://purl.org/obo/owl/FIX#
+  mlo:
+    url: https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/external/ml-ontology-202010021305.owl
+    has_imports: true
+    prefixmap:
+      mlo: http://www.a2rd.net.br/mlo#
   efo:
     url: http://www.ebi.ac.uk/efo/efo.owl
     has_imports: true
@@ -67,3 +72,5 @@ ontologies:
     url: https://cropontology.org/ontology/CO_324/rdf
     prefixmap:
       co_324: "https://cropontology.org/rdf/CO_324:"
+      
+   
