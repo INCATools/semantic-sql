@@ -49,6 +49,13 @@ wikidata,http://www.wikidata.org/entity/
 schema,https://schema.org/
 ICD10CM,http://purl.bioontology.org/ontology/ICD10CM/
 ICD10WHO,https://icd.who.int/browse10/2019/en#/
+prefix,base
+MSIO,http://purl.obolibrary.org/obo/MSIO_
+nmrCV,http://nmrML.org/nmrCV#NMR:
+evs.ncit,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
+old.fix,http://purl.org/obo/owl/FIX#
+mlo,http://www.a2rd.net.br/mlo#
+co_324,https://cropontology.org/rdf/CO_324:
 RBO,http://purl.obolibrary.org/obo/RBO_
 CLYH,http://purl.obolibrary.org/obo/CLYH_
 RO,http://purl.obolibrary.org/obo/RO_

@@ -24,6 +24,11 @@ enums:
       gzip:
         description: gzip
 slots:
+  id:
+    examples:
+    - value: lov
+    identifier: true
+    range: string
   description:
     examples:
     - value: Monarch Phenomics Integrated Ontology
@@ -32,11 +37,8 @@ slots:
     examples:
     - value: https://lov.linkeddata.es/lov.n3.gz
     range: identifier
-  id:
-    examples:
-    - value: lov
-    identifier: true
-    range: string
+  relation_graph_settings:
+    range: RelationGraphConfiguration
   has_imports:
     examples:
     - value: 'True'
@@ -102,6 +104,7 @@ classes:
     - format
     - compression
     - suppress
+    - relation_graph_settings
   PrefixMap:
     slots:
     - prefix
@@ -113,4 +116,8 @@ classes:
     - license
     - ontologies
     tree_root: true
-
+  RelationGraphConfiguration:
+    attributes:
+      properties:
+        range: uriorcurie
+        multivalued: true

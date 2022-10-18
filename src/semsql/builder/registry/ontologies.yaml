@@ -9,7 +9,14 @@ ontologies:
       nmrCV: "http://nmrML.org/nmrCV#NMR:"
   phenio:
     description: Monarch Phenomics Integrated Ontology
-    url: https://github.com/monarch-initiative/phenio/releases/download/latest/phenio.owl
+    url: https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl
+    relation_graph_settings:
+      properties:
+        - BFO:0000050
+        - BFO:0000051
+        - UPHENO:0000001
+        - UPHENO:0000003
+        - RO:0002202
   bero:
     url: https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl
   aio:

@@ -2,7 +2,7 @@ db/msio.owl: STAMP
 	curl -L -s https://raw.githubusercontent.com/MSI-Metabolomics-Standards-Initiative/MSIO/master/releases/latest_release/MSIO-merged-reasoned.owl > $@.tmp && mv $@.tmp $@
 
 db/phenio.owl: STAMP
-	curl -L -s https://github.com/monarch-initiative/phenio/releases/download/latest/phenio.owl > $@.tmp && mv $@.tmp $@
+	curl -L -s https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl > $@.tmp && mv $@.tmp $@
 
 db/bero.owl: STAMP
 	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp && mv $@.tmp $@
@@ -28,6 +28,9 @@ db/biopax.owl: STAMP
 db/enanomapper.owl: STAMP
 	robot merge -I http://enanomapper.github.io/ontologies/enanomapper.owl -o $@
 
+db/mlo.owl: STAMP
+	robot merge -I https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/external/ml-ontology-202010021305.owl -o $@
+
 db/efo.owl: STAMP
 	robot merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
 
@@ -49,4 +52,4 @@ db/cosmo.owl: STAMP
 db/co_324.owl: STAMP
 	curl -L -s https://cropontology.org/ontology/CO_324/rdf > $@.tmp && mv $@.tmp $@
 
-EXTRA_ONTOLOGIES = msio phenio bero aio reacto go-lego bao biolink biopax enanomapper efo edam sweetAll lov schema-dot-org cosmo co_324
+EXTRA_ONTOLOGIES = msio phenio bero aio reacto go-lego bao biolink biopax enanomapper mlo efo edam sweetAll lov schema-dot-org cosmo co_324

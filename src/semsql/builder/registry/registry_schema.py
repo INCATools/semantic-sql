@@ -1,5 +1,5 @@
 # Auto generated from registry_schema.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-09-17T15:44:28
+# Generation date: 2022-10-15T14:23:31
 # Schema: ontology_registry
 #
 # id: https://w3id.org/semsql/registry
@@ -22,8 +22,8 @@ from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from rdflib import Namespace, URIRef
 from linkml_runtime.utils.curienamespace import CurieNamespace
-from linkml_runtime.linkml_model.types import Boolean, Integer, String
-from linkml_runtime.utils.metamodelcore import Bool
+from linkml_runtime.linkml_model.types import Boolean, Integer, String, Uriorcurie
+from linkml_runtime.utils.metamodelcore import Bool, URIorCURIE
 
 metamodel_version = "1.7.0"
 version = None
@@ -92,6 +92,7 @@ class Ontology(YAMLRoot):
     format: Optional[str] = None
     compression: Optional[Union[str, "CompressionEnum"]] = None
     suppress: Optional[Union[bool, Bool]] = None
+    relation_graph_settings: Optional[Union[dict, "RelationGraphConfiguration"]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -125,6 +126,9 @@ class Ontology(YAMLRoot):
 
         if self.suppress is not None and not isinstance(self.suppress, Bool):
             self.suppress = Bool(self.suppress)
+
+        if self.relation_graph_settings is not None and not isinstance(self.relation_graph_settings, RelationGraphConfiguration):
+            self.relation_graph_settings = RelationGraphConfiguration(**as_dict(self.relation_graph_settings))
 
         super().__post_init__(**kwargs)
 
@@ -184,6 +188,25 @@ class Registry(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
+@dataclass
+class RelationGraphConfiguration(YAMLRoot):
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.RelationGraphConfiguration
+    class_class_curie: ClassVar[str] = "semsql_registry:RelationGraphConfiguration"
+    class_name: ClassVar[str] = "RelationGraphConfiguration"
+    class_model_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.RelationGraphConfiguration
+
+    properties: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if not isinstance(self.properties, list):
+            self.properties = [self.properties] if self.properties is not None else []
+        self.properties = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.properties]
+
+        super().__post_init__(**kwargs)
+
+
 # Enumerations
 class FormatEnum(EnumDefinitionImpl):
 
@@ -207,14 +230,17 @@ class CompressionEnum(EnumDefinitionImpl):
 class slots:
     pass
 
+slots.id = Slot(uri=SEMSQL_REGISTRY.id, name="id", curie=SEMSQL_REGISTRY.curie('id'),
+                   model_uri=SEMSQL_REGISTRY.id, domain=None, range=URIRef)
+
 slots.description = Slot(uri=SEMSQL_REGISTRY.description, name="description", curie=SEMSQL_REGISTRY.curie('description'),
                    model_uri=SEMSQL_REGISTRY.description, domain=None, range=Optional[str])
 
 slots.url = Slot(uri=SEMSQL_REGISTRY.url, name="url", curie=SEMSQL_REGISTRY.curie('url'),
                    model_uri=SEMSQL_REGISTRY.url, domain=None, range=Optional[Union[str, Identifier]])
 
-slots.id = Slot(uri=SEMSQL_REGISTRY.id, name="id", curie=SEMSQL_REGISTRY.curie('id'),
-                   model_uri=SEMSQL_REGISTRY.id, domain=None, range=URIRef)
+slots.relation_graph_settings = Slot(uri=SEMSQL_REGISTRY.relation_graph_settings, name="relation_graph_settings", curie=SEMSQL_REGISTRY.curie('relation_graph_settings'),
+                   model_uri=SEMSQL_REGISTRY.relation_graph_settings, domain=None, range=Optional[Union[dict, RelationGraphConfiguration]])
 
 slots.has_imports = Slot(uri=SEMSQL_REGISTRY.has_imports, name="has_imports", curie=SEMSQL_REGISTRY.curie('has_imports'),
                    model_uri=SEMSQL_REGISTRY.has_imports, domain=None, range=Optional[int])
@@ -248,3 +274,6 @@ slots.ontologies = Slot(uri=SEMSQL_REGISTRY.ontologies, name="ontologies", curie
 
 slots.suppress = Slot(uri=SEMSQL_REGISTRY.suppress, name="suppress", curie=SEMSQL_REGISTRY.curie('suppress'),
                    model_uri=SEMSQL_REGISTRY.suppress, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.relationGraphConfiguration__properties = Slot(uri=SEMSQL_REGISTRY.properties, name="relationGraphConfiguration__properties", curie=SEMSQL_REGISTRY.curie('properties'),
+                   model_uri=SEMSQL_REGISTRY.relationGraphConfiguration__properties, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])

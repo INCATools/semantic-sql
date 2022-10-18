@@ -85,6 +85,7 @@ def download_obo_sqlite(ontology: str, destination: str):
     """
     db = f"{ontology}.db"
     url = f"https://s3.amazonaws.com/bbop-sqlite/{db}.gz"
+    logging.info(f"Downloading from {url}")
     r = requests.get(url, allow_redirects=True)
     destination_gzip = f"{destination}.gz"
     open(destination_gzip, "wb").write(r.content)

@@ -40,7 +40,10 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
 .PRECIOUS: $(TEMPLATE)
 
 %-min.owl: %.owl
-	robot remove -i $< --axioms "equivalent disjoint annotation" -o $@
+	robot \
+	  remove -i $< --axioms "equivalent disjoint annotation" \
+	  filter --exclude-terms $(THIS_DIR)/exclude-terms.txt \
+	  -o $@
 
 # -- MAIN TARGET --
 # A db is constructed from
@@ -65,9 +68,10 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
 # will be simplified in future. See:
 #  - https://github.com/balhoff/relation-graph/issues/123
 #  - https://github.com/balhoff/relation-graph/issues/25
-%-$(RGSUFFIX).tsv: %-min.owl
+%-$(RGSUFFIX).tsv: %-min.owl %-properties.txt
 	$(RG) --disable-owl-nothing true \
                        --ontology-file $<\
+		       $(RG_PROPERTIES) \
                        --output-file $@.ttl.tmp \
                        --equivalence-as-subclass true \
 	               --output-individuals true \
@@ -80,6 +84,9 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
 	mv $@.tmp $@ && \
 	rm $@.*.tmp
 .PRECIOUS: %-$(RGSUFFIX).tsv
+
+%-properties.txt:
+	touch $@
 
 # ---
 # Prefixes
