@@ -1,5 +1,5 @@
 # Auto generated from registry_schema.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-10-15T14:23:31
+# Generation date: 2022-10-18T18:20:11
 # Schema: ontology_registry
 #
 # id: https://w3id.org/semsql/registry
@@ -93,6 +93,7 @@ class Ontology(YAMLRoot):
     compression: Optional[Union[str, "CompressionEnum"]] = None
     suppress: Optional[Union[bool, Bool]] = None
     relation_graph_settings: Optional[Union[dict, "RelationGraphConfiguration"]] = None
+    zip_extract_file: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -129,6 +130,9 @@ class Ontology(YAMLRoot):
 
         if self.relation_graph_settings is not None and not isinstance(self.relation_graph_settings, RelationGraphConfiguration):
             self.relation_graph_settings = RelationGraphConfiguration(**as_dict(self.relation_graph_settings))
+
+        if self.zip_extract_file is not None and not isinstance(self.zip_extract_file, str):
+            self.zip_extract_file = str(self.zip_extract_file)
 
         super().__post_init__(**kwargs)
 
@@ -250,6 +254,9 @@ slots.jsonld_context = Slot(uri=SEMSQL_REGISTRY.jsonld_context, name="jsonld_con
 
 slots.prefixmap = Slot(uri=SEMSQL_REGISTRY.prefixmap, name="prefixmap", curie=SEMSQL_REGISTRY.curie('prefixmap'),
                    model_uri=SEMSQL_REGISTRY.prefixmap, domain=None, range=Optional[Union[Dict[Union[str, PrefixMapPrefix], Union[dict, PrefixMap]], List[Union[dict, PrefixMap]]]])
+
+slots.zip_extract_file = Slot(uri=SEMSQL_REGISTRY.zip_extract_file, name="zip_extract_file", curie=SEMSQL_REGISTRY.curie('zip_extract_file'),
+                   model_uri=SEMSQL_REGISTRY.zip_extract_file, domain=None, range=Optional[str])
 
 slots.named_prefixmaps = Slot(uri=SEMSQL_REGISTRY.named_prefixmaps, name="named_prefixmaps", curie=SEMSQL_REGISTRY.curie('named_prefixmaps'),
                    model_uri=SEMSQL_REGISTRY.named_prefixmaps, domain=None, range=Optional[Union[str, List[str]]])

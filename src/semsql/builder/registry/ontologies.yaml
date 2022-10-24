@@ -46,6 +46,9 @@ ontologies:
     has_imports: true
     prefixmap:
       mlo: http://www.a2rd.net.br/mlo#
+  ito:
+    url: https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip
+    zip_extract_file: ITO.owl
   efo:
     url: http://www.ebi.ac.uk/efo/efo.owl
     has_imports: true

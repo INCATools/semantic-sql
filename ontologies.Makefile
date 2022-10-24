@@ -31,6 +31,9 @@ db/enanomapper.owl: STAMP
 db/mlo.owl: STAMP
 	robot merge -I https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/external/ml-ontology-202010021305.owl -o $@
 
+db/ito.owl: STAMP
+	curl -L -s https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip > $@.tmp && unzip -p $@.tmp ITO.owl > $@.tmp2 && mv $@.tmp2 $@ && rm $@.tmp
+
 db/efo.owl: STAMP
 	robot merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
 
@@ -52,4 +55,4 @@ db/cosmo.owl: STAMP
 db/co_324.owl: STAMP
 	curl -L -s https://cropontology.org/ontology/CO_324/rdf > $@.tmp && mv $@.tmp $@
 
-EXTRA_ONTOLOGIES = msio phenio bero aio reacto go-lego bao biolink biopax enanomapper mlo efo edam sweetAll lov schema-dot-org cosmo co_324
+EXTRA_ONTOLOGIES = msio phenio bero aio reacto go-lego bao biolink biopax enanomapper mlo ito efo edam sweetAll lov schema-dot-org cosmo co_324

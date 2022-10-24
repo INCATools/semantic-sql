@@ -125,7 +125,9 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
     for ont in registry.ontologies.values():
         target = f"db/{ont.id}.owl"
         dependencies = ["STAMP"]
-        if ont.has_imports or (ont.format and ont.format != 'rdfxml'):
+        if ont.zip_extract_file:
+            command = f"curl -L -s {ont.url} > $@.tmp && unzip -p $@.tmp {ont.zip_extract_file} > $@.tmp2 && mv $@.tmp2 $@ && rm $@.tmp"
+        elif ont.has_imports or (ont.format and ont.format != 'rdfxml'):
             command = f"robot merge -I {ont.url} -o $@"
         else:
             command = f"curl -L -s {ont.url} > $@.tmp && mv $@.tmp $@"

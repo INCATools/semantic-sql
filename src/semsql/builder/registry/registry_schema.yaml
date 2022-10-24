@@ -53,6 +53,8 @@ slots:
     multivalued: true
     range: PrefixMap
     inlined: true
+  zip_extract_file:
+    description: file to extract in a zip download
   named_prefixmaps:
     examples:
     - value: '[''sweet'', ''prefixcc'']'
@@ -105,6 +107,7 @@ classes:
     - compression
     - suppress
     - relation_graph_settings
+    - zip_extract_file
   PrefixMap:
     slots:
     - prefix
