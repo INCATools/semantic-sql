@@ -5,7 +5,7 @@
 # Directory containing this Makefile
 # https://stackoverflow.com/questions/18136918/how-to-get-current-relative-directory-of-your-makefile
 THIS_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
-PREFIX_DIR = $(THIS_DIR)/prefixes
+PREFIX_DIR = $(THIS_DIR)prefixes
 
 # Template sqlite database
 TEMPLATE = .template.db
@@ -68,21 +68,18 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
 # will be simplified in future. See:
 #  - https://github.com/balhoff/relation-graph/issues/123
 #  - https://github.com/balhoff/relation-graph/issues/25
-%-$(RGSUFFIX).tsv: %-min.owl %-properties.txt
+%-$(RGSUFFIX).tsv: %-min.owl %-properties.txt $(PREFIX_DIR)/prefixes.yaml
 	$(RG) --disable-owl-nothing true \
                        --ontology-file $<\
 		       $(RG_PROPERTIES) \
-                       --output-file $@.ttl.tmp \
+                       --output-file $@.tmp \
                        --equivalence-as-subclass true \
+                       --mode TSV \
+		       --prefixes $(PREFIX_DIR)/prefixes.yaml \
 	               --output-individuals true \
 	               --output-subclasses true \
                        --reflexive-subclasses true && \
-	riot --out RDFXML --syntax turtle $@.ttl.tmp > $@.owl.tmp && \
-	sqlite3 $@.db.tmp -cmd ".mode csv" ".import $(THIS_DIR)/prefixes/prefixes.csv prefix" && \
-	rdftab $@.db.tmp < $@.owl.tmp && \
-	sqlite3 $@.db.tmp -cmd '.separator "\t"' -cmd '.header on' "SELECT subject,predicate,object FROM statements " > $@.tmp && \
-	mv $@.tmp $@ && \
-	rm $@.*.tmp
+	mv $@.tmp $@
 .PRECIOUS: %-$(RGSUFFIX).tsv
 
 %-properties.txt:
@@ -92,7 +89,7 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
 # Prefixes
 # ---
 
-build_prefixes: $(PREFIX_DIR)/prefixes.csv
+build_prefixes: $(PREFIX_DIR)/prefixes.csv $(PREFIX_DIR)/prefixes.yaml
 
 $(PREFIX_DIR)/obo_prefixes.owl:
 	robot convert -I http://purl.obolibrary.org/meta/obo_prefixes.ttl -o $@
@@ -105,4 +102,8 @@ $(PREFIX_DIR)/obo_prefixes.csv: $(PREFIX_DIR)/obo_prefixes.db
 
 $(PREFIX_DIR)/prefixes.csv: $(PREFIX_DIR)/prefixes_curated.csv $(PREFIX_DIR)/prefixes_local.csv $(PREFIX_DIR)/obo_prefixes.csv
 	cat $^ > $@
+
+# see https://github.com/INCATools/relation-graph/issues/168
+$(PREFIX_DIR)/prefixes.yaml: $(PREFIX_DIR)/prefixes.csv
+	grep -v ^prefix, $< | grep -v ^obo, | perl -npe 's@,(.*)@: "$$1"@'  > $@.tmp && mv $@.tmp $@
 

@@ -129,6 +129,8 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
             command = f"curl -L -s {ont.url} > $@.tmp && unzip -p $@.tmp {ont.zip_extract_file} > $@.tmp2 && mv $@.tmp2 $@ && rm $@.tmp"
         elif ont.has_imports or (ont.format and ont.format != 'rdfxml'):
             command = f"robot merge -I {ont.url} -o $@"
+        elif ont.build_command:
+            command = ont.build_command.format(ont=ont)
         else:
             command = f"curl -L -s {ont.url} > $@.tmp && mv $@.tmp $@"
         dependencies_str = " ".join(dependencies)

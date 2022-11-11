@@ -1,8 +1,17 @@
+db/chiro.owl: STAMP
+	robot relax -I http://purl.obolibrary.org/obo/chiro.owl merge -o $@
+
+db/chebiplus.owl: STAMP
+	robot merge -I http://purl.obolibrary.org/obo/chebi.owl -I http://purl.obolibrary.org/obo/chiro.owl relax -o $@
+
 db/msio.owl: STAMP
 	curl -L -s https://raw.githubusercontent.com/MSI-Metabolomics-Standards-Initiative/MSIO/master/releases/latest_release/MSIO-merged-reasoned.owl > $@.tmp && mv $@.tmp $@
 
 db/phenio.owl: STAMP
 	curl -L -s https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl > $@.tmp && mv $@.tmp $@
+
+db/comploinc.owl: STAMP
+	curl -L -s https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl > $@.tmp && mv $@.tmp $@
 
 db/bero.owl: STAMP
 	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp && mv $@.tmp $@
@@ -18,6 +27,9 @@ db/go-lego.owl: STAMP
 
 db/bao.owl: STAMP
 	robot merge -I http://www.bioassayontology.org/bao/bao_complete.owl -o $@
+
+db/cpont.owl: STAMP
+	curl -L -s https://w3id.org/cpont/cpont.owl > $@.tmp && mv $@.tmp $@
 
 db/biolink.owl: STAMP
 	robot merge -I https://w3id.org/biolink/biolink-model.owl.ttl -o $@
@@ -55,4 +67,4 @@ db/cosmo.owl: STAMP
 db/co_324.owl: STAMP
 	curl -L -s https://cropontology.org/ontology/CO_324/rdf > $@.tmp && mv $@.tmp $@
 
-EXTRA_ONTOLOGIES = msio phenio bero aio reacto go-lego bao biolink biopax enanomapper mlo ito efo edam sweetAll lov schema-dot-org cosmo co_324
+EXTRA_ONTOLOGIES = chiro chebiplus msio phenio comploinc bero aio reacto go-lego bao cpont biolink biopax enanomapper mlo ito efo edam sweetAll lov schema-dot-org cosmo co_324

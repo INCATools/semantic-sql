@@ -1,5 +1,5 @@
 # Auto generated from registry_schema.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-10-18T18:20:11
+# Generation date: 2022-11-09T16:31:49
 # Schema: ontology_registry
 #
 # id: https://w3id.org/semsql/registry
@@ -94,6 +94,7 @@ class Ontology(YAMLRoot):
     suppress: Optional[Union[bool, Bool]] = None
     relation_graph_settings: Optional[Union[dict, "RelationGraphConfiguration"]] = None
     zip_extract_file: Optional[str] = None
+    build_command: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -133,6 +134,9 @@ class Ontology(YAMLRoot):
 
         if self.zip_extract_file is not None and not isinstance(self.zip_extract_file, str):
             self.zip_extract_file = str(self.zip_extract_file)
+
+        if self.build_command is not None and not isinstance(self.build_command, str):
+            self.build_command = str(self.build_command)
 
         super().__post_init__(**kwargs)
 
@@ -263,6 +267,9 @@ slots.named_prefixmaps = Slot(uri=SEMSQL_REGISTRY.named_prefixmaps, name="named_
 
 slots.format = Slot(uri=SEMSQL_REGISTRY.format, name="format", curie=SEMSQL_REGISTRY.curie('format'),
                    model_uri=SEMSQL_REGISTRY.format, domain=None, range=Optional[str])
+
+slots.build_command = Slot(uri=SEMSQL_REGISTRY.build_command, name="build_command", curie=SEMSQL_REGISTRY.curie('build_command'),
+                   model_uri=SEMSQL_REGISTRY.build_command, domain=None, range=Optional[str])
 
 slots.compression = Slot(uri=SEMSQL_REGISTRY.compression, name="compression", curie=SEMSQL_REGISTRY.curie('compression'),
                    model_uri=SEMSQL_REGISTRY.compression, domain=None, range=Optional[Union[str, "CompressionEnum"]])

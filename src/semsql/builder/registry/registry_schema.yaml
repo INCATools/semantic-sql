@@ -64,6 +64,7 @@ slots:
     examples:
     - value: n3
     #range: format_enum
+  build_command:
   compression:
     examples:
     - value: gzip
@@ -108,6 +109,7 @@ classes:
     - suppress
     - relation_graph_settings
     - zip_extract_file
+    - build_command
   PrefixMap:
     slots:
     - prefix
