@@ -2,6 +2,12 @@ id: semantic-sql-registry
 description: Registry overlap for Semantic-SQL designed to supplement OBO vocabularies
 license: CC0
 ontologies:
+  chiro:
+    url: http://purl.obolibrary.org/obo/chiro.owl
+    build_command: "robot relax -I {ont.url} merge -o $@"
+  chebiplus:
+    url: http://purl.obolibrary.org/obo/chebi.owl
+    build_command: "robot merge -I {ont.url} -I http://purl.obolibrary.org/obo/chiro.owl relax -o $@"
   msio:
     url: https://raw.githubusercontent.com/MSI-Metabolomics-Standards-Initiative/MSIO/master/releases/latest_release/MSIO-merged-reasoned.owl
     prefixmap:
@@ -28,6 +34,8 @@ ontologies:
   bao:
     url: http://www.bioassayontology.org/bao/bao_complete.owl
     has_imports: true
+  cpont:
+    url: https://w3id.org/cpont/cpont.owl
   biolink:
     url: https://w3id.org/biolink/biolink-model.owl.ttl
     jsonld_context: https://biolink.github.io/biolink-model/context.jsonld
