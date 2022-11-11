@@ -25,6 +25,8 @@ ontologies:
         - RO:0002202
   comploinc:
     url: https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl
+    prefixmap:
+      loinc: https://loinc.org/
   bero:
     url: https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl
   aio:
