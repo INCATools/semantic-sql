@@ -23,6 +23,8 @@ ontologies:
         - UPHENO:0000001
         - UPHENO:0000003
         - RO:0002202
+  comploinc:
+    url: https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl
   bero:
     url: https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl
   aio:
