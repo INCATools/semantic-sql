@@ -11,7 +11,7 @@ db/phenio.owl: STAMP
 	curl -L -s https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl > $@.tmp && mv $@.tmp $@
 
 db/comploinc.owl: STAMP
-	curl -L -s https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl > $@.tmp && mv $@.tmp $@
+	robot relax -I https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl merge -o $@
 
 db/bero.owl: STAMP
 	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp && mv $@.tmp $@

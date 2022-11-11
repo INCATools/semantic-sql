@@ -25,6 +25,7 @@ ontologies:
         - RO:0002202
   comploinc:
     url: https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl
+    build_command: "robot relax -I {ont.url} merge -o $@"
     prefixmap:
       loinc: https://loinc.org/
   bero:
