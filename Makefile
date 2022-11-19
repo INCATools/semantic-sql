@@ -13,11 +13,14 @@ PREFIX_DIR = $(BUILDER_DIR)/prefixes
 ALL_OBO_ONTS := $(shell cat reports/obo.tsv)
 SELECTED_ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm doid chebi pr wbphenotype fbbt dron
 
+# EXTRA_ONTOLOGIES is defined in ontologies.Makefile
+ALL_ONTS = $(ALL_OBO_ONTS) $(EXTRA_ONTOLOGIES)
+
 TEST_ONTOLOGIES = go-nucleus robot-example
 
 all: build_all stage_all
-build_all: $(patsubst %,all-%,$(ALL_OBO_ONTS))
-stage_all: $(patsubst %,stage/%.db.gz,$(ALL_OBO_ONTS))
+build_all: $(patsubst %,all-%,$(ALL_ONTS))
+stage_all: $(patsubst %,stage/%.db.gz,$(ALL_ONTS))
 
 selected: $(patsubst %,all-%,$(SELECTED_ONTS))
 
@@ -25,6 +28,9 @@ all-%: db/%.db
 	sqlite3 $< "SELECT COUNT(*) FROM statements"
 stage/%.db.gz: db/%.db
 	gzip -c $< > $@.tmp && mv $@.tmp $@
+
+list-onts:
+	echo $(ALL_ONTS)
 
 # INSTALL
 include install.Makefile
@@ -118,21 +124,6 @@ reports/%.problems.tsv: db/%.db target/%.views
 
 STAMP:
 	touch $@
-
-# download OWL, ensuring converted to RDF/XML
-db/%.owl: STAMP
-	robot merge -I http://purl.obolibrary.org/obo/$*.owl -o $@
-.PRECIOUS: db/%.owl 
-
-db/foodon.owl: STAMP
-	robot merge -I $(OBO)/foodon.owl relax reduce -c true -o $@
-
-db/go.owl: STAMP
-	curl -L -s http://purl.obolibrary.org/obo/go/extensions/go-plus.owl > $@
-
-db/monarch.owl:
-	robot merge -I http://purl.obolibrary.org/obo/upheno/monarch.owl -o $@
-
 
 db/reactome-Homo-sapiens.owl: download/reactome-biopax.zip db/biopax.owl
 	unzip -p $< Homo_sapiens.owl > $@.tmp &&\

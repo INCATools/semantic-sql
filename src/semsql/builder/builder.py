@@ -12,6 +12,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from semsql.builder.registry import registry_schema
+from semsql.builder.registry.registry_schema import Makefile, MakefileRule, Ontology
+from semsql.utils.makefile_utils import makefile_to_string
 
 this_path = Path(__file__).parent
 
@@ -108,6 +110,7 @@ def connect(owl_file: str):
     session = Session()
     return session
 
+
 def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> str:
     """
     Generate makefile content from registry
@@ -118,26 +121,46 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
     """
     registry: registry_schema.Registry
     registry = yaml_loader.load(registry_path, target_class=registry_schema.Registry)
-    mkfile = ""
+    makefile = Makefile()
     onts = []
+    generic = Ontology("%", has_imports=True, suppress=True)
     if local_prefix_file:
         local_prefix_file.write("prefix,base\n")
-    for ont in registry.ontologies.values():
+    for ont in list(registry.ontologies.values()) + [generic]:
+        # download target
+        if ont == generic:
+            command = "curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp"
+        elif ont.zip_extract_file:
+            command = f"curl -L -s {ont.url} > $@.zip.tmp && unzip -p $@.zip.tmp {ont.zip_extract_file} > $@.tmp && rm $@.zip.tmp"
+        else:
+            command = f"curl -L -s {ont.url} > $@.tmp"
+        download_rule = MakefileRule(
+            target=f"download/{ont.id}.owl",
+            dependencies=["STAMP"],
+            commands=[
+                command,
+                f"sha256sum -b $@.tmp > $@.sha256",
+                f"mv $@.tmp $@",
+            ],
+            precious=True,
+        )
+        makefile.rules.append(download_rule)
+        # main build target
         target = f"db/{ont.id}.owl"
-        dependencies = ["STAMP"]
-        if ont.zip_extract_file:
-            command = f"curl -L -s {ont.url} > $@.tmp && unzip -p $@.tmp {ont.zip_extract_file} > $@.tmp2 && mv $@.tmp2 $@ && rm $@.tmp"
-        elif ont.has_imports or (ont.format and ont.format != 'rdfxml'):
-            command = f"robot merge -I {ont.url} -o $@"
+        dependencies = [f"download/{ont.id}.owl"]
+        if ont.has_imports or (ont.format and ont.format != 'rdfxml'):
+            command = f"robot merge -i $< -o $@"
         elif ont.build_command:
             command = ont.build_command.format(ont=ont)
         else:
-            command = f"curl -L -s {ont.url} > $@.tmp && mv $@.tmp $@"
-        dependencies_str = " ".join(dependencies)
-        mkfile += f"{target}: {dependencies_str}\n\t{command}\n\n"
-        onts.append(ont.id)
+            command = f"cp $< $@"
+        rule = MakefileRule(target=target, dependencies=dependencies, commands=[command])
+        makefile.rules.append(rule)
+        if not ont.suppress:
+            onts.append(ont.id)
         if local_prefix_file:
             for pn in ont.prefixmap.values():
                 local_prefix_file.write(f"{pn.prefix},{pn.prefix_value}\n")
+    mkfile = makefile_to_string(makefile)
     mkfile += f"EXTRA_ONTOLOGIES = {' '.join(onts)}"
     return mkfile

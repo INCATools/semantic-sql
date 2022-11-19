@@ -1,5 +1,5 @@
 # Auto generated from registry_schema.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-11-09T16:31:49
+# Generation date: 2022-11-13T13:16:23
 # Schema: ontology_registry
 #
 # id: https://w3id.org/semsql/registry
@@ -85,6 +85,8 @@ class Ontology(YAMLRoot):
     id: Union[str, OntologyId] = None
     description: Optional[str] = None
     url: Optional[Union[str, Identifier]] = None
+    sha256: Optional[str] = None
+    local_path: Optional[str] = None
     has_imports: Optional[int] = None
     jsonld_context: Optional[Union[str, HttpsIdentifier]] = None
     prefixmap: Optional[Union[Dict[Union[str, PrefixMapPrefix], Union[dict, "PrefixMap"]], List[Union[dict, "PrefixMap"]]]] = empty_dict()
@@ -107,6 +109,12 @@ class Ontology(YAMLRoot):
 
         if self.url is not None and not isinstance(self.url, Identifier):
             self.url = Identifier(self.url)
+
+        if self.sha256 is not None and not isinstance(self.sha256, str):
+            self.sha256 = str(self.sha256)
+
+        if self.local_path is not None and not isinstance(self.local_path, str):
+            self.local_path = str(self.local_path)
 
         if self.has_imports is not None and not isinstance(self.has_imports, int):
             self.has_imports = int(self.has_imports)
@@ -215,6 +223,62 @@ class RelationGraphConfiguration(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
+@dataclass
+class MakefileRule(YAMLRoot):
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.MakefileRule
+    class_class_curie: ClassVar[str] = "semsql_registry:MakefileRule"
+    class_name: ClassVar[str] = "MakefileRule"
+    class_model_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.MakefileRule
+
+    target: Optional[str] = None
+    dependencies: Optional[Union[str, List[str]]] = empty_list()
+    commands: Optional[Union[str, List[str]]] = empty_list()
+    comments: Optional[Union[str, List[str]]] = empty_list()
+    precious: Optional[Union[bool, Bool]] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.target is not None and not isinstance(self.target, str):
+            self.target = str(self.target)
+
+        if not isinstance(self.dependencies, list):
+            self.dependencies = [self.dependencies] if self.dependencies is not None else []
+        self.dependencies = [v if isinstance(v, str) else str(v) for v in self.dependencies]
+
+        if not isinstance(self.commands, list):
+            self.commands = [self.commands] if self.commands is not None else []
+        self.commands = [v if isinstance(v, str) else str(v) for v in self.commands]
+
+        if not isinstance(self.comments, list):
+            self.comments = [self.comments] if self.comments is not None else []
+        self.comments = [v if isinstance(v, str) else str(v) for v in self.comments]
+
+        if self.precious is not None and not isinstance(self.precious, Bool):
+            self.precious = Bool(self.precious)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass
+class Makefile(YAMLRoot):
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.Makefile
+    class_class_curie: ClassVar[str] = "semsql_registry:Makefile"
+    class_name: ClassVar[str] = "Makefile"
+    class_model_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.Makefile
+
+    rules: Optional[Union[Union[dict, MakefileRule], List[Union[dict, MakefileRule]]]] = empty_list()
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if not isinstance(self.rules, list):
+            self.rules = [self.rules] if self.rules is not None else []
+        self.rules = [v if isinstance(v, MakefileRule) else MakefileRule(**as_dict(v)) for v in self.rules]
+
+        super().__post_init__(**kwargs)
+
+
 # Enumerations
 class FormatEnum(EnumDefinitionImpl):
 
@@ -271,6 +335,12 @@ slots.format = Slot(uri=SEMSQL_REGISTRY.format, name="format", curie=SEMSQL_REGI
 slots.build_command = Slot(uri=SEMSQL_REGISTRY.build_command, name="build_command", curie=SEMSQL_REGISTRY.curie('build_command'),
                    model_uri=SEMSQL_REGISTRY.build_command, domain=None, range=Optional[str])
 
+slots.sha256 = Slot(uri=SEMSQL_REGISTRY.sha256, name="sha256", curie=SEMSQL_REGISTRY.curie('sha256'),
+                   model_uri=SEMSQL_REGISTRY.sha256, domain=None, range=Optional[str])
+
+slots.local_path = Slot(uri=SEMSQL_REGISTRY.local_path, name="local_path", curie=SEMSQL_REGISTRY.curie('local_path'),
+                   model_uri=SEMSQL_REGISTRY.local_path, domain=None, range=Optional[str])
+
 slots.compression = Slot(uri=SEMSQL_REGISTRY.compression, name="compression", curie=SEMSQL_REGISTRY.curie('compression'),
                    model_uri=SEMSQL_REGISTRY.compression, domain=None, range=Optional[Union[str, "CompressionEnum"]])
 
@@ -291,3 +361,21 @@ slots.suppress = Slot(uri=SEMSQL_REGISTRY.suppress, name="suppress", curie=SEMSQ
 
 slots.relationGraphConfiguration__properties = Slot(uri=SEMSQL_REGISTRY.properties, name="relationGraphConfiguration__properties", curie=SEMSQL_REGISTRY.curie('properties'),
                    model_uri=SEMSQL_REGISTRY.relationGraphConfiguration__properties, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
+
+slots.makefileRule__target = Slot(uri=SEMSQL_REGISTRY.target, name="makefileRule__target", curie=SEMSQL_REGISTRY.curie('target'),
+                   model_uri=SEMSQL_REGISTRY.makefileRule__target, domain=None, range=Optional[str])
+
+slots.makefileRule__dependencies = Slot(uri=SEMSQL_REGISTRY.dependencies, name="makefileRule__dependencies", curie=SEMSQL_REGISTRY.curie('dependencies'),
+                   model_uri=SEMSQL_REGISTRY.makefileRule__dependencies, domain=None, range=Optional[Union[str, List[str]]])
+
+slots.makefileRule__commands = Slot(uri=SEMSQL_REGISTRY.commands, name="makefileRule__commands", curie=SEMSQL_REGISTRY.curie('commands'),
+                   model_uri=SEMSQL_REGISTRY.makefileRule__commands, domain=None, range=Optional[Union[str, List[str]]])
+
+slots.makefileRule__comments = Slot(uri=SEMSQL_REGISTRY.comments, name="makefileRule__comments", curie=SEMSQL_REGISTRY.curie('comments'),
+                   model_uri=SEMSQL_REGISTRY.makefileRule__comments, domain=None, range=Optional[Union[str, List[str]]])
+
+slots.makefileRule__precious = Slot(uri=SEMSQL_REGISTRY.precious, name="makefileRule__precious", curie=SEMSQL_REGISTRY.curie('precious'),
+                   model_uri=SEMSQL_REGISTRY.makefileRule__precious, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.makefile__rules = Slot(uri=SEMSQL_REGISTRY.rules, name="makefile__rules", curie=SEMSQL_REGISTRY.curie('rules'),
+                   model_uri=SEMSQL_REGISTRY.makefile__rules, domain=None, range=Optional[Union[Union[dict, MakefileRule], List[Union[dict, MakefileRule]]]])
