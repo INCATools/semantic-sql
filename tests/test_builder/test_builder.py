@@ -1,7 +1,5 @@
-import logging
 import os
 import unittest
-from shutil import copyfile
 
 from click.testing import CliRunner
 
