@@ -269,15 +269,15 @@ def render_edges(
         g1 = edges_to_obograph(session, edges)
         g = {"graphs": [g1]}
         logger.debug(f"graph = {g}")
-        EXEC = "og2dot.js"
-        if shutil.which(EXEC) is None:
-            logger.error(f"No {EXEC}")
+        exec = "og2dot.js"
+        if shutil.which(exec) is None:
+            logger.error(f"No {exec}")
             print("You need to install a node package to be able to visualize results")
             print("")
             print("npm install -g obographviz")
             print("Then set your path to include og2dot")
             raise Exception(
-                f"Cannot find {EXEC} on path. Install from https://github.com/cmungall/obographviz"
+                f"Cannot find {exec} on path. Install from https://github.com/cmungall/obographviz"
             )
         with tempfile.NamedTemporaryFile(dir="/tmp", mode="w") as tmpfile:
             style = {}
@@ -418,8 +418,7 @@ def cli(
     """
     logging.basicConfig(level=LOGLEVEL[verbose])
     engine = create_engine(f"sqlite:///{db}")
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = sessionmaker(bind=engine)()
     logger.info(f"QUERY: {terms}")
     ids = term_search(session, terms, TERM_QUERY_VIEWS[match_criteria])
     logger.debug(f"SEED CURIES: {ids}")
