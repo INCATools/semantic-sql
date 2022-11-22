@@ -1,10 +1,7 @@
 import os
 import unittest
 
-from click.testing import CliRunner
-
 from semsql.builder import builder
-from semsql.builder.cli import main
 from semsql.builder.registry import path_to_ontology_registry
 
 cwd = os.path.abspath(os.path.dirname(__file__))

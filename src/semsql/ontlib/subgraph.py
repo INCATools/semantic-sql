@@ -164,7 +164,7 @@ def to_obo_format(g: OboGraphDict) -> None:
     for n in g["nodes"]:
         id = n["id"]
         print()
-        print(f"[Term]")
+        print("[Term]")
         print(f"id: {id}")
         print(f'name: {n["lbl"]}')
         if "meta" in n:
@@ -189,7 +189,7 @@ def to_obo_format(g: OboGraphDict) -> None:
                     print(f"relationship: {p} {o}{cmt}")
 
 
-def to_markdown(g: OboGraphDict, prefixes: PREFIX_MAP = {}, definitions=True) -> None:
+def to_markdown(g: OboGraphDict, prefixes: PREFIX_MAP = None, definitions=True) -> None:
     """
     Serialization to markdown
 
@@ -197,6 +197,8 @@ def to_markdown(g: OboGraphDict, prefixes: PREFIX_MAP = {}, definitions=True) ->
     :param g:
     :return:
     """
+    if prefixes is None:
+        prefixes = {}
     eix = graph_to_subject_index(g)
     nix = {n["id"]: n for n in g["nodes"]}
     for n in g["nodes"]:
@@ -225,7 +227,7 @@ def to_markdown(g: OboGraphDict, prefixes: PREFIX_MAP = {}, definitions=True) ->
                 print(f"     * {plink} {olink} {cmt}")
 
 
-def _id_to_markdown_link(id: str, prefixes={}):
+def _id_to_markdown_link(id: str, prefixes=None):
     pfx, localid = id.split(":")
     if pfx in prefixes:
         url = f"{prefixes[pfx]}{localid}"
@@ -238,7 +240,7 @@ def render_edges(
     session,
     edges: List[Row],
     to_format: str = "text",
-    seeds: List[CURIE] = [],
+    seeds: List[CURIE] = None,
     stylemap: str = None,
     configure: str = None,
 ):
@@ -251,6 +253,8 @@ def render_edges(
     :param stylemap: used for graphviz rendering
     :return:
     """
+    if seeds is None:
+        seeds = []
     prefixes = get_prefixes(session)
     if to_format == "obojson":
         g = edges_to_obograph(session, edges, definitions=True)

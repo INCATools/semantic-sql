@@ -76,7 +76,7 @@ def db_from_owl(input: str) -> str:
         make(db)
         return db
     else:
-        raise ValueError(f"Path must be an OWL file")
+        raise ValueError("Path must be an OWL file")
 
 
 def download_obo_sqlite(ontology: str, destination: str):
@@ -108,8 +108,7 @@ def connect(owl_file: str):
     """
     db = db_from_owl(owl_file)
     engine = create_engine(f"sqlite:///{db}")
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = sessionmaker(bind=engine)()
     return session
 
 
@@ -133,7 +132,9 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
         if ont == generic:
             command = "curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp"
         elif ont.zip_extract_file:
-            command = f"curl -L -s {ont.url} > $@.zip.tmp && unzip -p $@.zip.tmp {ont.zip_extract_file} > $@.tmp && rm $@.zip.tmp"
+            command = (f"curl -L -s {ont.url} > $@.zip.tmp && "
+                       "unzip -p $@.zip.tmp {ont.zip_extract_file} "
+                       "> $@.tmp && rm $@.zip.tmp")
         else:
             command = f"curl -L -s {ont.url} > $@.tmp"
         download_rule = MakefileRule(
@@ -141,8 +142,8 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
             dependencies=["STAMP"],
             commands=[
                 command,
-                f"sha256sum -b $@.tmp > $@.sha256",
-                f"mv $@.tmp $@",
+                "sha256sum -b $@.tmp > $@.sha256",
+                "mv $@.tmp $@",
             ],
             precious=True,
         )
@@ -151,11 +152,11 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
         target = f"db/{ont.id}.owl"
         dependencies = [f"download/{ont.id}.owl"]
         if ont.has_imports or (ont.format and ont.format != "rdfxml"):
-            command = f"robot merge -i $< -o $@"
+            command = "robot merge -i $< -o $@"
         elif ont.build_command:
             command = ont.build_command.format(ont=ont)
         else:
-            command = f"cp $< $@"
+            command = "cp $< $@"
         rule = MakefileRule(
             target=target, dependencies=dependencies, commands=[command]
         )

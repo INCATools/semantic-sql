@@ -17,8 +17,7 @@ class SQLAlchemyTestCase(unittest.TestCase):
     def setUp(self) -> None:
         path = os.path.join(DB_DIR, "go-nucleus.db")
         engine = create_engine(f"sqlite:///{path}")
-        SessionClass = sessionmaker(bind=engine)
-        self.session = SessionClass()
+        self.session = sessionmaker(bind=engine)()
 
     def test_basic_sqla(self):
         """
@@ -87,8 +86,9 @@ class SQLAlchemyTestCase(unittest.TestCase):
         q = add_label(q, RdfsSubclassOfStatement.subject)
         q = add_label(q, OwlSomeValuesFrom.filler)
         null = "NONE"
-        for ax, ex, sl, fl in q.all():
-            line = f'{ax.subject} "{sl.value if sl else null}" subClassOf {ex.on_property} SOME {ex.filler} "{fl.value if fl else null}"'
+        for ax, _ex, sl, _fl in q.all():
+            line = f'{ax.subject} "{sl.value if sl else null}"'
+            ' subClassOf {ex.on_property} SOME {ex.filler} "{fl.value if fl else null}"'
             logging.info(line)
             # print(line)
             lines.append(line)
