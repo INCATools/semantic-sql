@@ -5,12 +5,8 @@ import unittest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import aliased, sessionmaker
 
-from semsql.sqla.semsql import (
-    OwlAxiomAnnotation,
-    OwlSomeValuesFrom,
-    RdfsLabelStatement,
-    RdfsSubclassOfStatement,
-)
+from semsql.sqla.semsql import (OwlAxiomAnnotation, OwlSomeValuesFrom,
+                                RdfsLabelStatement, RdfsSubclassOfStatement)
 
 cwd = os.path.abspath(os.path.dirname(__file__))
 DB_DIR = os.path.join(cwd, "../inputs")
