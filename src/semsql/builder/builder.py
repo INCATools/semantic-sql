@@ -132,9 +132,11 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
         if ont == generic:
             command = "curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp"
         elif ont.zip_extract_file:
-            command = (f"curl -L -s {ont.url} > $@.zip.tmp && "
-                       "unzip -p $@.zip.tmp {ont.zip_extract_file} "
-                       "> $@.tmp && rm $@.zip.tmp")
+            command = (
+                f"curl -L -s {ont.url} > $@.zip.tmp && "
+                "unzip -p $@.zip.tmp {ont.zip_extract_file} "
+                "> $@.tmp && rm $@.zip.tmp"
+            )
         else:
             command = f"curl -L -s {ont.url} > $@.tmp"
         download_rule = MakefileRule(
