@@ -63,7 +63,7 @@ pip install semsql
 
 ## Download ready-made SQLite databases
 
-Pre-generated SQLite database are created weekly for all OBO ontologies and a selection of others.
+Pre-generated SQLite database are created weekly for all OBO ontologies and a selection of others (see [ontologies.yaml](https://github.com/INCATools/semantic-sql/blob/main/src/semsql/builder/registry/ontologies.yaml))
 
 To download:
 
@@ -74,6 +74,33 @@ semsql download obi -o obi.db
 Or simply download using URL of the form:
 
 - https://s3.amazonaws.com/bbop-sqlite/hp.db
+
+## Attaching databases
+
+If you are using sqlite3, then databases can be attached to facilitate cross-database joins.
+
+For example, many ontologies use ORCID URIs as the object of `dcterms:contributor` and `dcterms:creator` statements, but these are left "dangling". Metadata about these orcids are available in the semsql orcid database instance (derived from [wikidata-orcid-ontology](https://github.com/cthoyt/wikidata-orcid-ontology)), in the [Orcid table](https://incatools.github.io/semantic-sql/Orcid).
+
+You can use [ATTACH DATABASE](https://www.sqlite.org/lang_attach.html) to connect two databases, for example:
+
+```sql
+$ sqlite3 db/cl.dl
+sqlite> attach 'db/orcid.db' as orcid_db;
+sqlite> select * from contributor inner join orcid_db.orcid on (orcid.id=contributor.object) where orcid.label like 'Chris%';
+obo:cl.owl|obo:cl.owl|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+CL:0010001|CL:0010001|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+CL:0010002|CL:0010002|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+CL:0010003|CL:0010003|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+CL:0010004|CL:0010004|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+UBERON:0000093|UBERON:0000093|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+UBERON:0000094|UBERON:0000094|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+UBERON:0000095|UBERON:0000095|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+UBERON:0000179|UBERON:0000179|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+UBERON:0000201|UBERON:0000201|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+UBERON:0000202|UBERON:0000202|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+UBERON:0000203|UBERON:0000203|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+UBERON:0000204|UBERON:0000204|dcterms:contributor|orcid:0000-0002-6601-2165||||orcid:0000-0002-6601-2165|Christopher J. Mungall
+```
 
 ## Creating a SQLite database from an OWL file
 
