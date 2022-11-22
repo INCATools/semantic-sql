@@ -22,6 +22,7 @@ class DockerConfig:
     """
     Configuration for running ODK Docker image
     """
+
     odk_version: str = None  # not used yet
     memory: str = None
 
@@ -148,13 +149,15 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
         # main build target
         target = f"db/{ont.id}.owl"
         dependencies = [f"download/{ont.id}.owl"]
-        if ont.has_imports or (ont.format and ont.format != 'rdfxml'):
+        if ont.has_imports or (ont.format and ont.format != "rdfxml"):
             command = f"robot merge -i $< -o $@"
         elif ont.build_command:
             command = ont.build_command.format(ont=ont)
         else:
             command = f"cp $< $@"
-        rule = MakefileRule(target=target, dependencies=dependencies, commands=[command])
+        rule = MakefileRule(
+            target=target, dependencies=dependencies, commands=[command]
+        )
         makefile.rules.append(rule)
         if not ont.suppress:
             onts.append(ont.id)

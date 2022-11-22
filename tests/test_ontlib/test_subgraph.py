@@ -5,8 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from semsql.ontlib import extract_subgraph
-from semsql.sqla.relation_graph import (SubgraphEdgeByAncestor,
-                                        SubgraphEdgeByDescendant)
+from semsql.sqla.relation_graph import SubgraphEdgeByAncestor, SubgraphEdgeByDescendant
 
 cwd = os.path.abspath(os.path.dirname(__file__))
 DB_DIR = os.path.join(cwd, "../inputs")

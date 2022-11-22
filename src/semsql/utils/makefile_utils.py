@@ -1,4 +1,4 @@
-from semsql.builder.registry.registry_schema import MakefileRule, Makefile
+from semsql.builder.registry.registry_schema import Makefile, MakefileRule
 
 
 def makerule_to_string(makerule: MakefileRule) -> str:

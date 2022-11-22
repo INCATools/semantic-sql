@@ -94,6 +94,34 @@ classes:
     union_of:
     - has_match_statement
     - has_dbxref_statement
+  contributor:
+    is_a: node_to_node_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "dcterms:contributor"    
+  creator:
+    is_a: node_to_node_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "dcterms:creator"    
+  orcid:
+    is_a: node
+    slots:
+      - label
+    comments:
+      - |-
+        sqlview>>
+          SELECT
+            subject AS id,
+            value AS label
+          FROM
+            rdfs_label_statement 
+          WHERE subject like 'orcid:%'
+    
   axiom_dbxref_annotation:
     comments:
     - sqlview>> SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref'

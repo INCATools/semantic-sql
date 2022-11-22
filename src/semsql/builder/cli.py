@@ -3,10 +3,10 @@ import logging
 import click
 from linkml_runtime import SchemaView
 from linkml_runtime.utils.formatutils import underscore
-from semsql.linkml import path_to_schema
 from sqlalchemy import text
 
 import semsql.builder.builder as builder
+from semsql.linkml import path_to_schema
 from semsql.sqlutils.viewgen import get_viewdef
 
 
@@ -51,10 +51,12 @@ def make(path, docker):
 
 
 @main.command()
-@click.option("--local-prefixes",
-              "-P",
-              type=click.File(mode="w"),
-              help="path to local prefixes file (will be overridden)")
+@click.option(
+    "--local-prefixes",
+    "-P",
+    type=click.File(mode="w"),
+    help="path to local prefixes file (will be overridden)",
+)
 @click.argument("registry")
 def generate_makefile(registry, local_prefixes):
     """
@@ -125,9 +127,7 @@ def view2table(views, schema, index: bool):
                 if index:
                     for sn in sv.class_slots(cn):
                         colname = underscore(sn)
-                        print(
-                            f"CREATE INDEX {tn}_{colname} ON {tn}({colname});"
-                        )
+                        print(f"CREATE INDEX {tn}_{colname} ON {tn}({colname});")
             else:
                 logging.error(f"No view for {cn}")
 

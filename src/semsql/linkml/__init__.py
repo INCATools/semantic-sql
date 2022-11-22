@@ -2,6 +2,7 @@ from pathlib import Path
 
 this_path = Path(__file__).parent
 
+
 def path_to_schema(schema_name: str = "semsql") -> Path:
     """
     Returns path to the name of a schema

@@ -36,9 +36,7 @@ def cli(inputs, name: str, index: bool):
                     if index:
                         for sn in sv.class_slots(cn):
                             colname = underscore(sn)
-                            print(
-                                f"CREATE INDEX {tn}_{colname} ON {tn}({colname});"
-                            )
+                            print(f"CREATE INDEX {tn}_{colname} ON {tn}({colname});")
 
 
 if __name__ == "__main__":

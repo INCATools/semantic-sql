@@ -15,15 +15,22 @@ import yaml
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from semsql.ontlib.common_queries import (CURIE, PREFIX_MAP, get_label,
-                                          get_prefixes, get_text_definition,
-                                          term_search)
-from semsql.sqla.relation_graph import (SubgraphEdgeByAncestor,
-                                        SubgraphEdgeByAncestorOrDescendant,
-                                        SubgraphEdgeByChild,
-                                        SubgraphEdgeByDescendant,
-                                        SubgraphEdgeByParent,
-                                        SubgraphEdgeBySelf)
+from semsql.ontlib.common_queries import (
+    CURIE,
+    PREFIX_MAP,
+    get_label,
+    get_prefixes,
+    get_text_definition,
+    term_search,
+)
+from semsql.sqla.relation_graph import (
+    SubgraphEdgeByAncestor,
+    SubgraphEdgeByAncestorOrDescendant,
+    SubgraphEdgeByChild,
+    SubgraphEdgeByDescendant,
+    SubgraphEdgeByParent,
+    SubgraphEdgeBySelf,
+)
 from semsql.sqla.semsql import HasOioSynonymStatement, RdfsLabelStatement
 
 logger = logging.getLogger(__name__)

@@ -141,6 +141,17 @@ db/bao.owl: download/bao.owl
 	robot merge -i $< -o $@
 
 
+download/orcid.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/cthoyt/wikidata-orcid-ontology/main/orcid.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/orcid.owl
+
+db/orcid.owl: download/orcid.owl
+	cp $< $@
+
+
 download/cpont.owl: STAMP
 	curl -L -s https://w3id.org/cpont/cpont.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -305,4 +316,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324
+EXTRA_ONTOLOGIES = chiro ncit foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324

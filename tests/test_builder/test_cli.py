@@ -32,7 +32,9 @@ class TestCommandLineInterface(unittest.TestCase):
         self.assertEqual(0, self.runner.invoke(main, ["download", "--help"]).exit_code)
         self.assertEqual(0, self.runner.invoke(main, ["make", "--help"]).exit_code)
         self.assertEqual(0, self.runner.invoke(main, ["query", "--help"]).exit_code)
-        self.assertEqual(0, self.runner.invoke(main, ["view2table", "--help"]).exit_code)
+        self.assertEqual(
+            0, self.runner.invoke(main, ["view2table", "--help"]).exit_code
+        )
 
     def test_view2table(self):
         result = self.runner.invoke(main, ["view2table", TEST_DB])
