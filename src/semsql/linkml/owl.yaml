@@ -136,7 +136,7 @@ classes:
         range: named_individual_node
   owl_disjoint_class_statement:
     comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='owl:disjointClass'
+    - sqlview>> SELECT * FROM statements WHERE predicate='owl:disjointWith'
     is_a: node_to_node_statement
     slot_usage:
       subject:
