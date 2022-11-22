@@ -47,6 +47,10 @@ ontologies:
   bao:
     url: http://www.bioassayontology.org/bao/bao_complete.owl
     has_imports: true
+  orcid:
+    url: https://raw.githubusercontent.com/cthoyt/wikidata-orcid-ontology/main/orcid.owl
+    prefixmap:
+      orcid: https://orcid.org/
   cpont:
     url: https://w3id.org/cpont/cpont.owl
   biolink:
