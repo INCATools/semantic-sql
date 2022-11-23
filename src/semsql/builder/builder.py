@@ -12,8 +12,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from semsql.builder.registry import registry_schema
-from semsql.builder.registry.registry_schema import (Makefile, MakefileRule,
-                                                     Ontology, CompressionEnum)
+from semsql.builder.registry.registry_schema import (CompressionEnum, Makefile,
+                                                     MakefileRule, Ontology)
 from semsql.utils.makefile_utils import makefile_to_string
 
 this_path = Path(__file__).parent
