@@ -36,6 +36,13 @@ slots:
       across databases
     identifier: true
     range: node id type
+  label:
+    description: A label for an element
+    range: string
+    see_also:
+      - semsql:rdfs_label_statements
+    comments:
+      - intended for use as a node property. Labels can also be retrieved as rdfs_label_statement objects
   subject:
     aliases:
       - about

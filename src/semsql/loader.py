@@ -30,8 +30,8 @@ def create_and_load(inputs: List[str], create: bool, url: str) -> None:
         engine = create_engine(url)
         with engine.connect() as con:
             load_ddl(con, "prefixes/prefix.sql")
-            #load_rdftab(con, "sql/rdftab.sql")
-            #load_rdftab(con, "sql_schema/semsql.sql")
+            # load_rdftab(con, "sql/rdftab.sql")
+            # load_rdftab(con, "sql_schema/semsql.sql")
     for input in inputs:
         subprocess.run(["./bin/rdftab", db, input])
 

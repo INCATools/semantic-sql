@@ -2,6 +2,18 @@ id: semantic-sql-registry
 description: Registry overlap for Semantic-SQL designed to supplement OBO vocabularies
 license: CC0
 ontologies:
+  chiro:
+    url: http://purl.obolibrary.org/obo/chiro.owl
+    build_command: "robot relax -i $< merge -o $@"
+  ncit:
+    url: http://purl.obolibrary.org/obo/ncit.owl
+    build_command: "robot relax -i $< merge -o $@"
+  foodon:
+    url: http://purl.obolibrary.org/obo/foodon.owl
+    build_command: "robot merge -i $< relax reduce -c true -o $@"
+  chebiplus:
+    url: http://purl.obolibrary.org/obo/chebi.owl
+    build_command: "robot merge -i $< -I http://purl.obolibrary.org/obo/chiro.owl relax -o $@"
   msio:
     url: https://raw.githubusercontent.com/MSI-Metabolomics-Standards-Initiative/MSIO/master/releases/latest_release/MSIO-merged-reasoned.owl
     prefixmap:
@@ -17,17 +29,30 @@ ontologies:
         - UPHENO:0000001
         - UPHENO:0000003
         - RO:0002202
+  comploinc:
+    url: https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl
+    build_command: "robot relax -i $< merge -o $@"
+    prefixmap:
+      loinc: https://loinc.org/
   bero:
     url: https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl
   aio:
     url: https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl
   reacto:
     url: http://purl.obolibrary.org/obo/go/extensions/reacto.owl
+  go:
+    url: http://purl.obolibrary.org/obo/go/extensions/go-plus.owl
   go-lego:
     url: http://purl.obolibrary.org/obo/go/extensions/go-lego.owl
   bao:
     url: http://www.bioassayontology.org/bao/bao_complete.owl
     has_imports: true
+  orcid:
+    url: https://raw.githubusercontent.com/cthoyt/wikidata-orcid-ontology/main/orcid.owl
+    prefixmap:
+      orcid: https://orcid.org/
+  cpont:
+    url: https://w3id.org/cpont/cpont.owl
   biolink:
     url: https://w3id.org/biolink/biolink-model.owl.ttl
     jsonld_context: https://biolink.github.io/biolink-model/context.jsonld
@@ -49,6 +74,9 @@ ontologies:
   ito:
     url: https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip
     zip_extract_file: ITO.owl
+  reactome-Homo-sapiens:
+    url: https://reactome.org/download/current/biopax.zip
+    zip_extract_file: Homo_sapiens.owl
   efo:
     url: http://www.ebi.ac.uk/efo/efo.owl
     has_imports: true

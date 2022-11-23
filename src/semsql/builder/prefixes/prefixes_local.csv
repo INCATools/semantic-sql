@@ -1,6 +1,8 @@
 prefix,base
 MSIO,http://purl.obolibrary.org/obo/MSIO_
 nmrCV,http://nmrML.org/nmrCV#NMR:
+loinc,https://loinc.org/
+orcid,https://orcid.org/
 evs.ncit,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
 old.fix,http://purl.org/obo/owl/FIX#
 mlo,http://www.a2rd.net.br/mlo#

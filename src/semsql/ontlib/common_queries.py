@@ -1,8 +1,7 @@
 import logging
 from typing import Dict, List, Optional
 
-from semsql.sqla.semsql import (HasTextDefinitionStatement,
-                                Prefix,
+from semsql.sqla.semsql import (HasTextDefinitionStatement, Prefix,
                                 RdfsLabelStatement)
 
 PREFIX_MAP = Dict[str, str]

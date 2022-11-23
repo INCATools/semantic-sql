@@ -17,7 +17,7 @@ bin/rdftab:
 	curl -L -o $@ $(RDFTAB_URL)
 	chmod +x $@
 
-RG_VERSION=2.2.0
+RG_VERSION=2.3.0
 bin/relation-graph:
 	curl -L -s https://github.com/balhoff/relation-graph/releases/download/v$(RG_VERSION)/relation-graph-cli-$(RG_VERSION).tgz | tar -zxv  && mv relation-graph-cli-$(RG_VERSION) relation-graph && (cd bin && ln -s ../relation-graph/bin/relation-graph)
 

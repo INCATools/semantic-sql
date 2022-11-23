@@ -17,71 +17,71 @@
 -- # Class: "deprecated_node" Description: ""
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "owl_imports_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_inverse_of_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_complement_of_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_equivalent_class_statement" Description: "A statement that connects two class_nodes where both classes are equivalent"
---     * Slot: stanza Description: 
+--     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
---     * Slot: predicate Description: 
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_same_as_statement" Description: "A statement that connects two individual nodes where both individual are equivalent"
---     * Slot: stanza Description: 
+--     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
---     * Slot: predicate Description: 
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_disjoint_class_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: One of the two classes that are disjoint. No significance to subject vs object
---     * Slot: predicate Description: 
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: One of the two classes that are disjoint. No significance to subject vs object
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_reified_axiom" Description: "An OWL axiom that has been reified - i.e. it includes an [id](id) field that uniquely identifies that axiom and which can be the subject of additional statements"
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_axiom" Description: ""
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_axiom_annotation" Description: ""
 --     * Slot: annotation_subject Description: 
 --     * Slot: annotation_predicate Description: 
@@ -90,13 +90,13 @@
 --     * Slot: annotation_language Description: 
 --     * Slot: annotation_datatype Description: 
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "anonymous_expression" Description: "An OWL expression, such as a class expression. Expressions are "anonymous" as they are a composition of named elements rather than a named element themselves"
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "anonymous_class_expression" Description: "An OWL anonymous class expression, such as for example `SomeValuesFrom(partOf Hand)`"
@@ -126,8 +126,8 @@
 --     * Slot: filler Description: This is Null for a self-restriction
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "owl_complex_axiom" Description: "An axiom that is composed of two or more statements"
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 -- # Class: "owl_subclass_of_some_values_from" Description: "Composition of subClassOf and SomeValuesFrom"
 --     * Slot: subject Description: the class C in the axiom C subClassOf P some D
@@ -136,130 +136,130 @@
 -- # Class: "owl_equivalent_to_intersection_member" Description: "Composition of `OwlEquivalentClass`, `OwlIntersectionOf`, and `RdfListMember`; `C = X1 and ... and Xn`"
 --     * Slot: subject Description: the defined class
 --     * Slot: object Description: a class expression that forms the defining expression
---     * Slot: predicate Description: 
+--     * Slot: predicate Description: The predicate of the statement
 -- # Class: "prefix" Description: "Maps CURIEs to URIs"
 --     * Slot: prefix Description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
 --     * Slot: base Description: The base URI a prefix will expand to
 -- # Class: "statements" Description: "Represents an RDF triple"
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "node_to_node_statement" Description: "A statement where object is non-null and value is not populated"
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "node_to_value_statement" Description: "A statement where value is non-null and object is not populated"
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_type_statement" Description: "A statement that indicates the asserted type of the subject entity"
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: The entity type
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_subclass_of_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subclass element of the triple
---     * Slot: predicate Description: 
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: The superclass element of the triple
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_subclass_of_named_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_subproperty_of_statement" Description: ""
---     * Slot: stanza Description: 
+--     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subproperty element of the triple
---     * Slot: predicate Description: 
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: The superproperty element of the triple
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_label_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: The label value
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_domain_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_range_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_list_statement" Description: "A statement that is used to represent aspects of RDF lists"
---     * Slot: stanza Description: 
+--     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The rdf:List to which the statement applies
---     * Slot: predicate Description: 
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_first_statement" Description: "A statement that connects a list to its first element. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful"
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_rest_statement" Description: "A statement that connects a list to its remaining elements. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful"
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_rest_transitive_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_list_member_statement" Description: ""
---     * Slot: stanza Description: 
---     * Slot: subject Description: 
---     * Slot: predicate Description: 
+--     * Slot: stanza Description: the term which this statement is about
+--     * Slot: subject Description: The subject of the statement
+--     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
---     * Slot: datatype Description: 
---     * Slot: language Description: 
+--     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
+--     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "node" Description: "The basic unit of representation in an RDF or OWL graph"
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "blank_node" Description: "A node with an ID that is not preserved between databases"
@@ -709,7 +709,7 @@ DROP TABLE owl_same_as_statement;
 CREATE VIEW owl_same_as_statement AS SELECT * FROM statements WHERE predicate='owl:sameAs';
 
 DROP TABLE owl_disjoint_class_statement;
-CREATE VIEW owl_disjoint_class_statement AS SELECT * FROM statements WHERE predicate='owl:disjointClass';
+CREATE VIEW owl_disjoint_class_statement AS SELECT * FROM statements WHERE predicate='owl:disjointWith';
 
 DROP TABLE owl_reified_axiom;
 CREATE VIEW owl_reified_axiom AS SELECT axs.subject AS id, axs.stanza AS stanza, axs.object AS subject, axp.object AS predicate, axo.object AS object, axo.value AS value, axo.datatype AS datatype, axo.language AS language FROM statements AS axs, statements AS axp, statements AS axo WHERE axs.predicate = 'owl:annotatedSource' AND axp.predicate = 'owl:annotatedProperty' AND axo.predicate = 'owl:annotatedTarget' AND axs.subject = axp.subject AND axs.subject = axo.subject;

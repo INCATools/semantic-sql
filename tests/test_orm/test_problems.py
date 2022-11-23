@@ -18,8 +18,7 @@ class ProblemsTestCase(unittest.TestCase):
         """
         path = os.path.join(DB_DIR, "go-nucleus.db")
         engine = create_engine(f"sqlite:///{path}")
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session = sessionmaker(bind=engine)()
         print("OWL query:")
         q = session.query(AllProblems)
         n = 0

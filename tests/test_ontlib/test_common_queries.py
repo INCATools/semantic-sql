@@ -20,8 +20,7 @@ class CommonQueriesTestCase(unittest.TestCase):
     def setUp(self):
         path = os.path.join(DB_DIR, "go-nucleus.db")
         engine = create_engine(f"sqlite:///{path}")
-        Session = sessionmaker(bind=engine)
-        self.session = Session()
+        self.session = sessionmaker(bind=engine)()
 
     def test_common_queries(self):
 

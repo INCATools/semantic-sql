@@ -12,6 +12,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from semsql.builder.registry import registry_schema
+from semsql.builder.registry.registry_schema import (Makefile, MakefileRule,
+                                                     Ontology)
+from semsql.utils.makefile_utils import makefile_to_string
 
 this_path = Path(__file__).parent
 
@@ -20,6 +23,7 @@ class DockerConfig:
     """
     Configuration for running ODK Docker image
     """
+
     odk_version: str = None  # not used yet
     memory: str = None
 
@@ -72,7 +76,7 @@ def db_from_owl(input: str) -> str:
         make(db)
         return db
     else:
-        raise ValueError(f"Path must be an OWL file")
+        raise ValueError("Path must be an OWL file")
 
 
 def download_obo_sqlite(ontology: str, destination: str):
@@ -104,9 +108,9 @@ def connect(owl_file: str):
     """
     db = db_from_owl(owl_file)
     engine = create_engine(f"sqlite:///{db}")
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = sessionmaker(bind=engine)()
     return session
+
 
 def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> str:
     """
@@ -118,24 +122,52 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
     """
     registry: registry_schema.Registry
     registry = yaml_loader.load(registry_path, target_class=registry_schema.Registry)
-    mkfile = ""
+    makefile = Makefile()
     onts = []
+    generic = Ontology("%", has_imports=True, suppress=True)
     if local_prefix_file:
         local_prefix_file.write("prefix,base\n")
-    for ont in registry.ontologies.values():
-        target = f"db/{ont.id}.owl"
-        dependencies = ["STAMP"]
-        if ont.zip_extract_file:
-            command = f"curl -L -s {ont.url} > $@.tmp && unzip -p $@.tmp {ont.zip_extract_file} > $@.tmp2 && mv $@.tmp2 $@ && rm $@.tmp"
-        elif ont.has_imports or (ont.format and ont.format != 'rdfxml'):
-            command = f"robot merge -I {ont.url} -o $@"
+    for ont in list(registry.ontologies.values()) + [generic]:
+        # download target
+        if ont == generic:
+            command = "curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp"
+        elif ont.zip_extract_file:
+            command = (
+                f"curl -L -s {ont.url} > $@.zip.tmp && "
+                "unzip -p $@.zip.tmp {ont.zip_extract_file} "
+                "> $@.tmp && rm $@.zip.tmp"
+            )
         else:
-            command = f"curl -L -s {ont.url} > $@.tmp && mv $@.tmp $@"
-        dependencies_str = " ".join(dependencies)
-        mkfile += f"{target}: {dependencies_str}\n\t{command}\n\n"
-        onts.append(ont.id)
+            command = f"curl -L -s {ont.url} > $@.tmp"
+        download_rule = MakefileRule(
+            target=f"download/{ont.id}.owl",
+            dependencies=["STAMP"],
+            commands=[
+                command,
+                "sha256sum -b $@.tmp > $@.sha256",
+                "mv $@.tmp $@",
+            ],
+            precious=True,
+        )
+        makefile.rules.append(download_rule)
+        # main build target
+        target = f"db/{ont.id}.owl"
+        dependencies = [f"download/{ont.id}.owl"]
+        if ont.has_imports or (ont.format and ont.format != "rdfxml"):
+            command = "robot merge -i $< -o $@"
+        elif ont.build_command:
+            command = ont.build_command.format(ont=ont)
+        else:
+            command = "cp $< $@"
+        rule = MakefileRule(
+            target=target, dependencies=dependencies, commands=[command]
+        )
+        makefile.rules.append(rule)
+        if not ont.suppress:
+            onts.append(ont.id)
         if local_prefix_file:
             for pn in ont.prefixmap.values():
                 local_prefix_file.write(f"{pn.prefix},{pn.prefix_value}\n")
+    mkfile = makefile_to_string(makefile)
     mkfile += f"EXTRA_ONTOLOGIES = {' '.join(onts)}"
     return mkfile

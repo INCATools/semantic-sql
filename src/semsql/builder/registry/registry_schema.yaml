@@ -64,6 +64,9 @@ slots:
     examples:
     - value: n3
     #range: format_enum
+  build_command:
+  sha256:
+  local_path:
   compression:
     examples:
     - value: gzip
@@ -99,6 +102,8 @@ classes:
     - description
     - url
     - id
+    - sha256
+    - local_path
     - has_imports
     - jsonld_context
     - prefixmap
@@ -108,6 +113,7 @@ classes:
     - suppress
     - relation_graph_settings
     - zip_extract_file
+    - build_command
   PrefixMap:
     slots:
     - prefix
@@ -123,4 +129,21 @@ classes:
     attributes:
       properties:
         range: uriorcurie
+        multivalued: true
+  MakefileRule:
+    attributes:
+      target:
+      dependencies:
+        multivalued: true
+      commands:
+        multivalued: true
+      comments:
+        multivalued: true
+      precious:
+        range: boolean
+  Makefile:
+    attributes:
+      rules:
+        range: MakefileRule
+        inlined: true
         multivalued: true

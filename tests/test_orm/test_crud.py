@@ -23,8 +23,7 @@ class CRUDTestCase(unittest.TestCase):
         """
         copyfile(SRC_DB, TEST_DB)
         engine = create_engine(f"sqlite:///{TEST_DB}")
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session = sessionmaker(bind=engine)()
         q = (
             session.query(Statements)
             .filter(Statements.predicate == "rdfs:label")

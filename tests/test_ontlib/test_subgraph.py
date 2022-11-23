@@ -23,13 +23,12 @@ class SubgraphTestCase(unittest.TestCase):
     def test_subgraph(self):
         path = os.path.join(DB_DIR, "go-nucleus.db")
         engine = create_engine(f"sqlite:///{path}")
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session = sessionmaker(bind=engine)()
         edges = extract_subgraph(
             session, terms=["CL:0000000"], view=SubgraphEdgeByAncestor
         )
         lines = []
-        print(f'graph for descendants of "cell"')
+        print('graph for descendants of "cell"')
         for e in edges:
             line = f"{e.subject} {e.predicate} {e.object}"
             print(line)
@@ -37,7 +36,7 @@ class SubgraphTestCase(unittest.TestCase):
         assert "GO:0031967 BFO:0000050 GO:0043229" in lines
         assert "GO:0031975 rdfs:subClassOf GO:0110165" in lines
 
-        print(f'graph for ancestors of "nuclear membrane"')
+        print('graph for ancestors of "nuclear membrane"')
         edges = extract_subgraph(
             session, terms=["GO:0031965"], view=SubgraphEdgeByDescendant
         )

@@ -1,4 +1,3 @@
-import logging
 import os
 import unittest
 from shutil import copyfile
@@ -24,7 +23,7 @@ class TestCommandLineInterface(unittest.TestCase):
     def test_main_help(self):
         result = self.runner.invoke(main, ["--help"])
         out = result.stdout
-        err = result.stderr
+        result.stderr
         self.assertIn("query", out)
         self.assertIn("make", out)
         self.assertIn("download", out)
@@ -32,20 +31,22 @@ class TestCommandLineInterface(unittest.TestCase):
         self.assertEqual(0, self.runner.invoke(main, ["download", "--help"]).exit_code)
         self.assertEqual(0, self.runner.invoke(main, ["make", "--help"]).exit_code)
         self.assertEqual(0, self.runner.invoke(main, ["query", "--help"]).exit_code)
-        self.assertEqual(0, self.runner.invoke(main, ["view2table", "--help"]).exit_code)
+        self.assertEqual(
+            0, self.runner.invoke(main, ["view2table", "--help"]).exit_code
+        )
 
     def test_view2table(self):
         result = self.runner.invoke(main, ["view2table", TEST_DB])
-        out = result.stdout
-        err = result.stderr
+        result.stdout
+        result.stderr
         self.assertEqual(0, result.exit_code)
 
     @unittest.skip("Requires Docker or installing dependencies")
     def test_make_db(self):
         copyfile(SRC_OWL, TEST_OWL)
         result = self.runner.invoke(main, ["make", TEST_DB])
-        out = result.stdout
-        err = result.stderr
+        result.stdout
+        result.stderr
         self.assertEqual(0, result.exit_code)
 
     @unittest.skip("Requires Docker or installing dependencies")
@@ -54,6 +55,6 @@ class TestCommandLineInterface(unittest.TestCase):
             main, ["query", "-i", SRC_OWL, "SELECT * FROM rdfs_label_statement"]
         )
         out = result.stdout
-        err = result.stderr
+        result.stderr
         self.assertIn("nucleus", out)
         self.assertEqual(0, result.exit_code)
