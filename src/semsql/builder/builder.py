@@ -13,7 +13,7 @@ from sqlalchemy.orm import sessionmaker
 
 from semsql.builder.registry import registry_schema
 from semsql.builder.registry.registry_schema import (Makefile, MakefileRule,
-                                                     Ontology)
+                                                     Ontology, CompressionEnum)
 from semsql.utils.makefile_utils import makefile_to_string
 
 this_path = Path(__file__).parent
@@ -137,6 +137,11 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
                 "unzip -p $@.zip.tmp {ont.zip_extract_file} "
                 "> $@.tmp && rm $@.zip.tmp"
             )
+        elif ont.compression:
+            if str(ont.compression) == str(CompressionEnum.gzip.text):
+                command = f"curl -L -s {ont.url} | gzip -dc > $@.tmp"
+            else:
+                raise ValueError(f"Unknown compression: '{ont.compression}'")
         else:
             command = f"curl -L -s {ont.url} > $@.tmp"
         download_rule = MakefileRule(

@@ -6,6 +6,7 @@ BUILDER_DIR = src/semsql/builder
 DDL_DIR = $(BUILDER_DIR)/sql_schema
 YAML_DIR = src/semsql/linkml
 SQLA_DIR = src/semsql/sqla
+ONT_REGISTRY = src/semsql/builder/registry/ontologies.yaml 
 
 PREFIX_DIR = $(BUILDER_DIR)/prefixes
 
@@ -141,7 +142,7 @@ download/reactome-biopax.zip:
 src/semsql/builder/registry/registry_schema.py: src/semsql/builder/registry/registry_schema.yaml
 	$(RUN) gen-python $< > $@
 
-ontologies.Makefile: src/semsql/builder/registry/ontologies.yaml 
+ontologies.Makefile: $(ONT_REGISTRY)
 	$(RUN) semsql generate-makefile -P src/semsql/builder/prefixes/prefixes_local.csv $< > $@.tmp && mv $@.tmp $@
 
 include ontologies.Makefile
