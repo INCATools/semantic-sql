@@ -6,6 +6,7 @@ BUILDER_DIR = src/semsql/builder
 DDL_DIR = $(BUILDER_DIR)/sql_schema
 YAML_DIR = src/semsql/linkml
 SQLA_DIR = src/semsql/sqla
+ONT_REGISTRY = src/semsql/builder/registry/ontologies.yaml 
 
 PREFIX_DIR = $(BUILDER_DIR)/prefixes
 
@@ -16,7 +17,7 @@ SELECTED_ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm
 # EXTRA_ONTOLOGIES is defined in ontologies.Makefile
 ALL_ONTS = $(ALL_OBO_ONTS) $(EXTRA_ONTOLOGIES)
 
-STAGED_ONTOLOGIES = $(patsubst %,stage/%.db.gz,$(ALL_ONTS))
+STAGED_ONTOLOGIES = $(patsubst %, stage/%.db.gz, $(ALL_ONTS))
 
 TEST_ONTOLOGIES = go-nucleus robot-example
 
@@ -24,13 +25,16 @@ TEST_ONTOLOGIES = go-nucleus robot-example
 all: build_all stage_all
 build_all: $(patsubst %,all-%,$(ALL_ONTS))
 stage_all: $(STAGED_ONTOLOGIES)
+	echo done $(STAGED_ONTOLOGIES)
 
 selected: $(patsubst %,all-%,$(SELECTED_ONTS))
 
 all-%: db/%.db
 	sqlite3 $< "SELECT COUNT(*) FROM statements"
-stage/%.db.gz: db/%.db
-	gzip -c $< > $@.tmp && mv $@.tmp $@
+#stage/%.db.gz: db/%.db
+#	gzip -c $< > $@.tmp && mv $@.tmp $@
+stage/%.db.gz: 
+	gzip -c db/$*.db > $@.tmp && mv $@.tmp $@
 .PRECIOUS: stage/%.db.gz
 
 list-onts:
@@ -141,7 +145,7 @@ download/reactome-biopax.zip:
 src/semsql/builder/registry/registry_schema.py: src/semsql/builder/registry/registry_schema.yaml
 	$(RUN) gen-python $< > $@
 
-ontologies.Makefile: src/semsql/builder/registry/ontologies.yaml 
+ontologies.Makefile: $(ONT_REGISTRY)
 	$(RUN) semsql generate-makefile -P src/semsql/builder/prefixes/prefixes_local.csv $< > $@.tmp && mv $@.tmp $@
 
 include ontologies.Makefile

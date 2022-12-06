@@ -20,6 +20,17 @@ db/ncit.owl: download/ncit.owl
 	robot relax -i $< merge -o $@
 
 
+download/maxo.owl: STAMP
+	curl -L -s http://purl.obolibrary.org/obo/maxo.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/maxo.owl
+
+db/maxo.owl: download/maxo.owl
+	robot relax -i $< merge -o $@
+
+
 download/foodon.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/foodon.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -208,7 +219,7 @@ db/mlo.owl: download/mlo.owl
 
 
 download/ito.owl: STAMP
-	curl -L -s https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip > $@.zip.tmp && unzip -p $@.zip.tmp ITO.owl > $@.tmp && rm $@.zip.tmp
+	curl -L -s https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip > $@.zip.tmp && unzip -p $@.zip.tmp {ont.zip_extract_file} > $@.tmp && rm $@.zip.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
@@ -219,7 +230,7 @@ db/ito.owl: download/ito.owl
 
 
 download/reactome-Homo-sapiens.owl: STAMP
-	curl -L -s https://reactome.org/download/current/biopax.zip > $@.zip.tmp && unzip -p $@.zip.tmp Homo_sapiens.owl > $@.tmp && rm $@.zip.tmp
+	curl -L -s https://reactome.org/download/current/biopax.zip > $@.zip.tmp && unzip -p $@.zip.tmp {ont.zip_extract_file} > $@.tmp && rm $@.zip.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
@@ -263,7 +274,7 @@ db/sweetAll.owl: download/sweetAll.owl
 
 
 download/lov.owl: STAMP
-	curl -L -s https://lov.linkeddata.es/lov.n3.gz > $@.tmp
+	curl -L -s https://lov.linkeddata.es/lov.n3.gz | gzip -dc > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
@@ -306,6 +317,61 @@ db/co_324.owl: download/co_324.owl
 	cp $< $@
 
 
+download/hgnc.genegroup.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/hgnc.genegroup/hgnc.genegroup.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/hgnc.genegroup.owl
+
+db/hgnc.genegroup.owl: download/hgnc.genegroup.owl
+	cp $< $@
+
+
+download/hgnc.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/hgnc/2022-06-01/hgnc.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/hgnc.owl
+
+db/hgnc.owl: download/hgnc.owl
+	cp $< $@
+
+
+download/dictybase.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/dictybase/dictybase.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/dictybase.owl
+
+db/dictybase.owl: download/dictybase.owl
+	cp $< $@
+
+
+download/eccode.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/eccode/25-May-2022/eccode.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/eccode.owl
+
+db/eccode.owl: download/eccode.owl
+	cp $< $@
+
+
+download/uniprot.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/uniprot/2022_02/uniprot.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/uniprot.owl
+
+db/uniprot.owl: download/uniprot.owl
+	cp $< $@
+
+
 download/%.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -316,4 +382,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324
+EXTRA_ONTOLOGIES = chiro ncit maxo foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324 hgnc.genegroup hgnc dictybase eccode uniprot

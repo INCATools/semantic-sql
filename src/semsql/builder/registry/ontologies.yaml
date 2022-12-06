@@ -8,6 +8,10 @@ ontologies:
   ncit:
     url: http://purl.obolibrary.org/obo/ncit.owl
     build_command: "robot relax -i $< merge -o $@"
+  maxo:
+    url: http://purl.obolibrary.org/obo/maxo.owl
+    # https://github.com/monarch-initiative/MAxO/issues/367
+    build_command: "robot relax -i $< merge reason -r structural -o $@"
   foodon:
     url: http://purl.obolibrary.org/obo/foodon.owl
     build_command: "robot merge -i $< relax reduce -c true -o $@"
@@ -110,5 +114,32 @@ ontologies:
     url: https://cropontology.org/ontology/CO_324/rdf
     prefixmap:
       co_324: "https://cropontology.org/rdf/CO_324:"
-      
-   
+
+## PyOBO products      
+## See https://github.com/INCATools/semantic-sql/issues/45
+  hgnc.genegroup:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/hgnc.genegroup/hgnc.genegroup.owl.gz
+    compression: gzip
+    prefixmap:
+      hgnc.genegroup: http://purl.obolibrary.org/obo/hgnc.genegroup_
+  hgnc:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/hgnc/2022-06-01/hgnc.owl.gz
+    compression: gzip
+    prefixmap:
+      hgnc: http://purl.obolibrary.org/obo/hgnc_
+  dictybase:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/dictybase/dictybase.owl.gz
+    compression: gzip
+    prefixmap:
+      hgnc.genegroup: http://purl.obolibrary.org/obo/dictybase_
+  eccode:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/eccode/25-May-2022/eccode.owl.gz
+    compression: gzip
+    prefixmap:
+      EC: http://purl.obolibrary.org/obo/eccode_
+      uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
+  uniprot:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/uniprot/2022_02/uniprot.owl.gz
+    compression: gzip
+    prefixmap:
+      uniprot.obo: http://purl.obolibrary.org/obo/uniprot_

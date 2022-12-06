@@ -59,6 +59,12 @@ evs.ncit,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
 old.fix,http://purl.org/obo/owl/FIX#
 mlo,http://www.a2rd.net.br/mlo#
 co_324,https://cropontology.org/rdf/CO_324:
+hgnc.genegroup,http://purl.obolibrary.org/obo/hgnc.genegroup_
+hgnc,http://purl.obolibrary.org/obo/hgnc_
+hgnc.genegroup,http://purl.obolibrary.org/obo/dictybase_
+EC,http://purl.obolibrary.org/obo/eccode_
+uniprot.obo,http://purl.obolibrary.org/obo/uniprot_
+uniprot.obo,http://purl.obolibrary.org/obo/uniprot_
 RBO,http://purl.obolibrary.org/obo/RBO_
 CLYH,http://purl.obolibrary.org/obo/CLYH_
 RO,http://purl.obolibrary.org/obo/RO_
