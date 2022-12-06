@@ -20,6 +20,17 @@ db/ncit.owl: download/ncit.owl
 	robot relax -i $< merge -o $@
 
 
+download/maxo.owl: STAMP
+	curl -L -s http://purl.obolibrary.org/obo/maxo.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/maxo.owl
+
+db/maxo.owl: download/maxo.owl
+	robot relax -i $< merge -o $@
+
+
 download/foodon.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/foodon.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -371,4 +382,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324 hgnc.genegroup hgnc dictybase eccode uniprot
+EXTRA_ONTOLOGIES = chiro ncit maxo foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324 hgnc.genegroup hgnc dictybase eccode uniprot

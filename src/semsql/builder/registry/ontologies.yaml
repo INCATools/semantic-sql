@@ -8,6 +8,10 @@ ontologies:
   ncit:
     url: http://purl.obolibrary.org/obo/ncit.owl
     build_command: "robot relax -i $< merge -o $@"
+  maxo:
+    url: http://purl.obolibrary.org/obo/maxo.owl
+    # https://github.com/monarch-initiative/MAxO/issues/367
+    build_command: "robot relax -i $< merge reason -r structural -o $@"
   foodon:
     url: http://purl.obolibrary.org/obo/foodon.owl
     build_command: "robot merge -i $< relax reduce -c true -o $@"

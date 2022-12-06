@@ -17,7 +17,7 @@ SELECTED_ONTS = obi mondo go envo ro hp mp zfa wbphenotype ecto upheno uberon_cm
 # EXTRA_ONTOLOGIES is defined in ontologies.Makefile
 ALL_ONTS = $(ALL_OBO_ONTS) $(EXTRA_ONTOLOGIES)
 
-STAGED_ONTOLOGIES = $(patsubst %,stage/%.db.gz,$(ALL_ONTS))
+STAGED_ONTOLOGIES = $(patsubst %, stage/%.db.gz, $(ALL_ONTS))
 
 TEST_ONTOLOGIES = go-nucleus robot-example
 
@@ -25,13 +25,16 @@ TEST_ONTOLOGIES = go-nucleus robot-example
 all: build_all stage_all
 build_all: $(patsubst %,all-%,$(ALL_ONTS))
 stage_all: $(STAGED_ONTOLOGIES)
+	echo done $(STAGED_ONTOLOGIES)
 
 selected: $(patsubst %,all-%,$(SELECTED_ONTS))
 
 all-%: db/%.db
 	sqlite3 $< "SELECT COUNT(*) FROM statements"
-stage/%.db.gz: db/%.db
-	gzip -c $< > $@.tmp && mv $@.tmp $@
+#stage/%.db.gz: db/%.db
+#	gzip -c $< > $@.tmp && mv $@.tmp $@
+stage/%.db.gz: 
+	gzip -c db/$*.db > $@.tmp && mv $@.tmp $@
 .PRECIOUS: stage/%.db.gz
 
 list-onts:
