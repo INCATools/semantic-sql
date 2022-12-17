@@ -5,8 +5,9 @@ import unittest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import aliased, sessionmaker
 
-from semsql.sqla.semsql import (OwlAxiomAnnotation, OwlSomeValuesFrom,
-                                RdfsLabelStatement, RdfsSubclassOfStatement, NodeIdentifier)
+from semsql.sqla.semsql import (NodeIdentifier, OwlAxiomAnnotation,
+                                OwlSomeValuesFrom, RdfsLabelStatement,
+                                RdfsSubclassOfStatement)
 
 cwd = os.path.abspath(os.path.dirname(__file__))
 DB_DIR = os.path.join(cwd, "../inputs")
@@ -119,11 +120,8 @@ class SQLAlchemyTestCase(unittest.TestCase):
     def test_node_prefixes(self):
         session = self.session
         n = 0
-        for row in session.query(NodeIdentifier).filter(
-            NodeIdentifier.prefix == "RO"
-        ):
+        for row in session.query(NodeIdentifier).filter(NodeIdentifier.prefix == "RO"):
             logging.info(row)
             n += 1
             assert row.id.startswith("RO:")
             self.assertEqual(row.id, row.prefix + ":" + row.local_identifier)
-
