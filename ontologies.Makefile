@@ -28,7 +28,7 @@ download/maxo.owl: STAMP
 .PRECIOUS: download/maxo.owl
 
 db/maxo.owl: download/maxo.owl
-	robot relax -i $< merge -o $@
+	robot relax -i $< merge reason -r structural -o $@
 
 
 download/foodon.owl: STAMP
@@ -372,6 +372,50 @@ db/uniprot.owl: download/uniprot.owl
 	cp $< $@
 
 
+download/rhea.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/rhea/122/rhea.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/rhea.owl
+
+db/rhea.owl: download/rhea.owl
+	cp $< $@
+
+
+download/drugbank.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/drugbank/5.1.9/drugbank.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/drugbank.owl
+
+db/drugbank.owl: download/drugbank.owl
+	cp $< $@
+
+
+download/drugcentral.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/drugcentral.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/drugcentral.owl
+
+db/drugcentral.owl: download/drugcentral.owl
+	cp $< $@
+
+
+download/complexportal.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/complexportal/2022-02-03/complexportal.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/complexportal.owl
+
+db/complexportal.owl: download/complexportal.owl
+	cp $< $@
+
+
 download/%.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -382,4 +426,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit maxo foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324 hgnc.genegroup hgnc dictybase eccode uniprot
+EXTRA_ONTOLOGIES = chiro ncit maxo foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324 hgnc.genegroup hgnc dictybase eccode uniprot rhea drugbank drugcentral complexportal

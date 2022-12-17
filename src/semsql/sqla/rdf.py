@@ -53,6 +53,19 @@ class Node(Base):
         return f"node(id={self.id},)"
 
 
+class NodeIdentifier(Base):
+    """ """
+
+    __tablename__ = "node_identifier"
+
+    id = Column(Text(), primary_key=True)
+    prefix = Column(Text(), primary_key=True)
+    local_identifier = Column(Text(), primary_key=True)
+
+    def __repr__(self):
+        return f"node_identifier(id={self.id},prefix={self.prefix},local_identifier={self.local_identifier},)"
+
+
 class RdfLevelSummaryStatistic(Base):
     """
     Abstract grouping for views/classes that provide some kind of count summary about an individual element

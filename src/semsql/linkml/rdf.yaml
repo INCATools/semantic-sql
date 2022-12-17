@@ -99,6 +99,14 @@ slots:
     description: The base URI a prefix will expand to
     slot_uri: sh:namespace
     range: uri
+  local_identifier:
+    description: The part of a CURIE after the colon
+    comments:
+      - for OBOs this is frequently a string of zero-padded digits, but this is not always the case
+    aliases:
+      - code
+      - accession
+    range: string
   description:
     slot_uri: dcterms:description
 classes:
@@ -257,6 +265,19 @@ classes:
       AS id FROM statements WHERE datatype IS NOT NULL
     slots:
     - id
+  node_identifier:
+    comments:
+      - |-
+        sqlview>>
+          SELECT
+            id AS id,
+            substr(id,0, instr(id,':')) AS prefix,
+            substr(id,instr(id,':')+1) AS local_identifier
+          FROM node
+    slots:
+      - id
+      - prefix
+      - local_identifier
   blank_node:
     description: A node with an ID that is not preserved between databases
     comments:

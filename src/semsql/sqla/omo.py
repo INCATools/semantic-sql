@@ -68,6 +68,19 @@ class Node(Base):
         return f"node(id={self.id},)"
 
 
+class NodeIdentifier(Base):
+    """ """
+
+    __tablename__ = "node_identifier"
+
+    id = Column(Text(), primary_key=True)
+    prefix = Column(Text(), primary_key=True)
+    local_identifier = Column(Text(), primary_key=True)
+
+    def __repr__(self):
+        return f"node_identifier(id={self.id},prefix={self.prefix},local_identifier={self.local_identifier},)"
+
+
 class RdfLevelSummaryStatistic(Base):
     """
     Abstract grouping for views/classes that provide some kind of count summary about an individual element
@@ -80,6 +93,21 @@ class RdfLevelSummaryStatistic(Base):
 
     def __repr__(self):
         return f"rdf_level_summary_statistic(element={self.element},count_value={self.count_value},)"
+
+
+class Orcid(Node):
+    """ """
+
+    __tablename__ = "orcid"
+
+    label = Column(Text(), primary_key=True)
+    id = Column(Text(), primary_key=True)
+
+    def __repr__(self):
+        return f"orcid(label={self.label},id={self.id},)"
+
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {"concrete": True}
 
 
 class OntologyNode(Node):
@@ -161,11 +189,13 @@ class OwlAxiomAnnotation(Statements):
 
     __tablename__ = "owl_axiom_annotation"
 
-    axiom_predicate = Column(Text(), primary_key=True)
-    axiom_object = Column(Text(), primary_key=True)
-    axiom_value = Column(Text(), primary_key=True)
-    axiom_language = Column(Text(), primary_key=True)
-    axiom_datatype = Column(Text(), primary_key=True)
+    annotation_subject = Column(Text(), primary_key=True)
+    annotation_predicate = Column(Text(), primary_key=True)
+    annotation_object = Column(Text(), primary_key=True)
+    annotation_value = Column(Text(), primary_key=True)
+    annotation_language = Column(Text(), primary_key=True)
+    annotation_datatype = Column(Text(), primary_key=True)
+    id = Column(Text(), primary_key=True)
     stanza = Column(Text(), primary_key=True)
     subject = Column(Text(), primary_key=True)
     predicate = Column(Text(), primary_key=True)
@@ -175,7 +205,7 @@ class OwlAxiomAnnotation(Statements):
     language = Column(Text(), primary_key=True)
 
     def __repr__(self):
-        return f"owl_axiom_annotation(axiom_predicate={self.axiom_predicate},axiom_object={self.axiom_object},axiom_value={self.axiom_value},axiom_language={self.axiom_language},axiom_datatype={self.axiom_datatype},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        return f"owl_axiom_annotation(annotation_subject={self.annotation_subject},annotation_predicate={self.annotation_predicate},annotation_object={self.annotation_object},annotation_value={self.annotation_value},annotation_language={self.annotation_language},annotation_datatype={self.annotation_datatype},id={self.id},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
 
     # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
     __mapper_args__ = {"concrete": True}
@@ -512,16 +542,11 @@ class HasMappingStatement(NodeToValueStatement):
     __mapper_args__ = {"concrete": True}
 
 
-class AxiomDbxrefAnnotation(OwlAxiomAnnotation):
+class Contributor(NodeToNodeStatement):
     """ """
 
-    __tablename__ = "axiom_dbxref_annotation"
+    __tablename__ = "contributor"
 
-    axiom_predicate = Column(Text(), primary_key=True)
-    axiom_object = Column(Text(), primary_key=True)
-    axiom_value = Column(Text(), primary_key=True)
-    axiom_language = Column(Text(), primary_key=True)
-    axiom_datatype = Column(Text(), primary_key=True)
     stanza = Column(Text(), primary_key=True)
     subject = Column(Text(), primary_key=True)
     predicate = Column(Text(), primary_key=True)
@@ -531,7 +556,54 @@ class AxiomDbxrefAnnotation(OwlAxiomAnnotation):
     language = Column(Text(), primary_key=True)
 
     def __repr__(self):
-        return f"axiom_dbxref_annotation(axiom_predicate={self.axiom_predicate},axiom_object={self.axiom_object},axiom_value={self.axiom_value},axiom_language={self.axiom_language},axiom_datatype={self.axiom_datatype},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+        return f"contributor(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {"concrete": True}
+
+
+class Creator(NodeToNodeStatement):
+    """ """
+
+    __tablename__ = "creator"
+
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+
+    def __repr__(self):
+        return f"creator(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {"concrete": True}
+
+
+class AxiomDbxrefAnnotation(OwlAxiomAnnotation):
+    """ """
+
+    __tablename__ = "axiom_dbxref_annotation"
+
+    annotation_subject = Column(Text(), primary_key=True)
+    annotation_predicate = Column(Text(), primary_key=True)
+    annotation_object = Column(Text(), primary_key=True)
+    annotation_value = Column(Text(), primary_key=True)
+    annotation_language = Column(Text(), primary_key=True)
+    annotation_datatype = Column(Text(), primary_key=True)
+    id = Column(Text(), primary_key=True)
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+
+    def __repr__(self):
+        return f"axiom_dbxref_annotation(annotation_subject={self.annotation_subject},annotation_predicate={self.annotation_predicate},annotation_object={self.annotation_object},annotation_value={self.annotation_value},annotation_language={self.annotation_language},annotation_datatype={self.annotation_datatype},id={self.id},stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
 
     # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
     __mapper_args__ = {"concrete": True}

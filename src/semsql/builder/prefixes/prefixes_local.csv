@@ -13,3 +13,8 @@ hgnc.genegroup,http://purl.obolibrary.org/obo/dictybase_
 EC,http://purl.obolibrary.org/obo/eccode_
 uniprot.obo,http://purl.obolibrary.org/obo/uniprot_
 uniprot.obo,http://purl.obolibrary.org/obo/uniprot_
+rhea,http://purl.obolibrary.org/obo/rhea_
+uniprot.obo,http://purl.obolibrary.org/obo/uniprot_
+drugbank,http://purl.obolibrary.org/obo/drugbank_
+drugbank,http://purl.obolibrary.org/obo/drugcentral_
+complexportal,http://purl.obolibrary.org/obo/complexportal_

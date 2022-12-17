@@ -143,3 +143,24 @@ ontologies:
     compression: gzip
     prefixmap:
       uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
+  rhea:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/rhea/122/rhea.owl.gz
+    compression: gzip
+    prefixmap:
+      rhea: http://purl.obolibrary.org/obo/rhea_
+      uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
+  drugbank:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/drugbank/5.1.9/drugbank.owl.gz
+    compression: gzip
+    prefixmap:
+      drugbank: http://purl.obolibrary.org/obo/drugbank_
+  drugcentral:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/drugcentral.owl.gz
+    compression: gzip
+    prefixmap:
+      drugbank: http://purl.obolibrary.org/obo/drugcentral_
+  complexportal:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/complexportal/2022-02-03/complexportal.owl.gz
+    compression: gzip
+    prefixmap:
+      complexportal: http://purl.obolibrary.org/obo/complexportal_
