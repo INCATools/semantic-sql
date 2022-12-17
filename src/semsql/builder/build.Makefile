@@ -95,7 +95,7 @@ $(PREFIX_DIR)/obo_prefixes.owl:
 	robot convert -I http://purl.obolibrary.org/meta/obo_prefixes.ttl -o $@
 
 $(PREFIX_DIR)/obo_prefixes.db: $(PREFIX_DIR)/obo_prefixes.owl
-	sqlite3 $@ < $(PREFIX_DIR)/prefix_ddl.sql && ./bin/rdftab $@ < $<
+	sqlite3 $@ < $(PREFIX_DIR)/prefix_ddl.sql && rdftab $@ < $<
 
 $(PREFIX_DIR)/obo_prefixes.csv: $(PREFIX_DIR)/obo_prefixes.db
 	sqlite3 $< -cmd ".separator ','" "SELECT p.value AS prefix, ns.value AS base FROM statements AS p JOIN statements AS ns ON (p.subject=ns.subject) WHERE p.predicate='<http://www.w3.org/ns/shacl#prefix>' AND ns.predicate='<http://www.w3.org/ns/shacl#namespace>'" > $@

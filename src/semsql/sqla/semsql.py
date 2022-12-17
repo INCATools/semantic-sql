@@ -87,6 +87,19 @@ class Node(Base):
         return f"node(id={self.id},)"
 
 
+class NodeIdentifier(Base):
+    """ """
+
+    __tablename__ = "node_identifier"
+
+    id = Column(Text(), primary_key=True)
+    prefix = Column(Text(), primary_key=True)
+    local_identifier = Column(Text(), primary_key=True)
+
+    def __repr__(self):
+        return f"node_identifier(id={self.id},prefix={self.prefix},local_identifier={self.local_identifier},)"
+
+
 class RdfLevelSummaryStatistic(Base):
     """
     Abstract grouping for views/classes that provide some kind of count summary about an individual element
@@ -143,6 +156,21 @@ class Problem(Base):
 
     def __repr__(self):
         return f"problem(subject={self.subject},predicate={self.predicate},value={self.value},)"
+
+
+class Orcid(Node):
+    """ """
+
+    __tablename__ = "orcid"
+
+    label = Column(Text(), primary_key=True)
+    id = Column(Text(), primary_key=True)
+
+    def __repr__(self):
+        return f"orcid(label={self.label},id={self.id},)"
+
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {"concrete": True}
 
 
 class OntologyNode(Node):
@@ -751,6 +779,46 @@ class HasMappingStatement(NodeToValueStatement):
 
     def __repr__(self):
         return f"has_mapping_statement(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {"concrete": True}
+
+
+class Contributor(NodeToNodeStatement):
+    """ """
+
+    __tablename__ = "contributor"
+
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+
+    def __repr__(self):
+        return f"contributor(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
+
+    # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
+    __mapper_args__ = {"concrete": True}
+
+
+class Creator(NodeToNodeStatement):
+    """ """
+
+    __tablename__ = "creator"
+
+    stanza = Column(Text(), primary_key=True)
+    subject = Column(Text(), primary_key=True)
+    predicate = Column(Text(), primary_key=True)
+    object = Column(Text(), primary_key=True)
+    value = Column(Text(), primary_key=True)
+    datatype = Column(Text(), primary_key=True)
+    language = Column(Text(), primary_key=True)
+
+    def __repr__(self):
+        return f"creator(stanza={self.stanza},subject={self.subject},predicate={self.predicate},object={self.object},value={self.value},datatype={self.datatype},language={self.language},)"
 
     # Using concrete inheritance: see https://docs.sqlalchemy.org/en/14/orm/inheritance.html
     __mapper_args__ = {"concrete": True}

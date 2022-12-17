@@ -416,6 +416,10 @@
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "node" Description: "The basic unit of representation in an RDF or OWL graph"
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+-- # Class: "node_identifier" Description: ""
+--     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
+--     * Slot: prefix Description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
+--     * Slot: local_identifier Description: The part of a CURIE after the colon
 -- # Class: "blank_node" Description: "A node with an ID that is not preserved between databases"
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "rdf_list_node" Description: "A node representing an RDF list. Note that you will not likely need to use this directly."
@@ -1060,6 +1064,12 @@ CREATE TABLE node (
 	id TEXT, 
 	PRIMARY KEY (id)
 );
+CREATE TABLE node_identifier (
+	id TEXT, 
+	prefix TEXT, 
+	local_identifier TEXT, 
+	PRIMARY KEY (id)
+);
 CREATE TABLE blank_node (
 	id TEXT, 
 	PRIMARY KEY (id)
@@ -1495,6 +1505,13 @@ CREATE VIEW rdf_list_member_statement AS SELECT
 
 DROP TABLE node;
 CREATE VIEW node AS SELECT distinct(subject) AS id FROM statements UNION SELECT distinct(object) AS id FROM statements WHERE datatype IS NOT NULL;
+
+DROP TABLE node_identifier;
+CREATE VIEW node_identifier AS SELECT
+    id AS id,
+    substr(id,0, instr(id,':')) AS prefix,
+    substr(id,instr(id,':')+1) AS local_identifier
+  FROM node;
 
 DROP TABLE blank_node;
 CREATE VIEW blank_node AS SELECT * FROM node WHERE id LIKE '_:%';

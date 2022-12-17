@@ -22,8 +22,11 @@ STAGED_ONTOLOGIES = $(patsubst %, stage/%.db.gz, $(ALL_ONTS))
 TEST_ONTOLOGIES = go-nucleus robot-example
 
 
+include ontologies.Makefile
+
 all: build_all stage_all
-build_all: $(patsubst %,all-%,$(ALL_ONTS))
+build_all: $(patsubst %, all-%, $(ALL_ONTS))
+	echo building $(ALL_ONTS)
 stage_all: $(STAGED_ONTOLOGIES)
 	echo done $(STAGED_ONTOLOGIES)
 
@@ -79,17 +82,17 @@ realclean-%:
 
 build_prefixes: $(PREFIX_DIR)/prefixes.csv
 
-$(PREFIX_DIR)/obo_prefixes.owl:
-	robot convert -I http://purl.obolibrary.org/meta/obo_prefixes.ttl -o $@
+#$(PREFIX_DIR)/obo_prefixes.owl:
+#	robot convert -I http://purl.obolibrary.org/meta/obo_prefixes.ttl -o $@
 
-$(PREFIX_DIR)/obo_prefixes.db: $(PREFIX_DIR)/obo_prefixes.owl
-	sqlite3 $@ < $(PREFIX_DIR)/prefix_ddl.sql && ./bin/rdftab $@ < $<
+#$(PREFIX_DIR)/obo_prefixes.db: $(PREFIX_DIR)/obo_prefixes.owl
+#	sqlite3 $@ < $(PREFIX_DIR)/prefix_ddl.sql && ./bin/rdftab $@ < $<
 
-$(PREFIX_DIR)/obo_prefixes.csv: $(PREFIX_DIR)/obo_prefixes.db
-	sqlite3 $< -cmd ".separator ','" "SELECT p.value AS prefix, ns.value AS base FROM statements AS p JOIN statements AS ns ON (p.subject=ns.subject) WHERE p.predicate='<http://www.w3.org/ns/shacl#prefix>' AND ns.predicate='<http://www.w3.org/ns/shacl#namespace>'" > $@
+#$(PREFIX_DIR)/obo_prefixes.csv: $(PREFIX_DIR)/obo_prefixes.db
+#	sqlite3 $< -cmd ".separator ','" "SELECT p.value AS prefix, ns.value AS base FROM statements AS p JOIN statements AS ns ON (p.subject=ns.subject) WHERE p.predicate='<http://www.w3.org/ns/shacl#prefix>' AND ns.predicate='<http://www.w3.org/ns/shacl#namespace>'" > $@
 
-$(PREFIX_DIR)/prefixes.csv: $(PREFIX_DIR)/prefixes_curated.csv $(PREFIX_DIR)/obo_prefixes.csv
-	cat $^ > $@
+#$(PREFIX_DIR)/prefixes.csv: $(PREFIX_DIR)/prefixes_curated.csv $(PREFIX_DIR)/obo_prefixes.csv#
+#	cat $^ > $@
 
 
 # ---
@@ -132,13 +135,6 @@ reports/%.problems.tsv: db/%.db target/%.views
 
 STAMP:
 	touch $@
-
-db/reactome-Homo-sapiens.owl: download/reactome-biopax.zip db/biopax.owl
-	unzip -p $< Homo_sapiens.owl > $@.tmp &&\
-	robot merge -i $@.tmp  -i db/biopax.owl -o $@
-
-download/reactome-biopax.zip:
-	curl -L -s https://reactome.org/download/current/biopax.zip > $@
 
 ## Additional ontologies
 
