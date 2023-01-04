@@ -70,6 +70,7 @@ uniprot.obo,http://purl.obolibrary.org/obo/uniprot_
 drugbank,http://purl.obolibrary.org/obo/drugbank_
 drugbank,http://purl.obolibrary.org/obo/drugcentral_
 complexportal,http://purl.obolibrary.org/obo/complexportal_
+MESH,http://id.nlm.nih.gov/mesh/
 RBO,http://purl.obolibrary.org/obo/RBO_
 RBO,http://purl.obolibrary.org/obo/RBO_
 CLYH,http://purl.obolibrary.org/obo/CLYH_
