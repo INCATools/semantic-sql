@@ -34,10 +34,10 @@ selected: $(patsubst %,all-%,$(SELECTED_ONTS))
 
 all-%: db/%.db
 	sqlite3 $< "SELECT COUNT(*) FROM statements"
-#stage/%.db.gz: db/%.db
-#	gzip -c $< > $@.tmp && mv $@.tmp $@
-stage/%.db.gz: 
-	gzip -c db/$*.db > $@.tmp && mv $@.tmp $@
+stage/%.db.gz: db/%.db
+	gzip -c $< > $@.tmp && mv $@.tmp $@
+#stage/%.db.gz: 
+#	gzip -c db/$*.db > $@.tmp && mv $@.tmp $@
 .PRECIOUS: stage/%.db.gz
 
 list-onts:

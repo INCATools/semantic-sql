@@ -164,3 +164,6 @@ ontologies:
     compression: gzip
     prefixmap:
       complexportal: http://purl.obolibrary.org/obo/complexportal_
+  drugmechdb:
+    prefixmap:
+      MESH: http://id.nlm.nih.gov/mesh/

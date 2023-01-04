@@ -416,6 +416,17 @@ db/complexportal.owl: download/complexportal.owl
 	cp $< $@
 
 
+download/drugmechdb.owl: STAMP
+	curl -L -s None > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/drugmechdb.owl
+
+db/drugmechdb.owl: download/drugmechdb.owl
+	cp $< $@
+
+
 download/%.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -426,4 +437,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit maxo foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324 hgnc.genegroup hgnc dictybase eccode uniprot rhea drugbank drugcentral complexportal
+EXTRA_ONTOLOGIES = chiro ncit maxo foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324 hgnc.genegroup hgnc dictybase eccode uniprot rhea drugbank drugcentral complexportal drugmechdb
