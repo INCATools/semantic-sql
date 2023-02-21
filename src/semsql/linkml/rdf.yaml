@@ -67,6 +67,8 @@ slots:
       a literal, instead value will be populated
     slot_uri: rdf:object
     range: node
+  graph:
+    range: node
   stanza:
     see_also:
     - https://github.com/ontodev/rdftab.rs#stanzas
@@ -88,7 +90,7 @@ slots:
     todos:
     - use an enum
     range: string
-    description: the human language in which the value is encoded, e.g. en
+    description: the human language in which the value is encoded, e.g. 'en'
     comments:
       - only used when value is populated
   prefix:
@@ -126,13 +128,14 @@ classes:
     in_subset:
     - base table
     slots:
-    - stanza
+    #- stanza -- DEPRECATED
     - subject
     - predicate
     - object
     - value
     - datatype
     - language
+    # - graph -- DO NOT INTRODUCE UNTIL SQLA CHANGES ROLLED OUT
     class_uri: rdf:Statement
   node_to_node_statement:
     description: A statement where object is non-null and value is not populated

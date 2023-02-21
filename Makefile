@@ -27,6 +27,10 @@ include ontologies.Makefile
 all: build_all stage_all
 build_all: $(patsubst %, all-%, $(ALL_ONTS))
 	echo building $(ALL_ONTS)
+stats_all: $(patsubst %, statistics/%.statistics.yaml, $(ALL_ONTS))
+	echo building $(ALL_ONTS)
+validate_all: $(patsubst %, validation/%.validate.tsv, $(ALL_ONTS))
+	echo building $(ALL_ONTS)
 stage_all: $(STAGED_ONTOLOGIES)
 	echo done $(STAGED_ONTOLOGIES)
 
@@ -34,8 +38,8 @@ selected: $(patsubst %,all-%,$(SELECTED_ONTS))
 
 all-%: db/%.db
 	sqlite3 $< "SELECT COUNT(*) FROM statements"
-stage/%.db.gz: db/%.db
-	gzip -c $< > $@.tmp && mv $@.tmp $@
+stage/%.db.gz: STAMP
+	gzip -c db/$*.db > $@.tmp && mv $@.tmp $@
 #stage/%.db.gz: 
 #	gzip -c db/$*.db > $@.tmp && mv $@.tmp $@
 .PRECIOUS: stage/%.db.gz
@@ -102,6 +106,11 @@ db/%.db: db/%.owl
 	$(RUN) semsql make $@
 .PRECIOUS: db/%.db
 
+statistics/%.statistics.yaml: db/%.db
+	runoak -i $< statistics --group-by-prefix -o $@
+
+validation/%.validate.tsv: db/%.db
+	runoak -i $< validate -o $@
 
 # ---
 # OBO Registry

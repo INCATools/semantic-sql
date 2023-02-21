@@ -7,7 +7,6 @@
 --     * Slot: publication Description: 
 --     * Slot: source Description: 
 -- # Class: "has_text_definition_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -15,7 +14,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_oio_synonym_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -23,7 +21,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_exact_synonym_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -31,7 +28,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_broad_synonym_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -39,7 +35,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_narrow_synonym_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -47,7 +42,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_related_synonym_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -55,7 +49,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_synonym_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -63,7 +56,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_exact_match_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -71,7 +63,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_broad_match_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -79,7 +70,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_narrow_match_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -87,7 +77,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_related_match_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -95,7 +84,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_match_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -103,7 +91,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_dbxref_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -111,7 +98,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "has_mapping_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -119,7 +105,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "contributor" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -127,7 +112,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "creator" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -145,7 +129,6 @@
 --     * Slot: annotation_language Description: 
 --     * Slot: annotation_datatype Description: 
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -171,7 +154,6 @@
 -- # Class: "deprecated_node" Description: ""
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "owl_imports_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -179,7 +161,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_inverse_of_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -187,7 +168,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_complement_of_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -195,7 +175,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_equivalent_class_statement" Description: "A statement that connects two class_nodes where both classes are equivalent"
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
@@ -203,7 +182,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_same_as_statement" Description: "A statement that connects two individual nodes where both individual are equivalent"
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: One of the two classes that are equivalent. No significance to subject vs object
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: One of the two classes that are equivalent. No significance to subject vs object
@@ -211,7 +189,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_disjoint_class_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: One of the two classes that are disjoint. No significance to subject vs object
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: One of the two classes that are disjoint. No significance to subject vs object
@@ -220,7 +197,6 @@
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_reified_axiom" Description: "An OWL axiom that has been reified - i.e. it includes an [id](id) field that uniquely identifies that axiom and which can be the subject of additional statements"
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -229,7 +205,6 @@
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "owl_axiom" Description: ""
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -244,7 +219,6 @@
 --     * Slot: annotation_language Description: 
 --     * Slot: annotation_datatype Description: 
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -295,7 +269,6 @@
 --     * Slot: prefix Description: A standardized prefix such as 'GO' or 'rdf' or 'FlyBase'
 --     * Slot: base Description: The base URI a prefix will expand to
 -- # Class: "statements" Description: "Represents an RDF triple"
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -303,7 +276,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "node_to_node_statement" Description: "A statement where object is non-null and value is not populated"
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -311,7 +283,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "node_to_value_statement" Description: "A statement where value is non-null and object is not populated"
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -319,7 +290,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_type_statement" Description: "A statement that indicates the asserted type of the subject entity"
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: The entity type
@@ -327,7 +297,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_subclass_of_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subclass element of the triple
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: The superclass element of the triple
@@ -335,7 +304,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_subclass_of_named_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -343,7 +311,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_subproperty_of_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subproperty element of the triple
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: The superproperty element of the triple
@@ -351,7 +318,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_label_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -359,7 +325,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_domain_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -367,7 +332,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdfs_range_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -375,7 +339,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_list_statement" Description: "A statement that is used to represent aspects of RDF lists"
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The rdf:List to which the statement applies
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -383,7 +346,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_first_statement" Description: "A statement that connects a list to its first element. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful"
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -391,7 +353,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_rest_statement" Description: "A statement that connects a list to its remaining elements. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful"
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -399,7 +360,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_rest_transitive_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -407,7 +367,6 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. en
 -- # Class: "rdf_list_member_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -518,7 +477,6 @@
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 -- # Class: "ontology_status_statement" Description: ""
---     * Slot: stanza Description: the term which this statement is about
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
@@ -566,7 +524,6 @@ CREATE TABLE term_association (
 	PRIMARY KEY (id)
 );
 CREATE TABLE has_text_definition_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -575,7 +532,6 @@ CREATE TABLE has_text_definition_statement (
 	language TEXT
 );
 CREATE TABLE has_oio_synonym_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -584,7 +540,6 @@ CREATE TABLE has_oio_synonym_statement (
 	language TEXT
 );
 CREATE TABLE has_exact_synonym_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -593,7 +548,6 @@ CREATE TABLE has_exact_synonym_statement (
 	language TEXT
 );
 CREATE TABLE has_broad_synonym_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -602,7 +556,6 @@ CREATE TABLE has_broad_synonym_statement (
 	language TEXT
 );
 CREATE TABLE has_narrow_synonym_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -611,7 +564,6 @@ CREATE TABLE has_narrow_synonym_statement (
 	language TEXT
 );
 CREATE TABLE has_related_synonym_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -620,7 +572,6 @@ CREATE TABLE has_related_synonym_statement (
 	language TEXT
 );
 CREATE TABLE has_synonym_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -629,7 +580,6 @@ CREATE TABLE has_synonym_statement (
 	language TEXT
 );
 CREATE TABLE has_exact_match_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -638,7 +588,6 @@ CREATE TABLE has_exact_match_statement (
 	language TEXT
 );
 CREATE TABLE has_broad_match_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -647,7 +596,6 @@ CREATE TABLE has_broad_match_statement (
 	language TEXT
 );
 CREATE TABLE has_narrow_match_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -656,7 +604,6 @@ CREATE TABLE has_narrow_match_statement (
 	language TEXT
 );
 CREATE TABLE has_related_match_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -665,7 +612,6 @@ CREATE TABLE has_related_match_statement (
 	language TEXT
 );
 CREATE TABLE has_match_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -674,7 +620,6 @@ CREATE TABLE has_match_statement (
 	language TEXT
 );
 CREATE TABLE has_dbxref_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -683,7 +628,6 @@ CREATE TABLE has_dbxref_statement (
 	language TEXT
 );
 CREATE TABLE has_mapping_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -692,7 +636,6 @@ CREATE TABLE has_mapping_statement (
 	language TEXT
 );
 CREATE TABLE contributor (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -701,7 +644,6 @@ CREATE TABLE contributor (
 	language TEXT
 );
 CREATE TABLE creator (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -722,7 +664,6 @@ CREATE TABLE axiom_dbxref_annotation (
 	annotation_language TEXT, 
 	annotation_datatype TEXT, 
 	id TEXT, 
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -768,7 +709,6 @@ CREATE TABLE deprecated_node (
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_imports_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -777,7 +717,6 @@ CREATE TABLE owl_imports_statement (
 	language TEXT
 );
 CREATE TABLE owl_inverse_of_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -786,7 +725,6 @@ CREATE TABLE owl_inverse_of_statement (
 	language TEXT
 );
 CREATE TABLE owl_complement_of_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -795,7 +733,6 @@ CREATE TABLE owl_complement_of_statement (
 	language TEXT
 );
 CREATE TABLE owl_equivalent_class_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -804,7 +741,6 @@ CREATE TABLE owl_equivalent_class_statement (
 	language TEXT
 );
 CREATE TABLE owl_same_as_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -813,7 +749,6 @@ CREATE TABLE owl_same_as_statement (
 	language TEXT
 );
 CREATE TABLE owl_disjoint_class_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -823,7 +758,6 @@ CREATE TABLE owl_disjoint_class_statement (
 );
 CREATE TABLE owl_reified_axiom (
 	id TEXT, 
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -834,7 +768,6 @@ CREATE TABLE owl_reified_axiom (
 );
 CREATE TABLE owl_axiom (
 	id TEXT, 
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -851,7 +784,6 @@ CREATE TABLE owl_axiom_annotation (
 	annotation_language TEXT, 
 	annotation_datatype TEXT, 
 	id TEXT, 
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -926,7 +858,6 @@ CREATE TABLE prefix (
 	base TEXT
 );
 CREATE TABLE statements (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -935,7 +866,6 @@ CREATE TABLE statements (
 	language TEXT
 );
 CREATE TABLE node_to_node_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -944,7 +874,6 @@ CREATE TABLE node_to_node_statement (
 	language TEXT
 );
 CREATE TABLE node_to_value_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -953,7 +882,6 @@ CREATE TABLE node_to_value_statement (
 	language TEXT
 );
 CREATE TABLE rdf_type_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -962,7 +890,6 @@ CREATE TABLE rdf_type_statement (
 	language TEXT
 );
 CREATE TABLE rdfs_subclass_of_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -971,7 +898,6 @@ CREATE TABLE rdfs_subclass_of_statement (
 	language TEXT
 );
 CREATE TABLE rdfs_subclass_of_named_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -980,7 +906,6 @@ CREATE TABLE rdfs_subclass_of_named_statement (
 	language TEXT
 );
 CREATE TABLE rdfs_subproperty_of_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -989,7 +914,6 @@ CREATE TABLE rdfs_subproperty_of_statement (
 	language TEXT
 );
 CREATE TABLE rdfs_label_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -998,7 +922,6 @@ CREATE TABLE rdfs_label_statement (
 	language TEXT
 );
 CREATE TABLE rdfs_domain_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -1007,7 +930,6 @@ CREATE TABLE rdfs_domain_statement (
 	language TEXT
 );
 CREATE TABLE rdfs_range_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT NOT NULL, 
@@ -1016,7 +938,6 @@ CREATE TABLE rdfs_range_statement (
 	language TEXT
 );
 CREATE TABLE rdf_list_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -1025,7 +946,6 @@ CREATE TABLE rdf_list_statement (
 	language TEXT
 );
 CREATE TABLE rdf_first_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -1034,7 +954,6 @@ CREATE TABLE rdf_first_statement (
 	language TEXT
 );
 CREATE TABLE rdf_rest_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -1043,7 +962,6 @@ CREATE TABLE rdf_rest_statement (
 	language TEXT
 );
 CREATE TABLE rdf_rest_transitive_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -1052,7 +970,6 @@ CREATE TABLE rdf_rest_transitive_statement (
 	language TEXT
 );
 CREATE TABLE rdf_list_member_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -1192,7 +1109,6 @@ CREATE TABLE transitive_edge (
 	object TEXT
 );
 CREATE TABLE ontology_status_statement (
-	stanza TEXT, 
 	subject TEXT, 
 	predicate TEXT, 
 	object TEXT, 
@@ -1444,6 +1360,9 @@ CREATE VIEW owl_equivalent_to_intersection_member AS SELECT e.stanza,
       rdf_list_member_statement AS m ON (i.object=m.subject)
     WHERE
       i.predicate = 'owl:intersectionOf';
+
+DROP TABLE statements;
+CREATE TABLE statements (stanza TEXT,subject TEXT,predicate TEXT,object TEXT,value TEXT,datatype TEXT,language TEXT);
 
 DROP TABLE node_to_node_statement;
 CREATE VIEW node_to_node_statement AS SELECT * FROM statements WHERE object IS NOT NULL;
