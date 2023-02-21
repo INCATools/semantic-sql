@@ -20,6 +20,17 @@ db/ncit.owl: download/ncit.owl
 	robot relax -i $< merge -o $@
 
 
+download/fma.owl: STAMP
+	curl -L -s https://data.bioontology.org/ontologies/FMA/submissions/29/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/fma.owl
+
+db/fma.owl: download/fma.owl
+	cp $< $@
+
+
 download/maxo.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/maxo.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -251,6 +262,17 @@ db/efo.owl: download/efo.owl
 	robot merge -i $< -o $@
 
 
+download/hcao.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/HumanCellAtlas/ontology/master/hcao.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/hcao.owl
+
+db/hcao.owl: download/hcao.owl
+	cp $< $@
+
+
 download/edam.owl: STAMP
 	curl -L -s http://edamontology.org/EDAM.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -295,6 +317,17 @@ db/schema-dot-org.owl: download/schema-dot-org.owl
 	cp $< $@
 
 
+download/cellosaurus.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/calipho-sib/cellosaurus/master/cellosaurus.obo > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/cellosaurus.owl
+
+db/cellosaurus.owl: download/cellosaurus.owl
+	robot merge -i $< -o $@
+
+
 download/cosmo.owl: STAMP
 	curl -L -s https://micra.com/COSMO/COSMO.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -304,6 +337,17 @@ download/cosmo.owl: STAMP
 
 db/cosmo.owl: download/cosmo.owl
 	robot merge -i $< -o $@
+
+
+download/dbpendiaont.owl: STAMP
+	curl -L -s https://databus.dbpedia.org/ontologies/dbpedia.org/ontology--DEV/2023.01.03-072003/ontology--DEV_type=parsed.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/dbpendiaont.owl
+
+db/dbpendiaont.owl: download/dbpendiaont.owl
+	cp $< $@
 
 
 download/co_324.owl: STAMP
@@ -383,6 +427,17 @@ db/rhea.owl: download/rhea.owl
 	cp $< $@
 
 
+download/swisslipid.owl: STAMP
+	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/swisslipid/2023-02-03/swisslipid.obo.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/swisslipid.owl
+
+db/swisslipid.owl: download/swisslipid.owl
+	robot merge -i $< -o $@
+
+
 download/drugbank.owl: STAMP
 	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/drugbank/5.1.9/drugbank.owl.gz | gzip -dc > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -427,6 +482,17 @@ db/drugmechdb.owl: download/drugmechdb.owl
 	cp $< $@
 
 
+download/rxnorm.owl: STAMP
+	curl -L -s None > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/rxnorm.owl
+
+db/rxnorm.owl: download/rxnorm.owl
+	cp $< $@
+
+
 download/%.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -437,4 +503,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit maxo foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo edam sweetAll lov schema-dot-org cosmo co_324 hgnc.genegroup hgnc dictybase eccode uniprot rhea drugbank drugcentral complexportal drugmechdb
+EXTRA_ONTOLOGIES = chiro ncit fma maxo foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao edam sweetAll lov schema-dot-org cellosaurus cosmo dbpendiaont co_324 hgnc.genegroup hgnc dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal drugmechdb rxnorm

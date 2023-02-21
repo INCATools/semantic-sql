@@ -8,6 +8,11 @@ ontologies:
   ncit:
     url: http://purl.obolibrary.org/obo/ncit.owl
     build_command: "robot relax -i $< merge -o $@"
+  fma:
+    # note: this is the public API key on the main bioportal site
+    url: "https://data.bioontology.org/ontologies/FMA/submissions/29/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
+    prefixmap:
+      FMA: http://purl.org/sig/ont/fma/fma
   maxo:
     url: http://purl.obolibrary.org/obo/maxo.owl
     # https://github.com/monarch-initiative/MAxO/issues/367
@@ -33,6 +38,8 @@ ontologies:
         - UPHENO:0000001
         - UPHENO:0000003
         - RO:0002202
+    prefixmap:
+      biolink: https://w3id.org/biolink/vocab/
   comploinc:
     url: https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl
     build_command: "robot relax -i $< merge -o $@"
@@ -84,6 +91,8 @@ ontologies:
   efo:
     url: http://www.ebi.ac.uk/efo/efo.owl
     has_imports: true
+  hcao:
+    url: https://raw.githubusercontent.com/HumanCellAtlas/ontology/master/hcao.owl
   edam:
     url: http://edamontology.org/EDAM.owl
   sweetAll:
@@ -98,9 +107,17 @@ ontologies:
     compression: gzip
   schema-dot-org:
     url: https://schema.org/version/latest/schemaorg-current-https.rdf
+  cellosaurus:
+    url: https://raw.githubusercontent.com/calipho-sib/cellosaurus/master/cellosaurus.obo
+    format: obo
   cosmo:
     url: https://micra.com/COSMO/COSMO.owl
     has_imports: true
+  dbpendiaont:
+    url: "https://databus.dbpedia.org/ontologies/dbpedia.org/ontology--DEV/2023.01.03-072003/ontology--DEV_type=parsed.owl"
+    prefixmap:
+      dbpediaont: http://dbpedia.org/ontology/
+      dbpedia: http://dbpedia.org/
   #empathi:
   #  url: https://raw.githubusercontent.com/shekarpour/empathi.io/master/empathi.owl
   #  format: owlx
@@ -149,6 +166,12 @@ ontologies:
     prefixmap:
       rhea: http://purl.obolibrary.org/obo/rhea_
       uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
+  swisslipid:
+    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/swisslipid/2023-02-03/swisslipid.obo.gz
+    format: obo
+    compression: gzip
+    prefixmap:
+      swisslipid: http://purl.obolibrary.org/obo/swisslipid_
   drugbank:
     url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/drugbank/5.1.9/drugbank.owl.gz
     compression: gzip
@@ -167,3 +190,9 @@ ontologies:
   drugmechdb:
     prefixmap:
       MESH: http://id.nlm.nih.gov/mesh/
+  rxnorm:
+    prefixmap:
+      RXNORM: http://purl.bioontology.org/ontology/RXNORM/
+  #monarch:
+  #  url: https://data.monarchinitiative.org/monarch-kg-dev/latest/monarch-kg.db.gz
+  #  format: kgxdb

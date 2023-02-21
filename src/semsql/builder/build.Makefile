@@ -55,6 +55,7 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
 	sqlite3 $@.tmp -cmd '.separator "\t"' ".import $*-$(RGSUFFIX).tsv entailed_edge" && \
 	gzip -f $*-$(RGSUFFIX).tsv && \
 	cat $(THIS_DIR)/indexes/*.sql | sqlite3 $@.tmp && \
+	echo "ALTER TABLE statements ADD COLUMN graph TEXT;" | sqlite3 $@.tmp && \
 	mv $@.tmp $@
 .PRECIOUS: %.db
 
