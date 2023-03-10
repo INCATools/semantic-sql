@@ -33,11 +33,7 @@ def main(verbose: int, quiet: bool):
     show_default=True,
     help="Uses ODK docker image",
 )
-@click.option(
-    "--prefix-csv-path",
-    "-P",
-    help="path to csv of prefix expansions"
-)
+@click.option("--prefix-csv-path", "-P", help="path to csv of prefix expansions")
 def make(path, docker, **kwargs):
     """
     Makes a specified target, such as a db file

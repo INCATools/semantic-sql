@@ -28,7 +28,9 @@ class DockerConfig:
     memory: str = None
 
 
-def make(target: str, docker_config: Optional[DockerConfig] = None, prefix_csv_path = None):
+def make(
+    target: str, docker_config: Optional[DockerConfig] = None, prefix_csv_path=None
+):
     """
     Builds a target such as a SQLite file using the build.Makefile
 
@@ -93,7 +95,7 @@ def download_obo_sqlite(ontology: str, destination: str):
     db = f"{ontology}.db"
     url = f"https://s3.amazonaws.com/bbop-sqlite/{db}.gz"
     logging.info(f"Downloading from {url}")
-    r = requests.get(url, allow_redirects=True)
+    r = requests.get(url, allow_redirects=True, timeout=3600)
     destination_gzip = f"{destination}.gz"
     open(destination_gzip, "wb").write(r.content)
     with gzip.open(destination_gzip, "rb") as f_in:

@@ -67,7 +67,15 @@ def generate_views_from_linkml(
         elif sql_table == "statements":
             output.write("\n")
             output.write(f"DROP TABLE {sql_table};\n")
-            cols = ["stanza", "subject", "predicate", "object", "value", "datatype", "language"]
+            cols = [
+                "stanza",
+                "subject",
+                "predicate",
+                "object",
+                "value",
+                "datatype",
+                "language",
+            ]
             cols = [f"{c} TEXT" for c in cols]
             output.write(f"CREATE TABLE {sql_table} ({','.join(cols)});\n")
 
