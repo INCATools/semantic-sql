@@ -9,8 +9,7 @@ ontologies:
     url: http://purl.obolibrary.org/obo/ncit.owl
     build_command: "robot relax -i $< merge -o $@"
   fma:
-    # note: this is the public API key on the main bioportal site
-    url: "https://data.bioontology.org/ontologies/FMA/submissions/29/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
+    url: http://sig.biostr.washington.edu/share/downloads/fma/release/latest/fma.owl
     prefixmap:
       FMA: http://purl.org/sig/ont/fma/fma
   maxo:
@@ -28,6 +27,10 @@ ontologies:
     prefixmap:
       MSIO: http://purl.obolibrary.org/obo/MSIO_
       nmrCV: "http://nmrML.org/nmrCV#NMR:"
+  modl:
+    url: https://raw.githubusercontent.com/Data-Semantics-Laboratory/modular-ontology-design-library/master/MODL.owl
+    prefixmap:
+      modl: "https://archive.org/services/purl/purl/modular_ontology_design_library#"
   phenio:
     description: Monarch Phenomics Integrated Ontology
     url: https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl
@@ -51,6 +54,10 @@ ontologies:
     url: https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl
   reacto:
     url: http://purl.obolibrary.org/obo/go/extensions/reacto.owl
+  bcio:
+    url: http://humanbehaviourchange.org/ontology/bcio.owl
+    prefixmap:
+      BCIO: http://humanbehaviourchange.org/ontology/BCIO_
   go:
     url: http://purl.obolibrary.org/obo/go/extensions/go-plus.owl
   go-lego:

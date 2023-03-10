@@ -23,6 +23,5 @@ class CommonQueriesTestCase(unittest.TestCase):
         self.session = sessionmaker(bind=engine)()
 
     def test_common_queries(self):
-
         ids = term_search(self.session, ["%nucleus%"], RdfsLabelStatement)
         self.assertIn("GO:0005634", ids)

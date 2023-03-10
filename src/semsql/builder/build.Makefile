@@ -33,11 +33,11 @@ help:
 # All dbs are made from an initial template containing
 # (1) prefixes
 # (2) SQL Schema (primarily views)
-$(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
-	cat $< | sqlite3 $@.tmp && \
-	echo .exit | sqlite3 -echo $@.tmp -cmd ".mode csv" -cmd ".import $(THIS_DIR)/prefixes/prefixes.csv prefix" && \
-	mv $@.tmp $@
-.PRECIOUS: $(TEMPLATE)
+#$(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
+#	cat $< | sqlite3 $@.tmp && \
+#	echo .exit | sqlite3 -echo $@.tmp -cmd ".mode csv" -cmd ".import $(THIS_DIR)/prefixes/prefixes.csv prefix" && \
+#	mv $@.tmp $@
+#.PRECIOUS: $(TEMPLATE)
 
 %-min.owl: %.owl
 	robot \
@@ -45,12 +45,17 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
 	  filter --exclude-terms $(THIS_DIR)/exclude-terms.txt \
 	  -o $@
 
+PREFIX_CSV_PATH = $(PREFIX_DIR)/prefixes.csv
+PREFIX_YAML_PATH = $(PREFIX_DIR)/prefixes.yaml
+
 # -- MAIN TARGET --
 # A db is constructed from
 # (1) triples loaded using rdftab
 # (2) A relation-graph TSV
-%.db: %.owl %-$(RGSUFFIX).tsv $(TEMPLATE)
-	cp $(TEMPLATE) $@.tmp && \
+%.db: %.owl %-$(RGSUFFIX).tsv $(PREFIX_CSV_PATH)
+	rm -f $@.tmp && \
+	cat $(THIS_DIR)/sql_schema/semsql.sql | sqlite3 $@.tmp && \
+	echo .exit | sqlite3 -echo $@.tmp -cmd ".mode csv" -cmd ".import $(PREFIX_CSV_PATH) prefix" && \
 	rdftab $@.tmp < $< && \
 	sqlite3 $@.tmp -cmd '.separator "\t"' ".import $*-$(RGSUFFIX).tsv entailed_edge" && \
 	gzip -f $*-$(RGSUFFIX).tsv && \
@@ -61,22 +66,14 @@ $(TEMPLATE): $(THIS_DIR)/sql_schema/semsql.sql build_prefixes
 
 # -- ENTAILED EDGES --
 # relation-graph is used to compute entailed edges.
-#
-# this currently requires a few different steps, because
-#  - RG currently outputs TTL
-#  - We need a TSV using correct prefixes/CURIEs to load into our db
-#
-# will be simplified in future. See:
-#  - https://github.com/balhoff/relation-graph/issues/123
-#  - https://github.com/balhoff/relation-graph/issues/25
-%-$(RGSUFFIX).tsv: %-min.owl %-properties.txt $(PREFIX_DIR)/prefixes.yaml
+%-$(RGSUFFIX).tsv: %-min.owl %-properties.txt $(PREFIX_YAML_PATH)
 	$(RG) --disable-owl-nothing true \
                        --ontology-file $<\
 		       $(RG_PROPERTIES) \
                        --output-file $@.tmp \
                        --equivalence-as-subclass true \
                        --mode TSV \
-		       --prefixes $(PREFIX_DIR)/prefixes.yaml \
+		       --prefixes $(PREFIX_YAML_PATH) \
 	               --output-individuals true \
 	               --output-subclasses true \
                        --reflexive-subclasses true && \
@@ -105,6 +102,6 @@ $(PREFIX_DIR)/prefixes.csv: $(PREFIX_DIR)/prefixes_curated.csv $(PREFIX_DIR)/pre
 	cat $^ > $@
 
 # see https://github.com/INCATools/relation-graph/issues/168
-$(PREFIX_DIR)/prefixes.yaml: $(PREFIX_DIR)/prefixes.csv
+$(PREFIX_YAML_PATH): $(PREFIX_CSV_PATH)
 	grep -v ^prefix, $< | grep -v ^obo, | perl -npe 's@,(.*)@: "$$1"@'  > $@.tmp && mv $@.tmp $@
 

@@ -326,7 +326,6 @@ class Makefile(YAMLRoot):
 
 # Enumerations
 class FormatEnum(EnumDefinitionImpl):
-
     n3 = PermissibleValue(text="n3", description="n3")
 
     _defn = EnumDefinition(
@@ -335,7 +334,6 @@ class FormatEnum(EnumDefinitionImpl):
 
 
 class CompressionEnum(EnumDefinitionImpl):
-
     gzip = PermissibleValue(text="gzip", description="gzip")
 
     _defn = EnumDefinition(
