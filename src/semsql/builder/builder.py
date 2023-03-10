@@ -28,12 +28,13 @@ class DockerConfig:
     memory: str = None
 
 
-def make(target: str, docker_config: Optional[DockerConfig] = None):
+def make(target: str, docker_config: Optional[DockerConfig] = None, prefix_csv_path = None):
     """
     Builds a target such as a SQLite file using the build.Makefile
 
     :param target: Make target
     :param docker_config: if passed, use ODK docker with the specific config
+    :param prefix_csv_path:
     """
     path_to_makefile = str(this_path / "build.Makefile")
     if docker_config is not None:
@@ -60,6 +61,8 @@ def make(target: str, docker_config: Optional[DockerConfig] = None):
     else:
         pre = []
     cmd = pre + ["make", target, "-f", path_to_makefile]
+    if prefix_csv_path:
+        cmd += [f"PREFIX_CSV_PATH={prefix_csv_path}"]
     logging.info(f"CMD={cmd}")
     subprocess.run(cmd)
 

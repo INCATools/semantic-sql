@@ -21,7 +21,7 @@ db/ncit.owl: download/ncit.owl
 
 
 download/fma.owl: STAMP
-	curl -L -s https://data.bioontology.org/ontologies/FMA/submissions/29/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	curl -L -s http://sig.biostr.washington.edu/share/downloads/fma/release/latest/fma.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
@@ -72,6 +72,17 @@ download/msio.owl: STAMP
 .PRECIOUS: download/msio.owl
 
 db/msio.owl: download/msio.owl
+	cp $< $@
+
+
+download/modl.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/Data-Semantics-Laboratory/modular-ontology-design-library/master/MODL.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/modl.owl
+
+db/modl.owl: download/modl.owl
 	cp $< $@
 
 
@@ -127,6 +138,17 @@ download/reacto.owl: STAMP
 .PRECIOUS: download/reacto.owl
 
 db/reacto.owl: download/reacto.owl
+	cp $< $@
+
+
+download/bcio.owl: STAMP
+	curl -L -s http://humanbehaviourchange.org/ontology/bcio.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/bcio.owl
+
+db/bcio.owl: download/bcio.owl
 	cp $< $@
 
 
@@ -503,4 +525,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit fma maxo foodon chebiplus msio phenio comploinc bero aio reacto go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao edam sweetAll lov schema-dot-org cellosaurus cosmo dbpendiaont co_324 hgnc.genegroup hgnc dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal drugmechdb rxnorm
+EXTRA_ONTOLOGIES = chiro ncit fma maxo foodon chebiplus msio modl phenio comploinc bero aio reacto bcio go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao edam sweetAll lov schema-dot-org cellosaurus cosmo dbpendiaont co_324 hgnc.genegroup hgnc dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal drugmechdb rxnorm

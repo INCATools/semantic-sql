@@ -54,8 +54,10 @@ prefix,base
 FMA,http://purl.org/sig/ont/fma/fma
 MSIO,http://purl.obolibrary.org/obo/MSIO_
 nmrCV,http://nmrML.org/nmrCV#NMR:
+modl,https://archive.org/services/purl/purl/modular_ontology_design_library#
 biolink,https://w3id.org/biolink/vocab/
 loinc,https://loinc.org/
+BCIO,http://humanbehaviourchange.org/ontology/BCIO_
 orcid,https://orcid.org/
 evs.ncit,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
 old.fix,http://purl.org/obo/owl/FIX#
