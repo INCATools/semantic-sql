@@ -64,16 +64,19 @@ PREFIX_YAML_PATH = $(PREFIX_DIR)/prefixes.yaml
 	mv $@.tmp $@
 .PRECIOUS: %.db
 
+%-prefixes.yaml: $(PREFIX_CSV_PATH)
+	grep -v ^prefix, $< | grep -v ^obo, | perl -npe 's@,(.*)@: "$$1"@'  > $@.tmp && mv $@.tmp $@
+
 # -- ENTAILED EDGES --
 # relation-graph is used to compute entailed edges.
-%-$(RGSUFFIX).tsv: %-min.owl %-properties.txt $(PREFIX_YAML_PATH)
+%-$(RGSUFFIX).tsv: %-min.owl %-properties.txt %-prefixes.yaml
 	$(RG) --disable-owl-nothing true \
                        --ontology-file $<\
 		       $(RG_PROPERTIES) \
                        --output-file $@.tmp \
                        --equivalence-as-subclass true \
                        --mode TSV \
-		       --prefixes $(PREFIX_YAML_PATH) \
+		       --prefixes $*-prefixes.yaml \
 	               --output-individuals true \
 	               --output-subclasses true \
                        --reflexive-subclasses true && \

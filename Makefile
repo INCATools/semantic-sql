@@ -220,6 +220,9 @@ s3-deploy:
 	aws s3 sync stage s3://bbop-sqlite --acl public-read && \
 	aws s3 sync stage s3://bbop-sqlite/releases/$(DATE) --acl public-read
 
+s3-deploy-%: stage/%.db.gz
+	aws s3 cp $< s3://bbop-sqlite/$*.db.gz --acl public-read
+
 ################################################
 #### Commands for building the Docker image ####
 ################################################
