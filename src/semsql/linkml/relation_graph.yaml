@@ -54,6 +54,9 @@ classes:
         FROM rdfs_subclass_of_named_statement
          UNION
         SELECT subject, predicate, object
+         FROM rdfs_subproperty_of_statement
+         UNION
+        SELECT subject, predicate, object
         FROM rdf_type_statement WHERE object IN (SELECT id FROM class_node)
     in_subset:
     - base table
