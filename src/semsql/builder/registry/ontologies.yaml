@@ -58,6 +58,10 @@ ontologies:
     url: http://humanbehaviourchange.org/ontology/bcio.owl
     prefixmap:
       BCIO: http://humanbehaviourchange.org/ontology/BCIO_
+  oeo:
+    url: http://openenergy-platform.org/ontology/oeo/
+    prefixmap:
+      OEO: http://openenergy-platform.org/ontology/oeo/OEO_
   go:
     url: http://purl.obolibrary.org/obo/go/extensions/go-plus.owl
   go-lego:
@@ -91,7 +95,7 @@ ontologies:
       mlo: http://www.a2rd.net.br/mlo#
   ito:
     url: https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip
-    zip_extract_file: ITO.owl
+    zip_extract_file: ITO.owl      
   reactome-Homo-sapiens:
     url: https://reactome.org/download/current/biopax.zip
     zip_extract_file: Homo_sapiens.owl
@@ -141,6 +145,11 @@ ontologies:
 
 ## PyOBO products      
 ## See https://github.com/INCATools/semantic-sql/issues/45
+  interpro:
+    url: https://w3id.org/biopragmatics/resources/interpro/92.0/interpro.obo
+    format: obo
+    prefixmap:
+      InterPro: http://purl.obolibrary.org/obo/interpro_
   hgnc.genegroup:
     url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/hgnc.genegroup/hgnc.genegroup.owl.gz
     compression: gzip

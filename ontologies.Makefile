@@ -152,6 +152,17 @@ db/bcio.owl: download/bcio.owl
 	cp $< $@
 
 
+download/oeo.owl: STAMP
+	curl -L -s http://openenergy-platform.org/ontology/oeo/ > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/oeo.owl
+
+db/oeo.owl: download/oeo.owl
+	cp $< $@
+
+
 download/go.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/go/extensions/go-plus.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -383,6 +394,17 @@ db/co_324.owl: download/co_324.owl
 	cp $< $@
 
 
+download/interpro.owl: STAMP
+	curl -L -s https://w3id.org/biopragmatics/resources/interpro/92.0/interpro.obo > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/interpro.owl
+
+db/interpro.owl: download/interpro.owl
+	robot merge -i $< -o $@
+
+
 download/hgnc.genegroup.owl: STAMP
 	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/hgnc.genegroup/hgnc.genegroup.owl.gz | gzip -dc > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -525,4 +547,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit fma maxo foodon chebiplus msio modl phenio comploinc bero aio reacto bcio go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao edam sweetAll lov schema-dot-org cellosaurus cosmo dbpendiaont co_324 hgnc.genegroup hgnc dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal drugmechdb rxnorm
+EXTRA_ONTOLOGIES = chiro ncit fma maxo foodon chebiplus msio modl phenio comploinc bero aio reacto bcio oeo go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao edam sweetAll lov schema-dot-org cellosaurus cosmo dbpendiaont co_324 interpro hgnc.genegroup hgnc dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal drugmechdb rxnorm
