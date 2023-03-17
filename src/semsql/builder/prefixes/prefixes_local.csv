@@ -6,6 +6,7 @@ modl,https://archive.org/services/purl/purl/modular_ontology_design_library#
 biolink,https://w3id.org/biolink/vocab/
 loinc,https://loinc.org/
 BCIO,http://humanbehaviourchange.org/ontology/BCIO_
+OEO,http://openenergy-platform.org/ontology/oeo/OEO_
 orcid,https://orcid.org/
 evs.ncit,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
 old.fix,http://purl.org/obo/owl/FIX#
@@ -13,6 +14,7 @@ mlo,http://www.a2rd.net.br/mlo#
 dbpediaont,http://dbpedia.org/ontology/
 dbpedia,http://dbpedia.org/
 co_324,https://cropontology.org/rdf/CO_324:
+InterPro,http://purl.obolibrary.org/obo/interpro_
 hgnc.genegroup,http://purl.obolibrary.org/obo/hgnc.genegroup_
 hgnc,http://purl.obolibrary.org/obo/hgnc_
 hgnc.genegroup,http://purl.obolibrary.org/obo/dictybase_
