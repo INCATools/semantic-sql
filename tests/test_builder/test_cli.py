@@ -36,10 +36,17 @@ class TestCommandLineInterface(unittest.TestCase):
         )
 
     def test_view2table(self):
-        result = self.runner.invoke(main, ["view2table", TEST_DB])
-        result.stdout
-        result.stderr
-        self.assertEqual(0, result.exit_code)
+        cases = [
+            (["--no-index"], "CREATE TABLE deprecated_node AS SELECT"),
+            (["edge", "--no-index"], "CREATE TABLE edge AS SELECT"),
+            (["edge", "--index"], "CREATE INDEX edge_subject"),
+            (["edge", "--full-index"], "CREATE INDEX edge_subject_predicate_object"),
+            (["edge", "rdfs_label_statement"], "CREATE TABLE rdfs_label_statement"),
+        ]
+        for args, expected in cases:
+            result = self.runner.invoke(main, ["view2table"] + args)
+            self.assertIn(expected, result.stdout)
+            self.assertEqual(0, result.exit_code)
 
     @unittest.skip("Requires Docker or installing dependencies")
     def test_make_db(self):

@@ -152,6 +152,17 @@ db/bcio.owl: download/bcio.owl
 	cp $< $@
 
 
+download/icd10who.owl: STAMP
+	curl -L -s https://github.com/monarch-initiative/mondo-ingest/releases/download/v2023-04-05/icd10who.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/icd10who.owl
+
+db/icd10who.owl: download/icd10who.owl
+	cp $< $@
+
+
 download/oeo.owl: STAMP
 	curl -L -s http://openenergy-platform.org/ontology/oeo/ > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -160,6 +171,17 @@ download/oeo.owl: STAMP
 .PRECIOUS: download/oeo.owl
 
 db/oeo.owl: download/oeo.owl
+	cp $< $@
+
+
+download/omop.owl: STAMP
+	curl -L -s None > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/omop.owl
+
+db/omop.owl: download/omop.owl
 	cp $< $@
 
 
@@ -306,6 +328,17 @@ db/hcao.owl: download/hcao.owl
 	cp $< $@
 
 
+download/hpinternational.owl: STAMP
+	curl -L -s http://purl.obolibrary.org/obo/hp/hp-international.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/hpinternational.owl
+
+db/hpinternational.owl: download/hpinternational.owl
+	cp $< $@
+
+
 download/edam.owl: STAMP
 	curl -L -s http://edamontology.org/EDAM.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -350,6 +383,17 @@ db/schema-dot-org.owl: download/schema-dot-org.owl
 	cp $< $@
 
 
+download/prov.owl: STAMP
+	curl -L -s http://www.w3.org/ns/prov.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/prov.owl
+
+db/prov.owl: download/prov.owl
+	cp $< $@
+
+
 download/cellosaurus.owl: STAMP
 	curl -L -s https://raw.githubusercontent.com/calipho-sib/cellosaurus/master/cellosaurus.obo > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -370,6 +414,17 @@ download/cosmo.owl: STAMP
 
 db/cosmo.owl: download/cosmo.owl
 	robot merge -i $< -o $@
+
+
+download/fhkb.owl: STAMP
+	curl -L -s None > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/fhkb.owl
+
+db/fhkb.owl: download/fhkb.owl
+	cp $< $@
 
 
 download/dbpendiaont.owl: STAMP
@@ -425,6 +480,17 @@ download/hgnc.owl: STAMP
 
 db/hgnc.owl: download/hgnc.owl
 	cp $< $@
+
+
+download/sgd.owl: STAMP
+	curl -L -s https://w3id.org/biopragmatics/resources/sgd/sgd.obo > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/sgd.owl
+
+db/sgd.owl: download/sgd.owl
+	robot merge -i $< -o $@
 
 
 download/dictybase.owl: STAMP
@@ -547,4 +613,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit fma maxo foodon chebiplus msio modl phenio comploinc bero aio reacto bcio oeo go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao edam sweetAll lov schema-dot-org cellosaurus cosmo dbpendiaont co_324 interpro hgnc.genegroup hgnc dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal drugmechdb rxnorm
+EXTRA_ONTOLOGIES = chiro ncit fma maxo foodon chebiplus msio modl phenio comploinc bero aio reacto bcio icd10who oeo omop go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao hpinternational edam sweetAll lov schema-dot-org prov cellosaurus cosmo fhkb dbpendiaont co_324 interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal drugmechdb rxnorm

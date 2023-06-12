@@ -58,10 +58,18 @@ ontologies:
     url: http://humanbehaviourchange.org/ontology/bcio.owl
     prefixmap:
       BCIO: http://humanbehaviourchange.org/ontology/BCIO_
+      BCIOR: http://humanbehaviourchange.org/ontology/BCIOR_
+  icd10who:
+    url: https://github.com/monarch-initiative/mondo-ingest/releases/download/v2023-04-05/icd10who.owl
+    prefixmap:
+      icd10who: https://icd.who.int/browse10/2019/en#/
   oeo:
     url: http://openenergy-platform.org/ontology/oeo/
     prefixmap:
       OEO: http://openenergy-platform.org/ontology/oeo/OEO_
+  omop:
+    prefixmap:
+      omop: https://athena.ohdsi.org/search-terms/terms/
   go:
     url: http://purl.obolibrary.org/obo/go/extensions/go-plus.owl
   go-lego:
@@ -104,6 +112,8 @@ ontologies:
     has_imports: true
   hcao:
     url: https://raw.githubusercontent.com/HumanCellAtlas/ontology/master/hcao.owl
+  hpinternational:
+    url:  http://purl.obolibrary.org/obo/hp/hp-international.owl
   edam:
     url: http://edamontology.org/EDAM.owl
   sweetAll:
@@ -118,17 +128,32 @@ ontologies:
     compression: gzip
   schema-dot-org:
     url: https://schema.org/version/latest/schemaorg-current-https.rdf
+  prov:
+    url: http://www.w3.org/ns/prov.owl
+    prefixmap:
+      prov: "http://www.w3.org/ns/prov#"
+  #qudtunit:
+  #  url: http://qudt.org/2.1/vocab/unit
+  #  prefixmap:
+  #    qudtunit: http://qudt.org/2.1/vocab/unit/
   cellosaurus:
     url: https://raw.githubusercontent.com/calipho-sib/cellosaurus/master/cellosaurus.obo
     format: obo
+    prefixmap:
+      cellosaurus: http://purl.obolibrary.org/obo/Cellosaurus#CVCL_
   cosmo:
     url: https://micra.com/COSMO/COSMO.owl
     has_imports: true
+  fhkb:
+    prefixmap:
+      fhkb: http://owl.cs.manchester.ac.uk/tutorials/fhkb#
   dbpendiaont:
     url: "https://databus.dbpedia.org/ontologies/dbpedia.org/ontology--DEV/2023.01.03-072003/ontology--DEV_type=parsed.owl"
     prefixmap:
       dbpediaont: http://dbpedia.org/ontology/
       dbpedia: http://dbpedia.org/
+  #sdtm:
+  #  url: https://evs.nci.nih.gov/ftp1/CDISC/SDTM/SDTM%20Terminology.OWL.zip
   #empathi:
   #  url: https://raw.githubusercontent.com/shekarpour/empathi.io/master/empathi.owl
   #  format: owlx
@@ -149,7 +174,7 @@ ontologies:
     url: https://w3id.org/biopragmatics/resources/interpro/92.0/interpro.obo
     format: obo
     prefixmap:
-      InterPro: http://purl.obolibrary.org/obo/interpro_
+      interpro: http://purl.obolibrary.org/obo/interpro_
   hgnc.genegroup:
     url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/hgnc.genegroup/hgnc.genegroup.owl.gz
     compression: gzip
@@ -160,6 +185,11 @@ ontologies:
     compression: gzip
     prefixmap:
       hgnc: http://purl.obolibrary.org/obo/hgnc_
+  sgd:
+    url: https://w3id.org/biopragmatics/resources/sgd/sgd.obo
+    format: obo
+    prefixmap:
+      SGD: http://purl.obolibrary.org/obo/sgd_
   dictybase:
     url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/dictybase/dictybase.owl.gz
     compression: gzip
