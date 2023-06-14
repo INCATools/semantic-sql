@@ -20,7 +20,7 @@ def powerset(iterable):
     () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
     """
     s = list(iterable)
-    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
+    return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
 
 
 @click.group()
@@ -113,14 +113,18 @@ def query(input, query):
 
 @main.command()
 @click.argument("views", nargs=-1)
-@click.option("--index/--no-index",
-              default=True,
-              show_default=True,
-              help="Create indexes on each column")
-@click.option("--full-index/--no-full-index",
-              default=False,
-              show_default=True,
-              help="Create indexes on all combos of columns (powerset)")
+@click.option(
+    "--index/--no-index",
+    default=True,
+    show_default=True,
+    help="Create indexes on each column",
+)
+@click.option(
+    "--full-index/--no-full-index",
+    default=False,
+    show_default=True,
+    help="Create indexes on all combos of columns (powerset)",
+)
 @click.option(
     "--schema",
     "-s",
@@ -152,7 +156,9 @@ def view2table(views, schema, index: bool, full_index: bool):
                     if full_index:
                         for combo in powerset(colnames):
                             if len(combo) > 1:
-                                print(f"CREATE INDEX {tn}_{'_'.join(combo)} ON {tn}({','.join(combo)});")
+                                print(
+                                    f"CREATE INDEX {tn}_{'_'.join(combo)} ON {tn}({','.join(combo)});"
+                                )
             else:
                 logging.info(f"No view for {cn}")
 
