@@ -41,7 +41,7 @@ help:
 
 %-min.owl: %.owl
 	robot \
-	  remove -i $< --axioms "equivalent disjoint annotation" \
+	  remove -i $< --axioms "equivalent disjoint annotation abox type" \
 	  filter --exclude-terms $(THIS_DIR)/exclude-terms.txt \
 	  -o $@
 

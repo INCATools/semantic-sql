@@ -63,11 +63,16 @@ orcid,https://orcid.org/
 evs.ncit,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
 old.fix,http://purl.org/obo/owl/FIX#
 mlo,http://www.a2rd.net.br/mlo#
+prov,http://www.w3.org/ns/prov#
+cellosaurus,http://purl.obolibrary.org/obo/Cellosaurus#CVCL_
+fhkb,http://owl.cs.manchester.ac.uk/tutorials/fhkb#
 dbpediaont,http://dbpedia.org/ontology/
 dbpedia,http://dbpedia.org/
 co_324,https://cropontology.org/rdf/CO_324:
+interpro,http://purl.obolibrary.org/obo/interpro_
 hgnc.genegroup,http://purl.obolibrary.org/obo/hgnc.genegroup_
 hgnc,http://purl.obolibrary.org/obo/hgnc_
+SGD,http://purl.obolibrary.org/obo/sgd_
 hgnc.genegroup,http://purl.obolibrary.org/obo/dictybase_
 EC,http://purl.obolibrary.org/obo/eccode_
 uniprot.obo,http://purl.obolibrary.org/obo/uniprot_

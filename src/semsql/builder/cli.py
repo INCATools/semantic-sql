@@ -1,4 +1,5 @@
 import logging
+from itertools import chain, combinations
 
 import click
 from linkml_runtime import SchemaView
@@ -8,6 +9,18 @@ from sqlalchemy import text
 import semsql.builder.builder as builder
 from semsql.linkml import path_to_schema
 from semsql.sqlutils.viewgen import get_viewdef
+
+
+def powerset(iterable):
+    """calculate powerset.
+
+    See: https://docs.python.org/3/library/itertools.html#itertools-recipes
+
+    >>> powerset([1,2,3])
+    () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
+    """
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
 
 
 @click.group()
@@ -100,19 +113,30 @@ def query(input, query):
 
 @main.command()
 @click.argument("views", nargs=-1)
-@click.option("--index/--no-index", default=True, help="Create indexes on each column")
+@click.option(
+    "--index/--no-index",
+    default=True,
+    show_default=True,
+    help="Create indexes on each column",
+)
+@click.option(
+    "--full-index/--no-full-index",
+    default=False,
+    show_default=True,
+    help="Create indexes on all combos of columns (powerset)",
+)
 @click.option(
     "--schema",
     "-s",
     help="Path o schema (optional)",
 )
-def view2table(views, schema, index: bool):
+def view2table(views, schema, index: bool, full_index: bool):
     """
     Generates a command that turns a view into a table
 
     Example usage:
 
-        semsql view2table rdfs_label_statement | sqlite3 db/pato.db
+        semsql view2table rdfs_label_statement --index | sqlite3 db/pato.db
 
     """
     if not schema:
@@ -125,12 +149,18 @@ def view2table(views, schema, index: bool):
             if view is not None:
                 print(f"DROP VIEW {tn};")
                 print(f"CREATE TABLE {tn} AS {view};")
-                if index:
-                    for sn in sv.class_slots(cn):
-                        colname = underscore(sn)
+                if index or full_index:
+                    colnames = [underscore(sn) for sn in sv.class_slots(cn)]
+                    for colname in colnames:
                         print(f"CREATE INDEX {tn}_{colname} ON {tn}({colname});")
+                    if full_index:
+                        for combo in powerset(colnames):
+                            if len(combo) > 1:
+                                print(
+                                    f"CREATE INDEX {tn}_{'_'.join(combo)} ON {tn}({','.join(combo)});"
+                                )
             else:
-                logging.error(f"No view for {cn}")
+                logging.info(f"No view for {cn}")
 
 
 if __name__ == "__main__":
