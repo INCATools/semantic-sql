@@ -205,3 +205,10 @@ runoak -i sqlite:envo.owl search t~biome
 
 Even if using OAK, it can be useful to access SQL tables directly to do complex multi-join queries in a performant way.
 
+## Optimization
+
+```bash
+poetry run semsql view2table edge --full-index | sqlite3 $db/mydb.db
+```
+
+See [indexes](indexes) for some ready-made indexes

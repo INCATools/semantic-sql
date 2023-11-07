@@ -220,7 +220,9 @@ bin/%:
 DATE = $(shell date -u +"%Y-%m-%d")
 
 s3-deploy:
-	aws s3 sync stage s3://bbop-sqlite --acl public-read && \
+	aws s3 sync stage s3://bbop-sqlite --acl public-read
+
+s3-version:
 	aws s3 sync stage s3://bbop-sqlite/releases/$(DATE) --acl public-read
 
 s3-deploy-%: stage/%.db.gz

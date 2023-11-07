@@ -163,10 +163,10 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
         # main build target
         target = f"db/{ont.id}.owl"
         dependencies = [f"download/{ont.id}.owl"]
-        if ont.has_imports or (ont.format and ont.format != "rdfxml"):
-            command = "robot merge -i $< -o $@"
-        elif ont.build_command:
+        if ont.build_command:
             command = ont.build_command.format(ont=ont)
+        elif ont.has_imports or (ont.format and ont.format != "rdfxml"):
+            command = "robot merge -i $< -o $@"
         else:
             command = "cp $< $@"
         rule = MakefileRule(
