@@ -205,6 +205,7 @@ ontologies:
 ## See https://github.com/INCATools/semantic-sql/issues/45
   interpro:
     url: https://w3id.org/biopragmatics/resources/interpro/interpro.obo
+    build_command: "perl -npe 's@go:@GO:@g;s@ro:@RO:@g;s@interpro:@InterPro:@g' $< > $@.tmp && robot convert -i $@.tmp -o $@"
     format: obo
     prefixmap:
       InterPro: http://purl.obolibrary.org/obo/InterPro_
