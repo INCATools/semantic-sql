@@ -49,3 +49,15 @@ wikidata,http://www.wikidata.org/entity/
 schema,https://schema.org/
 ICD10CM,http://purl.bioontology.org/ontology/ICD10CM/
 snomedct,http://snomed.info/id/
+cc,http://creativecommons.org/licenses/
+HGNC,http://identifiers.org/hgnc/
+MEDDRA,http://identifiers.org/meddra/
+MESH,http://identifiers.org/mesh/
+MEDGEN,http://identifiers.org/medgen/
+SCTID,http://identifiers.org/snomedct/
+UMLS,http://linkedlifedata.com/resource/umls/id/
+orcid,https://orcid.org/
+swrl,http://www.w3.org/2003/11/swrl#
+semapv,https://w3id.org/semapv/vocab/
+sssom,https://w3id.org/sssom/
+CLINGEN,https://www.clinicalgenome.org/affiliation/
