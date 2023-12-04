@@ -545,7 +545,7 @@ download/interpro.owl: STAMP
 .PRECIOUS: download/interpro.owl
 
 db/interpro.owl: download/interpro.owl
-	perl -npe 's@go:@GO:@g;s@ro:@RO:@g;s@interpro:@InterPro:@g' $< > $@.tmp && robot convert -i $@.tmp -o $@
+	perl -npe 's@ go:@ GO:@g;s@ ro:@ RO:@g;s@ interpro:@ InterPro:@g' $< > $@.tmp && robot convert -i $@.tmp -o $@
 
 
 download/hgnc.genegroup.owl: STAMP
