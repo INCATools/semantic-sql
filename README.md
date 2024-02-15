@@ -20,7 +20,7 @@ sqlite> SELECT * FROM rdfs_label_statement WHERE value LIKE 'Abnormality of %';
 |HP:0000032|HP:0000032|rdfs:label||Abnormality of male external genitalia|xsd:string||
 
 
-Ready-made SQLite3 builds can also be downloaded for any ontology in [OBO](http://obofoundry.org), using URLs such as https://s3.amazonaws.com/bbop-sqlite/hp.db
+Ready-made SQLite3 builds can also be downloaded for any ontology in [OBO](http://obofoundry.org), using URLs such as https://s3.amazonaws.com/bbop-sqlite/hp.db.gz
 
 [relation-graph](https://github.com/balhoff/relation-graph/) is used to pre-generate tables of [entailed edges](https://incatools.github.io/semantic-sql/EntailedEdge/). For example,
 all is-a and part-of ancestors of [finger](http://purl.obolibrary.org/obo/UBERON_0002389) in Uberon:
@@ -73,7 +73,7 @@ semsql download obi -o obi.db
 
 Or simply download using URL of the form:
 
-- https://s3.amazonaws.com/bbop-sqlite/hp.db
+- https://s3.amazonaws.com/bbop-sqlite/hp.db.gz
 
 ## Attaching databases
 
@@ -138,7 +138,7 @@ This assumes `foo.owl` is in the same folder
 
 There are two docker images that can be used:
 
-- ODK
+- [ODK](https://hub.docker.com/r/obolibrary/odkfull)
 - [semantic-sql](https://hub.docker.com/repository/docker/linkml/semantic-sql)
 
 The ODK image may lag behind
