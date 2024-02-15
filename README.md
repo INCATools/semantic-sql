@@ -138,7 +138,7 @@ This assumes `foo.owl` is in the same folder
 
 There are two docker images that can be used:
 
-- ODK
+- [ODK](https://hub.docker.com/r/obolibrary/odkfull)
 - [semantic-sql](https://hub.docker.com/repository/docker/linkml/semantic-sql)
 
 The ODK image may lag behind
