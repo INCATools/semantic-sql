@@ -97,6 +97,17 @@ db/phenio.owl: download/phenio.owl
 	cp $< $@
 
 
+download/phenio_test.owl: STAMP
+	curl -L -s https://github.com/monarch-initiative/phenio/releases/latest/download/phenio-test.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/phenio_test.owl
+
+db/phenio_test.owl: download/phenio_test.owl
+	cp $< $@
+
+
 download/comploinc.owl: STAMP
 	curl -L -s https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -251,6 +262,17 @@ db/iof.owl: download/iof.owl
 	robot relax -i $< merge -o $@
 
 
+download/upa.owl: STAMP
+	curl -L -s http://purl.obolibrary.org/obo/upa.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/upa.owl
+
+db/upa.owl: download/upa.owl
+	cp $< $@
+
+
 download/go.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/go/extensions/go-plus.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -270,6 +292,17 @@ download/go-lego.owl: STAMP
 .PRECIOUS: download/go-lego.owl
 
 db/go-lego.owl: download/go-lego.owl
+	cp $< $@
+
+
+download/neo.owl: STAMP
+	curl -L -s http://purl.obolibrary.org/obo/go/noctua/neo.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/neo.owl
+
+db/neo.owl: download/neo.owl
 	cp $< $@
 
 
@@ -669,6 +702,17 @@ db/complexportal.owl: download/complexportal.owl
 	cp $< $@
 
 
+download/wikipathways.owl: STAMP
+	curl -L -s https://w3id.org/biopragmatics/resources/wikipathways/wikipathways.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/wikipathways.owl
+
+db/wikipathways.owl: download/wikipathways.owl
+	cp $< $@
+
+
 download/drugmechdb.owl: STAMP
 	curl -L -s None > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -746,6 +790,61 @@ db/mixs.owl: download/mixs.owl
 	robot merge -i $< reason  -o $@.tmp.owl && perl -npe 's@_6_2_rc@@g;s@-6-2-rc@@g' $@.tmp.owl > $@
 
 
+download/fibo.owl: STAMP
+	curl -L -s https://spec.edmcouncil.org/fibo/ontology/AboutFIBOProd/ > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/fibo.owl
+
+db/fibo.owl: download/fibo.owl
+	robot merge -i $<  -o $@
+
+
+download/bfo2020.owl: STAMP
+	curl -L -s http://purl.obolibrary.org/obo/bfo/2020/bfo.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/bfo2020.owl
+
+db/bfo2020.owl: download/bfo2020.owl
+	cp $< $@
+
+
+download/bfo2020_core.owl: STAMP
+	curl -L -s http://purl.obolibrary.org/obo/bfo/2020/bfo-core.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/bfo2020_core.owl
+
+db/bfo2020_core.owl: download/bfo2020_core.owl
+	cp $< $@
+
+
+download/bfo2020_notime.owl: STAMP
+	curl -L -s http://purl.obolibrary.org/obo/bfo/2020/notime/bfo.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/bfo2020_notime.owl
+
+db/bfo2020_notime.owl: download/bfo2020_notime.owl
+	cp $< $@
+
+
+download/bfo2020_time.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/BFO-ontology/BFO-2020/master/src/owl/profiles/temporal%20extensions/temporalized%20relations/owl/bfo-temporalized-relations.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/bfo2020_time.owl
+
+db/bfo2020_time.owl: download/bfo2020_time.owl
+	cp $< $@
+
+
 download/%.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -756,4 +855,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = chiro ncit fma maxo foodon chebiplus msio modl phenio comploinc bero aio reacto bcio icd10who ordo gard mondo-ingest oeo biovoices omop occo iof go go-lego bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao hpinternational edam sweetAll lov schema-dot-org prov cellosaurus cosmo fhkb dbpendiaont uberoncm co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal drugmechdb rxnorm vccf ontobiotope ecosim nmdc_schema mixs
+EXTRA_ONTOLOGIES = chiro ncit fma maxo foodon chebiplus msio modl phenio phenio_test comploinc bero aio reacto bcio icd10who ordo gard mondo-ingest oeo biovoices omop occo iof upa go go-lego neo bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao hpinternational edam sweetAll lov schema-dot-org prov cellosaurus cosmo fhkb dbpendiaont uberoncm co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways drugmechdb rxnorm vccf ontobiotope ecosim nmdc_schema mixs fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
