@@ -49,6 +49,18 @@ wikidata,http://www.wikidata.org/entity/
 schema,https://schema.org/
 ICD10CM,http://purl.bioontology.org/ontology/ICD10CM/
 snomedct,http://snomed.info/id/
+cc,http://creativecommons.org/licenses/
+HGNC,http://identifiers.org/hgnc/
+MEDDRA,http://identifiers.org/meddra/
+MESH,http://identifiers.org/mesh/
+MEDGEN,http://identifiers.org/medgen/
+SCTID,http://identifiers.org/snomedct/
+UMLS,http://linkedlifedata.com/resource/umls/id/
+orcid,https://orcid.org/
+swrl,http://www.w3.org/2003/11/swrl#
+semapv,https://w3id.org/semapv/vocab/
+sssom,https://w3id.org/sssom/
+CLINGEN,https://www.clinicalgenome.org/affiliation/
 prefix,base
 FMA,http://purl.org/sig/ont/fma/fma
 MSIO,http://purl.obolibrary.org/obo/MSIO_
@@ -68,6 +80,7 @@ ontorion,http://ontorion.com/namespace#
 omop,https://athena.ohdsi.org/search-terms/terms/
 OccO,http://purl.obolibrary.org/obo/OccO_
 IOFcore,https://spec.industrialontologies.org/ontology/
+UPa,http://purl.obolibrary.org/obo/UPa_
 orcid,https://orcid.org/
 evs.ncit,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
 old.fix,http://purl.org/obo/owl/FIX#
@@ -93,6 +106,7 @@ swisslipid,http://purl.obolibrary.org/obo/swisslipid_
 drugbank,http://purl.obolibrary.org/obo/drugbank_
 drugbank,http://purl.obolibrary.org/obo/drugcentral_
 complexportal,http://purl.obolibrary.org/obo/complexportal_
+complexportal,http://purl.obolibrary.org/obo/wikipathways_
 MESH,http://id.nlm.nih.gov/mesh/
 RXNORM,http://purl.bioontology.org/ontology/RXNORM/
 OBT,http://purl.obolibrary.org/obo/OBT_
@@ -102,6 +116,8 @@ nmdc,https://w3id.org/nmdc/
 linkml,https://w3id.org/linkml/
 mixs,https://w3id.org/mixs/
 mixs,https://w3id.org/mixs/
+fibo,https://spec.edmcouncil.org/fibo/ontology/
+cmnsav,https://www.omg.org/spec/Commons/AnnotationVocabulary/
 RBO,http://purl.obolibrary.org/obo/RBO_
 RBO,http://purl.obolibrary.org/obo/RBO_
 CLYH,http://purl.obolibrary.org/obo/CLYH_
