@@ -14,6 +14,7 @@ OMIM,https://omim.org/entry/
 OMIMPS,https://www.omim.org/phenotypicSeries/PS
 CHR,http://purl.obolibrary.org/obo/CHR_
 OEO,http://openenergy-platform.org/ontology/oeo/OEO_
+SDGIO,http://purl.unep.org/sdg/SDGIO_
 ontorion,http://ontorion.com/namespace#
 omop,https://athena.ohdsi.org/search-terms/terms/
 CCO,http://www.ontologyrepository.com/CommonCoreOntologies/
