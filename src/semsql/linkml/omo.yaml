@@ -9,44 +9,68 @@ imports:
 - owl
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
-  semsql_omo: https://w3id.org/semsql/omo
+  semsql: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
 default_curi_maps:
 - semweb_context
-default_prefix: semsql_omo
+default_prefix: semsql
 default_range: string
 classes:
   has_text_definition_statement:
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='IAO:0000115'
     is_a: node_to_value_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "IAO:0000115"
   has_oio_synonym_statement:
     is_a: node_to_value_statement
     abstract: true
+    union_of:
+      - has_exact_synonym_statement
+      - has_broad_synonym_statement
+      - has_narrow_synonym_statement
+      - has_related_synonym_statement
   has_exact_synonym_statement:
     exact_mappings:
     - oio:hasExactSynonym
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasExactSynonym'
     is_a: has_oio_synonym_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "oio:hasExactSynonym"
   has_broad_synonym_statement:
     exact_mappings:
     - oio:hasBroadSynonym
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasBroadSynonym'
     is_a: has_oio_synonym_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "oio:hasBroadSynonym"
   has_narrow_synonym_statement:
     exact_mappings:
     - oio:hasNarrowSynonym
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasNarrowSynonym'
     is_a: has_oio_synonym_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "oio:hasNarrowSynonym"
   has_related_synonym_statement:
     exact_mappings:
     - oio:hasRelatedSynonym
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasRelatedSynonym'
     is_a: has_oio_synonym_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "oio:hasRelatedSynonym"
   has_synonym_statement:
     is_a: node_to_value_statement
     union_of:
@@ -60,26 +84,46 @@ classes:
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='skos:hasExactMatch'
     is_a: has_match_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "skos:hasExactMatch"
   has_broad_match_statement:
     exact_mappings:
     - skos:hasBroadMatch
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='skos:hasBroadMatch'
     is_a: has_match_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "skos:hasBroadMatch"
   has_narrow_match_statement:
     exact_mappings:
     - skos:hasNarrowMatch
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='skos:hasNarrowMatch'
     is_a: has_match_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "skos:hasNarrowMatch"
   has_related_match_statement:
     exact_mappings:
     - skos:hasRelatedMatch
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='skos:hasRelatedMatch'
     is_a: has_match_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "skos:hasRelatedMatch"
   has_match_statement:
-    is_a: node_to_value_statement
+    is_a: has_mapping_statement
     union_of:
     - has_exact_match_statement
     - has_broad_match_statement
@@ -89,8 +133,13 @@ classes:
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='oio:hasDbXref'
     is_a: has_mapping_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "oio:hasDbXref"
   has_mapping_statement:
-    is_a: node_to_value_statement
+    is_a: statements
     union_of:
     - has_match_statement
     - has_dbxref_statement
@@ -126,6 +175,11 @@ classes:
     comments:
     - sqlview>> SELECT * FROM owl_axiom_annotation WHERE annotation_predicate = 'oio:hasDbXref'
     is_a: owl_axiom_annotation
+    classification_rules:
+      is_a: owl_axiom_annotation
+      slot_conditions:
+        annotation_predicate:
+          equals_string: "oio:hasDbXref"
 slots:
   evidence_type:
   publication:

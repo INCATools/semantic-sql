@@ -53,4 +53,5 @@ jobs:
         mkdir docs
         touch docs/.nojekyll
         cp -r src/docs/* docs/
-        make deploy-gh-doc
+        make gendoc
+        make mkd-gh-deploy

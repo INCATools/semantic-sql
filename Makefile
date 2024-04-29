@@ -21,6 +21,19 @@ STAGED_ONTOLOGIES = $(patsubst %, stage/%.db.gz, $(ALL_ONTS))
 
 TEST_ONTOLOGIES = go-nucleus robot-example
 
+# environment variables
+include config.env
+
+GEN_PARGS =
+ifdef LINKML_GENERATORS_PROJECT_ARGS
+GEN_PARGS = ${LINKML_GENERATORS_PROJECT_ARGS}
+endif
+
+GEN_DARGS =
+ifdef LINKML_GENERATORS_MARKDOWN_ARGS
+GEN_DARGS = ${LINKML_GENERATORS_MARKDOWN_ARGS}
+endif
+
 
 include ontologies.Makefile
 
@@ -175,7 +188,7 @@ include ontologies.Makefile
 
 MODULES = rdf owl obo omo relation_graph semsql
 
-GENDOC_ARGS = --no-mergeimports -d docs --template-directory docgen-templates
+GENDOC_ARGS = -d docs --template-directory docgen-templates
 
 # TODO: markdown gen should make modular output
 markdown-%: $(YAML_DIR)/%.yaml
@@ -183,8 +196,10 @@ markdown-%: $(YAML_DIR)/%.yaml
 markdown: $(patsubst %, markdown-%, $(MODULES))
 	$(RUN) gen-doc $(GENDOC_ARGS) $(YAML_DIR)/semsql.yaml
 
+gendoc: markdown
+
 gen-project: $(YAML_DIR)/semsql.yaml
-	$(RUN) gen-project $< -d project
+	$(RUN) gen-project  ${GEN_PARGS} $< -d project
 
 # Create SQL Create Table statements from linkml
 # 1. first use generic ddl generation
@@ -227,6 +242,24 @@ s3-version:
 
 s3-deploy-%: stage/%.db.gz
 	aws s3 cp $< s3://bbop-sqlite/$*.db.gz --acl public-read
+
+
+# Test documentation locally
+serve: mkd-serve
+
+# Python datamodel
+$(PYMODEL):
+	mkdir -p $@
+
+
+$(DOCDIR):
+	mkdir -p $@
+
+testdoc: gendoc serve
+
+MKDOCS = $(RUN) mkdocs
+mkd-%:
+	$(MKDOCS) $*
 
 ################################################
 #### Commands for building the Docker image ####

@@ -12,11 +12,11 @@ imports:
 - owl
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
-  semsql_rg: https://w3id.org/semsql/relation_graph
+  semsql: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
 default_curi_maps:
 - semweb_context
-default_prefix: semsql_rg
+default_prefix: semsql
 default_range: string
 slots:
   anchor_object:
@@ -201,6 +201,31 @@ classes:
     - subject
     - predicate
     - object
+  entailed_subclass_of_edge:
+    is_a: entailed_edge
+    slot_usage:
+      subject:
+        description: The subclass element of the triple
+        range: class_node
+      object:
+        description: The superclass element of the triple
+        range: class_node
+    classification_rules:
+      is_a: entailed_edge
+      slot_conditions:
+        predicate:
+          equals_string: "rdfs:subClassOf"
+  entailed_type_edge:
+    is_a: entailed_edge
+    slot_usage:
+      object:
+        description: The superclass element of the triple
+        range: class_node
+    classification_rules:
+      is_a: entailed_edge
+      slot_conditions:
+        predicate:
+          equals_string: "rdf:type"
   entailed_edge_cycle:
     description: An edge that composes with another edge to make a cycle
     comments:

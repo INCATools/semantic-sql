@@ -4,11 +4,11 @@ imports:
 - linkml:types
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
-  basics: https://w3id.org/semsql/basics
+  semsql: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
 default_curi_maps:
 - semweb_context
-default_prefix: basics
+default_prefix: semsql
 default_range: string
 slots:
   id:

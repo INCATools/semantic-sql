@@ -7,10 +7,12 @@ description: |-
 license: https://creativecommons.org/publicdomain/zero/1.0/
 
 prefixes:
-  semsql_ro: https://w3id.org/semsql/ro/
+  RO: http://purl.obolibrary.org/obo/RO_
+  BFO: http://purl.obolibrary.org/obo/BFO_
+  semsql: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
 
-default_prefix: semsql_ro
+default_prefix: semsql
 default_range: string
 
 default_curi_maps:
@@ -23,8 +25,20 @@ imports:
 
 classes:
 
-  conjugate acid of edge:
-    slot_uri: obo:chebi#is_conjugate_acid_of
+  part_of_edge:
+    slot_uri: BFO:0000050
     is_a: edge
-    comments:
-      - sqlview>> SELECT * FROM edge WHERE predicate = 'obo:chebi#is_conjugate_acid_of';
+    classification_rules:
+      is_a: edge
+      slot_conditions:
+        predicate:
+          equals_string: "BFO:0000050"
+
+  has_part_edge:
+    slot_uri: BFO:0000051
+    is_a: edge
+    classification_rules:
+      is_a: edge
+      slot_conditions:
+        predicate:
+          equals_string: "BFO:0000051"

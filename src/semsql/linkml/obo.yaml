@@ -9,11 +9,11 @@ imports:
 - omo
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
-  semsql_obo: https://w3id.org/semsql/obo
+  semsql: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
 default_curi_maps:
 - semweb_context
-default_prefix: semsql_obo
+default_prefix: semsql
 default_range: string
 classes:
   ontology_status_statement:

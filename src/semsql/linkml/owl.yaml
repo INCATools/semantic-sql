@@ -6,11 +6,11 @@ imports:
 - rdf
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
-  semsql_owl: https://w3id.org/semsql/owl
+  semsql: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
 default_curi_maps:
 - semweb_context
-default_prefix: semsql_owl
+default_prefix: semsql
 default_range: string
 slots:
   restriction:
@@ -42,49 +42,79 @@ slots:
   axiom_datatype:
     deprecated: use annotation_* instead
 classes:
+  typed_node:
+    is_a: node
+    comments:
+    - sqlview>> SELECT subject AS id, object AS node_type FROM rdf_type_statement
   ontology_node:
     description: A node representing an ontology
-    comments:
-    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:Ontology'
     see_also:
     - https://www.w3.org/TR/owl2-syntax/#Ontologies
-    is_a: node
+    is_a: typed_node
+    classification_rules:
+      is_a: typed_node
+      slot_conditions:
+        node_type:
+          equals_string: "owl:Ontology"
+  typed_property_node:
+    is_a: property_node
   object_property_node:
     description: A node representing an OWL object property
-    comments:
-    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ObjectProperty'
     see_also:
     - https://www.w3.org/TR/owl2-syntax/#Object_Properties
-    is_a: property_node
+    is_a: typed_property_node
+    classification_rules:
+      is_a: typed_node
+      slot_conditions:
+        node_type:
+          equals_string: "owl:ObjectProperty"
   transitive_property_node:
     description: A node representing an OWL transitive object property
-    comments:
-    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:TransitiveProperty'
     is_a: object_property_node
+    classification_rules:
+      is_a: typed_node
+      slot_conditions:
+        node_type:
+          equals_string: "owl:TransitiveProperty"
   symmetric_property_node:
     description: A node representing an OWL symmetric object property
-    comments:
-    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:SymmetricProperty'
     is_a: object_property_node
+    classification_rules:
+      is_a: typed_node
+      slot_conditions:
+        node_type:
+          equals_string: "owl:SymmetricProperty"
   reflexive_property_node:
     description: A node representing an OWL reflexive object property
-    comments:
-    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:IrreflexiveProperty'
     is_a: object_property_node
+    classification_rules:
+      is_a: typed_node
+      slot_conditions:
+        node_type:
+          equals_string: "owl:ReflexiveProperty"
   irreflexive_property_node:
     description: A node representing an OWL irreflexive object property
-    comments:
-    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:ReflexiveProperty'
     is_a: object_property_node
+    classification_rules:
+      is_a: typed_node
+      slot_conditions:
+        node_type:
+          equals_string: "owl:IrreflexiveProperty"
   asymmetric_property_node:
-    comments:
-    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AsymmetricProperty'
     is_a: object_property_node
+    classification_rules:
+      is_a: typed_node
+      slot_conditions:
+        node_type:
+          equals_string: "owl:AsymmetricProperty"
   annotation_property_node:
     description: A node representing an OWL annotation property
-    comments:
-    - sqlview>> SELECT DISTINCT subject AS id FROM rdf_type_statement WHERE object='owl:AnnotationProperty'
-    is_a: property_node
+    is_a: typed_property_node
+    classification_rules:
+      is_a: typed_node
+      slot_conditions:
+        node_type:
+          equals_string: "owl:AnnotationProperty"
   deprecated_node:
     aliases:
     - deprecated IRI
@@ -96,14 +126,29 @@ classes:
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='owl:imports'
     is_a: node_to_node_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "owl:imports"
   owl_inverse_of_statement:
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='owl:inverseOf'
     is_a: node_to_node_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "owl:inverseOf"
   owl_complement_of_statement:
     comments:
     - sqlview>> SELECT * FROM statements WHERE predicate='owl:complementOf'
     is_a: node_to_node_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "owl:complementOf"
   owl_equivalent_class_statement:
     description: A statement that connects two class_nodes where both classes are
       equivalent
@@ -119,11 +164,14 @@ classes:
         description: One of the two classes that are equivalent. No significance to
           subject vs object
         range: class_node
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "owl:equivalentClass"
   owl_same_as_statement:
     description: A statement that connects two individual nodes where both individual
       are equivalent
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='owl:sameAs'
     is_a: node_to_node_statement
     slot_usage:
       subject:
@@ -134,9 +182,12 @@ classes:
         description: One of the two classes that are equivalent. No significance to
           subject vs object
         range: named_individual_node
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "owl:sameAs"
   owl_disjoint_class_statement:
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='owl:disjointWith'
     is_a: node_to_node_statement
     slot_usage:
       subject:
@@ -147,6 +198,11 @@ classes:
         description: One of the two classes that are disjoint. No significance to
           subject vs object
         range: class_node
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "owl:disjointWith"
   owl_reified_axiom:
     description: An OWL axiom that has been reified - i.e. it includes an [id](id)
       field that uniquely identifies that axiom and which can be the subject of additional
