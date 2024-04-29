@@ -2,6 +2,9 @@ id: semantic-sql-registry
 description: Registry overlap for Semantic-SQL designed to supplement OBO vocabularies
 license: CC0
 ontologies:
+  upheno:
+    url: http://purl.obolibrary.org/obo/upheno.owl
+    build_command: "robot merge -i $<  -o $@"
   chiro:
     url: http://purl.obolibrary.org/obo/chiro.owl
     build_command: "robot relax -i $< merge -o $@"
@@ -75,6 +78,10 @@ ontologies:
     url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd10who.owl
     prefixmap:
       icd10who: https://icd.who.int/browse10/2019/en#/
+  #icd11f:
+  #  url: https://github.com/monarch-initiative/icd11/releases/latest/download/icd11foundation.owl
+  #  prefixmap:
+  #    icd11f: http://id.who.int/icd/entity/
   ordo:
     url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/ordo.owl
   gard:
@@ -99,6 +106,11 @@ ontologies:
   omop:
     prefixmap:
       omop: https://athena.ohdsi.org/search-terms/terms/
+  cco:
+    url: http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AllCoreOntology
+    build_command: "robot merge -i $< relax -o $@"
+    prefixmap:
+      CCO: http://www.ontologyrepository.com/CommonCoreOntologies/
   occo:
     url: https://raw.githubusercontent.com/Occupation-Ontology/OccO/main/src/ontology/occo-merged.owl
     prefixmap:
@@ -116,6 +128,8 @@ ontologies:
     url: http://purl.obolibrary.org/obo/go/extensions/go-plus.owl
   go-lego:
     url: http://purl.obolibrary.org/obo/go/extensions/go-lego.owl
+  go-amigo:
+    url: http://purl.obolibrary.org/obo/go/extensions/go-amigo.owl
   neo:
     url: http://purl.obolibrary.org/obo/go/noctua/neo.owl
   bao:
@@ -198,6 +212,10 @@ ontologies:
       dbpedia: http://dbpedia.org/
   uberoncm:
     url: https://github.com/obophenotype/uberon/releases/latest/download/composite-metazoan.owl
+  icd10cm:
+    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd10cm.owl
+    prefixmap:
+      ICD10CM: http://purl.bioontology.org/ontology/ICD10CM/
   #sdtm:
   #  url: https://evs.nci.nih.gov/ftp1/CDISC/SDTM/SDTM%20Terminology.OWL.zip
   #empathi:
@@ -249,7 +267,7 @@ ontologies:
     prefixmap:
       hgnc.genegroup: http://purl.obolibrary.org/obo/dictybase_
   eccode:
-    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/eccode/25-May-2022/eccode.owl.gz
+    url: https://w3id.org/biopragmatics/resources/eccode/eccode.owl.gz
     compression: gzip
     prefixmap:
       EC: http://purl.obolibrary.org/obo/eccode_
@@ -260,8 +278,7 @@ ontologies:
     prefixmap:
       uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
   rhea:
-    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/rhea/122/rhea.owl.gz
-    compression: gzip
+    url: https://w3id.org/biopragmatics/resources/rhea/rhea.owl
     prefixmap:
       RHEA: http://purl.obolibrary.org/obo/rhea_
       uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
@@ -302,7 +319,16 @@ ontologies:
     url: "'https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/download?apikey=1de0a270-29c5-4dda-b043-7c3580628cd5&download_format=rdf'"
     prefixmap:
       OBT: http://purl.obolibrary.org/obo/OBT_
+  nando:
+    url: "'https://data.bioontology.org/ontologies/NANDO/submissions/15/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb'"
+    prefixmap:
+      NANDO: http://nanbyodata.jp/ontology/NANDO_
+  ontie:
+    url: https://ontology.iedb.org/file/ontie.owl
+    prefixmap:
+      ONTIE: https://ontology.iedb.org/ontology/ONTIE_
   ecosim:
+    url: "https://data.bioontology.org/ontologies/ECOSIM/submissions/1/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
     prefixmap:
       ECOSIM: http://purl.obolibrary.org/obo/ECOSIM_
       ECOSIMCONCEPT: http://purl.obolibrary.org/obo/ECOSIMCONCEPT_

@@ -10,11 +10,11 @@ imports:
 - relation_graph
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
-  semsql_rg: https://w3id.org/semsql/relation_graph
+  semsql: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
 default_curi_maps:
 - semweb_context
-default_prefix: semsql_rg
+default_prefix: semsql
 default_range: string
 slots:
   query_taxon: {}
@@ -44,10 +44,12 @@ classes:
       given taxon
     todos:
     - add a UNION to capture cases where no encoded as OWL TBox axiom
-    comments:
-    - "sqlview>>\n  SELECT subject, predicate, object FROM statements WHERE predicate\
-      \ = 'RO:0002161'"
     is_a: direct_taxon_constraint
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "RO:0002161"
   direct_in_taxon:
     description: A direct taxon constraint that asserts a node is ONLY found in the
       given taxon
@@ -107,4 +109,3 @@ classes:
       \ = msct.taxon_with_constraint\n      AND  sc.subject != sc.object\n      AND\
       \  msct.subject = ct.subject\n  )"
     is_a: inferred_taxon_constraint
-source_file: ../semantic-sql/src/linkml/taxon_constraints.yaml

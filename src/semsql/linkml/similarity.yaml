@@ -7,11 +7,11 @@ imports:
 - relation_graph
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
-  semsql_similarity: https://w3id.org/semsql/similarity
+  semsql_similarity: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
 default_curi_maps:
 - semweb_context
-default_prefix: semsql_nlp
+default_prefix: semsql
 default_range: string
 
 classes:

@@ -7,105 +7,105 @@
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "node_to_node_statement" Description: "A statement where object is non-null and value is not populated"
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "node_to_value_statement" Description: "A statement where value is non-null and object is not populated"
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "rdf_type_statement" Description: "A statement that indicates the asserted type of the subject entity"
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: The entity type
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "rdfs_subclass_of_statement" Description: ""
 --     * Slot: subject Description: The subclass element of the triple
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: The superclass element of the triple
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "rdfs_subclass_of_named_statement" Description: ""
---     * Slot: subject Description: The subject of the statement
+--     * Slot: subject Description: The subclass element of the triple
 --     * Slot: predicate Description: The predicate of the statement
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: object Description: The superclass element of the triple
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "rdfs_subproperty_of_statement" Description: ""
 --     * Slot: subject Description: The subproperty element of the triple
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: The superproperty element of the triple
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
--- # Class: "rdfs_label_statement" Description: ""
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
+-- # Class: "rdfs_label_statement" Description: "A statement that connects a node to a human-readable label"
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: The label value
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
--- # Class: "rdfs_domain_statement" Description: ""
---     * Slot: subject Description: The subject of the statement
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
+-- # Class: "rdfs_domain_statement" Description: "A statement that connects a property to its domain class"
+--     * Slot: subject Description: The property to which the domain applies
 --     * Slot: predicate Description: The predicate of the statement
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: object Description: The domain of the property
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
--- # Class: "rdfs_range_statement" Description: ""
---     * Slot: subject Description: The subject of the statement
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
+-- # Class: "rdfs_range_statement" Description: "A statement that connects a property to its range class or literal type"
+--     * Slot: subject Description: The property to which the range applies
 --     * Slot: predicate Description: The predicate of the statement
---     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
+--     * Slot: object Description: The range of the property
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "rdf_list_statement" Description: "A statement that is used to represent aspects of RDF lists"
 --     * Slot: subject Description: The rdf:List to which the statement applies
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "rdf_first_statement" Description: "A statement that connects a list to its first element. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful"
---     * Slot: subject Description: The subject of the statement
+--     * Slot: subject Description: The rdf:List to which the statement applies
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "rdf_rest_statement" Description: "A statement that connects a list to its remaining elements. This is a low-level triple, it is unlikely you need to use this directly. It is used to define rdf_list_member_statement, which is more useful"
---     * Slot: subject Description: The subject of the statement
+--     * Slot: subject Description: The rdf:List to which the statement applies
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "rdf_rest_transitive_statement" Description: ""
---     * Slot: subject Description: The subject of the statement
+--     * Slot: subject Description: The rdf:List to which the statement applies
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "rdf_list_member_statement" Description: ""
---     * Slot: subject Description: The subject of the statement
+--     * Slot: subject Description: The rdf:List to which the statement applies
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
---     * Slot: language Description: the human language in which the value is encoded, e.g. en
+--     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "node" Description: "The basic unit of representation in an RDF or OWL graph"
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "node_identifier" Description: ""
@@ -267,37 +267,37 @@ CREATE TABLE rdf_list_member_statement (
 	language TEXT
 );
 CREATE TABLE node (
-	id TEXT, 
+	id TEXT NOT NULL, 
 	PRIMARY KEY (id)
 );
 CREATE TABLE node_identifier (
-	id TEXT, 
+	id TEXT NOT NULL, 
 	prefix TEXT, 
 	local_identifier TEXT, 
 	PRIMARY KEY (id)
 );
 CREATE TABLE blank_node (
-	id TEXT, 
+	id TEXT NOT NULL, 
 	PRIMARY KEY (id)
 );
 CREATE TABLE rdf_list_node (
-	id TEXT, 
+	id TEXT NOT NULL, 
 	PRIMARY KEY (id)
 );
 CREATE TABLE iri_node (
-	id TEXT, 
+	id TEXT NOT NULL, 
 	PRIMARY KEY (id)
 );
 CREATE TABLE class_node (
-	id TEXT, 
+	id TEXT NOT NULL, 
 	PRIMARY KEY (id)
 );
 CREATE TABLE property_node (
-	id TEXT, 
+	id TEXT NOT NULL, 
 	PRIMARY KEY (id)
 );
 CREATE TABLE named_individual_node (
-	id TEXT, 
+	id TEXT NOT NULL, 
 	PRIMARY KEY (id)
 );
 CREATE TABLE rdf_level_summary_statistic (
@@ -316,6 +316,9 @@ CREATE TABLE count_of_subclasses (
 	element TEXT, 
 	count_value INTEGER
 );
+
+DROP TABLE statements;
+CREATE TABLE statements (stanza TEXT,subject TEXT,predicate TEXT,object TEXT,value TEXT,datatype TEXT,language TEXT);
 
 DROP TABLE node_to_node_statement;
 CREATE VIEW node_to_node_statement AS SELECT * FROM statements WHERE object IS NOT NULL;
@@ -389,7 +392,7 @@ DROP TABLE blank_node;
 CREATE VIEW blank_node AS SELECT * FROM node WHERE id LIKE '_:%';
 
 DROP TABLE rdf_list_node;
-CREATE VIEW rdf_list_node AS SELECT distinct subject AS id from rdf_type_statement WHERE object = 'rdf:List';
+CREATE VIEW rdf_list_node AS SELECT * FROM rdf_type_statement WHERE object='rdf:List';
 
 DROP TABLE iri_node;
 CREATE VIEW iri_node AS SELECT * FROM node WHERE id NOT LIKE '_:%';

@@ -6,12 +6,12 @@ imports:
 - linkml:types
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
-  semsql_rdf: https://w3id.org/semsql/rdf
+  semsql: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
   sh: http://www.w3.org/ns/shacl#
 default_curi_maps:
 - semweb_context
-default_prefix: semsql_rdf
+default_prefix: semsql
 default_range: string
 subsets:
   export:
@@ -200,6 +200,7 @@ classes:
         predicate:
           equals_string: "rdfs:subPropertyOf"
   rdfs_label_statement:
+    description: A statement that connects a node to a human-readable label
     is_a: node_to_value_statement
     slot_usage:
       value:
@@ -211,13 +212,39 @@ classes:
         predicate:
           equals_string: "rdfs:label"
   rdfs_domain_statement:
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:domain'
+    description: A statement that connects a property to its domain class
     is_a: node_to_node_statement
+    slot_usage:
+      subject:
+        role: property
+        description: The property to which the domain applies
+        range: property_node
+      object:
+        role: domain
+        description: The domain of the property
+        range: class_node
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "rdfs:domain"
   rdfs_range_statement:
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:range'
+    description: A statement that connects a property to its range class or literal type
     is_a: node_to_node_statement
+    slot_usage:
+      subject:
+        role: property
+        description: The property to which the range applies
+        range: property_node
+      object:
+        role: range
+        description: The range of the property
+        range: class_node
+    classification_rules:
+        is_a: statements
+        slot_conditions:
+          predicate:
+            equals_string: "rdfs:range"
   rdf_list_statement:
     description: A statement that is used to represent aspects of RDF lists
     is_a: statements
@@ -230,16 +257,22 @@ classes:
     description: A statement that connects a list to its first element. This is a
       low-level triple, it is unlikely you need to use this directly. It is used to
       define rdf_list_member_statement, which is more useful
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='rdf:first'
     is_a: rdf_list_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "rdf:first"
   rdf_rest_statement:
     description: A statement that connects a list to its remaining elements. This
       is a low-level triple, it is unlikely you need to use this directly. It is used
       to define rdf_list_member_statement, which is more useful
-    comments:
-    - sqlview>> SELECT * FROM statements WHERE predicate='rdf:rest'
     is_a: rdf_list_statement
+    classification_rules:
+      is_a: statements
+      slot_conditions:
+        predicate:
+          equals_string: "rdf:rest"
   rdf_rest_transitive_statement:
     comments:
     - "sqlview>>\n  WITH RECURSIVE rdf_rest_transitive_statement\n             (\n\
@@ -289,10 +322,15 @@ classes:
   rdf_list_node:
     description: A node representing an RDF list. Note that you will not likely need
       to use this directly.
-    comments:
-    - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object
-      = 'rdf:List';
+#    comments:
+#    - sqlview>> SELECT distinct subject AS id from rdf_type_statement WHERE object
+#      = 'rdf:List';
     is_a: blank_node
+    classification_rules:
+      is_a: rdf_type_statement
+      slot_conditions:
+        object:
+          equals_string: "rdf:List"
   iri_node:
     aliases:
     - IRI

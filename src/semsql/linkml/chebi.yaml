@@ -7,10 +7,11 @@ description: |-
 license: https://creativecommons.org/publicdomain/zero/1.0/
 
 prefixes:
-  semsql_ro: https://w3id.org/semsql/ro/
+  semsql: https://w3id.org/semsql/
   linkml: https://w3id.org/linkml/
+  chebivocab: "http://purl.obolibrary.org/obo/chebi#"
 
-default_prefix: semsql_ro
+default_prefix: semsql
 default_range: string
 
 default_curi_maps:
@@ -23,19 +24,24 @@ imports:
 
 classes:
 
-  conjugate acid of edge:
-    slot_uri: obochebi:is_conjugate_acid_of
+  conjugate_acid_of_edge:
+    slot_uri: chebivocab:is_conjugate_acid_of
     is_a: edge
-    comments:
-      - sqlview>> SELECT * FROM edge WHERE predicate = 'obo:chebi#is_conjugate_acid_of';
-  conjugate base of edge:
-    slot_uri: obochebi:is_conjugate_baseof
+    classification_rules:
+      is_a: edge
+      slot_conditions:
+        predicate:
+          equals_string: "obo:chebi#is_conjugate_acid_of"
+  conjugate_base_of_edge:
+    slot_uri: chebivocab:is_conjugate_base_of
     is_a: edge
-    comments:
-      - sqlview>> SELECT * FROM edge WHERE predicate = 'obo:chebi#is_conjugate_base_of';
-
-  charge statement:
-    slot_uri: obo:chebi/charge
+    classification_rules:
+      is_a: edge
+      slot_conditions:
+        predicate:
+          equals_string: "obo:chebi#is_conjugate_base_of"
+  charge_statement:
+    slot_uri: chebivocab:charge
     is_a: edge
     comments:
       - sqlview>> SELECT subject, predicate, cast(value AS "int") AS value FROM statements WHERE predicate = 'obo:chebi/charge';
