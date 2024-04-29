@@ -95,7 +95,7 @@ ontologies:
       OMIMPS: https://www.omim.org/phenotypicSeries/PS
       CHR: http://purl.obolibrary.org/obo/CHR_
   oeo:
-    url: http://openenergy-platform.org/ontology/oeo/
+    url: https://openenergyplatform.org/ontology/oeo/releases/oeo-full.owl
     prefixmap:
       OEO: http://openenergy-platform.org/ontology/oeo/OEO_
   biovoices:
