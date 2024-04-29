@@ -17,6 +17,8 @@ linkml = ">=1.7.4"
 mkdocs-mermaid2-plugin = "^0.6.0"
 jupyter = "^1.0.0"
 ipython-sql = "^0.4.1"
+tox = "*"
+black = "*"
 
 [tool.poetry.scripts]
 semsql = "semsql.builder.cli:main"

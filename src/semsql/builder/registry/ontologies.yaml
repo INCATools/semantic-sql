@@ -98,6 +98,10 @@ ontologies:
     url: https://openenergyplatform.org/ontology/oeo/releases/oeo-full.owl
     prefixmap:
       OEO: http://openenergy-platform.org/ontology/oeo/OEO_
+  sdgio:
+    url: https://raw.githubusercontent.com/SDG-InterfaceOntology/sdgio/master/sdgio.owl
+    prefixmap:
+      SDGIO: http://purl.unep.org/sdg/SDGIO_
   biovoices:
     url: https://zenodo.org/record/5589773/files/ontology.owl?download=1
     build_command: "robot relax -i $< merge -o $@"

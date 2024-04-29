@@ -219,13 +219,24 @@ db/mondo-ingest.owl: download/mondo-ingest.owl
 
 
 download/oeo.owl: STAMP
-	curl -L -s http://openenergy-platform.org/ontology/oeo/ > $@.tmp
+	curl -L -s https://openenergyplatform.org/ontology/oeo/releases/oeo-full.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
 .PRECIOUS: download/oeo.owl
 
 db/oeo.owl: download/oeo.owl
+	cp $< $@
+
+
+download/sdgio.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/SDG-InterfaceOntology/sdgio/master/sdgio.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/sdgio.owl
+
+db/sdgio.owl: download/sdgio.owl
 	cp $< $@
 
 
@@ -921,4 +932,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = upheno chiro ncit fma maxo foodon chebiplus msio modl phenio phenio_test comploinc bero aio reacto bcio icd10who ordo gard mondo-ingest oeo biovoices omop cco occo iof upa go go-lego go-amigo neo bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao hpinternational edam sweetAll lov schema-dot-org prov cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways drugmechdb rxnorm vccf ontobiotope nando ontie ecosim nmdc_schema mixs fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
+EXTRA_ONTOLOGIES = upheno chiro ncit fma maxo foodon chebiplus msio modl phenio phenio_test comploinc bero aio reacto bcio icd10who ordo gard mondo-ingest oeo sdgio biovoices omop cco occo iof upa go go-lego go-amigo neo bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao hpinternational edam sweetAll lov schema-dot-org prov cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways drugmechdb rxnorm vccf ontobiotope nando ontie ecosim nmdc_schema mixs fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
