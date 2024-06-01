@@ -124,7 +124,7 @@ and how to put things in your PATH. It does not require Docker.
 Requirements:
 
 - [rdftab.rs](https://github.com/ontodev/rdftab.rs)
-- [relation-graph](https://github.com/balhoff/relation-graph)
+- [relation-graph](https://github.com/balhoff/relation-graph) `2.3.1` or higher
 
 After installing these and putting both `relation-graph` and `rdftab.rs` in your path:
 
