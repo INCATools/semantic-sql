@@ -1,4 +1,5 @@
 import logging
+import subprocess
 from itertools import chain, combinations
 
 import click
@@ -62,6 +63,16 @@ def make(path, docker, **kwargs):
     else:
         docker_config = None
     builder.make(path, docker_config=docker_config, **kwargs)
+    # check if path is db/{foo}.db using regular expression
+    import re
+
+    matches = re.match(r"db/(\w+).db", path)
+    if matches:
+        ontology = matches.group(1)
+        steps = builder.get_postprocessing_steps(ontology, path)
+        for step in steps:
+            print(f"RUNNING: {step}")
+            subprocess.run(step, shell=True)
 
 
 @main.command()

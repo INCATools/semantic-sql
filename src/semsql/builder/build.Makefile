@@ -61,6 +61,7 @@ PREFIX_YAML_PATH = $(PREFIX_DIR)/prefixes.yaml
 	gzip -f $*-$(RGSUFFIX).tsv && \
 	cat $(THIS_DIR)/indexes/*.sql | sqlite3 $@.tmp && \
 	echo "ALTER TABLE statements ADD COLUMN graph TEXT;" | sqlite3 $@.tmp && \
+	(test -d views && find views -maxdepth 1 -name '$(notdir $*)*.sql' -type f -print0 | xargs -0 -I{} sh -c 'sqlite3 $@.tmp< "$$1"' sh {} || echo no views ) && \
 	mv $@.tmp $@
 .PRECIOUS: %.db
 

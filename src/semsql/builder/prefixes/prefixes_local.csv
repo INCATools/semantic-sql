@@ -14,9 +14,13 @@ OMIM,https://omim.org/entry/
 OMIMPS,https://www.omim.org/phenotypicSeries/PS
 CHR,http://purl.obolibrary.org/obo/CHR_
 OEO,http://openenergy-platform.org/ontology/oeo/OEO_
+GOLDTERMS,https://w3id.org/gold.path/
+GOLDVOCAB,https://w3id.org/gold.vocab/
 SDGIO,http://purl.unep.org/sdg/SDGIO_
+KIN,http://purl.org/ga4gh/kin.owl#KIN_
 ontorion,http://ontorion.com/namespace#
 omop,https://athena.ohdsi.org/search-terms/terms/
+comet,https://w3id.org/linkml-common/
 CCO,http://www.ontologyrepository.com/CommonCoreOntologies/
 OccO,http://purl.obolibrary.org/obo/OccO_
 IOFcore,https://spec.industrialontologies.org/ontology/
@@ -52,6 +56,7 @@ MESH,http://id.nlm.nih.gov/mesh/
 RXNORM,http://purl.bioontology.org/ontology/RXNORM/
 OBT,http://purl.obolibrary.org/obo/OBT_
 NANDO,http://nanbyodata.jp/ontology/NANDO_
+ECSO,http://purl.dataone.org/odo/ECSO_
 ONTIE,https://ontology.iedb.org/ontology/ONTIE_
 ECOSIM,http://purl.obolibrary.org/obo/ECOSIM_
 ECOSIMCONCEPT,http://purl.obolibrary.org/obo/ECOSIMCONCEPT_

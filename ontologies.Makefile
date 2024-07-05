@@ -229,6 +229,28 @@ db/oeo.owl: download/oeo.owl
 	cp $< $@
 
 
+download/taxslim.owl: STAMP
+	curl -L -s http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim.obo > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/taxslim.owl
+
+db/taxslim.owl: download/taxslim.owl
+	robot convert -i $< -o $@
+
+
+download/goldterms.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/cmungall/gold-ontology/main/gold.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/goldterms.owl
+
+db/goldterms.owl: download/goldterms.owl
+	robot relax -i $< reason -o $@
+
+
 download/sdgio.owl: STAMP
 	curl -L -s https://raw.githubusercontent.com/SDG-InterfaceOntology/sdgio/master/sdgio.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -238,6 +260,17 @@ download/sdgio.owl: STAMP
 
 db/sdgio.owl: download/sdgio.owl
 	cp $< $@
+
+
+download/kin.owl: STAMP
+	curl -L -s http://purl.org/ga4gh/kin.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/kin.owl
+
+db/kin.owl: download/kin.owl
+	robot reason -i $< -o $@
 
 
 download/biovoices.owl: STAMP
@@ -260,6 +293,17 @@ download/omop.owl: STAMP
 
 db/omop.owl: download/omop.owl
 	cp $< $@
+
+
+download/comet.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/linkml/linkml-common/main/project/owl/linkml_common.owl.ttl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/comet.owl
+
+db/comet.owl: download/comet.owl
+	robot relax -i $< merge -o $@
 
 
 download/cco.owl: STAMP
@@ -428,7 +472,7 @@ db/mlo.owl: download/mlo.owl
 
 
 download/ito.owl: STAMP
-	curl -L -s https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip > $@.zip.tmp && unzip -p $@.zip.tmp {ont.zip_extract_file} > $@.tmp && rm $@.zip.tmp
+	curl -L -s https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip > $@.zip.tmp && unzip -p $@.zip.tmp ITO.owl > $@.tmp && rm $@.zip.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
@@ -438,14 +482,25 @@ db/ito.owl: download/ito.owl
 	cp $< $@
 
 
-download/reactome-Homo-sapiens.owl: STAMP
-	curl -L -s https://reactome.org/download/current/biopax.zip > $@.zip.tmp && unzip -p $@.zip.tmp {ont.zip_extract_file} > $@.tmp && rm $@.zip.tmp
+download/reactome-hs.owl: STAMP
+	curl -L -s https://reactome.org/download/current/biopax.zip > $@.zip.tmp && unzip -p $@.zip.tmp Homo_sapiens.owl > $@.tmp && rm $@.zip.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
-.PRECIOUS: download/reactome-Homo-sapiens.owl
+.PRECIOUS: download/reactome-hs.owl
 
-db/reactome-Homo-sapiens.owl: download/reactome-Homo-sapiens.owl
+db/reactome-hs.owl: download/reactome-hs.owl
+	cp $< $@
+
+
+download/reactome-mm.owl: STAMP
+	curl -L -s https://reactome.org/download/current/biopax.zip > $@.zip.tmp && unzip -p $@.zip.tmp Mus_musculus.owl > $@.tmp && rm $@.zip.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/reactome-mm.owl
+
+db/reactome-mm.owl: download/reactome-mm.owl
 	cp $< $@
 
 
@@ -823,6 +878,28 @@ db/nando.owl: download/nando.owl
 	cp $< $@
 
 
+download/ecso.owl: STAMP
+	curl -L -s 'https://data.bioontology.org/ontologies/ECSO/submissions/64/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb' > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/ecso.owl
+
+db/ecso.owl: download/ecso.owl
+	cp $< $@
+
+
+download/enigma_context.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/jmchandonia/CORAL/main/example/enigma/ontologies/context_measurement_ontology.obo > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/enigma_context.owl
+
+db/enigma_context.owl: download/enigma_context.owl
+	robot merge -i $<  -o $@
+
+
 download/ontie.owl: STAMP
 	curl -L -s https://ontology.iedb.org/file/ontie.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -857,14 +934,14 @@ db/nmdc_schema.owl: download/nmdc_schema.owl
 
 
 download/mixs.owl: STAMP
-	curl -L -s https://raw.githubusercontent.com/microbiomedata/mixs-6-2-release-candidate/main/schema-derivatives/mixs_6_2_rc.owl.ttl > $@.tmp
+	curl -L -s https://raw.githubusercontent.com/GenomicsStandardsConsortium/mixs/main/project/owl/mixs.owl.ttl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
 .PRECIOUS: download/mixs.owl
 
 db/mixs.owl: download/mixs.owl
-	robot merge -i $< reason  -o $@.tmp.owl && perl -npe 's@_6_2_rc@@g;s@-6-2-rc@@g' $@.tmp.owl > $@
+	robot merge -i $< reason  -o $@
 
 
 download/fibo.owl: STAMP
@@ -932,4 +1009,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = upheno chiro ncit fma maxo foodon chebiplus msio modl phenio phenio_test comploinc bero aio reacto bcio icd10who ordo gard mondo-ingest oeo sdgio biovoices omop cco occo iof upa go go-lego go-amigo neo bao orcid cpont biolink biopax enanomapper mlo ito reactome-Homo-sapiens efo hcao hpinternational edam sweetAll lov schema-dot-org prov cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways drugmechdb rxnorm vccf ontobiotope nando ontie ecosim nmdc_schema mixs fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
+EXTRA_ONTOLOGIES = upheno chiro ncit fma maxo foodon chebiplus msio modl phenio phenio_test comploinc bero aio reacto bcio icd10who ordo gard mondo-ingest oeo taxslim goldterms sdgio kin biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid cpont biolink biopax enanomapper mlo ito reactome-hs reactome-mm efo hcao hpinternational edam sweetAll lov schema-dot-org prov cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context ontie ecosim nmdc_schema mixs fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time

@@ -1,5 +1,5 @@
-# Auto generated from registry_schema.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-11-13T13:16:23
+# Auto generated from registry_schema.yaml by pythongen.py version: 0.0.1
+# Generation date: 2024-06-04T13:42:40
 # Schema: ontology_registry
 #
 # id: https://w3id.org/semsql/registry
@@ -7,7 +7,9 @@
 # license: https://creativecommons.org/publicdomain/zero/1.0/
 
 import dataclasses
+import re
 from dataclasses import dataclass
+from datetime import date, datetime
 from typing import Any, ClassVar, Dict, List, Optional, Union
 
 from jsonasobj2 import JsonObj, as_dict
@@ -42,21 +44,21 @@ DEFAULT_ = SEMSQL_REGISTRY
 
 # Types
 class Identifier(String):
-    type_class_uri = XSD.string
+    type_class_uri = XSD["string"]
     type_class_curie = "xsd:string"
     type_name = "identifier"
     type_model_uri = SEMSQL_REGISTRY.Identifier
 
 
 class HttpsIdentifier(String):
-    type_class_uri = XSD.string
+    type_class_uri = XSD["string"]
     type_class_curie = "xsd:string"
     type_name = "https identifier"
     type_model_uri = SEMSQL_REGISTRY.HttpsIdentifier
 
 
 class HttpIdentifier(String):
-    type_class_uri = XSD.string
+    type_class_uri = XSD["string"]
     type_class_curie = "xsd:string"
     type_name = "http identifier"
     type_model_uri = SEMSQL_REGISTRY.HttpIdentifier
@@ -79,7 +81,7 @@ class RegistryId(extended_str):
 class Ontology(YAMLRoot):
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.Ontology
+    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY["Ontology"]
     class_class_curie: ClassVar[str] = "semsql_registry:Ontology"
     class_name: ClassVar[str] = "Ontology"
     class_model_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.Ontology
@@ -104,6 +106,7 @@ class Ontology(YAMLRoot):
     relation_graph_settings: Optional[Union[dict, "RelationGraphConfiguration"]] = None
     zip_extract_file: Optional[str] = None
     build_command: Optional[str] = None
+    post_processing_steps: Optional[Union[str, List[str]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -169,6 +172,16 @@ class Ontology(YAMLRoot):
         if self.build_command is not None and not isinstance(self.build_command, str):
             self.build_command = str(self.build_command)
 
+        if not isinstance(self.post_processing_steps, list):
+            self.post_processing_steps = (
+                [self.post_processing_steps]
+                if self.post_processing_steps is not None
+                else []
+            )
+        self.post_processing_steps = [
+            v if isinstance(v, str) else str(v) for v in self.post_processing_steps
+        ]
+
         super().__post_init__(**kwargs)
 
 
@@ -176,7 +189,7 @@ class Ontology(YAMLRoot):
 class PrefixMap(YAMLRoot):
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.PrefixMap
+    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY["PrefixMap"]
     class_class_curie: ClassVar[str] = "semsql_registry:PrefixMap"
     class_name: ClassVar[str] = "PrefixMap"
     class_model_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.PrefixMap
@@ -202,7 +215,7 @@ class PrefixMap(YAMLRoot):
 class Registry(YAMLRoot):
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.Registry
+    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY["Registry"]
     class_class_curie: ClassVar[str] = "semsql_registry:Registry"
     class_name: ClassVar[str] = "Registry"
     class_model_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.Registry
@@ -240,7 +253,7 @@ class Registry(YAMLRoot):
 class RelationGraphConfiguration(YAMLRoot):
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.RelationGraphConfiguration
+    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY["RelationGraphConfiguration"]
     class_class_curie: ClassVar[str] = "semsql_registry:RelationGraphConfiguration"
     class_name: ClassVar[str] = "RelationGraphConfiguration"
     class_model_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.RelationGraphConfiguration
@@ -263,7 +276,7 @@ class RelationGraphConfiguration(YAMLRoot):
 class MakefileRule(YAMLRoot):
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.MakefileRule
+    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY["MakefileRule"]
     class_class_curie: ClassVar[str] = "semsql_registry:MakefileRule"
     class_name: ClassVar[str] = "MakefileRule"
     class_model_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.MakefileRule
@@ -304,7 +317,7 @@ class MakefileRule(YAMLRoot):
 class Makefile(YAMLRoot):
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.Makefile
+    class_class_uri: ClassVar[URIRef] = SEMSQL_REGISTRY["Makefile"]
     class_class_curie: ClassVar[str] = "semsql_registry:Makefile"
     class_name: ClassVar[str] = "Makefile"
     class_model_uri: ClassVar[URIRef] = SEMSQL_REGISTRY.Makefile
@@ -326,6 +339,7 @@ class Makefile(YAMLRoot):
 
 # Enumerations
 class FormatEnum(EnumDefinitionImpl):
+
     n3 = PermissibleValue(text="n3", description="n3")
 
     _defn = EnumDefinition(
@@ -334,6 +348,7 @@ class FormatEnum(EnumDefinitionImpl):
 
 
 class CompressionEnum(EnumDefinitionImpl):
+
     gzip = PermissibleValue(text="gzip", description="gzip")
 
     _defn = EnumDefinition(
@@ -525,6 +540,15 @@ slots.suppress = Slot(
     model_uri=SEMSQL_REGISTRY.suppress,
     domain=None,
     range=Optional[Union[bool, Bool]],
+)
+
+slots.post_processing_steps = Slot(
+    uri=SEMSQL_REGISTRY.post_processing_steps,
+    name="post_processing_steps",
+    curie=SEMSQL_REGISTRY.curie("post_processing_steps"),
+    model_uri=SEMSQL_REGISTRY.post_processing_steps,
+    domain=None,
+    range=Optional[Union[str, List[str]]],
 )
 
 slots.relationGraphConfiguration__properties = Slot(
