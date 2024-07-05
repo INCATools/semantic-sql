@@ -4,14 +4,14 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
-from typing import Optional, TextIO, List
+from typing import List, Optional, TextIO
 
 import requests
 from linkml_runtime.loaders import yaml_loader
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from semsql.builder.registry import registry_schema, path_to_ontology_registry
+from semsql.builder.registry import path_to_ontology_registry, registry_schema
 from semsql.builder.registry.registry_schema import (CompressionEnum, Makefile,
                                                      MakefileRule, Ontology)
 from semsql.utils.makefile_utils import makefile_to_string
@@ -117,7 +117,9 @@ def connect(owl_file: str):
     return session
 
 
-def get_postprocessing_steps(ontology: str, db: str, registry_path: str = None) -> List[str]:
+def get_postprocessing_steps(
+    ontology: str, db: str, registry_path: str = None
+) -> List[str]:
     """
     Get postprocessing steps for an ontology
 
@@ -128,8 +130,10 @@ def get_postprocessing_steps(ontology: str, db: str, registry_path: str = None) 
     if registry_path is None:
         registry_path = path_to_ontology_registry()
     registry: registry_schema.Registry
-    registry = yaml_loader.load(str(registry_path), target_class=registry_schema.Registry)
-    #steps = [step.format(ont=ontology, db=db) for step in registry.ontologies.get(ontology, []).post_processing_steps]
+    registry = yaml_loader.load(
+        str(registry_path), target_class=registry_schema.Registry
+    )
+    # steps = [step.format(ont=ontology, db=db) for step in registry.ontologies.get(ontology, []).post_processing_steps]
     steps = registry.ontologies.get(ontology, [])
     return steps
 
@@ -187,9 +191,7 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
         else:
             command = "cp $< $@"
         commands = [command]
-        rule = MakefileRule(
-            target=target, dependencies=dependencies, commands=commands
-        )
+        rule = MakefileRule(target=target, dependencies=dependencies, commands=commands)
         makefile.rules.append(rule)
         if not ont.suppress:
             onts.append(ont.id)

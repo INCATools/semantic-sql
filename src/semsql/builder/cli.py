@@ -65,6 +65,7 @@ def make(path, docker, **kwargs):
     builder.make(path, docker_config=docker_config, **kwargs)
     # check if path is db/{foo}.db using regular expression
     import re
+
     matches = re.match(r"db/(\w+).db", path)
     if matches:
         ontology = matches.group(1)
@@ -72,8 +73,6 @@ def make(path, docker, **kwargs):
         for step in steps:
             print(f"RUNNING: {step}")
             subprocess.run(step, shell=True)
-
-
 
 
 @main.command()
