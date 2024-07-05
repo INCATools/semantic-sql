@@ -4,14 +4,14 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
-from typing import Optional, TextIO
+from typing import Optional, TextIO, List
 
 import requests
 from linkml_runtime.loaders import yaml_loader
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from semsql.builder.registry import registry_schema
+from semsql.builder.registry import registry_schema, path_to_ontology_registry
 from semsql.builder.registry.registry_schema import (CompressionEnum, Makefile,
                                                      MakefileRule, Ontology)
 from semsql.utils.makefile_utils import makefile_to_string
@@ -117,6 +117,23 @@ def connect(owl_file: str):
     return session
 
 
+def get_postprocessing_steps(ontology: str, db: str, registry_path: str = None) -> List[str]:
+    """
+    Get postprocessing steps for an ontology
+
+    :param registry_path:
+    :param ontology:
+    :return:
+    """
+    if registry_path is None:
+        registry_path = path_to_ontology_registry()
+    registry: registry_schema.Registry
+    registry = yaml_loader.load(str(registry_path), target_class=registry_schema.Registry)
+    #steps = [step.format(ont=ontology, db=db) for step in registry.ontologies.get(ontology, []).post_processing_steps]
+    steps = registry.ontologies.get(ontology, [])
+    return steps
+
+
 def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> str:
     """
     Generate makefile content from registry
@@ -139,7 +156,7 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
         elif ont.zip_extract_file:
             command = (
                 f"curl -L -s {ont.url} > $@.zip.tmp && "
-                "unzip -p $@.zip.tmp {ont.zip_extract_file} "
+                f"unzip -p $@.zip.tmp {ont.zip_extract_file} "
                 "> $@.tmp && rm $@.zip.tmp"
             )
         elif ont.compression:
@@ -169,8 +186,9 @@ def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> st
             command = "robot merge -i $< -o $@"
         else:
             command = "cp $< $@"
+        commands = [command]
         rule = MakefileRule(
-            target=target, dependencies=dependencies, commands=[command]
+            target=target, dependencies=dependencies, commands=commands
         )
         makefile.rules.append(rule)
         if not ont.suppress:

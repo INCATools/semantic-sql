@@ -98,10 +98,24 @@ ontologies:
     url: https://openenergyplatform.org/ontology/oeo/releases/oeo-full.owl
     prefixmap:
       OEO: http://openenergy-platform.org/ontology/oeo/OEO_
+  taxslim:
+    url: http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim.obo
+    build_command: "robot convert -i $< -o $@"
+  goldterms:
+    url: https://raw.githubusercontent.com/cmungall/gold-ontology/main/gold.owl
+    build_command: "robot relax -i $< reason -o $@"
+    prefixmap:
+      GOLDTERMS: https://w3id.org/gold.path/
+      GOLDVOCAB: https://w3id.org/gold.vocab/
   sdgio:
     url: https://raw.githubusercontent.com/SDG-InterfaceOntology/sdgio/master/sdgio.owl
     prefixmap:
       SDGIO: http://purl.unep.org/sdg/SDGIO_
+  kin:
+    url: http://purl.org/ga4gh/kin.owl
+    build_command: "robot reason -i $< -o $@"
+    prefixmap:
+      KIN: "http://purl.org/ga4gh/kin.owl#KIN_"
   biovoices:
     url: https://zenodo.org/record/5589773/files/ontology.owl?download=1
     build_command: "robot relax -i $< merge -o $@"
@@ -110,6 +124,11 @@ ontologies:
   omop:
     prefixmap:
       omop: https://athena.ohdsi.org/search-terms/terms/
+  comet:
+    url: https://raw.githubusercontent.com/linkml/linkml-common/main/project/owl/linkml_common.owl.ttl
+    build_command: "robot relax -i $< merge -o $@"    
+    prefixmap:
+      comet: https://w3id.org/linkml-common/
   cco:
     url: http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AllCoreOntology
     build_command: "robot merge -i $< relax -o $@"
@@ -166,9 +185,16 @@ ontologies:
   ito:
     url: https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip
     zip_extract_file: ITO.owl      
-  reactome-Homo-sapiens:
+  reactome-hs:
     url: https://reactome.org/download/current/biopax.zip
     zip_extract_file: Homo_sapiens.owl
+    #post_processing_steps:
+    #  - "sqlite3 {db} < views/reactome.sql"
+  reactome-mm:
+    url: https://reactome.org/download/current/biopax.zip
+    zip_extract_file: Mus_musculus.owl
+    post_processing_steps:
+      - "sqlite3 {db} < views/reactome.sql"
   efo:
     url: http://www.ebi.ac.uk/efo/efo.owl
     has_imports: true
@@ -327,6 +353,17 @@ ontologies:
     url: "'https://data.bioontology.org/ontologies/NANDO/submissions/15/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb'"
     prefixmap:
       NANDO: http://nanbyodata.jp/ontology/NANDO_
+  ecso:
+    url: "'https://data.bioontology.org/ontologies/ECSO/submissions/64/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb'"
+    prefixmap:
+      ECSO: http://purl.dataone.org/odo/ECSO_
+  enigma_context:
+    url: https://raw.githubusercontent.com/jmchandonia/CORAL/main/example/enigma/ontologies/context_measurement_ontology.obo
+    build_command: "robot merge -i $<  -o $@"    
+  #meo:
+  #  url: "'https://data.bioontology.org/ontologies/MEO/submissions/9/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb'"
+  #  prefixmap:
+  #    MEO: http://purl.jp/bio/11/meo/MEO_
   ontie:
     url: https://ontology.iedb.org/file/ontie.owl
     prefixmap:
@@ -349,8 +386,8 @@ ontologies:
       linkml: https://w3id.org/linkml/
       mixs: https://w3id.org/mixs/
   mixs:
-    url: https://raw.githubusercontent.com/microbiomedata/mixs-6-2-release-candidate/main/schema-derivatives/mixs_6_2_rc.owl.ttl
-    build_command: "robot merge -i $< reason  -o $@.tmp.owl && perl -npe 's@_6_2_rc@@g;s@-6-2-rc@@g' $@.tmp.owl > $@"
+    url: https://raw.githubusercontent.com/GenomicsStandardsConsortium/mixs/main/project/owl/mixs.owl.ttl
+    build_command: "robot merge -i $< reason  -o $@"
     prefixmap:
       mixs: https://w3id.org/mixs/
   fibo:
@@ -363,6 +400,9 @@ ontologies:
   # BFO variant products
   bfo2020:
     url: http://purl.obolibrary.org/obo/bfo/2020/bfo.owl
+    #post_processing_steps:
+    #  - "echo hello {db}"
+    #  - "echo goodbye {db}"
   bfo2020_core:
     url: http://purl.obolibrary.org/obo/bfo/2020/bfo-core.owl
   bfo2020_notime:
