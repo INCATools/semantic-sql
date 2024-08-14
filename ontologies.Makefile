@@ -461,7 +461,7 @@ db/enanomapper.owl: download/enanomapper.owl
 
 
 download/mlo.owl: STAMP
-	curl -L -s https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/external/ml-ontology-202010021305.owl > $@.tmp
+	curl -L -s https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/v2023-09-11/external/ml-ontology-202010021305.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
@@ -479,6 +479,28 @@ download/ito.owl: STAMP
 .PRECIOUS: download/ito.owl
 
 db/ito.owl: download/ito.owl
+	cp $< $@
+
+
+download/cso.owl: STAMP
+	curl -L -s https://cso.kmi.open.ac.uk/download/version-3.3/CSO.3.3.owl.zip > $@.zip.tmp && unzip -p $@.zip.tmp CSO.3.3.owl > $@.tmp && rm $@.zip.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/cso.owl
+
+db/cso.owl: download/cso.owl
+	cp $< $@
+
+
+download/obiws.owl: STAMP
+	curl -L -s https://data.bioontology.org/ontologies/OBIWS/submissions/2/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/obiws.owl
+
+db/obiws.owl: download/obiws.owl
 	cp $< $@
 
 
@@ -548,6 +570,17 @@ db/edam.owl: download/edam.owl
 	cp $< $@
 
 
+download/chr.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/monarch-initiative/monochrom/master/chr.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/chr.owl
+
+db/chr.owl: download/chr.owl
+	cp $< $@
+
+
 download/sweetAll.owl: STAMP
 	curl -L -s http://sweetontology.net/sweetAll > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -590,6 +623,50 @@ download/prov.owl: STAMP
 
 db/prov.owl: download/prov.owl
 	cp $< $@
+
+
+download/dtype.owl: STAMP
+	curl -L -s http://www.linkedmodel.org/schema/dtype > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/dtype.owl
+
+db/dtype.owl: download/dtype.owl
+	cp $< $@
+
+
+download/vaem.owl: STAMP
+	curl -L -s http://www.linkedmodel.org/schema/vaem > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/vaem.owl
+
+db/vaem.owl: download/vaem.owl
+	cp $< $@
+
+
+download/qudtunit.owl: STAMP
+	curl -L -s http://qudt.org/vocab/unit > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/qudtunit.owl
+
+db/qudtunit.owl: download/qudtunit.owl
+	robot merge -i $<  -o $@
+
+
+download/quantitykind.owl: STAMP
+	curl -L -s http://qudt.org/vocab/quantitykind > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/quantitykind.owl
+
+db/quantitykind.owl: download/quantitykind.owl
+	robot merge -i $<  -o $@
 
 
 download/cellosaurus.owl: STAMP
@@ -1009,4 +1086,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = upheno chiro ncit fma maxo foodon chebiplus msio modl phenio phenio_test comploinc bero aio reacto bcio icd10who ordo gard mondo-ingest oeo taxslim goldterms sdgio kin biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid cpont biolink biopax enanomapper mlo ito reactome-hs reactome-mm efo hcao hpinternational edam sweetAll lov schema-dot-org prov cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context ontie ecosim nmdc_schema mixs fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
+EXTRA_ONTOLOGIES = upheno chiro ncit fma maxo foodon chebiplus msio modl phenio phenio_test comploinc bero aio reacto bcio icd10who ordo gard mondo-ingest oeo taxslim goldterms sdgio kin biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid cpont biolink biopax enanomapper mlo ito cso obiws reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context ontie ecosim nmdc_schema mixs fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time

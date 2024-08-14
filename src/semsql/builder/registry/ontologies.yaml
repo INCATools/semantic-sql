@@ -178,13 +178,27 @@ ontologies:
       evs.ncit: http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#
       old.fix: http://purl.org/obo/owl/FIX#
   mlo:
-    url: https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/external/ml-ontology-202010021305.owl
+    url: https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/v2023-09-11/external/ml-ontology-202010021305.owl
     has_imports: true
     prefixmap:
       mlo: http://www.a2rd.net.br/mlo#
   ito:
     url: https://github.com/OpenBioLink/ITO/raw/master/ITO.owl.zip
-    zip_extract_file: ITO.owl      
+    zip_extract_file: ITO.owl
+    prefixmap:
+      ito: "https://identifiers.org/ito:"
+  cso:
+    url: https://cso.kmi.open.ac.uk/download/version-3.3/CSO.3.3.owl.zip
+    zip_extract_file: CSO.3.3.owl
+    prefixmap:
+      cso: https://cso.kmi.open.ac.uk/topics/
+      freebase: http://rdf.freebase.com/ns/
+      yago: http://yago-knowledge.org/resource/
+      cyc: http://sw.cyc.com/concept
+  obiws:
+    url: https://data.bioontology.org/ontologies/OBIWS/submissions/2/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb
+    prefixmap:
+      OBIws: http://purl.obolibrary.org/obo/OBIws_
   reactome-hs:
     url: https://reactome.org/download/current/biopax.zip
     zip_extract_file: Homo_sapiens.owl
@@ -204,6 +218,10 @@ ontologies:
     url:  http://purl.obolibrary.org/obo/hp/hp-international.owl
   edam:
     url: http://edamontology.org/EDAM.owl
+  chr:
+    url: https://raw.githubusercontent.com/monarch-initiative/monochrom/master/chr.owl
+    prefixmap:
+      chr: http://purl.obolibrary.org/obo/CHR_
   sweetAll:
     url: http://sweetontology.net/sweetAll
     has_imports: true
@@ -220,10 +238,32 @@ ontologies:
     url: http://www.w3.org/ns/prov.owl
     prefixmap:
       prov: "http://www.w3.org/ns/prov#"
-  #qudtunit:
-  #  url: http://qudt.org/2.1/vocab/unit
+  #voag:
+  #  url: http://voag.linkedmodel.org/voag
+  #  build_command: "robot merge -i $<  -o $@"
   #  prefixmap:
-  #    qudtunit: http://qudt.org/2.1/vocab/unit/
+  #    voag: http://voag.linkedmodel.org/voag#
+  dtype:
+    url: http://www.linkedmodel.org/schema/dtype
+    prefixmap:
+      dtype: http://www.linkedmodel.org/schema/dtype#
+      voag: http://voag.linkedmodel.org/voag#      
+  vaem:
+    url: http://www.linkedmodel.org/schema/vaem
+    prefixmap:
+      vaem: http://www.linkedmodel.org/schema/vaem#
+  qudtunit:
+    url: http://qudt.org/vocab/unit
+    build_command: "robot merge -i $<  -o $@"
+    prefixmap:
+      qudtschema: http://qudt.org/schema/qudt/
+      qudtunit: http://qudt.org/vocab/unit/
+      si-quantity: https://si-digital-framework.org/SI/quantities/
+  quantitykind:
+    url: http://qudt.org/vocab/quantitykind
+    build_command: "robot merge -i $<  -o $@"
+    prefixmap:
+      quantitykind: http://qudt.org/vocab/quantitykind/
   cellosaurus:
     url: https://raw.githubusercontent.com/calipho-sib/cellosaurus/master/cellosaurus.obo
     format: obo
