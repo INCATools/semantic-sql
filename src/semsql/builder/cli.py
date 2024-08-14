@@ -72,7 +72,7 @@ def make(path, docker, **kwargs):
         steps = builder.get_postprocessing_steps(ontology, path)
         for step in steps:
             print(f"RUNNING: {step}")
-            subprocess.run(step, shell=True)
+            subprocess.run(step, shell=True)  # noqa S602
 
 
 @main.command()
