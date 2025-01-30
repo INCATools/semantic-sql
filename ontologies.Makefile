@@ -174,6 +174,61 @@ db/comploinc.owl: download/comploinc.owl
 	robot relax -i $< merge -o $@
 
 
+download/hba.owl: STAMP
+	curl -L -s https://github.com/brain-bican/human_brain_atlas_ontology/raw/main/hbao-base.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/hba.owl
+
+db/hba.owl: download/hba.owl
+	cp $< $@
+
+
+download/mba.owl: STAMP
+	curl -L -s https://github.com/brain-bican/mouse_brain_atlas_ontology/raw/main/mbao-base.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/mba.owl
+
+db/mba.owl: download/mba.owl
+	cp $< $@
+
+
+download/dmba.owl: STAMP
+	curl -L -s https://github.com/brain-bican/developing_mouse_brain_atlas_ontology/raw/main/dmbao-base.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/dmba.owl
+
+db/dmba.owl: download/dmba.owl
+	cp $< $@
+
+
+download/dhba.owl: STAMP
+	curl -L -s https://github.com/brain-bican/developing_human_brain_atlas_ontology/raw/main/dhbao-base.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/dhba.owl
+
+db/dhba.owl: download/dhba.owl
+	cp $< $@
+
+
+download/pba.owl: STAMP
+	curl -L -s https://github.com/brain-bican/primate_brain_atlas_ontology/raw/main/pbao-base.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/pba.owl
+
+db/pba.owl: download/pba.owl
+	cp $< $@
+
+
 download/bero.owl: STAMP
 	curl -L -s https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -1262,4 +1317,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio pride modl phenio phenio_test comploinc bero aio reacto xsmo bcio icd10who ordo gard mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm omim co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context ontie ecosim nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
+EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio pride modl phenio phenio_test comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio icd10who ordo gard mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm omim co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context ontie ecosim nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
