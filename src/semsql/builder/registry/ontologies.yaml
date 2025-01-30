@@ -2,12 +2,44 @@ id: semantic-sql-registry
 description: Registry overlap for Semantic-SQL designed to supplement OBO vocabularies
 license: CC0
 ontologies:
-  upheno:
-    url: http://purl.obolibrary.org/obo/upheno.owl
+  #upheno:
+  #  url: http://purl.obolibrary.org/obo/upheno/v2/upheno.owl
+  #  build_command: "robot merge -i $<  -o $@"
+  #upheno1:
+  #  url: http://purl.obolibrary.org/obo/upheno.owl
+  #  build_command: "robot merge -i $<  -o $@"
+  swo:
+    url: http://purl.obolibrary.org/obo/swo.owl
     build_command: "robot merge -i $<  -o $@"
+    # runoak -i sqlite:obo:swo
+    prefixmap:
+      SWO: http://www.ebi.ac.uk/swo/SWO_
+      SWO.organization:  http://www.ebi.ac.uk/swo/organization/SWO_
+      SWO.maturity:  http://www.ebi.ac.uk/swo/maturity/SWO_
+      SWO.objective:  http://www.ebi.ac.uk/swo/objective/SWO_
+      SWO.license:  http://www.ebi.ac.uk/swo/license/SWO_
+      SWO.version:  http://www.ebi.ac.uk/swo/version/SWO_
+      SWO.data:  http://www.ebi.ac.uk/swo/data/SWO_
+      SWO.interface:  http://www.ebi.ac.uk/swo/interface/SWO_
+      SWO.algorithm:  http://www.ebi.ac.uk/swo/algorithm/SWO_
+      OntoDM: http://www.ontodm.com/OntoDM-core/OntoDM_
+      OntoDM.kdd: "http://kt.ijs.si/panovp/OntoDM#OntoDM-KDD"
   chiro:
     url: http://purl.obolibrary.org/obo/chiro.owl
     build_command: "robot relax -i $< merge -o $@"
+  pcl:
+    url: http://purl.obolibrary.org/obo/pcl.owl
+    prefixmap:
+      PCL: http://purl.obolibrary.org/obo/PCL_
+      ENSEMBL: http://identifiers.org/ensembl/
+  chemessence:
+    url: https://github.com/cmungall/chemessence/releases/latest/download/chemessence.owl
+    prefixmap:
+      chemrof: https://w3id.org/chemrof/
+  ogco:
+    url: https://raw.githubusercontent.com/cmungall/chemessence/refs/heads/main/src/ontology/components/ogco.owl
+    prefixmap:
+      OGCO: http://purl.obolibrary.org/obo/OGCO_
   ncit:
     url: http://purl.obolibrary.org/obo/ncit.owl
     build_command: "robot relax -i $< merge -o $@"
@@ -30,13 +62,19 @@ ontologies:
     prefixmap:
       MSIO: http://purl.obolibrary.org/obo/MSIO_
       nmrCV: "http://nmrML.org/nmrCV#NMR:"
+  pride:
+    url: https://raw.githubusercontent.com/PRIDE-Archive/pride-ontology/master/pride_cv.obo
+    build_command: "robot relax -i $< merge -o $@"
+    prefixmap:
+      PRIDE: http://purl.obolibrary.org/obo/PRIDE_
   modl:
     url: https://raw.githubusercontent.com/Data-Semantics-Laboratory/modular-ontology-design-library/master/MODL.owl
     prefixmap:
       modl: "https://archive.org/services/purl/purl/modular_ontology_design_library#"
   phenio:
     description: Monarch Phenomics Integrated Ontology
-    url: https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl
+    url: https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl.gz
+    compression: gzip
     relation_graph_settings:
       properties:
         - BFO:0000050
@@ -69,6 +107,10 @@ ontologies:
     url: https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl
   reacto:
     url: http://purl.obolibrary.org/obo/go/extensions/reacto.owl
+  xsmo:
+    url: https://download.xenbase.org/xenbase/Ontologies/XSMO/XSMO_1.1/XSMO_1.1.owl
+    prefixmap:
+      XSMO: http://purl.obolibrary.org/obo/XSMO_
   bcio:
     url: http://humanbehaviourchange.org/ontology/bcio.owl
     prefixmap:
@@ -98,6 +140,19 @@ ontologies:
     url: https://openenergyplatform.org/ontology/oeo/releases/oeo-full.owl
     prefixmap:
       OEO: http://openenergy-platform.org/ontology/oeo/OEO_
+      OEOX: http://openenergy-platform.org/ontology/oeo/OEOX_
+  envthes:
+    url: https://vocabs.lter-europe.net/rest/v1/envthes/data?format=text/turtle
+    build_command: "robot query -i $< --update sparql/skos-to-owl.ru -o $@"
+    prefixmap:
+      envthes: http://vocabs.lter-europe.net/EnvThes/
+      omv: http://omv.ontoware.org/2005/05/
+      iadopt: https://w3id.org/iadopt/ont/
+      lternet.tema: "https://vocab.lternet.edu/vocab/vocab/?tema="
+  wifire:
+    url: https://raw.githubusercontent.com/WIFIRE-Lab/WIFIRE-commons-ontology/master/WIFIRE-commons-ontology-V1.owl
+    prefixmap:
+      webprotege: http://webprotege.stanford.edu/
   taxslim:
     url: http://purl.obolibrary.org/obo/ncbitaxon/subsets/taxslim.obo
     build_command: "robot convert -i $< -o $@"
@@ -159,7 +214,7 @@ ontologies:
     url: http://www.bioassayontology.org/bao/bao_complete.owl
     has_imports: true
   orcid:
-    url: https://raw.githubusercontent.com/cthoyt/wikidata-orcid-ontology/main/orcid.owl
+    url: https://w3id.org/orcidio/orcidio.owl
     prefixmap:
       orcid: https://orcid.org/
   cpont:
@@ -187,6 +242,15 @@ ontologies:
     zip_extract_file: ITO.owl
     prefixmap:
       ito: "https://identifiers.org/ito:"
+  chemont:
+    url: http://classyfire.wishartlab.com/system/downloads/1_0/chemont/ChemOnt_2_1.obo.zip
+    zip_extract_file: ChemOnt_2_1.obo
+    build_command: "robot convert -i $< -o $@"
+    prefixmap:
+      CHEMONTID: "http://purl.obolibrary.org/obo/CHEMONTID_"
+  molgenie:
+    url: https://github.com/MolGenie/ontology/blob/main/mol_classes_ext_2024-11-20.obo
+    build_command: "robot convert -i $< -o $@"
   cso:
     url: https://cso.kmi.open.ac.uk/download/version-3.3/CSO.3.3.owl.zip
     zip_extract_file: CSO.3.3.owl
@@ -199,9 +263,17 @@ ontologies:
     url: https://data.bioontology.org/ontologies/OBIWS/submissions/2/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb
     prefixmap:
       OBIws: http://purl.obolibrary.org/obo/OBIws_
+  biopragmatics-reactome:
+    url: https://w3id.org/biopragmatics/resources/reactome/reactome.obo
+    prefixmap:
+      reactome.obo: http://purl.obolibrary.org/obo/reactome_
+    #post_processing_steps:
+    #  - "sqlite3 {db} < views/reactome.sql"
   reactome-hs:
     url: https://reactome.org/download/current/biopax.zip
     zip_extract_file: Homo_sapiens.owl
+    prefixmap:
+      reactome.biopax: "http://www.reactome.org/biopax/77/48887#"
     #post_processing_steps:
     #  - "sqlite3 {db} < views/reactome.sql"
   reactome-mm:
@@ -228,6 +300,14 @@ ontologies:
     named_prefixmaps:
       - sweet
       - prefixcc
+  oboe-core:
+    url: http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl
+    prefixmap:
+      oboe-core: http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#
+  oboe-standards:
+    url: http://ecoinformatics.org/oboe/oboe.1.0/oboe-standards.owl
+    prefixmap:
+      oboe-standards: http://ecoinformatics.org/oboe/oboe.1.0/oboe-standards.owl#
   lov:
     url: https://lov.linkeddata.es/lov.n3.gz
     format: n3
@@ -286,6 +366,11 @@ ontologies:
     url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd10cm.owl
     prefixmap:
       ICD10CM: http://purl.bioontology.org/ontology/ICD10CM/
+  omim:
+    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/omim.owl
+    prefixmap:
+      OMIM: https://omim.org/entry/
+      OMIMPS: https://www.omim.org/phenotypicSeries/PS
   #sdtm:
   #  url: https://evs.nci.nih.gov/ftp1/CDISC/SDTM/SDTM%20Terminology.OWL.zip
   #empathi:
@@ -343,12 +428,13 @@ ontologies:
       EC: http://purl.obolibrary.org/obo/eccode_
       uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
   uniprot:
-    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/uniprot/2022_02/uniprot.owl.gz
+    url: https://w3id.org/biopragmatics/resources/uniprot/2022_02/uniprot.owl.gz
     compression: gzip
     prefixmap:
       uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
   rhea:
-    url: https://w3id.org/biopragmatics/resources/rhea/rhea.owl
+    url: https://w3id.org/biopragmatics/resources/rhea/rhea.obo
+    build_command: "robot merge -i $<  -o $@"
     prefixmap:
       RHEA: http://purl.obolibrary.org/obo/rhea_
       uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
@@ -377,6 +463,15 @@ ontologies:
     url: https://w3id.org/biopragmatics/resources/wikipathways/wikipathways.owl
     prefixmap:
       complexportal: http://purl.obolibrary.org/obo/wikipathways_
+  pathbank:
+    url: https://w3id.org/biopragmatics/resources/pathbank/pathbank.obo.gz
+    compression: gzip
+    prefixmap:
+      pathbank: http://purl.obolibrary.org/obo/pathbank_
+  kegg.genome:
+    url: https://w3id.org/biopragmatics/resources/kegg.genome/kegg.genome.obo
+    prefixmap:
+      pathbank: http://purl.obolibrary.org/obo/kegg.genome_
   drugmechdb:
     prefixmap:
       MESH: http://id.nlm.nih.gov/mesh/
@@ -430,6 +525,11 @@ ontologies:
     build_command: "robot merge -i $< reason  -o $@"
     prefixmap:
       mixs: https://w3id.org/mixs/
+  kgcl:
+    url: https://w3id.org/kgcl/kgcl.owl.ttl
+    build_command: "robot merge -i $< reason  -o $@"
+    prefixmap:
+      kgcl: https://w3id.org/kgcl/
   fibo:
     url: https://spec.edmcouncil.org/fibo/ontology/AboutFIBOProd/
     build_command: "robot merge -i $<  -o $@"
