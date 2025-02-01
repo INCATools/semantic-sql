@@ -30,6 +30,7 @@ PBA,https://purl.brain-bican.org/ontology/pbao/PBA_
 XSMO,http://purl.obolibrary.org/obo/XSMO_
 BCIO,http://humanbehaviourchange.org/ontology/BCIO_
 BCIOR,http://humanbehaviourchange.org/ontology/BCIOR_
+SIO,http://semanticscience.org/resource/SIO_
 icd10who,https://icd.who.int/browse10/2019/en#/
 GARD,http://purl.obolibrary.org/obo/GARD_
 OMIM,https://omim.org/entry/
