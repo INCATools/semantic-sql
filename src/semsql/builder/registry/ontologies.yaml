@@ -137,6 +137,11 @@ ontologies:
     prefixmap:
       BCIO: http://humanbehaviourchange.org/ontology/BCIO_
       BCIOR: http://humanbehaviourchange.org/ontology/BCIOR_
+  sio:
+    url: http://semanticscience.org/ontology/sio.owl
+    # TBD: see https://github.com/biopragmatics/bioregistry/issues/1394
+    prefixmap:
+      SIO: http://semanticscience.org/resource/SIO_
   icd10who:
     url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd10who.owl
     prefixmap:
