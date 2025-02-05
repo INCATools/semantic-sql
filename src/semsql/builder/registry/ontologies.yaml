@@ -243,6 +243,11 @@ ontologies:
     url: https://w3id.org/orcidio/orcidio.owl
     prefixmap:
       orcid: https://orcid.org/
+  ror:
+    url: https://w3id.org/biopragmatics/resources/ror/ror.owl.gz
+    compression: gzip
+    prefixmap:
+      ror: https://ror.org/
   cpont:
     url: https://w3id.org/cpont/cpont.owl
   biolink:
@@ -307,6 +312,7 @@ ontologies:
     zip_extract_file: Mus_musculus.owl
     post_processing_steps:
       - "sqlite3 {db} < views/reactome.sql"
+  
   efo:
     url: http://www.ebi.ac.uk/efo/efo.owl
     has_imports: true
@@ -426,6 +432,11 @@ ontologies:
     format: obo
     prefixmap:
       InterPro: http://purl.obolibrary.org/obo/InterPro_
+  pfam:
+    url: https://w3id.org/biopragmatics/resources/pfam/pfam.owl
+    prefixmap:
+      PFAM: https://www.ebi.ac.uk/interpro/entry/pfam/
+      PFAM.CLAN: https://www.ebi.ac.uk/interpro/set/pfam/
   hgnc.genegroup:
     url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/hgnc.genegroup/hgnc.genegroup.owl.gz
     compression: gzip
@@ -441,29 +452,40 @@ ontologies:
     url: https://w3id.org/biopragmatics/resources/sgd/sgd.obo
     format: obo
     prefixmap:
-      SGD: http://purl.obolibrary.org/obo/sgd_
-  dictybase:
-    url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/dictybase/dictybase.owl.gz
-    compression: gzip
+      SGD: https://www.yeastgenome.org/locus/
+  gtdb:
+    url: https://w3id.org/biopragmatics/resources/gtdb/gtdb.owl
     prefixmap:
-      hgnc.genegroup: http://purl.obolibrary.org/obo/dictybase_
+      gtdb: https://gtdb.ecogenomic.org/tree?r=
   eccode:
     url: https://w3id.org/biopragmatics/resources/eccode/eccode.owl.gz
     compression: gzip
     prefixmap:
-      EC: http://purl.obolibrary.org/obo/eccode_
-      uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
+      EC: "https://bioregistry.io/eccode:"
+      UniProtKB: "https://bioregistry.io/uniprot:"
   uniprot:
-    url: https://w3id.org/biopragmatics/resources/uniprot/2022_02/uniprot.owl.gz
+    url: https://w3id.org/biopragmatics/resources/uniprot/uniprot.owl.gz
     compression: gzip
     prefixmap:
-      uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
-  rhea:
-    url: https://w3id.org/biopragmatics/resources/rhea/rhea.obo
-    build_command: "robot merge -i $<  -o $@"
+      UniProtKB: "https://bioregistry.io/uniprot:"
+  uniprot.ptm:
+    url: https://w3id.org/biopragmatics/resources/uniprot.ptm/uniprot.ptm.owl
     prefixmap:
-      RHEA: http://purl.obolibrary.org/obo/rhea_
-      uniprot.obo: http://purl.obolibrary.org/obo/uniprot_
+      RESID: https://proteininformationresource.org/cgi-bin/resid?id=
+      UNIMOD: http://www.unimod.org/modifications_view.php?editid1=
+      uniprot.ptm: https://biopragmatics.github.io/providers/uniprot.ptm/
+  credit:
+    url: https://raw.githubusercontent.com/biopragmatics/obo-db-ingest/main/export/credit/credit.owl
+    prefixmap:
+      credit: https://credit.niso.org/contributor-roles/
+  rhea:
+    url: https://w3id.org/biopragmatics/resources/rhea/rhea.owl.gz
+    # https://github.com/biopragmatics/obo-db-ingest/issues/15
+    build_command: "perl -npe 's@https://www.ebi.ac.uk/.*ec=@https://bioregistry.io/eccode:@g' $< > $@.tmp && robot convert -i $@.tmp -o $@"
+    compression: gzip
+    # build_command: "robot merge -i $<  -o $@"
+    prefixmap:
+      RHEA: https://www.rhea-db.org/rhea/
   swisslipid:
     url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/swisslipid/2023-02-03/swisslipid.obo.gz
     format: obo

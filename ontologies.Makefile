@@ -559,6 +559,17 @@ db/orcid.owl: download/orcid.owl
 	cp $< $@
 
 
+download/ror.owl: STAMP
+	curl -L -s https://w3id.org/biopragmatics/resources/ror/ror.owl.gz | gzip -dc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/ror.owl
+
+db/ror.owl: download/ror.owl
+	cp $< $@
+
+
 download/cpont.owl: STAMP
 	curl -L -s https://w3id.org/cpont/cpont.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -977,6 +988,17 @@ db/interpro.owl: download/interpro.owl
 	perl -npe 's@ go:@ GO:@g;s@ ro:@ RO:@g;s@ interpro:@ InterPro:@g' $< > $@.tmp && robot convert -i $@.tmp -o $@
 
 
+download/pfam.owl: STAMP
+	curl -L -s https://w3id.org/biopragmatics/resources/pfam/pfam.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/pfam.owl
+
+db/pfam.owl: download/pfam.owl
+	cp $< $@
+
+
 download/hgnc.genegroup.owl: STAMP
 	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/hgnc.genegroup/hgnc.genegroup.owl.gz | gzip -dc > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -1010,14 +1032,14 @@ db/sgd.owl: download/sgd.owl
 	robot merge -i $< -o $@
 
 
-download/dictybase.owl: STAMP
-	curl -L -s https://github.com/biopragmatics/obo-db-ingest/raw/main/export/dictybase/dictybase.owl.gz | gzip -dc > $@.tmp
+download/gtdb.owl: STAMP
+	curl -L -s https://w3id.org/biopragmatics/resources/gtdb/gtdb.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
-.PRECIOUS: download/dictybase.owl
+.PRECIOUS: download/gtdb.owl
 
-db/dictybase.owl: download/dictybase.owl
+db/gtdb.owl: download/gtdb.owl
 	cp $< $@
 
 
@@ -1033,7 +1055,7 @@ db/eccode.owl: download/eccode.owl
 
 
 download/uniprot.owl: STAMP
-	curl -L -s https://w3id.org/biopragmatics/resources/uniprot/2022_02/uniprot.owl.gz | gzip -dc > $@.tmp
+	curl -L -s https://w3id.org/biopragmatics/resources/uniprot/uniprot.owl.gz | gzip -dc > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
@@ -1043,15 +1065,37 @@ db/uniprot.owl: download/uniprot.owl
 	cp $< $@
 
 
+download/uniprot.ptm.owl: STAMP
+	curl -L -s https://w3id.org/biopragmatics/resources/uniprot.ptm/uniprot.ptm.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/uniprot.ptm.owl
+
+db/uniprot.ptm.owl: download/uniprot.ptm.owl
+	cp $< $@
+
+
+download/credit.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/biopragmatics/obo-db-ingest/main/export/credit/credit.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/credit.owl
+
+db/credit.owl: download/credit.owl
+	cp $< $@
+
+
 download/rhea.owl: STAMP
-	curl -L -s https://w3id.org/biopragmatics/resources/rhea/rhea.obo > $@.tmp
+	curl -L -s https://w3id.org/biopragmatics/resources/rhea/rhea.owl.gz | gzip -dc > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
 .PRECIOUS: download/rhea.owl
 
 db/rhea.owl: download/rhea.owl
-	robot merge -i $<  -o $@
+	perl -npe 's@https://www.ebi.ac.uk/.*ec=@https://bioregistry.io/eccode:@g' $< > $@.tmp && robot convert -i $@.tmp -o $@
 
 
 download/swisslipid.owl: STAMP
@@ -1328,4 +1372,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio pride modl phenio phenio_test comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who ordo gard mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm omim co_324 ppeo interpro hgnc.genegroup hgnc sgd dictybase eccode uniprot rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context ontie ecosim nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
+EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio pride modl phenio phenio_test comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who ordo gard mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm omim co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context ontie ecosim nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
