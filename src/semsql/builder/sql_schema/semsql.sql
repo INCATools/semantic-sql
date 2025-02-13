@@ -125,17 +125,17 @@
 -- # Class: "named_individual_node" Description: "A node that represents an OWL Named Individual"
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "rdf_level_summary_statistic" Description: "Abstract grouping for views/classes that provide some kind of count summary about an individual element"
---     * Slot: element Description: 
---     * Slot: count_value Description: 
+--     * Slot: element Description:
+--     * Slot: count_value Description:
 -- # Class: "count_of_predicates" Description: "Number of distinct usages of a predicate. NOTE MAY CHANGE: does not currently count existential usage in OWL"
---     * Slot: element Description: 
---     * Slot: count_value Description: 
+--     * Slot: element Description:
+--     * Slot: count_value Description:
 -- # Class: "count_of_instantiated_classes" Description: "Number of distinct instantiations of a class. Note in many OBOs, classes are not directly instantiated"
---     * Slot: element Description: 
---     * Slot: count_value Description: 
+--     * Slot: element Description:
+--     * Slot: count_value Description:
 -- # Class: "count_of_subclasses" Description: "Number of subclasses for a given class"
---     * Slot: element Description: 
---     * Slot: count_value Description: 
+--     * Slot: element Description:
+--     * Slot: count_value Description:
 -- # Class: "node_trait" Description: "abstract groupings/properties for different aspects of the model"
 -- # Class: "class_trait" Description: ""
 -- # Class: "property_trait" Description: ""
@@ -218,12 +218,12 @@
 --     * Slot: datatype Description: the rdf datatype of the value, for example, xsd:string
 --     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "owl_axiom_annotation" Description: ""
---     * Slot: annotation_subject Description: 
---     * Slot: annotation_predicate Description: 
---     * Slot: annotation_object Description: 
---     * Slot: annotation_value Description: 
---     * Slot: annotation_language Description: 
---     * Slot: annotation_datatype Description: 
+--     * Slot: annotation_subject Description:
+--     * Slot: annotation_predicate Description:
+--     * Slot: annotation_object Description:
+--     * Slot: annotation_value Description:
+--     * Slot: annotation_language Description:
+--     * Slot: annotation_datatype Description:
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
@@ -240,23 +240,23 @@
 -- # Class: "anonymous_individual_expression" Description: ""
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "owl_restriction" Description: "An OWL restriction, such as `SomeValuesFrom(partOf Hand)`"
---     * Slot: on_property Description: 
---     * Slot: filler Description: 
+--     * Slot: on_property Description:
+--     * Slot: filler Description:
 --     * Slot: id Description: the id of the restriction
 -- # Class: "owl_some_values_from" Description: "An OWL SomeValuesFrom restriction"
---     * Slot: on_property Description: 
---     * Slot: filler Description: 
+--     * Slot: on_property Description:
+--     * Slot: filler Description:
 --     * Slot: id Description: the id of the restriction
 -- # Class: "owl_all_values_from" Description: ""
---     * Slot: on_property Description: 
---     * Slot: filler Description: 
+--     * Slot: on_property Description:
+--     * Slot: filler Description:
 --     * Slot: id Description: the id of the restriction
 -- # Class: "owl_has_value" Description: ""
---     * Slot: on_property Description: 
---     * Slot: filler Description: 
+--     * Slot: on_property Description:
+--     * Slot: filler Description:
 --     * Slot: id Description: the id of the restriction
 -- # Class: "owl_has_self" Description: ""
---     * Slot: on_property Description: 
+--     * Slot: on_property Description:
 --     * Slot: filler Description: This is Null for a self-restriction
 --     * Slot: id Description: the id of the restriction
 -- # Class: "owl_complex_axiom" Description: "An axiom that is composed of two or more statements"
@@ -387,12 +387,12 @@
 --     * Slot: label Description: A label for an element
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 -- # Class: "axiom_dbxref_annotation" Description: ""
---     * Slot: annotation_subject Description: 
---     * Slot: annotation_predicate Description: 
---     * Slot: annotation_object Description: 
---     * Slot: annotation_value Description: 
---     * Slot: annotation_language Description: 
---     * Slot: annotation_datatype Description: 
+--     * Slot: annotation_subject Description:
+--     * Slot: annotation_predicate Description:
+--     * Slot: annotation_object Description:
+--     * Slot: annotation_value Description:
+--     * Slot: annotation_language Description:
+--     * Slot: annotation_datatype Description:
 --     * Slot: id Description: An identifier for an element. Note blank node ids are not unique across databases
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
@@ -409,7 +409,7 @@
 --     * Slot: language Description: the human language in which the value is encoded, e.g. 'en'
 -- # Class: "repair_action" Description: "Represents an action that needs to be taken to repair a problem"
 --     * Slot: subject Description: The thing that is problematic
---     * Slot: description Description: 
+--     * Slot: description Description:
 -- # Class: "problem" Description: "Represents an instance of a problem pertaining to conformance to OBO guidelines"
 --     * Slot: subject Description: The thing that is problematic
 --     * Slot: predicate Description: The property of the thing that is problematic
@@ -427,8 +427,8 @@
 --     * Slot: predicate Description: The property of the thing that is problematic
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
 -- # Class: "node_with_two_labels_problem" Description: ""
---     * Slot: label1 Description: 
---     * Slot: label2 Description: 
+--     * Slot: label1 Description:
+--     * Slot: label2 Description:
 --     * Slot: subject Description: The thing that is problematic
 --     * Slot: predicate Description: The property of the thing that is problematic
 --     * Slot: value Description: Note the range of this slot is always a string. Only used the triple represents a literal assertion
@@ -502,12 +502,12 @@
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: secondary_predicate Description: 
+--     * Slot: secondary_predicate Description:
 -- # Class: "entailed_edge_same_predicate_cycle" Description: "An entailed_edge_cycle over a single predicate"
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: secondary_predicate Description: 
+--     * Slot: secondary_predicate Description:
 -- # Class: "transitive_edge" Description: "A relation graph edge that is formed from a chain of one or more edges"
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
@@ -517,662 +517,670 @@
 --     * Slot: subject Description: The subject of the statement
 --     * Slot: predicate Description: The predicate of the statement
 --     * Slot: object Description: Note the range of this slot is always a node. If the triple represents a literal, instead value will be populated
---     * Slot: evidence_type Description: 
---     * Slot: publication Description: 
---     * Slot: source Description: 
+--     * Slot: evidence_type Description:
+--     * Slot: publication Description:
+--     * Slot: source Description:
 
 CREATE TABLE prefix (
-	prefix TEXT, 
+	prefix TEXT,
 	base TEXT
 );
 CREATE TABLE statements (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE node_to_node_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE node_to_value_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdf_type_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdfs_subclass_of_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdfs_subclass_of_named_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdfs_subproperty_of_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdfs_label_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdfs_domain_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdfs_range_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdf_list_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdf_first_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdf_rest_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdf_rest_transitive_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE rdf_list_member_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE node_identifier (
-	id TEXT NOT NULL, 
-	prefix TEXT, 
-	local_identifier TEXT, 
+	id TEXT NOT NULL,
+	prefix TEXT,
+	local_identifier TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE blank_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE rdf_list_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE iri_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE class_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE property_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE named_individual_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE rdf_level_summary_statistic (
-	element TEXT, 
+	element TEXT,
 	count_value INTEGER
 );
 CREATE TABLE count_of_predicates (
-	element TEXT, 
+	element TEXT,
 	count_value INTEGER
 );
 CREATE TABLE count_of_instantiated_classes (
-	element TEXT, 
+	element TEXT,
 	count_value INTEGER
 );
 CREATE TABLE count_of_subclasses (
-	element TEXT, 
+	element TEXT,
 	count_value INTEGER
 );
 CREATE TABLE ontology_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE object_property_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE transitive_property_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE symmetric_property_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE reflexive_property_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE irreflexive_property_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE asymmetric_property_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE annotation_property_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE deprecated_node (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_imports_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE owl_inverse_of_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE owl_complement_of_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE owl_equivalent_class_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE owl_same_as_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE owl_disjoint_class_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE owl_reified_axiom (
-	id TEXT NOT NULL, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
+	id TEXT NOT NULL,
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
+	language TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_axiom (
-	id TEXT NOT NULL, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
+	id TEXT NOT NULL,
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
+	language TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_axiom_annotation (
-	annotation_subject TEXT, 
-	annotation_predicate TEXT, 
-	annotation_object TEXT, 
-	annotation_value TEXT, 
-	annotation_language TEXT, 
-	annotation_datatype TEXT, 
-	id TEXT NOT NULL, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
+	annotation_subject TEXT,
+	annotation_predicate TEXT,
+	annotation_object TEXT,
+	annotation_value TEXT,
+	annotation_language TEXT,
+	annotation_datatype TEXT,
+	id TEXT NOT NULL,
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
+	language TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE anonymous_expression (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE anonymous_class_expression (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE anonymous_property_expression (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE anonymous_individual_expression (
-	id TEXT NOT NULL, 
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_restriction (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT NOT NULL, 
+	on_property TEXT,
+	filler TEXT,
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_some_values_from (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT NOT NULL, 
+	on_property TEXT,
+	filler TEXT,
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_all_values_from (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT NOT NULL, 
+	on_property TEXT,
+	filler TEXT,
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_has_value (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT NOT NULL, 
+	on_property TEXT,
+	filler TEXT,
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_has_self (
-	on_property TEXT, 
-	filler TEXT, 
-	id TEXT NOT NULL, 
+	on_property TEXT,
+	filler TEXT,
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE owl_complex_axiom (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	object TEXT
 );
 CREATE TABLE owl_subclass_of_some_values_from (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	object TEXT
 );
 CREATE TABLE owl_equivalent_to_intersection_member (
-	subject TEXT, 
-	object TEXT, 
+	subject TEXT,
+	object TEXT,
 	predicate TEXT
 );
 CREATE TABLE has_text_definition_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_oio_synonym_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_exact_synonym_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_broad_synonym_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_narrow_synonym_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_related_synonym_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_synonym_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_exact_match_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_broad_match_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_narrow_match_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_related_match_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_match_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_dbxref_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE has_mapping_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE contributor (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE creator (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT NOT NULL, 
-	value TEXT, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT NOT NULL,
+	value TEXT,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE orcid (
-	label TEXT, 
-	id TEXT NOT NULL, 
+	label TEXT,
+	id TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE axiom_dbxref_annotation (
-	annotation_subject TEXT, 
-	annotation_predicate TEXT, 
-	annotation_object TEXT, 
-	annotation_value TEXT, 
-	annotation_language TEXT, 
-	annotation_datatype TEXT, 
-	id TEXT NOT NULL, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT, 
-	datatype TEXT, 
-	language TEXT, 
+	annotation_subject TEXT,
+	annotation_predicate TEXT,
+	annotation_object TEXT,
+	annotation_value TEXT,
+	annotation_language TEXT,
+	annotation_datatype TEXT,
+	id TEXT NOT NULL,
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
+	language TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE ontology_status_statement (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	value TEXT NOT NULL, 
-	datatype TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT NOT NULL,
+	datatype TEXT,
 	language TEXT
 );
 CREATE TABLE repair_action (
-	subject TEXT, 
+	subject TEXT,
 	description TEXT
 );
 CREATE TABLE problem (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	value TEXT
 );
 CREATE TABLE lexical_problem (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	value TEXT
 );
 CREATE TABLE trailing_whitespace_problem (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	value TEXT
 );
 CREATE TABLE property_used_with_datatype_values_and_objects (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	value TEXT
 );
 CREATE TABLE node_with_two_labels_problem (
-	label1 TEXT, 
-	label2 TEXT, 
-	subject TEXT, 
-	predicate TEXT, 
+	label1 TEXT,
+	label2 TEXT,
+	subject TEXT,
+	predicate TEXT,
 	value TEXT
 );
 CREATE TABLE all_problems (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	value TEXT
 );
 CREATE TABLE relation_graph_construct (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	object TEXT
 );
 CREATE TABLE edge (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	object TEXT
 );
 CREATE TABLE subgraph_query (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	anchor_object TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	anchor_object TEXT,
 	anchor_predicate TEXT
 );
 CREATE TABLE subgraph_edge_by_ancestor (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	anchor_object TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	anchor_object TEXT,
 	anchor_predicate TEXT
 );
 CREATE TABLE subgraph_edge_by_descendant (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	anchor_object TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	anchor_object TEXT,
 	anchor_predicate TEXT
 );
 CREATE TABLE subgraph_edge_by_ancestor_or_descendant (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	anchor_object TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	anchor_object TEXT,
 	anchor_predicate TEXT
 );
 CREATE TABLE subgraph_edge_by_parent (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	anchor_object TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	anchor_object TEXT,
 	anchor_predicate TEXT
 );
 CREATE TABLE subgraph_edge_by_child (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	anchor_object TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	anchor_object TEXT,
 	anchor_predicate TEXT
 );
 CREATE TABLE subgraph_edge_by_self (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	anchor_object TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	anchor_object TEXT,
 	anchor_predicate TEXT
 );
 CREATE TABLE entailed_edge (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	object TEXT
 );
 CREATE TABLE entailed_subclass_of_edge (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	object TEXT
 );
 CREATE TABLE entailed_type_edge (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	object TEXT
 );
 CREATE TABLE entailed_edge_cycle (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
 	secondary_predicate TEXT
 );
 CREATE TABLE entailed_edge_same_predicate_cycle (
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
 	secondary_predicate TEXT
 );
 CREATE TABLE transitive_edge (
-	subject TEXT, 
-	predicate TEXT, 
+	subject TEXT,
+	predicate TEXT,
 	object TEXT
 );
 CREATE TABLE term_association (
-	id TEXT NOT NULL, 
-	subject TEXT, 
-	predicate TEXT, 
-	object TEXT, 
-	evidence_type TEXT, 
-	publication TEXT, 
-	source TEXT, 
+	id TEXT NOT NULL,
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	evidence_type TEXT,
+	publication TEXT,
+	source TEXT,
 	PRIMARY KEY (id)
 );
 
 DROP TABLE statements;
-CREATE TABLE statements (stanza TEXT,subject TEXT,predicate TEXT,object TEXT,value TEXT,datatype TEXT,language TEXT);
+CREATE TABLE statements (
+	stanza TEXT,
+	subject TEXT,
+	predicate TEXT,
+	object TEXT,
+	value TEXT,
+	datatype TEXT,
+	language TEXT
+);
 
 DROP TABLE node_to_node_statement;
 CREATE VIEW node_to_node_statement AS SELECT * FROM statements WHERE object IS NOT NULL;
@@ -1318,7 +1326,7 @@ DROP TABLE owl_reified_axiom;
 CREATE VIEW owl_reified_axiom AS SELECT axs.subject AS id, axs.stanza AS stanza, axs.object AS subject, axp.object AS predicate, axo.object AS object, axo.value AS value, axo.datatype AS datatype, axo.language AS language FROM statements AS axs, statements AS axp, statements AS axo WHERE axs.predicate = 'owl:annotatedSource' AND axp.predicate = 'owl:annotatedProperty' AND axo.predicate = 'owl:annotatedTarget' AND axs.subject = axp.subject AND axs.subject = axo.subject;
 
 DROP TABLE owl_axiom;
-CREATE VIEW owl_axiom AS SELECT * FROM owl_reified_axiom UNION SELECT NULL AS id, * FROM statements;
+CREATE VIEW owl_axiom AS SELECT * FROM owl_reified_axiom UNION SELECT NULL AS id, statements.* FROM statements;
 
 DROP TABLE owl_axiom_annotation;
 CREATE VIEW owl_axiom_annotation AS SELECT
@@ -1404,7 +1412,7 @@ CREATE VIEW owl_subclass_of_some_values_from AS SELECT subClassOf.stanza,
          svf.on_property AS predicate,
          svf.filler AS object
          FROM
-    statements AS subClassOf, 
+    statements AS subClassOf,
     owl_some_values_from AS svf
   WHERE
     subClassOf.predicate = 'rdfs:subClassOf' AND
@@ -1471,7 +1479,7 @@ CREATE VIEW orcid AS SELECT
     subject AS id,
     value AS label
   FROM
-    rdfs_label_statement 
+    rdfs_label_statement
   WHERE subject like 'orcid:%';
 
 DROP TABLE axiom_dbxref_annotation;
@@ -1493,7 +1501,8 @@ CREATE VIEW property_used_with_datatype_values_and_objects AS SELECT
       s1.predicate AS subject,
       s1.predicate,
       s1.datatype AS value
-  FROM statements AS s1, statements AS s2 ON (s1.predicate=s2.predicate)
+  FROM statements AS s1
+  JOIN statements AS s2 ON (s1.predicate=s2.predicate)
   WHERE s1.value IS NOT NULL and s2.object IS NOT NULL;
 
 DROP TABLE node_with_two_labels_problem;
@@ -1501,7 +1510,8 @@ CREATE VIEW node_with_two_labels_problem AS SELECT
      s1.subject,
      s1.predicate,
      s1.value
-  FROM rdfs_label_statement AS s1, rdfs_label_statement AS s2
+  FROM rdfs_label_statement AS s1
+  JOIN rdfs_label_statement AS s2
   WHERE s1.subject=s2.subject AND s1.value != s2.value;
 
 DROP TABLE all_problems;
@@ -1566,8 +1576,8 @@ CREATE VIEW entailed_type_edge AS SELECT * FROM entailed_edge WHERE predicate='r
 
 DROP TABLE entailed_edge_cycle;
 CREATE VIEW entailed_edge_cycle AS SELECT e.*, e2.predicate AS secondary_predicate
-FROM entailed_edge AS e,
-entailed_edge AS e2
+FROM entailed_edge AS e
+JOIN entailed_edge AS e2
 WHERE e.object = e2.subject AND e2.object=e.subject;
 
 DROP TABLE entailed_edge_same_predicate_cycle;
@@ -1589,3 +1599,6 @@ CREATE VIEW transitive_edge AS WITH RECURSIVE transitive_edge
                     ON e.object = a.subject AND e.predicate = a.predicate
                )
             SELECT * FROM transitive_edge;
+
+-- patch statements table
+ALTER TABLE statements ADD COLUMN graph TEXT;
