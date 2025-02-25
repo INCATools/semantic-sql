@@ -1601,4 +1601,4 @@ CREATE VIEW transitive_edge AS WITH RECURSIVE transitive_edge
             SELECT * FROM transitive_edge;
 
 -- patch statements table
-ALTER TABLE statements ADD COLUMN graph TEXT;
+-- ALTER TABLE statements ADD COLUMN graph TEXT;
