@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "ols-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "ols-mcp"
+      ],
+      "env": {}
+    },
+    "pubmed": {
+      "type": "http",
+      "url": "https://pubmed.mcp.claude.com/mcp"
+    }
+  }
+}
