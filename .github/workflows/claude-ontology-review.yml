@@ -1,0 +1,115 @@
+# This action invokes claude to review a PR.
+# This is a generic action - you can customize, or delete in favor of the ontology review PR.
+# --
+# This github action is from the copier template in https://github.com/ai4curation/github-ai-integrations, donated by the Monarch Initiative
+# For more documentation, see https://ai4curation.github.io/aidocs/how-tos/set-up-github-actions/
+# Author: Chris Mungall (@cmungall)
+name: Claude Code Ontology Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - "src/ontology"
+
+jobs:
+  claude-review:
+    # Optional: Filter by PR author
+    # if: |
+    #   github.event.pull_request.user.login == 'external-contributor' ||
+    #   github.event.pull_request.user.login == 'new-developer' ||
+    #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
+    
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Code Ontology Review
+        id: claude-review
+        uses: anthropics/claude-code-action@beta
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+          # Optional: Specify model (commenting defaults to Claude Sonnet 4)
+          model: "claude-opus-4-1-20250805"
+
+          # Direct prompt for automated review (no @claude mention needed)
+          direct_prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            This PR modifies critical ontology files.
+
+            Review this PR against our team checklist:
+
+            ## Issue alignment
+            - [ ] The PR aligns with the source issue, and only closes it if all components of the issue addressed
+            - [ ] The PR summary gives sufficient context for any decisions made, attributing them to issue authors where appropriate
+
+            ## Ontology Metadata
+            - [ ] PR is linked to source issue(s) via appropriate annotation property
+            - [ ] any added definitions have provenance
+
+            ## Identifiers and hallucinations
+            - [ ] all identifiers are CURIEs (or URLs), with standard prefixes
+            - [ ] I have looked up term identifiers and confirm that they denote what is intended
+            - [ ] all PMIDs and publication references resolve to the appropriate article/title
+
+            ## Design patterns (DPs)
+            - [ ] any new terms conform to documented DPs for this ontology
+            - [ ] if the term fits into a DP, then the label is constructed in a standard way (although scientific norms prevail)
+            - [ ] if the term is compositional in nature, then it should conform to a DP, and have a relevant logical definition
+
+            ## Definitions (if the PR adds or updates a definition)
+            - [ ] Definitions are present for any new term
+            - [ ] Definitions conform to the style guide for this ontology
+            - [ ] Definitions follows genus-differentia form (while prioritizing normal scientific phrasing over awkward ontology language)
+            - [ ] The genus of the definition is an ancestor of the term
+            - [ ] The differentia of the definition are necessary and sufficient for distinguishing from the genus
+            - [ ] The definition has appropriate provenance
+            - [ ] I have looked up the provenance, and it is correct and relevant
+            - [ ] The label, definition, and logical definition (when present) are largely consistent
+
+            ## Relationships and logical axioms
+            - [ ] If a logical definition is not present, then there should be at least one is_a (subClassOf) to the most precise parent term
+            - [ ] If a logical definition is present, then there is reasonable expectation the term should classify precisely
+            - [ ] Other relationships are present to a reasonable degree and as dictated by the general ontology stye (e.g part-ofs for anatomy)
+            - [ ] Additional logical axioms (such as disjointness) are added as appropriate, depending on ontology style, and design patterns
+            - [ ] Additional logical axioms make sense and do not over-constrain
+            
+            Be constructive and helpful in your feedback.
+
+          # Optional: Use sticky comments to make Claude reuse the same comment on subsequent pushes to the same PR
+          use_sticky_comment: true
+          
+          # Optional: Customize review based on file types
+          # direct_prompt: |
+          #   Review this PR focusing on:
+          #   - For TypeScript files: Type safety and proper interface usage
+          #   - For API endpoints: Security, input validation, and error handling
+          #   - For React components: Performance, accessibility, and best practices
+          #   - For tests: Coverage, edge cases, and test quality
+          
+          # Optional: Different prompts for different authors
+          # direct_prompt: |
+          #   ${{ github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR' && 
+          #   'Welcome! Please review this PR from a first-time contributor. Be encouraging and provide detailed explanations for any suggestions.' ||
+          #   'Please provide a thorough code review focusing on our coding standards and best practices.' }}
+          
+          # Optional: Add specific tools for running tests or linting
+          # allowed_tools: "Bash(npm run test),Bash(npm run lint),Bash(npm run typecheck)"
+          
+          # Optional: Skip review for certain conditions
+          # if: |
+          #   !contains(github.event.pull_request.title, '[skip-review]') &&
+          #   !contains(github.event.pull_request.title, '[WIP]')
+
