@@ -119,6 +119,61 @@ db/msio.owl: download/msio.owl
 	cp $< $@
 
 
+download/chemrof.owl: STAMP
+	curl -L -s https://w3id.org/chemrof/chemrof.owl.ttl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/chemrof.owl
+
+db/chemrof.owl: download/chemrof.owl
+	cp $< $@
+
+
+download/deb.owl: STAMP
+	curl -L -s http://rest.matportal.org/ontologies/DEB/submissions/1/download?apikey=66c82e77-ce0d-4385-8056-a95898e47ebb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/deb.owl
+
+db/deb.owl: download/deb.owl
+	cp $< $@
+
+
+download/matpo.owl: STAMP
+	curl -L -s http://bimerr.iot.linkeddata.es/def/material-properties# > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/matpo.owl
+
+db/matpo.owl: download/matpo.owl
+	cp $< $@
+
+
+download/panet.owl: STAMP
+	curl -L -s http://purl.org/pan-science/PaNET/PaNET.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/panet.owl
+
+db/panet.owl: download/panet.owl
+	cp $< $@
+
+
+download/phenx.owl: STAMP
+	curl -L -s https://data.bioontology.org/ontologies/PHENX/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/phenx.owl
+
+db/phenx.owl: download/phenx.owl
+	cp $< $@
+
+
 download/pride.owl: STAMP
 	curl -L -s https://raw.githubusercontent.com/PRIDE-Archive/pride-ontology/master/pride_cv.obo > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -128,6 +183,39 @@ download/pride.owl: STAMP
 
 db/pride.owl: download/pride.owl
 	robot relax -i $< merge -o $@
+
+
+download/sosa.owl: STAMP
+	curl -L -s http://www.w3.org/ns/sosa/ > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/sosa.owl
+
+db/sosa.owl: download/sosa.owl
+	robot merge -i $< -o $@
+
+
+download/emi.owl: STAMP
+	curl -L -s https://purl.org/emi > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/emi.owl
+
+db/emi.owl: download/emi.owl
+	robot merge -i $< -o $@
+
+
+download/npc.owl: STAMP
+	curl -L -s https://purl.org/npc > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/npc.owl
+
+db/npc.owl: download/npc.owl
+	robot convert -i $< -o $@
 
 
 download/modl.owl: STAMP
@@ -149,17 +237,6 @@ download/phenio.owl: STAMP
 .PRECIOUS: download/phenio.owl
 
 db/phenio.owl: download/phenio.owl
-	cp $< $@
-
-
-download/phenio_test.owl: STAMP
-	curl -L -s https://github.com/monarch-initiative/phenio/releases/latest/download/phenio-test.owl > $@.tmp
-	sha256sum -b $@.tmp > $@.sha256
-	mv $@.tmp $@
-
-.PRECIOUS: download/phenio_test.owl
-
-db/phenio_test.owl: download/phenio_test.owl
 	cp $< $@
 
 
@@ -306,6 +383,17 @@ db/icd10who.owl: download/icd10who.owl
 	cp $< $@
 
 
+download/icd11f.owl: STAMP
+	curl -L -s https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd11foundation.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/icd11f.owl
+
+db/icd11f.owl: download/icd11f.owl
+	cp $< $@
+
+
 download/ordo.owl: STAMP
 	curl -L -s https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/ordo.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -325,6 +413,28 @@ download/gard.owl: STAMP
 .PRECIOUS: download/gard.owl
 
 db/gard.owl: download/gard.owl
+	cp $< $@
+
+
+download/icd10cm.owl: STAMP
+	curl -L -s https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd10cm.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/icd10cm.owl
+
+db/icd10cm.owl: download/icd10cm.owl
+	cp $< $@
+
+
+download/omim.owl: STAMP
+	curl -L -s https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/omim.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/omim.owl
+
+db/omim.owl: download/omim.owl
 	cp $< $@
 
 
@@ -414,6 +524,28 @@ download/kin.owl: STAMP
 
 db/kin.owl: download/kin.owl
 	robot reason -i $< -o $@
+
+
+download/metpo.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/berkeleybop/metpo/refs/heads/main/metpo.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/metpo.owl
+
+db/metpo.owl: download/metpo.owl
+	robot reason -i $< -o $@
+
+
+download/d3o.owl: STAMP
+	curl -L -s https://data.bioontology.org/ontologies/D3O/submissions/3/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/d3o.owl
+
+db/d3o.owl: download/d3o.owl
+	robot convert -i $< -o $@
 
 
 download/biovoices.owl: STAMP
@@ -900,6 +1032,17 @@ db/cosmo.owl: download/cosmo.owl
 	robot merge -i $< -o $@
 
 
+download/gist.owl: STAMP
+	curl -L -s https://w3id.org/semanticarts/ontology/gistCore > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/gist.owl
+
+db/gist.owl: download/gist.owl
+	cp $< $@
+
+
 download/fhkb.owl: STAMP
 	curl -L -s None > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -930,28 +1073,6 @@ download/uberoncm.owl: STAMP
 .PRECIOUS: download/uberoncm.owl
 
 db/uberoncm.owl: download/uberoncm.owl
-	cp $< $@
-
-
-download/icd10cm.owl: STAMP
-	curl -L -s https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd10cm.owl > $@.tmp
-	sha256sum -b $@.tmp > $@.sha256
-	mv $@.tmp $@
-
-.PRECIOUS: download/icd10cm.owl
-
-db/icd10cm.owl: download/icd10cm.owl
-	cp $< $@
-
-
-download/omim.owl: STAMP
-	curl -L -s https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/omim.owl > $@.tmp
-	sha256sum -b $@.tmp > $@.sha256
-	mv $@.tmp $@
-
-.PRECIOUS: download/omim.owl
-
-db/omim.owl: download/omim.owl
 	cp $< $@
 
 
@@ -1252,6 +1373,17 @@ db/enigma_context.owl: download/enigma_context.owl
 	robot merge -i $<  -o $@
 
 
+download/cbo.owl: STAMP
+	curl -L -s https://data.bioontology.org/ontologies/CBO/submissions/25/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/cbo.owl
+
+db/cbo.owl: download/cbo.owl
+	robot merge -i $<  -o $@
+
+
 download/ontie.owl: STAMP
 	curl -L -s https://ontology.iedb.org/file/ontie.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -1260,6 +1392,28 @@ download/ontie.owl: STAMP
 .PRECIOUS: download/ontie.owl
 
 db/ontie.owl: download/ontie.owl
+	cp $< $@
+
+
+download/pain.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/uflcod/pain-ontology/refs/heads/main/pain.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/pain.owl
+
+db/pain.owl: download/pain.owl
+	cp $< $@
+
+
+download/como.owl: STAMP
+	curl -L -s https://data.bioontology.org/ontologies/COMO/submissions/1/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/como.owl
+
+db/como.owl: download/como.owl
 	cp $< $@
 
 
@@ -1272,6 +1426,28 @@ download/ecosim.owl: STAMP
 
 db/ecosim.owl: download/ecosim.owl
 	cp $< $@
+
+
+download/bervo.owl: STAMP
+	curl -L -s https://data.bioontology.org/ontologies/BERVO/submissions/1/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/bervo.owl
+
+db/bervo.owl: download/bervo.owl
+	cp $< $@
+
+
+download/valuesets.owl: STAMP
+	curl -L -s https://w3id.org/valuesets/valuesets.owl.ttl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/valuesets.owl
+
+db/valuesets.owl: download/valuesets.owl
+	robot merge -i $<  -o $@
 
 
 download/nmdc_schema.owl: STAMP
@@ -1372,4 +1548,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio pride modl phenio phenio_test comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who ordo gard mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo fhkb dbpendiaont uberoncm icd10cm omim co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context ontie ecosim nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
+EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio chemrof deb matpo panet phenx pride sosa emi npc modl phenio comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who icd11f ordo gard icd10cm omim mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin metpo d3o biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo gist fhkb dbpendiaont uberoncm co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context cbo ontie pain como ecosim bervo valuesets nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
