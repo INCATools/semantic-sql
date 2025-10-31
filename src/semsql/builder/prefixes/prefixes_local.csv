@@ -110,6 +110,7 @@ quantitykind,http://qudt.org/vocab/quantitykind/
 cellosaurus,http://purl.obolibrary.org/obo/Cellosaurus#CVCL_
 gist,https://w3id.org/semanticarts/ns/ontology/gist/
 gistd,https://w3id.org/semanticarts/ns/data/gist/
+gist,https://w3id.org/semanticarts/ns/ontology/gist/
 fhkb,http://owl.cs.manchester.ac.uk/tutorials/fhkb#
 dbpediaont,http://dbpedia.org/ontology/
 dbpedia,http://dbpedia.org/

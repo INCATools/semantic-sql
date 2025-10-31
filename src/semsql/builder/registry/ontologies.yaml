@@ -442,9 +442,17 @@ ontologies:
     has_imports: true
   gist:
     url: https://w3id.org/semanticarts/ontology/gistCore
+    # gist.owl contains DTD elements, rdftab doesn't like this
+    build_command: "robot merge -i $< -o $@"
     prefixmap:
       gist: https://w3id.org/semanticarts/ns/ontology/gist/
       gistd: https://w3id.org/semanticarts/ns/data/gist/
+  gistBFO:
+    url: https://w3id.org/semanticarts/ontology/gistBFO
+    # merge import closure
+    build_command: "robot merge -i $< -o $@"
+    prefixmap:
+      gist: https://w3id.org/semanticarts/ns/ontology/gist/    
   fhkb:
     prefixmap:
       fhkb: http://owl.cs.manchester.ac.uk/tutorials/fhkb#
