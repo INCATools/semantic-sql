@@ -34,8 +34,6 @@ ontologies:
       ENSEMBL: http://identifiers.org/ensembl/
   chemessence:
     url: https://github.com/cmungall/chemessence/releases/latest/download/chemessence.owl
-    prefixmap:
-      chemrof: https://w3id.org/chemrof/
   ogco:
     url: https://raw.githubusercontent.com/cmungall/chemessence/refs/heads/main/src/ontology/components/ogco.owl
     prefixmap:
@@ -62,11 +60,53 @@ ontologies:
     prefixmap:
       MSIO: http://purl.obolibrary.org/obo/MSIO_
       nmrCV: "http://nmrML.org/nmrCV#NMR:"
+  chemrof:
+    url: https://w3id.org/chemrof/chemrof.owl.ttl
+    prefixmap:
+      chemrof: https://w3id.org/chemrof/
+  deb:
+    url: "http://rest.matportal.org/ontologies/DEB/submissions/1/download?apikey=66c82e77-ce0d-4385-8056-a95898e47ebb"
+    prefixmap:
+      DEB: "http://www.semanticweb.org/osnathakimi/ontologies/deb#"
+  matpo:
+    url: http://bimerr.iot.linkeddata.es/def/material-properties#
+    prefixmap:
+      matpo: http://bimerr.iot.linkeddata.es/def/material-properties#
+      building: http://bimerr.iot.linkeddata.es/def/building#
+      saref: https://saref.etsi.org/core/
+  panet:
+    url: http://purl.org/pan-science/PaNET/PaNET.owl
+    prefixmap:
+      PANET: http://purl.org/pan-science/PaNET/PaNET
+  phenx:
+    url: "https://data.bioontology.org/ontologies/PHENX/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
+    prefixmap:
+      PHENX: http://purl.bioontology.org/ontology/phenX/
   pride:
     url: https://raw.githubusercontent.com/PRIDE-Archive/pride-ontology/master/pride_cv.obo
     build_command: "robot relax -i $< merge -o $@"
     prefixmap:
       PRIDE: http://purl.obolibrary.org/obo/PRIDE_
+  sosa:
+    url: http://www.w3.org/ns/sosa/
+    build_command: "robot merge -i $< -o $@"
+    prefixmap:
+      sosa: http://www.w3.org/ns/sosa/
+      vann: http://purl.org/vocab/vann/
+      schema: http://schema.org/
+  emi:
+    url: https://purl.org/emi
+    build_command: "robot merge -i $< -o $@"
+    prefixmap:
+      emi: "https://purl.org/emi#"
+      genex: http://purl.org/genex#
+      bibo: http://purl.org/ontology/bibo/
+      wgs84_pos: http://www.w3.org/2003/01/geo/wgs84_pos#
+  npc:
+    url: https://purl.org/npc
+    build_command: "robot convert -i $< -o $@"
+    prefixmap:
+      npc: "https://purl.org/npc#"
   modl:
     url: https://raw.githubusercontent.com/Data-Semantics-Laboratory/modular-ontology-design-library/master/MODL.owl
     prefixmap:
@@ -75,18 +115,6 @@ ontologies:
     description: Monarch Phenomics Integrated Ontology
     url: https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl.gz
     compression: gzip
-    relation_graph_settings:
-      properties:
-        - BFO:0000050
-        - BFO:0000051
-        - UPHENO:0000001
-        - UPHENO:0000003
-        - RO:0002202
-    prefixmap:
-      biolink: https://w3id.org/biolink/vocab/
-  phenio_test:
-    description: Monarch Phenomics Integrated Ontology (Test)
-    url: https://github.com/monarch-initiative/phenio/releases/latest/download/phenio-test.owl
     relation_graph_settings:
       properties:
         - BFO:0000050
@@ -146,22 +174,27 @@ ontologies:
     url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd10who.owl
     prefixmap:
       icd10who: https://icd.who.int/browse10/2019/en#/
-  #icd11f:
-  #  url: https://github.com/monarch-initiative/icd11/releases/latest/download/icd11foundation.owl
-  #  prefixmap:
-  #    icd11f: http://id.who.int/icd/entity/
+  icd11f:
+    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd11foundation.owl
+    prefixmap:
+      icd11f: http://id.who.int/icd/entity/
   ordo:
     url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/ordo.owl
   gard:
     url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/gard.owl
     prefixmap:
       GARD: http://purl.obolibrary.org/obo/GARD_
-  mondo-ingest:
-    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/mondo-ingest.owl
+  icd10cm:
+    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd10cm.owl
+    prefixmap:
+      ICD10CM: http://purl.bioontology.org/ontology/ICD10CM/
+  omim:
+    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/omim.owl
     prefixmap:
       OMIM: https://omim.org/entry/
-      OMIMPS: https://www.omim.org/phenotypicSeries/PS
-      CHR: http://purl.obolibrary.org/obo/CHR_
+      OMIMPS: https://omim.org/phenotypicSeries/PS
+  mondo-ingest:
+    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/mondo-ingest.owl
   oeo:
     url: https://openenergyplatform.org/ontology/oeo/releases/oeo-full.owl
     prefixmap:
@@ -197,6 +230,16 @@ ontologies:
     build_command: "robot reason -i $< -o $@"
     prefixmap:
       KIN: "http://purl.org/ga4gh/kin.owl#KIN_"
+  metpo:
+    url: https://raw.githubusercontent.com/berkeleybop/metpo/refs/heads/main/metpo.owl
+    build_command: "robot reason -i $< -o $@"
+    prefixmap:
+      METPO: "https://w3id.org/metpo/"
+  d3o:
+    url: https://data.bioontology.org/ontologies/D3O/submissions/3/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb
+    build_command: "robot convert -i $< -o $@"
+    prefixmap:
+      D3O: https://purl.dsmz.de/schema/
   biovoices:
     url: https://zenodo.org/record/5589773/files/ontology.owl?download=1
     build_command: "robot relax -i $< merge -o $@"
@@ -236,6 +279,19 @@ ontologies:
     url: http://purl.obolibrary.org/obo/go/extensions/go-amigo.owl
   neo:
     url: http://purl.obolibrary.org/obo/go/noctua/neo.owl
+    prefixmap:
+      NCBIGene: http://identifiers.org/ncbigene/
+      UniProtKB.neo: http://identifiers.org/uniprot/
+      XenBase: http://identifiers.org/xenbase/
+      RGD: http://identifiers.org/rgd/
+      ZFIN: http://identifiers.org/zfin/
+      SGD.neo: http://identifiers.org/sgd/
+      FB: http://identifiers.org/flybase/
+      PomBase: http://identifiers.org/pombase/
+      DictyBase: http://identifiers.org/dictybase.gene/
+      MGI: "http://identifiers.org/mgi/MGI:"
+      TAIR.LOCUS: http://arabidopsis.org/servlets/TairObject?type=locus&name=
+      EcoCyc: "https://ecocyc.org/gene?id="
   bao:
     url: http://www.bioassayontology.org/bao/bao_complete.owl
     has_imports: true
@@ -384,6 +440,11 @@ ontologies:
   cosmo:
     url: https://micra.com/COSMO/COSMO.owl
     has_imports: true
+  gist:
+    url: https://w3id.org/semanticarts/ontology/gistCore
+    prefixmap:
+      gist: https://w3id.org/semanticarts/ns/ontology/gist/
+      gistd: https://w3id.org/semanticarts/ns/data/gist/
   fhkb:
     prefixmap:
       fhkb: http://owl.cs.manchester.ac.uk/tutorials/fhkb#
@@ -394,15 +455,6 @@ ontologies:
       dbpedia: http://dbpedia.org/
   uberoncm:
     url: https://github.com/obophenotype/uberon/releases/latest/download/composite-metazoan.owl
-  icd10cm:
-    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/icd10cm.owl
-    prefixmap:
-      ICD10CM: http://purl.bioontology.org/ontology/ICD10CM/
-  omim:
-    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/omim.owl
-    prefixmap:
-      OMIM: https://omim.org/entry/
-      OMIMPS: https://www.omim.org/phenotypicSeries/PS
   #sdtm:
   #  url: https://evs.nci.nih.gov/ftp1/CDISC/SDTM/SDTM%20Terminology.OWL.zip
   #empathi:
@@ -462,7 +514,13 @@ ontologies:
     compression: gzip
     prefixmap:
       EC: "https://bioregistry.io/eccode:"
-      UniProtKB: "https://bioregistry.io/uniprot:"
+      UniProtKB.br: "https://bioregistry.io/uniprot:"
+  #eccode:
+  #  url: https://w3id.org/biopragmatics/resources/eccode/eccode.owl.gz
+  #  compression: gzip
+  #  prefixmap:
+  #    EC.legacy: "https://bioregistry.io/eccode:"
+  #    UniProtKB: "https://bioregistry.io/uniprot:"
   uniprot:
     url: https://w3id.org/biopragmatics/resources/uniprot/uniprot.owl.gz
     compression: gzip
@@ -544,7 +602,12 @@ ontologies:
       ECSO: http://purl.dataone.org/odo/ECSO_
   enigma_context:
     url: https://raw.githubusercontent.com/jmchandonia/CORAL/main/example/enigma/ontologies/context_measurement_ontology.obo
-    build_command: "robot merge -i $<  -o $@"    
+    build_command: "robot merge -i $<  -o $@"
+  cbo:
+    build_command: "robot merge -i $<  -o $@"
+    url: https://data.bioontology.org/ontologies/CBO/submissions/25/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb
+    prefixmap:
+      CBO: "http://cbo.biocomplexity.indiana.edu/svn/cbo/trunk/CBO_1_1_2.owl#"
   #meo:
   #  url: "'https://data.bioontology.org/ontologies/MEO/submissions/9/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb'"
   #  prefixmap:
@@ -553,11 +616,28 @@ ontologies:
     url: https://ontology.iedb.org/file/ontie.owl
     prefixmap:
       ONTIE: https://ontology.iedb.org/ontology/ONTIE_
+  pain:
+    url: "https://raw.githubusercontent.com/uflcod/pain-ontology/refs/heads/main/pain.owl"
+    prefixmap:
+      PAIN: http://purl.obolibrary.org/obo/PAIN_
+  como:
+    url: "https://data.bioontology.org/ontologies/COMO/submissions/1/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
+    prefixmap:
+      COMO: http://purl.obolibrary.org/obo/COMO_
   ecosim:
     url: "https://data.bioontology.org/ontologies/ECOSIM/submissions/1/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
     prefixmap:
       ECOSIM: http://purl.obolibrary.org/obo/ECOSIM_
       ECOSIMCONCEPT: http://purl.obolibrary.org/obo/ECOSIMCONCEPT_
+  bervo:
+    url: "https://data.bioontology.org/ontologies/BERVO/submissions/1/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
+    prefixmap:
+      BERVO: https://w3id.org/bervo/BERVO_
+  valuesets:
+    build_command: "robot merge -i $<  -o $@"
+    url: https://w3id.org/valuesets/valuesets.owl.ttl
+    prefixmap:
+      VALUESETS: https://w3id.org/valuesets/
   #monarch:
   #  url: https://data.monarchinitiative.org/monarch-kg-dev/latest/monarch-kg.db.gz
   #  format: kgxdb
