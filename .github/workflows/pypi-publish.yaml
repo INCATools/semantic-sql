@@ -10,26 +10,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.9
+        python-version: '3.11'
 
-    - name: Install Poetry
-      uses: snok/install-poetry@v1.3.1
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
       with:
-        virtualenvs-create: true
-        virtualenvs-in-project: true
+        enable-cache: true
 
-    - name: Install dependencies
-      run: poetry install --no-interaction
+    - name: Create virtual environment
+      run: uv venv
 
     - name: Build source and wheel archives
       run: |
-        poetry version $(git describe --tags --abbrev=0)
-        poetry build
+        uv pip install build
+        VERSION="$(git describe --tags --abbrev=0)"
+        VERSION="${VERSION#v}"
+        export VERSION
+        python - <<'PY'
+        import os
+        import re
+        from pathlib import Path
+
+        path = Path("pyproject.toml")
+        data = path.read_text()
+        version = os.environ["VERSION"]
+        updated = re.sub(
+            r'^version = ".*"$',
+            f'version = "{version}"',
+            data,
+            count=1,
+            flags=re.MULTILINE,
+        )
+        path.write_text(updated)
+        print(f"Set project version to {version}")
+        PY
+        uv run python -m build
 
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@v1.2.2

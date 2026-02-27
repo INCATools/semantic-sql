@@ -1,7 +1,3 @@
-# Built from:
-# https://docs.github.com/en/actions/guides/building-and-testing-python
-# https://github.com/snok/install-poetry#workflows-and-tips
-
 name: Build and test
 
 on:
@@ -15,24 +11,29 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.9' ]
+        python-version: [ '3.11' ]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          pip install tox
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - name: Create virtual environment
+        run: uv venv
+      - name: Install lint dependencies
+        run: uv pip install tox
       - name: Check code quality with flake8
-        run: tox -e flake8
+        run: uv run tox -e flake8
 
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.9' ]
+        python-version: [ '3.11' ]
 
     steps:
 
@@ -40,48 +41,35 @@ jobs:
       #       check-out repo and set-up python
       #----------------------------------------------
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
       #----------------------------------------------
-      #          install & configure poetry
+      #                 install uv
       #----------------------------------------------
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.3
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+          enable-cache: true
 
       #----------------------------------------------
-      #       load cached venv if cache exists      
+      #             create virtualenv
       #----------------------------------------------
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Create virtual environment
+        run: uv venv
 
       #----------------------------------------------
-      # install dependencies if cache does not exist 
+      #             install dependencies
       #----------------------------------------------
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-
-      #----------------------------------------------
-      #    install your root project, if required 
-      #----------------------------------------------      
-      - name: Install library
-        run: poetry install --no-interaction
+        run: uv pip install .
 
       #----------------------------------------------
       #              run test suite   
       #----------------------------------------------
       - name: Run tests
-        run: poetry run python -m unittest discover
-
+        run: uv run python -m unittest discover

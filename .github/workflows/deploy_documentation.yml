@@ -28,22 +28,32 @@ jobs:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
 
     - name: Set up Python3
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.9
+        python-version: '3.11'
 
     #----------------------------------------------
-    #          install & configure poetry
+    #                 install uv
     #----------------------------------------------
-    - name: Install Poetry
-      uses: snok/install-poetry@v1.3
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
 
     #----------------------------------------------
-    # install dependencies if cache does not exist
+    #          create env and install deps
     #----------------------------------------------
     - name: Install dependencies
-      # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction
+      run: |
+        uv venv
+        uv pip install . \
+          mkdocs \
+          "linkml>=1.7.4" \
+          mkdocs-mermaid2-plugin \
+          jupyter \
+          ipython-sql \
+          tox \
+          black
 
     #----------------------------------------------
     #  Create documentation and deploy.
@@ -53,5 +63,5 @@ jobs:
         mkdir docs
         touch docs/.nojekyll
         cp -r src/docs/* docs/
-        make gendoc
-        make mkd-gh-deploy
+        make RUN="uv run" gendoc
+        make RUN="uv run" mkd-gh-deploy
