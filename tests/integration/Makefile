@@ -1,4 +1,4 @@
-RUN = poetry run
+RUN ?= uv run
 
 input/%.owl:
 	robot merge -I http://purl.obolibrary.org/obo/$*.owl -o $@

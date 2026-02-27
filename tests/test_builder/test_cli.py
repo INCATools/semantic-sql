@@ -17,7 +17,7 @@ TEST_DB = os.path.join(OUTPUT_DIR, "go-nucleus-in.db")
 
 class TestCommandLineInterface(unittest.TestCase):
     def setUp(self) -> None:
-        runner = CliRunner(mix_stderr=False)
+        runner = CliRunner()
         self.runner = runner
 
     def test_main_help(self):

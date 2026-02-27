@@ -12,22 +12,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
     - name: Install uv
-      uses: astral-sh/setup-uv@v5
+      uses: astral-sh/setup-uv@v6
       with:
+        python-version: "3.12"
         enable-cache: true
-
-    - name: Create virtual environment
-      run: uv venv
+        cache-dependency-glob: "uv.lock"
 
     - name: Build source and wheel archives
       run: |
-        uv pip install build
+        uv sync --locked --no-dev
         VERSION="$(git describe --tags --abbrev=0)"
         VERSION="${VERSION#v}"
         export VERSION
@@ -49,7 +43,7 @@ jobs:
         path.write_text(updated)
         print(f"Set project version to {version}")
         PY
-        uv run python -m build
+        uv build
 
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@v1.2.2

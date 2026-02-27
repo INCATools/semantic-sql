@@ -1,5 +1,5 @@
 OBO = http://purl.obolibrary.org/obo
-RUN = poetry run
+RUN ?= uv run
 VERSION = $(shell git tag | tail -1)
 SRC_DIR = src/semsql/linkml
 BUILDER_DIR = src/semsql/builder
@@ -228,7 +228,7 @@ $(SQLA_DIR)/%.py: $(YAML_DIR)/%.yaml
 # can be added to your $PATH that will execute the
 # version of semsql used in github
 bin/%:
-	echo `poetry run which $*` '$$*' > $@ && chmod +x $@
+	echo `uv run which $*` '$$*' > $@ && chmod +x $@
 
 ### DEPLOY
 

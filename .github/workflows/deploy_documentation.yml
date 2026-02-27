@@ -4,7 +4,7 @@ name: Deploy Documentation
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [main]
 
     paths:
     - 'src/docs/*'
@@ -22,38 +22,26 @@ jobs:
     #       check-out repo and set-up python
     #----------------------------------------------
     - name: Check out repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         # persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-
-    - name: Set up Python3
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
 
     #----------------------------------------------
     #                 install uv
     #----------------------------------------------
     - name: Install uv
-      uses: astral-sh/setup-uv@v5
+      uses: astral-sh/setup-uv@v6
       with:
+        python-version: "3.11"
         enable-cache: true
+        cache-dependency-glob: "uv.lock"
 
     #----------------------------------------------
-    #          create env and install deps
+    #          install project dependencies
     #----------------------------------------------
     - name: Install dependencies
-      run: |
-        uv venv
-        uv pip install . \
-          mkdocs \
-          "linkml>=1.7.4" \
-          mkdocs-mermaid2-plugin \
-          jupyter \
-          ipython-sql \
-          tox \
-          black
+      run: uv sync --dev --locked --no-progress
 
     #----------------------------------------------
     #  Create documentation and deploy.
@@ -63,5 +51,5 @@ jobs:
         mkdir docs
         touch docs/.nojekyll
         cp -r src/docs/* docs/
-        make RUN="uv run" gendoc
-        make RUN="uv run" mkd-gh-deploy
+        make gendoc
+        make mkd-gh-deploy

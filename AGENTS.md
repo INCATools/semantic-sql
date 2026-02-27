@@ -11,8 +11,8 @@ Semantic-SQL transforms OWL/RDF ontologies into SQLite databases with standardiz
 ```bash
 # Build/test
 make test                     # Run unit tests
-poetry run pytest tests/      # Run specific tests
-poetry run pytest tests/test_orm/test_basic_sqla.py -k "test_name"  # Single test
+uv run pytest tests/          # Run specific tests
+uv run pytest tests/test_orm/test_basic_sqla.py -k "test_name"  # Single test
 
 # Schema development (after editing src/semsql/linkml/*.yaml)
 make gen-ddl                  # Generate SQL DDL from LinkML
@@ -103,8 +103,8 @@ runoak -i db/NAME.db terms
 Tests use pytest, not unittest. Integration tests require rdftab/relation-graph and are marked `@pytest.mark.integration`.
 
 ```bash
-poetry run pytest tests/test_orm/      # ORM tests use tests/inputs/go-nucleus.db
-poetry run pytest tests/test_builder/  # Builder tests
+uv run pytest tests/test_orm/      # ORM tests use tests/inputs/go-nucleus.db
+uv run pytest tests/test_builder/  # Builder tests
 ```
 
 ## Best Practices from User

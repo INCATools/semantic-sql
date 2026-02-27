@@ -2,30 +2,26 @@ name: Build and test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.11' ]
+        python-version: ["3.11"]
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-        with:
           enable-cache: true
-      - name: Create virtual environment
-        run: uv venv
-      - name: Install lint dependencies
-        run: uv pip install tox
+          cache-dependency-glob: "uv.lock"
+      - name: Install dependencies
+        run: uv sync --dev --locked
       - name: Check code quality with flake8
         run: uv run tox -e flake8
 
@@ -33,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.11' ]
+        python-version: ["3.11"]
 
     steps:
 
@@ -43,30 +39,21 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-
       #----------------------------------------------
       #                 install uv
       #----------------------------------------------
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v6
         with:
+          python-version: ${{ matrix.python-version }}
           enable-cache: true
-
-      #----------------------------------------------
-      #             create virtualenv
-      #----------------------------------------------
-      - name: Create virtual environment
-        run: uv venv
+          cache-dependency-glob: "uv.lock"
 
       #----------------------------------------------
       #             install dependencies
       #----------------------------------------------
       - name: Install dependencies
-        run: uv pip install .
+        run: uv sync --dev --locked
 
       #----------------------------------------------
       #              run test suite   
