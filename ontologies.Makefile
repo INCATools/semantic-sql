@@ -127,7 +127,7 @@ download/chemrof.owl: STAMP
 .PRECIOUS: download/chemrof.owl
 
 db/chemrof.owl: download/chemrof.owl
-	cp $< $@
+	robot merge -i $< -o $@
 
 
 download/deb.owl: STAMP
@@ -1425,7 +1425,7 @@ download/como.owl: STAMP
 .PRECIOUS: download/como.owl
 
 db/como.owl: download/como.owl
-	cp $< $@
+	robot merge -i $<  -o $@
 
 
 download/ecosim.owl: STAMP
@@ -1459,6 +1459,17 @@ download/valuesets.owl: STAMP
 
 db/valuesets.owl: download/valuesets.owl
 	robot merge -i $<  -o $@
+
+
+download/micront.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/grp-schmidt/microntology/refs/heads/main/micront.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/micront.owl
+
+db/micront.owl: download/micront.owl
+	cp $< $@
 
 
 download/nmdc_schema.owl: STAMP
@@ -1549,6 +1560,83 @@ db/bfo2020_time.owl: download/bfo2020_time.owl
 	cp $< $@
 
 
+download/saref4ener.owl: STAMP
+	curl -L -s https://saref.etsi.org/saref4ener/ > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/saref4ener.owl
+
+db/saref4ener.owl: download/saref4ener.owl
+	curl -sL -H 'Accept: text/turtle' https://saref.etsi.org/saref4ener/ > $@.ttl && robot convert -i $@.ttl -o $@ && rm $@.ttl
+
+
+download/saref4bldg.owl: STAMP
+	curl -L -s https://saref.etsi.org/saref4bldg/ > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/saref4bldg.owl
+
+db/saref4bldg.owl: download/saref4bldg.owl
+	curl -sL -H 'Accept: text/turtle' https://saref.etsi.org/saref4bldg/ > $@.ttl && robot convert -i $@.ttl -o $@ && rm $@.ttl
+
+
+download/hhearvs.owl: STAMP
+	curl -L -s https://data.bioontology.org/ontologies/HHEARVS/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/hhearvs.owl
+
+db/hhearvs.owl: download/hhearvs.owl
+	perl -npe 's@<owl:imports.*/>@@g; s@skos:broader@rdfs:subClassOf@g; s@skos:prefLabel@rdfs:label@g; s@owl:NamedIndividual@owl:Class@g' $< > $@.tmp && robot convert -i $@.tmp -o $@ && rm $@.tmp
+
+
+download/sdoho.owl: STAMP
+	curl -L -s https://data.bioontology.org/ontologies/SDOHO/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/sdoho.owl
+
+db/sdoho.owl: download/sdoho.owl
+	perl -npe 's@<owl:imports.*/>@@g' $< > $@.tmp && robot convert -i $@.tmp -o $@ && rm $@.tmp
+
+
+download/pathgo.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/jhuapl-bio/pathogenesis-gene-ontology/refs/heads/master/pathgo.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/pathgo.owl
+
+db/pathgo.owl: download/pathgo.owl
+	cp $< $@
+
+
+download/brick.owl: STAMP
+	curl -L -s https://github.com/BrickSchema/Brick/releases/download/v1.4.0/Brick.ttl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/brick.owl
+
+db/brick.owl: download/brick.owl
+	sed '48061,48072d' $< > $@.tmp && robot convert -i $@.tmp -f owl -o $@ && rm $@.tmp
+
+
+download/minsysont.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/adavarpa/CMO-Critical-Minerals-Ontology-/refs/heads/main/CMO.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/minsysont.owl
+
+db/minsysont.owl: download/minsysont.owl
+	robot merge -i $< -o $@.tmp.owl && perl -npe 's/\[HSiO4\]/%5BHSiO4%5D/g' $@.tmp.owl > $@ && rm $@.tmp.owl
+
+
 download/%.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -1559,4 +1647,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio chemrof deb matpo panet phenx pride sosa emi npc modl phenio comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who icd11f ordo gard icd10cm omim mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin metpo d3o biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo gist gistBFO fhkb dbpendiaont uberoncm co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context cbo ontie pain como ecosim bervo valuesets nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time
+EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio chemrof deb matpo panet phenx pride sosa emi npc modl phenio comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who icd11f ordo gard icd10cm omim mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin metpo d3o biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo gist gistBFO fhkb dbpendiaont uberoncm co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context cbo ontie pain como ecosim bervo valuesets micront nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time saref4ener saref4bldg hhearvs sdoho pathgo brick minsysont
