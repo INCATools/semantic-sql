@@ -764,3 +764,9 @@ ontologies:
     prefixmap:
       MinSysOnt: "http://www.semanticweb.org/hbabaie/ontologies/2021/5/MinSysOnt#"
       CMO.minerals: "http://www.semanticweb.org/Davarpanah-Babaie/Ontologies/2022/CMO#"
+  sulo:
+    description: Simplified Upper Level Ontology
+    url: https://w3id.org/sulo/sulo.ttl
+    format: turtle
+    prefixmap:
+      sulo: https://w3id.org/sulo/
