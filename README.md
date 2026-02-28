@@ -208,7 +208,7 @@ Even if using OAK, it can be useful to access SQL tables directly to do complex 
 ## Optimization
 
 ```bash
-poetry run semsql view2table edge --full-index | sqlite3 $db/mydb.db
+uv run semsql view2table edge --full-index | sqlite3 $db/mydb.db
 ```
 
 See [indexes](indexes) for some ready-made indexes

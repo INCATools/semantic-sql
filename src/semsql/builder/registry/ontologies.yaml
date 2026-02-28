@@ -62,6 +62,7 @@ ontologies:
       nmrCV: "http://nmrML.org/nmrCV#NMR:"
   chemrof:
     url: https://w3id.org/chemrof/chemrof.owl.ttl
+    build_command: "robot merge -i $< -o $@"
     prefixmap:
       chemrof: https://w3id.org/chemrof/
   deb:
@@ -198,8 +199,12 @@ ontologies:
   oeo:
     url: https://openenergyplatform.org/ontology/oeo/releases/oeo-full.owl
     prefixmap:
-      OEO: http://openenergy-platform.org/ontology/oeo/OEO_
-      OEOX: http://openenergy-platform.org/ontology/oeo/OEOX_
+      # note: they recently switched to https AND removed a hyphen
+      # https://github.com/OpenEnergyPlatform/ontology/pull/2050
+      OEO: https://openenergyplatform.org/ontology/oeo/OEO_
+      OEOX: https://openenergyplatform.org/ontology/oeo/OEOX_
+      MENO: https://raw.githubusercontent.com/stap-m/midlevel-energy-ontology/main/ontology/src/midlevel-energy.owl/MENO_
+      OEO.CCO: http://www.ontologyrepository.com/CommonCoreOntologies/
   envthes:
     url: https://vocabs.lter-europe.net/rest/v1/envthes/data?format=text/turtle
     build_command: "robot query -i $< --update sparql/skos-to-owl.ru -o $@"
@@ -299,6 +304,7 @@ ontologies:
     url: https://w3id.org/orcidio/orcidio.owl
     prefixmap:
       orcid: https://orcid.org/
+      geonames: https://www.geonames.org/
   ror:
     url: https://w3id.org/biopragmatics/resources/ror/ror.owl.gz
     compression: gzip
@@ -630,6 +636,7 @@ ontologies:
       PAIN: http://purl.obolibrary.org/obo/PAIN_
   como:
     url: "https://data.bioontology.org/ontologies/COMO/submissions/1/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
+    build_command: "robot merge -i $<  -o $@"
     prefixmap:
       COMO: http://purl.obolibrary.org/obo/COMO_
   ecosim:
@@ -646,6 +653,10 @@ ontologies:
     url: https://w3id.org/valuesets/valuesets.owl.ttl
     prefixmap:
       VALUESETS: https://w3id.org/valuesets/
+  micront:
+    url: https://raw.githubusercontent.com/grp-schmidt/microntology/refs/heads/main/micront.owl
+    prefixmap:
+      MICRONT: "http://purl.obolibrary.org/obo/micront.owl#MICRONT_"
   #monarch:
   #  url: https://data.monarchinitiative.org/monarch-kg-dev/latest/monarch-kg.db.gz
   #  format: kgxdb
@@ -687,3 +698,69 @@ ontologies:
     url: http://purl.obolibrary.org/obo/bfo/2020/notime/bfo.owl
   bfo2020_time:
     url: https://raw.githubusercontent.com/BFO-ontology/BFO-2020/master/src/owl/profiles/temporal%20extensions/temporalized%20relations/owl/bfo-temporalized-relations.owl
+
+## SAREF and Building Ontologies
+  saref4ener:
+    description: ETSI SAREF extension for the energy domain (smart energy, demand response)
+    url: https://saref.etsi.org/saref4ener/
+    # Needs content negotiation - curl -H "Accept: text/turtle"
+    build_command: "curl -sL -H 'Accept: text/turtle' https://saref.etsi.org/saref4ener/ > $@.ttl && robot convert -i $@.ttl -o $@ && rm $@.ttl"
+    prefixmap:
+      saref4ener: https://saref.etsi.org/saref4ener/
+      saref: https://saref.etsi.org/core/
+      s4ener: https://saref.etsi.org/saref4ener/
+  saref4bldg:
+    description: ETSI SAREF extension for building automation (IFC4-based)
+    url: https://saref.etsi.org/saref4bldg/
+    # Needs content negotiation - curl -H "Accept: text/turtle"
+    build_command: "curl -sL -H 'Accept: text/turtle' https://saref.etsi.org/saref4bldg/ > $@.ttl && robot convert -i $@.ttl -o $@ && rm $@.ttl"
+    prefixmap:
+      saref4bldg: https://saref.etsi.org/saref4bldg/
+      saref: https://saref.etsi.org/core/
+      s4bldg: https://saref.etsi.org/saref4bldg/
+  hhearvs:
+    description: HHEAR Value Sets - value sets for the Human Health Exposure Analysis Resource
+    url: "https://data.bioontology.org/ontologies/HHEARVS/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
+    build_command: "perl -npe 's@<owl:imports.*/>@@g; s@skos:broader@rdfs:subClassOf@g; s@skos:prefLabel@rdfs:label@g; s@owl:NamedIndividual@owl:Class@g' $< > $@.tmp && robot convert -i $@.tmp -o $@ && rm $@.tmp"
+    prefixmap:
+      HHEAR: http://purl.org/twc/HHEAR_
+      HHEARVS: http://purl.org/twc/HHEARVS_
+      HHEARVS.nihreporter: https://reporter.nih.gov/search/2NC9YrDMM0SiuN8TnuRgKg/project-details/
+  sdoho:
+    description: Social Determinants of Health Ontology
+    url: "https://data.bioontology.org/ontologies/SDOHO/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
+    build_command: "perl -npe 's@<owl:imports.*/>@@g' $< > $@.tmp && robot convert -i $@.tmp -o $@ && rm $@.tmp"
+    prefixmap:
+      SDOHO: "https://sbmi.uth.edu/bsdi/SDoHO#"
+  pathgo:
+    description: Pathogenesis Gene Ontology - mechanisms through which pathogens cause cellular damage
+    url: https://raw.githubusercontent.com/jhuapl-bio/pathogenesis-gene-ontology/refs/heads/master/pathgo.owl
+    prefixmap:
+      PATHGO: http://purl.obolibrary.org/obo/PATHGO_
+  brick:
+    description: Brick schema for building operations (HVAC, sensors, equipment, zones)
+    url: https://github.com/BrickSchema/Brick/releases/download/v1.4.0/Brick.ttl
+    format: turtle
+    # Has unresolvable imports (BACnet) - strip imports and convert to OWL/XML
+    build_command: "sed '48061,48072d' $< > $@.tmp && robot convert -i $@.tmp -f owl -o $@ && rm $@.tmp"
+    prefixmap:
+      brick: "https://brickschema.org/schema/Brick#"
+      bsh: "https://brickschema.org/schema/BrickShape#"
+      tag: "https://brickschema.org/schema/BrickTag#"
+      ref: "https://brickschema.org/schema/Brick/ref#"
+      rec: "https://w3id.org/rec#"
+      bacnet: "http://data.ashrae.org/bacnet/2020#"
+      s223: "http://data.ashrae.org/standard223#"
+      qudt: "http://qudt.org/schema/qudt/"
+      qudtqk: "http://qudt.org/vocab/quantitykind/"
+      unit: "http://qudt.org/vocab/unit/"
+      sosa: "http://www.w3.org/ns/sosa/"
+      sh: "http://www.w3.org/ns/shacl#"
+      vcard: "http://www.w3.org/2006/vcard/ns#"
+  minsysont:
+    description: Critical Minerals Ontology (Mineral System Ontology)
+    url: https://raw.githubusercontent.com/adavarpa/CMO-Critical-Minerals-Ontology-/refs/heads/main/CMO.owl
+    build_command: "robot merge -i $< -o $@.tmp.owl && perl -npe 's/\\[HSiO4\\]/%5BHSiO4%5D/g' $@.tmp.owl > $@ && rm $@.tmp.owl"
+    prefixmap:
+      MinSysOnt: "http://www.semanticweb.org/hbabaie/ontologies/2021/5/MinSysOnt#"
+      CMO.minerals: "http://www.semanticweb.org/Davarpanah-Babaie/Ontologies/2022/CMO#"

@@ -1,77 +1,118 @@
-# AGENTS.md for semantic-sql
+# CLAUDE.md
 
-SQL and SQLite builds of common OWL ontologies, including all of OBO
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-TODO: fill in extra description here
+## Project Overview
 
-## Repo management
+Semantic-SQL transforms OWL/RDF ontologies into SQLite databases with standardized SQL views. Pre-built databases for all OBO ontologies are available via S3 (e.g., `https://s3.amazonaws.com/bbop-sqlite/hp.db.gz`).
 
-This repo uses `uv` for managing dependencies. Never use commands like `pip` to add or manage dependencies.
-`uv run` is the best way to run things, unless you are using `justfile` or `makefile` target
+## Key Commands
 
-`mkdocs` is used for documentation.## This is a LinkML Schema repository
+```bash
+# Build/test
+make test                     # Run unit tests
+uv run pytest tests/          # Run specific tests
+uv run pytest tests/test_orm/test_basic_sqla.py -k "test_name"  # Single test
 
-Layout:
+# Schema development (after editing src/semsql/linkml/*.yaml)
+make gen-ddl                  # Generate SQL DDL from LinkML
+make gen-sqla                 # Generate SQLAlchemy ORM models
+make gendoc                   # Generate documentation
 
- * `src/semantic_sql/schema/semantic_sql.yaml` - LinkML source schema (edit this)
- * `project` - derived files (do not edit these directly, they are derived from the LinkML)
- * `src/docs` - source markdown for documentation
- * `docs` - derived docs - do not edit these directly
- * `src/data/examples/{valid,invalid}` - example data files
-    * always include positive examples of each class in the `valid` subfolder
-    * include negative examples for unit tests and to help illustrate pitfalls
-    * format is `ClassName-{SOMENAME}.yaml`
- * `examples` - derived examples. Do not edit these directly
+# Ontology builds
+semsql make foo.db            # Build SQLite from foo.owl (requires rdftab + relation-graph)
+semsql download cl -o cl.db   # Download pre-built database
+make build_all                # Build all OBO ontologies
+make s3-deploy                # Deploy to S3
 
-Building and testing:
+# Docker alternative
+docker run -v $PWD:/work -w /work -ti linkml/semantic-sql semsql make foo.db
+```
 
-* `just --list` to see all commands
-* `just gen-project` to generate `project` files
-* `just test` to test schema and pos/neg examples
-* `just lint` analogous to ruff for python
+## Architecture
 
-These are wrappers on top of existing linkml commands such as `gen-project`, `linkml-convert`, `linkml-run-examples`.
-You can run the underlying commands (with `uv run ...`) but in general justfile targets should be favored.
+### Core Data Model
 
-Best practice:
+**Base tables** (physical storage):
+- `statements` - RDF triples (stanza, subject, predicate, object, value, datatype, language)
+- `prefix` - CURIE prefix mappings
+- `entailed_edge` - Pre-computed transitive closures from relation-graph
 
-* For full documentation, see https://linkml.io/linkml/
-* Follow LinkML naming conventions (CamelCase for classes, snake_case for slots/attributes)
-* For schemas with polymorphism, consider using field `type` marked as a `type_designator: true`
-* Include meaningful descriptions of each element
-* map to standards where appropriate (e.g. dcterms)
-* Never guess OBO term IDs. Always use the OLS MCP to look for relevant ontology terms
-* be proactive in using due diligence to do deep research on the domain, and look at existing standards## This is a Python repository
+**All other "tables" are SQL views** defined in LinkML schemas via embedded `sqlview>>` comments:
+```yaml
+rdfs_label_statement:
+  comments:
+    - sqlview>> SELECT * FROM statements WHERE predicate='rdfs:label'
+```
 
-Layout:
+### Build Pipeline
 
- * `src/semantic_sql/` - Code goes here
- * `docs` - mkdocs docs
- * `mkdocs.yml` - index of docs
- * `tests/input` - example files
+```
+OWL file → robot preprocessing → rdftab → SQLite statements table
+                              ↓
+         relation-graph → entailed_edge table
+                              ↓
+                   Apply SQL views from schema
+```
 
-Building and testing:
+External dependencies: [rdftab.rs](https://github.com/ontodev/rdftab.rs), [relation-graph](https://github.com/balhoff/relation-graph)
 
-* `just --list` to see all commands
-* `just test` performs unit tests, doctests, ruff/liniting
-* `just test-full` as above plus integration tests
+### Source Layout
 
-You can run the underlying commands (with `uv run ...`) but in general justfile targets should be favored.
+```
+src/semsql/
+├── linkml/           # LinkML schemas (THE SOURCE OF TRUTH)
+│   ├── semsql.yaml   # Main schema, imports all modules
+│   ├── rdf.yaml      # RDF/RDFS abstractions
+│   ├── owl.yaml      # OWL constructs (restrictions, expressions)
+│   ├── obo.yaml      # OBO patterns and validation checks
+│   ├── omo.yaml      # Ontology Metadata mappings
+│   └── relation_graph.yaml  # Edge-based graph views
+├── builder/
+│   ├── cli.py        # semsql command (make, download, query, view2table)
+│   ├── builder.py    # Build orchestration
+│   ├── build.Makefile # Core db build rules
+│   ├── sql_schema/   # Generated SQL DDL (from LinkML)
+│   ├── registry/     # ontologies.yaml - non-OBO ontology registry
+│   └── prefixes/     # CURIE mappings
+├── sqla/             # Generated SQLAlchemy ORM models
+└── sqlutils/
+    └── viewgen.py    # Extracts SQL views from LinkML comments
+```
 
-Best practice:
+### Ontology Registry
 
-* Use doctests liberally - these serve as both explanatory examples for humans and as unit tests
-* For longer examples, write pytest tests
-* always write pytest functional style rather than unittest OO style
-* use modern pytest idioms, including `@pytest.mark.parametrize` to test for combinations of inputs
-* NEVER write mock tests unless requested. I need to rely on tests to know if something breaks
-* For tests that have external dependencies, you can do `@pytest.mark.integration`
-* Do not "fix" issues by changing or weakening test conditions. Try harder, or ask questions if a test fails.
-* Avoid try/except blocks, these can mask bugs
-* Fail fast is a good principle
-* Follow the DRY principle
-* Avoid repeating chunks of code, but also avoid premature over-abstraction
-* Pydantic or LinkML is favored for data objects
-* For state in engine-style OO classes, dataclasses is favored
-* Declarative principles are favored
-* Always use type hints, always document methods and classes
+`src/semsql/builder/registry/ontologies.yaml` defines non-OBO ontologies. After adding a new entry:
+
+```bash
+# If you added prefixes to the entry, rebuild prefix mappings first:
+make build_prefixes
+
+# May need to touch STAMP to force re-download:
+rm STAMP
+
+# Build the database:
+make db/NAME.db
+
+# Test with OAK:
+runoak -i db/NAME.db terms
+```
+
+## Testing
+
+Tests use pytest, not unittest. Integration tests require rdftab/relation-graph and are marked `@pytest.mark.integration`.
+
+```bash
+uv run pytest tests/test_orm/      # ORM tests use tests/inputs/go-nucleus.db
+uv run pytest tests/test_builder/  # Builder tests
+```
+
+## Best Practices from User
+
+- Use `uv` for dependencies (never pip)
+- pytest functional style, use `@pytest.mark.parametrize`
+- Never mock tests unless explicitly requested
+- Avoid try/except blocks
+- Use doctests liberally
+- Never guess OBO term IDs - use OLS MCP to look them up
+- LinkML naming: CamelCase for classes, snake_case for slots
