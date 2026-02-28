@@ -252,6 +252,7 @@ sh,http://www.w3.org/ns/shacl#
 vcard,http://www.w3.org/2006/vcard/ns#
 MinSysOnt,http://www.semanticweb.org/hbabaie/ontologies/2021/5/MinSysOnt#
 CMO.minerals,http://www.semanticweb.org/Davarpanah-Babaie/Ontologies/2022/CMO#
+sulo,https://w3id.org/sulo/
 RBO,http://purl.obolibrary.org/obo/RBO_
 RBO,http://purl.obolibrary.org/obo/RBO_
 CLYH,http://purl.obolibrary.org/obo/CLYH_
