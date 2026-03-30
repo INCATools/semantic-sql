@@ -460,6 +460,50 @@ db/oeo.owl: download/oeo.owl
 	cp $< $@
 
 
+download/cepo.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/OpenEnergyPlatform/ClimateEnergyPolicyOntology/production/src/ontology/cepo.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/cepo.owl
+
+db/cepo.owl: download/cepo.owl
+	robot merge -i $< -o $@
+
+
+download/oto.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/OpenEnergyPlatform/OpenTransportOntology/production/src/ontology/oto.ttl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/oto.owl
+
+db/oto.owl: download/oto.owl
+	perl -0pe 's@http://w3id.org/oto/develop/oto-shared.ttl@https://raw.githubusercontent.com/OpenEnergyPlatform/OpenTransportOntology/production/src/ontology/edits/oto-shared.ttl@g' $< > $@.tmp.ttl && robot merge -i $@.tmp.ttl -o $@ && rm $@.tmp.ttl
+
+
+download/meno.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/stap-m/midlevel-energy-ontology/main/ontology/src/midlevel-energy.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/meno.owl
+
+db/meno.owl: download/meno.owl
+	robot merge -i $< -o $@
+
+
+download/muno.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/stap-m/muno/main/src/muno.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/muno.owl
+
+db/muno.owl: download/muno.owl
+	perl -0pe 's@http://www.semanticweb.org/abc/ontologies/2025/2/untitled-ontology-46/@https://raw.githubusercontent.com/stap-m/muno/main/src/ro-extracted.owl@g; s@http://www.semanticweb.org/abc/ontologies/2025/2/untitled-ontology-47/@https://raw.githubusercontent.com/stap-m/muno/main/src/iao-extracted.owl@g' $< > $@.tmp.owl && robot merge -i $@.tmp.owl -o $@ && rm $@.tmp.owl
+
+
 download/envthes.owl: STAMP
 	curl -L -s https://vocabs.lter-europe.net/rest/v1/envthes/data?format=text/turtle > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -1658,4 +1702,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio chemrof deb matpo panet phenx pride sosa emi npc modl phenio comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who icd11f ordo gard icd10cm omim mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin metpo d3o biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo gist gistBFO fhkb dbpendiaont uberoncm co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context cbo ontie pain como ecosim bervo valuesets micront nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time saref4ener saref4bldg hhearvs sdoho pathgo brick minsysont sulo
+EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio chemrof deb matpo panet phenx pride sosa emi npc modl phenio comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who icd11f ordo gard icd10cm omim mondo-ingest oeo cepo oto meno muno envthes wifire taxslim goldterms sdgio kin metpo d3o biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo gist gistBFO fhkb dbpendiaont uberoncm co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context cbo ontie pain como ecosim bervo valuesets micront nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time saref4ener saref4bldg hhearvs sdoho pathgo brick minsysont sulo
