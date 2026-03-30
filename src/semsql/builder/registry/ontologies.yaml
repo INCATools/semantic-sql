@@ -215,6 +215,9 @@ ontologies:
     url: https://raw.githubusercontent.com/OpenEnergyPlatform/OpenTransportOntology/production/src/ontology/oto.ttl
     has_imports: true
     format: turtle
+    # Temporary workaround: the published import target `http://w3id.org/oto/develop/oto-shared.ttl`
+    # currently resolves to HTML docs instead of RDF/Turtle.
+    # Upstream issue: https://github.com/OpenEnergyPlatform/OpenTransportOntology/issues/46
     build_command: "perl -0pe 's@http://w3id.org/oto/develop/oto-shared.ttl@https://raw.githubusercontent.com/OpenEnergyPlatform/OpenTransportOntology/production/src/ontology/edits/oto-shared.ttl@g' $< > $@.tmp.ttl && robot merge -i $@.tmp.ttl -o $@ && rm $@.tmp.ttl"
     prefixmap:
       OTO: http://w3id.org/oto/OTO_

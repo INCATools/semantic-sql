@@ -117,6 +117,8 @@ OEO,https://openenergyplatform.org/ontology/oeo/OEO_
 OEOX,https://openenergyplatform.org/ontology/oeo/OEOX_
 MENO,https://raw.githubusercontent.com/stap-m/midlevel-energy-ontology/main/ontology/src/midlevel-energy.owl/MENO_
 OEO.CCO,http://www.ontologyrepository.com/CommonCoreOntologies/
+CEPO,http://purl.org/cepo/ontology#cepo_
+OTO,http://w3id.org/oto/OTO_
 envthes,http://vocabs.lter-europe.net/EnvThes/
 omv,http://omv.ontoware.org/2005/05/
 iadopt,https://w3id.org/iadopt/ont/

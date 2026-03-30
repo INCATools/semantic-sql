@@ -1,3 +1,9 @@
+"""Registry compilation tests.
+
+These tests only verify that ontology registry entries compile into the expected
+download/build rules. They are not end-to-end ontology build tests.
+"""
+
 import re
 
 import pytest
