@@ -196,6 +196,7 @@ ontologies:
       OMIMPS: https://omim.org/phenotypicSeries/PS
   mondo-ingest:
     url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/mondo-ingest.owl
+  # ENERO Foundry / Open Energy Family ontologies
   oeo:
     url: https://openenergyplatform.org/ontology/oeo/releases/oeo-full.owl
     prefixmap:
@@ -205,6 +206,18 @@ ontologies:
       OEOX: https://openenergyplatform.org/ontology/oeo/OEOX_
       MENO: https://raw.githubusercontent.com/stap-m/midlevel-energy-ontology/main/ontology/src/midlevel-energy.owl/MENO_
       OEO.CCO: http://www.ontologyrepository.com/CommonCoreOntologies/
+  cepo:
+    url: https://raw.githubusercontent.com/OpenEnergyPlatform/ClimateEnergyPolicyOntology/production/src/ontology/cepo.owl
+    has_imports: true
+    prefixmap:
+      CEPO: http://purl.org/cepo/ontology#cepo_
+  oto:
+    url: https://raw.githubusercontent.com/OpenEnergyPlatform/OpenTransportOntology/production/src/ontology/oto.ttl
+    has_imports: true
+    format: turtle
+    build_command: "perl -0pe 's@http://w3id.org/oto/develop/oto-shared.ttl@https://raw.githubusercontent.com/OpenEnergyPlatform/OpenTransportOntology/production/src/ontology/edits/oto-shared.ttl@g' $< > $@.tmp.ttl && robot merge -i $@.tmp.ttl -o $@ && rm $@.tmp.ttl"
+    prefixmap:
+      OTO: http://w3id.org/oto/OTO_
   envthes:
     url: https://vocabs.lter-europe.net/rest/v1/envthes/data?format=text/turtle
     build_command: "robot query -i $< --update sparql/skos-to-owl.ru -o $@"
