@@ -204,7 +204,6 @@ ontologies:
       # https://github.com/OpenEnergyPlatform/ontology/pull/2050
       OEO: https://openenergyplatform.org/ontology/oeo/OEO_
       OEOX: https://openenergyplatform.org/ontology/oeo/OEOX_
-      MENO: https://raw.githubusercontent.com/stap-m/midlevel-energy-ontology/main/ontology/src/midlevel-energy.owl/MENO_
       OEO.CCO: http://www.ontologyrepository.com/CommonCoreOntologies/
   cepo:
     url: https://raw.githubusercontent.com/OpenEnergyPlatform/ClimateEnergyPolicyOntology/production/src/ontology/cepo.owl
@@ -221,6 +220,21 @@ ontologies:
     build_command: "perl -0pe 's@http://w3id.org/oto/develop/oto-shared.ttl@https://raw.githubusercontent.com/OpenEnergyPlatform/OpenTransportOntology/production/src/ontology/edits/oto-shared.ttl@g' $< > $@.tmp.ttl && robot merge -i $@.tmp.ttl -o $@ && rm $@.tmp.ttl"
     prefixmap:
       OTO: http://w3id.org/oto/OTO_
+  meno:
+    url: https://raw.githubusercontent.com/stap-m/midlevel-energy-ontology/main/ontology/src/midlevel-energy.owl
+    has_imports: true
+    prefixmap:
+      MENO: https://raw.githubusercontent.com/stap-m/midlevel-energy-ontology/main/ontology/src/midlevel-energy.owl/MENO_
+  muno:
+    url: https://raw.githubusercontent.com/stap-m/muno/main/src/muno.owl
+    has_imports: true
+    # Temporary workaround: the published OWL imports two placeholder
+    # `semanticweb.org/.../untitled-ontology-*` IRIs that are only resolved via
+    # the repo-local Protégé catalog. Rewrite them to the raw extracted imports.
+    # Upstream issue: https://github.com/stap-m/muno/issues/6
+    build_command: "perl -0pe 's@http://www.semanticweb.org/abc/ontologies/2025/2/untitled-ontology-46/@https://raw.githubusercontent.com/stap-m/muno/main/src/ro-extracted.owl@g; s@http://www.semanticweb.org/abc/ontologies/2025/2/untitled-ontology-47/@https://raw.githubusercontent.com/stap-m/muno/main/src/iao-extracted.owl@g' $< > $@.tmp.owl && robot merge -i $@.tmp.owl -o $@ && rm $@.tmp.owl"
+    prefixmap:
+      MUNO: https://raw.githubusercontent.com/stap-m/muno/main/src/muno.owl/MUNO_
   envthes:
     url: https://vocabs.lter-europe.net/rest/v1/envthes/data?format=text/turtle
     build_command: "robot query -i $< --update sparql/skos-to-owl.ru -o $@"

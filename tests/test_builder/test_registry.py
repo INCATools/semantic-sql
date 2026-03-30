@@ -25,6 +25,14 @@ def registry_makefile() -> str:
             "https://raw.githubusercontent.com/OpenEnergyPlatform/ClimateEnergyPolicyOntology/production/src/ontology/cepo.owl",
         ),
         (
+            "meno",
+            "https://raw.githubusercontent.com/stap-m/midlevel-energy-ontology/main/ontology/src/midlevel-energy.owl",
+        ),
+        (
+            "muno",
+            "https://raw.githubusercontent.com/stap-m/muno/main/src/muno.owl",
+        ),
+        (
             "oto",
             "https://raw.githubusercontent.com/OpenEnergyPlatform/OpenTransportOntology/production/src/ontology/oto.ttl",
         ),
@@ -39,6 +47,11 @@ def test_enero_download_rules_present(registry_makefile: str, ontology_id: str, 
     ("ontology_id", "command"),
     [
         ("cepo", r"robot merge -i \$< -o \$@"),
+        ("meno", r"robot merge -i \$< -o \$@"),
+        (
+            "muno",
+            r"perl -0pe 's@http://www\.semanticweb\.org/abc/ontologies/2025/2/untitled-ontology-46/@https://raw\.githubusercontent\.com/stap-m/muno/main/src/ro-extracted\.owl@g; s@http://www\.semanticweb\.org/abc/ontologies/2025/2/untitled-ontology-47/@https://raw\.githubusercontent\.com/stap-m/muno/main/src/iao-extracted\.owl@g' \$< > \$@\.tmp\.owl && robot merge -i \$@\.tmp\.owl -o \$@ && rm \$@\.tmp\.owl",
+        ),
         (
             "oto",
             r"perl -0pe 's@http://w3id.org/oto/develop/oto-shared.ttl@https://raw.githubusercontent.com/OpenEnergyPlatform/OpenTransportOntology/production/src/ontology/edits/oto-shared.ttl@g' \$< > \$@\.tmp\.ttl && robot merge -i \$@\.tmp\.ttl -o \$@ && rm \$@\.tmp\.ttl",
