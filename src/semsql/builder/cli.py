@@ -1,6 +1,7 @@
 import logging
 import subprocess
 from itertools import chain, combinations
+from pathlib import Path
 
 import click
 from linkml_runtime import SchemaView
@@ -22,6 +23,23 @@ def powerset(iterable):
     """
     s = list(iterable)
     return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
+
+
+def ontology_from_target_path(path: str):
+    """
+    Extract ontology ID from a standard db target path.
+
+    >>> ontology_from_target_path("db/cmso.db")
+    'cmso'
+    >>> ontology_from_target_path("db/reactome-mm.db")
+    'reactome-mm'
+    >>> ontology_from_target_path("/tmp/cmso.db") is None
+    True
+    """
+    target_path = Path(path)
+    if target_path.suffix != ".db" or target_path.parent.name != "db":
+        return None
+    return target_path.stem
 
 
 @click.group()
@@ -63,12 +81,8 @@ def make(path, docker, **kwargs):
     else:
         docker_config = None
     builder.make(path, docker_config=docker_config, **kwargs)
-    # check if path is db/{foo}.db using regular expression
-    import re
-
-    matches = re.match(r"db/(\w+).db", path)
-    if matches:
-        ontology = matches.group(1)
+    ontology = ontology_from_target_path(path)
+    if ontology:
         steps = builder.get_postprocessing_steps(ontology, path)
         for step in steps:
             print(f"RUNNING: {step}")
