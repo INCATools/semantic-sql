@@ -764,6 +764,18 @@ ontologies:
     prefixmap:
       MinSysOnt: "http://www.semanticweb.org/hbabaie/ontologies/2021/5/MinSysOnt#"
       CMO.minerals: "http://www.semanticweb.org/Davarpanah-Babaie/Ontologies/2022/CMO#"
+  cmso:
+    description: Computational Materials Sample Ontology
+    url: https://raw.githubusercontent.com/OCDO/cmso/v0.0.1/cmso.owl
+    prefixmap:
+      CMSO: http://purls.helmholtz-metadaten.de/cmso/
+      CDCO: http://purls.helmholtz-metadaten.de/cdos/cdco/
+  asmo:
+    description: Atomistic Simulation Methods Ontology
+    url: https://raw.githubusercontent.com/OCDO/asmo/v0.3.0/asmo.owl
+    prefixmap:
+      ASMO: https://purls.helmholtz-metadaten.de/asmo/
+      MDO.calculation: https://w3id.org/mdo/calculation/
   sulo:
     description: Simplified Upper Level Ontology
     url: https://w3id.org/sulo/sulo.ttl

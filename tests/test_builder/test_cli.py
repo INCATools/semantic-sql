@@ -4,7 +4,7 @@ from shutil import copyfile
 
 from click.testing import CliRunner
 
-from semsql.builder.cli import main
+from semsql.builder.cli import main, ontology_from_target_path
 
 cwd = os.path.abspath(os.path.dirname(__file__))
 DB_DIR = os.path.join(cwd, "../inputs")
@@ -34,6 +34,17 @@ class TestCommandLineInterface(unittest.TestCase):
         self.assertEqual(
             0, self.runner.invoke(main, ["view2table", "--help"]).exit_code
         )
+
+    def test_ontology_from_target_path(self):
+        cases = [
+            ("db/cmso.db", "cmso"),
+            ("db/reactome-mm.db", "reactome-mm"),
+            ("./db/asmo.db", "asmo"),
+            ("/tmp/asmo.db", None),
+            ("db/asmo.owl", None),
+        ]
+        for path, expected in cases:
+            self.assertEqual(expected, ontology_from_target_path(path))
 
     def test_view2table(self):
         cases = [

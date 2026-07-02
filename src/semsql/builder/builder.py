@@ -133,9 +133,13 @@ def get_postprocessing_steps(
     registry = yaml_loader.load(
         str(registry_path), target_class=registry_schema.Registry
     )
-    # steps = [step.format(ont=ontology, db=db) for step in registry.ontologies.get(ontology, []).post_processing_steps]
-    steps = registry.ontologies.get(ontology, [])
-    return steps
+    ontology_entry = registry.ontologies.get(ontology)
+    if ontology_entry is None:
+        return []
+    return [
+        step.format(ont=ontology, ontology=ontology, db=db)
+        for step in ontology_entry.post_processing_steps
+    ]
 
 
 def compile_registry(registry_path: str, local_prefix_file: TextIO = None) -> str:
