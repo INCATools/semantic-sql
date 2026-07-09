@@ -1,7 +1,9 @@
+import gzip
 import os
 import tempfile
 import textwrap
 import unittest
+from unittest.mock import MagicMock, patch
 
 from semsql.builder import builder
 from semsql.builder.registry import path_to_ontology_registry
@@ -52,6 +54,34 @@ class TestBuilder(unittest.TestCase):
                 ],
                 steps,
             )
+
+    def test_download_uses_cdn_url_and_user_agent(self):
+        """download_obo_sqlite should hit the vendor-neutral CDN with an explicit User-Agent.
+
+        The CDN is fronted by Cloudflare, which returns HTTP 403 for a default
+        ``Python-urllib`` User-Agent, so the request must set one explicitly.
+        """
+        response = MagicMock()
+        response.content = gzip.compress(b"fake-db-bytes")
+        response.raise_for_status = MagicMock()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            destination = os.path.join(tmpdir, "bfo.db")
+            with patch.object(
+                builder.requests, "get", return_value=response
+            ) as mock_get:
+                builder.download_obo_sqlite("bfo", destination)
+            self.assertEqual(1, mock_get.call_count)
+            url = mock_get.call_args.args[0]
+            self.assertEqual(
+                f"{builder.SEMSQL_SQLITE_URL_BASE}/bfo.db.gz", url
+            )
+            self.assertNotIn("s3.amazonaws.com", url)
+            self.assertEqual(
+                "semsql",
+                mock_get.call_args.kwargs["headers"]["User-Agent"],
+            )
+            with open(destination, "rb") as stream:
+                self.assertEqual(b"fake-db-bytes", stream.read())
 
     def test_get_postprocessing_steps_missing_ontology(self):
         registry_text = textwrap.dedent(

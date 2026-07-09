@@ -18,6 +18,20 @@ from semsql.utils.makefile_utils import makefile_to_string
 
 this_path = Path(__file__).parent
 
+# Base URL for pre-built semantic-sql SQLite databases. This points at a vendor-neutral
+# CloudFront/Cloudflare-fronted location rather than the raw S3 bucket
+# (https://s3.amazonaws.com/bbop-sqlite), reducing S3 egress charges. See
+# https://github.com/INCATools/semantic-sql/issues/110. Override with the environment
+# variable SEMSQL_SQLITE_URL_BASE if you need a different provider or mirror.
+SEMSQL_SQLITE_URL_BASE = os.environ.get(
+    "SEMSQL_SQLITE_URL_BASE", "https://semanticsql.berkeleybop.io"
+)
+
+# The semantic-sql CDN is fronted by Cloudflare, which rejects requests sent with a default
+# programmatic User-Agent (e.g. ``Python-urllib/x.y``) with HTTP 403. We therefore send an
+# explicit User-Agent when downloading databases.
+SEMSQL_DOWNLOAD_HEADERS = {"User-Agent": "semsql"}
+
 
 class DockerConfig:
     """
@@ -93,9 +107,12 @@ def download_obo_sqlite(ontology: str, destination: str):
     :return:
     """
     db = f"{ontology}.db"
-    url = f"https://s3.amazonaws.com/bbop-sqlite/{db}.gz"
+    url = f"{SEMSQL_SQLITE_URL_BASE}/{db}.gz"
     logging.info(f"Downloading from {url}")
-    r = requests.get(url, allow_redirects=True, timeout=3600)
+    r = requests.get(
+        url, allow_redirects=True, timeout=3600, headers=SEMSQL_DOWNLOAD_HEADERS
+    )
+    r.raise_for_status()
     destination_gzip = f"{destination}.gz"
     open(destination_gzip, "wb").write(r.content)
     with gzip.open(destination_gzip, "rb") as f_in:

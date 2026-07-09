@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Semantic-SQL transforms OWL/RDF ontologies into SQLite databases with standardized SQL views. Pre-built databases for all OBO ontologies are available via S3 (e.g., `https://s3.amazonaws.com/bbop-sqlite/hp.db.gz`).
+Semantic-SQL transforms OWL/RDF ontologies into SQLite databases with standardized SQL views. Pre-built databases for all OBO ontologies are available via the CDN-backed URL (e.g., `https://semanticsql.berkeleybop.io/hp.db.gz`).
 
 ## Key Commands
 
