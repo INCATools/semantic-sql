@@ -2601,7 +2601,7 @@ wheels = [
 
 [[package]]
 name = "semsql"
-version = "0.2.2"
+version = "0.4.2"
 source = { editable = "." }
 dependencies = [
     { name = "click" },

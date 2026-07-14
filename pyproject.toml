@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "semsql"
-version = "0.2.2"
+version = "0.4.2"
 description = "Transform OWL/RDF ontologies into SQLite databases with standardized SQL views."
 authors = [{ name = "cmungall", email = "cjm@berkeleybop.org" }]
 readme = "README.md"
