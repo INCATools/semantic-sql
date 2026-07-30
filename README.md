@@ -50,7 +50,9 @@ Although the focus is on SQLite, this library can also be used for other DBMSs l
 
 ## Tutorials
 
-- SemSQL: [notebooks/SemanticSQL-Tutorial.ipynb](https://github.com/INCATools/semantic-sql/blob/main/notebooks/SemanticSQL-Tutorial.ipynb)
+- SemSQL: 
+    - Python: [notebooks/SemanticSQL-Tutorial.ipynb](https://github.com/INCATools/semantic-sql/blob/main/notebooks/SemanticSQL-Tutorial.ipynb)
+    - R: [ontoProc2 vignette](https://vjcitn.github.io/ontoProc2/articles/ontoProc2.html); [ipynb](https://github.com/vjcitn/ontoProc2/blob/main/inst/ipynb/ontoProc2.ipynb)
 - Using OAK: [part 7 of OAK tutorial](https://incatools.github.io/ontology-access-kit/intro/tutorial07.html)
 
 ## Installation
