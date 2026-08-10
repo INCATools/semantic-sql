@@ -1560,6 +1560,28 @@ db/bfo2020_time.owl: download/bfo2020_time.owl
 	cp $< $@
 
 
+download/saref.owl: STAMP
+	curl -L -s https://saref.etsi.org/core/ > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/saref.owl
+
+db/saref.owl: download/saref.owl
+	curl -sL -H 'Accept: text/turtle' https://saref.etsi.org/core/ > $@.ttl && robot convert -i $@.ttl -o $@ && rm $@.ttl
+
+
+download/saref4city.owl: STAMP
+	curl -L -s https://saref.etsi.org/saref4city/ > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/saref4city.owl
+
+db/saref4city.owl: download/saref4city.owl
+	curl -sL -H 'Accept: text/turtle' https://saref.etsi.org/saref4city/ > $@.ttl && robot convert -i $@.ttl -o $@ && rm $@.ttl
+
+
 download/saref4ener.owl: STAMP
 	curl -L -s https://saref.etsi.org/saref4ener/ > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -1670,6 +1692,39 @@ db/sulo.owl: download/sulo.owl
 	robot merge -i $< -o $@
 
 
+download/uco.owl: STAMP
+	curl -L -s https://ontology.unifiedcyberontology.org/uco/uco > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/uco.owl
+
+db/uco.owl: download/uco.owl
+	printf '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#"><owl:Ontology rdf:about="http://purl.org/co"/></rdf:RDF>' > $@.stub.owl && printf '<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"><uri name="http://purl.org/co" uri="$(notdir $@).stub.owl"/></catalog>' > $@.catalog.xml && robot merge --catalog $@.catalog.xml -i $< -o $@ && rm $@.stub.owl $@.catalog.xml
+
+
+download/d3fend.owl: STAMP
+	curl -L -s https://d3fend.mitre.org/ontologies/d3fend.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/d3fend.owl
+
+db/d3fend.owl: download/d3fend.owl
+	cp $< $@
+
+
+download/codamos.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/city-artificial-intelligence/diso/main/context-awareness/CoDAMoS/CoDAMoS.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/codamos.owl
+
+db/codamos.owl: download/codamos.owl
+	cp $< $@
+
+
 download/%.owl: STAMP
 	curl -L -s http://purl.obolibrary.org/obo/$*.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
@@ -1680,4 +1735,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio chemrof deb matpo panet phenx pride sosa emi npc modl phenio comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who icd11f ordo gard icd10cm omim mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin metpo d3o biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo gist gistBFO fhkb dbpendiaont uberoncm co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context cbo ontie pain como ecosim bervo valuesets micront nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time saref4ener saref4bldg hhearvs sdoho pathgo brick minsysont cmso asmo sulo
+EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio chemrof deb matpo panet phenx pride sosa emi npc modl phenio comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who icd11f ordo gard icd10cm omim mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin metpo d3o biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo gist gistBFO fhkb dbpendiaont uberoncm co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context cbo ontie pain como ecosim bervo valuesets micront nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time saref saref4city saref4ener saref4bldg hhearvs sdoho pathgo brick minsysont cmso asmo sulo uco d3fend codamos
