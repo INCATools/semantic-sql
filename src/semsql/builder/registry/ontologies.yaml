@@ -42,7 +42,7 @@ ontologies:
     url: http://purl.obolibrary.org/obo/ncit.owl
     build_command: "robot relax -i $< merge -o $@"
   fma:
-    url: http://sig.biostr.washington.edu/share/downloads/fma/release/latest/fma.owl
+    url:  http://purl.org/sig/ont/fma.owl
     prefixmap:
       FMA: http://purl.org/sig/ont/fma/fma
   maxo:
@@ -182,7 +182,7 @@ ontologies:
   ordo:
     url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/ordo.owl
   gard:
-    url: https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/gard.owl
+    url: https://github.com/monarch-initiative/gard/releases/latest/download/gard.owl
     prefixmap:
       GARD: http://purl.obolibrary.org/obo/GARD_
   icd10cm:
@@ -380,6 +380,12 @@ ontologies:
     has_imports: true
   hcao:
     url: https://raw.githubusercontent.com/HumanCellAtlas/ontology/master/hcao.owl
+  ssbd:
+    description: SSBD Ontology for interoperable bioimaging metadata
+    url: https://raw.githubusercontent.com/openssbd/ssbd-ontology/v20250512-1/ontology/ssbd_integrated.owl
+    prefixmap:
+      ssbd: http://ssbd.riken.jp/ontology/
+      SSBD: http://metadb.riken.jp/ontology/SSBD/
   hpinternational:
     url:  http://purl.obolibrary.org/obo/hp/hp-international.owl
   edam:

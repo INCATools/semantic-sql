@@ -65,7 +65,7 @@ db/ncit.owl: download/ncit.owl
 
 
 download/fma.owl: STAMP
-	curl -L -s http://sig.biostr.washington.edu/share/downloads/fma/release/latest/fma.owl > $@.tmp
+	curl -L -s http://purl.org/sig/ont/fma.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
@@ -406,7 +406,7 @@ db/ordo.owl: download/ordo.owl
 
 
 download/gard.owl: STAMP
-	curl -L -s https://github.com/monarch-initiative/mondo-ingest/releases/latest/download/gard.owl > $@.tmp
+	curl -L -s https://github.com/monarch-initiative/gard/releases/latest/download/gard.owl > $@.tmp
 	sha256sum -b $@.tmp > $@.sha256
 	mv $@.tmp $@
 
@@ -864,6 +864,17 @@ download/hcao.owl: STAMP
 .PRECIOUS: download/hcao.owl
 
 db/hcao.owl: download/hcao.owl
+	cp $< $@
+
+
+download/ssbd.owl: STAMP
+	curl -L -s https://raw.githubusercontent.com/openssbd/ssbd-ontology/v20250512-1/ontology/ssbd_integrated.owl > $@.tmp
+	sha256sum -b $@.tmp > $@.sha256
+	mv $@.tmp $@
+
+.PRECIOUS: download/ssbd.owl
+
+db/ssbd.owl: download/ssbd.owl
 	cp $< $@
 
 
@@ -1735,4 +1746,4 @@ download/%.owl: STAMP
 db/%.owl: download/%.owl
 	robot merge -i $< -o $@
 
-EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio chemrof deb matpo panet phenx pride sosa emi npc modl phenio comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who icd11f ordo gard icd10cm omim mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin metpo d3o biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo gist gistBFO fhkb dbpendiaont uberoncm co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context cbo ontie pain como ecosim bervo valuesets micront nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time saref saref4city saref4ener saref4bldg hhearvs sdoho pathgo brick minsysont cmso asmo sulo uco d3fend codamos
+EXTRA_ONTOLOGIES = swo chiro pcl chemessence ogco ncit fma maxo foodon chebiplus msio chemrof deb matpo panet phenx pride sosa emi npc modl phenio comploinc hba mba dmba dhba pba bero aio reacto xsmo bcio sio icd10who icd11f ordo gard icd10cm omim mondo-ingest oeo envthes wifire taxslim goldterms sdgio kin metpo d3o biovoices omop comet cco occo iof upa go go-lego go-amigo neo bao orcid ror cpont biolink biopax enanomapper mlo ito chemont molgenie cso obiws biopragmatics-reactome reactome-hs reactome-mm efo hcao ssbd hpinternational edam chr sweetAll oboe-core oboe-standards lov schema-dot-org prov dtype vaem qudtunit quantitykind cellosaurus cosmo gist gistBFO fhkb dbpendiaont uberoncm co_324 ppeo interpro pfam hgnc.genegroup hgnc sgd gtdb eccode uniprot uniprot.ptm credit rhea swisslipid drugbank drugcentral complexportal wikipathways pathbank kegg.genome drugmechdb rxnorm vccf ontobiotope nando ecso enigma_context cbo ontie pain como ecosim bervo valuesets micront nmdc_schema mixs kgcl fibo bfo2020 bfo2020_core bfo2020_notime bfo2020_time saref saref4city saref4ener saref4bldg hhearvs sdoho pathgo brick minsysont cmso asmo sulo uco d3fend codamos
