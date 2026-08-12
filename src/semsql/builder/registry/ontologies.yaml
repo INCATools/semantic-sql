@@ -700,6 +700,25 @@ ontologies:
     url: https://raw.githubusercontent.com/BFO-ontology/BFO-2020/master/src/owl/profiles/temporal%20extensions/temporalized%20relations/owl/bfo-temporalized-relations.owl
 
 ## SAREF and Building Ontologies
+  saref:
+    description: ETSI SAREF core - Smart Applications REFerence ontology for IoT devices, functions and measurements
+    url: https://saref.etsi.org/core/
+    # Needs content negotiation - curl -H "Accept: text/turtle"
+    build_command: "curl -sL -H 'Accept: text/turtle' https://saref.etsi.org/core/ > $@.ttl && robot convert -i $@.ttl -o $@ && rm $@.ttl"
+    prefixmap:
+      saref: https://saref.etsi.org/core/
+      s4syst: https://saref.etsi.org/saref4syst/
+  saref4city:
+    description: ETSI SAREF extension for smart cities (city objects, public services, KPIs)
+    url: https://saref.etsi.org/saref4city/
+    # Needs content negotiation - curl -H "Accept: text/turtle"
+    build_command: "curl -sL -H 'Accept: text/turtle' https://saref.etsi.org/saref4city/ > $@.ttl && robot convert -i $@.ttl -o $@ && rm $@.ttl"
+    prefixmap:
+      saref4city: https://saref.etsi.org/saref4city/
+      s4city: https://saref.etsi.org/saref4city/
+      saref: https://saref.etsi.org/core/
+      cpsv: http://purl.org/vocab/cpsv#
+      geo: "http://www.opengis.net/ont/geosparql#"
   saref4ener:
     description: ETSI SAREF extension for the energy domain (smart energy, demand response)
     url: https://saref.etsi.org/saref4ener/
@@ -782,3 +801,48 @@ ontologies:
     format: turtle
     prefixmap:
       sulo: https://w3id.org/sulo/
+
+## Ontologies from the DISO collection (arXiv:2608.05867), civilian subset:
+## context-awareness, smart environments, and cyber/digital-forensics vocabularies.
+## See also brick, saref*, bfo* and cco entries above, which are also in DISO.
+  uco:
+    description: Unified Cyber Ontology - upper ontology for cyber investigation and digital forensics
+    url: https://ontology.unifiedcyberontology.org/uco/uco
+    # uco.rdf is a bare owl:imports wrapper over the module ontologies; all modules
+    # resolve over http except uco/types -> uco/co -> http://purl.org/co, whose host
+    # is dead, so that one import is redirected to an empty stub via an OWL catalog
+    has_imports: true
+    build_command: >-
+      printf '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#"><owl:Ontology rdf:about="http://purl.org/co"/></rdf:RDF>' > $@.stub.owl &&
+      printf '<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"><uri name="http://purl.org/co" uri="$(notdir $@).stub.owl"/></catalog>' > $@.catalog.xml &&
+      robot merge --catalog $@.catalog.xml -i $< -o $@ &&
+      rm $@.stub.owl $@.catalog.xml
+    prefixmap:
+      uco.action: https://ontology.unifiedcyberontology.org/uco/action/
+      uco.analysis: https://ontology.unifiedcyberontology.org/uco/analysis/
+      uco.configuration: https://ontology.unifiedcyberontology.org/uco/configuration/
+      uco.core: https://ontology.unifiedcyberontology.org/uco/core/
+      uco.identity: https://ontology.unifiedcyberontology.org/uco/identity/
+      uco.location: https://ontology.unifiedcyberontology.org/uco/location/
+      uco.marking: https://ontology.unifiedcyberontology.org/uco/marking/
+      uco.observable: https://ontology.unifiedcyberontology.org/uco/observable/
+      uco.pattern: https://ontology.unifiedcyberontology.org/uco/pattern/
+      uco.role: https://ontology.unifiedcyberontology.org/uco/role/
+      uco.time: https://ontology.unifiedcyberontology.org/uco/time/
+      uco.tool: https://ontology.unifiedcyberontology.org/uco/tool/
+      uco.types: https://ontology.unifiedcyberontology.org/uco/types/
+      uco.victim: https://ontology.unifiedcyberontology.org/uco/victim/
+      uco.vocabulary: https://ontology.unifiedcyberontology.org/uco/vocabulary/
+      uco.co: https://ontology.unifiedcyberontology.org/co/
+  d3fend:
+    description: D3FEND - knowledge graph of cybersecurity countermeasures and digital artifacts
+    url: https://d3fend.mitre.org/ontologies/d3fend.owl
+    prefixmap:
+      d3f: "http://d3fend.mitre.org/ontologies/d3fend.owl#"
+  codamos:
+    description: CoDAMoS - Context-Driven Adaptation of Mobile Services ontology (user, platform, service, environment)
+    # Original host (http://lpis.csd.auth.gr/ontologies/CoDAMoS/CoDAMoS.owl) is http-only;
+    # the DISO copy used here is byte-identical and served over https
+    url: https://raw.githubusercontent.com/city-artificial-intelligence/diso/main/context-awareness/CoDAMoS/CoDAMoS.owl
+    prefixmap:
+      CoDAMoS: "http://lpis.csd.auth.gr/ontologies/CoDAMoS/CoDAMoS.owl#"
