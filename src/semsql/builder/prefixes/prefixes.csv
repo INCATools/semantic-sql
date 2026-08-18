@@ -162,6 +162,8 @@ cyc,http://sw.cyc.com/concept
 OBIws,http://purl.obolibrary.org/obo/OBIws_
 reactome.obo,http://purl.obolibrary.org/obo/reactome_
 reactome.biopax,http://www.reactome.org/biopax/77/48887#
+ssbd,http://ssbd.riken.jp/ontology/
+SSBD,http://metadb.riken.jp/ontology/SSBD/
 chr,http://purl.obolibrary.org/obo/CHR_
 oboe-core,http://ecoinformatics.org/oboe/oboe.1.0/oboe-core.owl#
 oboe-standards,http://ecoinformatics.org/oboe/oboe.1.0/oboe-standards.owl#
