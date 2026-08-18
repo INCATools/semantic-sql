@@ -22,6 +22,18 @@ sqlite> SELECT * FROM rdfs_label_statement WHERE value LIKE 'Abnormality of %';
 
 Ready-made SQLite3 builds can also be downloaded for any ontology in [OBO](http://obofoundry.org), using URLs such as https://semanticsql.berkeleybop.io/hp.db.gz
 
+> **⚠️ URL change:** Pre-built databases are now served from
+> `https://semanticsql.berkeleybop.io/$ONT.db.gz` instead of the legacy
+> `https://s3.amazonaws.com/bbop-sqlite/$ONT.db.gz`.
+> [OAK](https://github.com/INCATools/ontology-access-kit) users are unaffected
+> if running OAK ≥ 0.7.2. If your code fetches the old S3 URL directly, please
+> update it. Note that the new CDN requires a non-default HTTP `User-Agent`
+> header — the default `Python-urllib` agent is blocked by Cloudflare's Browser
+> Integrity Check (see [#115](https://github.com/INCATools/semantic-sql/issues/115)
+> for details). See also [#110](https://github.com/INCATools/semantic-sql/issues/110)
+> (original migration) and [#43](https://github.com/INCATools/semantic-sql/issues/43)
+> (PURL-based URLs).
+
 [relation-graph](https://github.com/balhoff/relation-graph/) is used to pre-generate tables of [entailed edges](https://incatools.github.io/semantic-sql/EntailedEdge/). For example,
 all is-a and part-of ancestors of [finger](http://purl.obolibrary.org/obo/UBERON_0002389) in Uberon:
 
