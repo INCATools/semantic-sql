@@ -27,10 +27,7 @@ Ready-made SQLite3 builds can also be downloaded for any ontology in [OBO](http:
 > `https://s3.amazonaws.com/bbop-sqlite/$ONT.db.gz`.
 > [OAK](https://github.com/INCATools/ontology-access-kit) users are unaffected
 > if running OAK ≥ 0.7.2. If your code fetches the old S3 URL directly, please
-> update it. Note that the new CDN requires a non-default HTTP `User-Agent`
-> header — the default `Python-urllib` agent is blocked by Cloudflare's Browser
-> Integrity Check (see [#115](https://github.com/INCATools/semantic-sql/issues/115)
-> for details). See also [#110](https://github.com/INCATools/semantic-sql/issues/110)
+> update it. See also [#110](https://github.com/INCATools/semantic-sql/issues/110)
 > (original migration) and [#43](https://github.com/INCATools/semantic-sql/issues/43)
 > (PURL-based URLs).
 
