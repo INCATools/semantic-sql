@@ -70,6 +70,26 @@ SemSQL comes with a helper Python library. Use of this is optional. To install:
 pip install semsql
 ```
 
+## Agent skill
+
+Install the [semantic-sql workflow skill](skills/semantic-sql/SKILL.md) with the
+[skills CLI](https://skills.sh/) (requires Node.js). Preview available skills first:
+
+```bash
+npx skills add INCATools/semantic-sql --list
+npx skills add INCATools/semantic-sql --skill semantic-sql
+```
+
+Installation defaults to the current project. Use `-a codex` or
+`-a claude-code` to select an agent; add `-g` for your user-wide skills directory:
+
+```bash
+npx skills add INCATools/semantic-sql --skill semantic-sql -a codex -g
+```
+
+The skill provides agent instructions. Install the runtime separately as described
+above; it does not configure credentials, backend services, or data sources.
+
 ## Download ready-made SQLite databases
 
 Pre-generated SQLite database are created weekly for all OBO ontologies and a selection of others (see [ontologies.yaml](https://github.com/INCATools/semantic-sql/blob/main/src/semsql/builder/registry/ontologies.yaml))
