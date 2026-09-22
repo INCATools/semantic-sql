@@ -558,6 +558,12 @@ ontologies:
     # build_command: "robot merge -i $<  -o $@"
     prefixmap:
       RHEA: https://www.rhea-db.org/rhea/
+  nihreporter.project:
+    description: NIH RePORTER - NIH-funded research projects (PyOBO export)
+    url: https://w3id.org/biopragmatics/resources/nihreporter.project/nihreporter.project.owl.gz
+    compression: gzip
+    prefixmap:
+      nihreporter.project: https://reporter.nih.gov/project-details/
   swisslipid:
     url: https://github.com/biopragmatics/obo-db-ingest/raw/main/export/swisslipid/2023-02-03/swisslipid.obo.gz
     format: obo

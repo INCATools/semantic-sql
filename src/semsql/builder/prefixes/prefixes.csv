@@ -197,6 +197,7 @@ UNIMOD,http://www.unimod.org/modifications_view.php?editid1=
 uniprot.ptm,https://biopragmatics.github.io/providers/uniprot.ptm/
 credit,https://credit.niso.org/contributor-roles/
 RHEA,https://www.rhea-db.org/rhea/
+nihreporter.project,https://reporter.nih.gov/project-details/
 swisslipid,http://purl.obolibrary.org/obo/swisslipid_
 drugbank,http://purl.obolibrary.org/obo/drugbank_
 drugbank,http://purl.obolibrary.org/obo/drugcentral_
