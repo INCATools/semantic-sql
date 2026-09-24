@@ -233,15 +233,22 @@ bin/%:
 ### DEPLOY
 
 DATE = $(shell date -u +"%Y-%m-%d")
+S3_CACHE_CONTROL = public, max-age=86400
 
 s3-deploy:
-	aws s3 sync stage s3://bbop-sqlite --acl public-read
+	aws s3 sync stage s3://bbop-sqlite --acl public-read \
+		--cache-control "$(S3_CACHE_CONTROL)" \
+		--content-type application/gzip
 
 s3-version:
-	aws s3 sync stage s3://bbop-sqlite/releases/$(DATE) --acl public-read
+	aws s3 sync stage s3://bbop-sqlite/releases/$(DATE) --acl public-read \
+		--cache-control "$(S3_CACHE_CONTROL)" \
+		--content-type application/gzip
 
 s3-deploy-%: stage/%.db.gz
-	aws s3 cp $< s3://bbop-sqlite/$*.db.gz --acl public-read
+	aws s3 cp $< s3://bbop-sqlite/$*.db.gz --acl public-read \
+		--cache-control "$(S3_CACHE_CONTROL)" \
+		--content-type application/gzip
 
 
 # Test documentation locally
