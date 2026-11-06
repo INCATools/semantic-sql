@@ -846,3 +846,10 @@ ontologies:
     url: https://raw.githubusercontent.com/city-artificial-intelligence/diso/main/context-awareness/CoDAMoS/CoDAMoS.owl
     prefixmap:
       CoDAMoS: "http://lpis.csd.auth.gr/ontologies/CoDAMoS/CoDAMoS.owl#"
+  rfm:
+    description: River Flow Model of Diseases - Hozo-based ontology of diseases as causal chains of abnormal states
+    url: http://rfm.hozo.jp/ontology/RFM.owl
+    # source is OWL/XML; rdftab needs RDF/XML
+    build_command: "robot convert -i $< -o $@"
+    prefixmap:
+      RFM: "http://rfm.hozo.jp/ontology/owl/RFM.owl#"
