@@ -846,3 +846,22 @@ ontologies:
     url: https://raw.githubusercontent.com/city-artificial-intelligence/diso/main/context-awareness/CoDAMoS/CoDAMoS.owl
     prefixmap:
       CoDAMoS: "http://lpis.csd.auth.gr/ontologies/CoDAMoS/CoDAMoS.owl#"
+  hoip:
+    description: Homeostasis Imbalance Process Ontology (COVID-19 infectious courses and cellular senescence)
+    # https://github.com/yuki-yamagata/hoip ; BioPortal is the canonical distribution
+    # (the GitHub repo only carries a date-stamped zip of the same file)
+    url: "https://data.bioontology.org/ontologies/HOIP/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb"
+    # The 2024-04-03 release has two synonyms tagged xml:lang="a" (a typo for "en"),
+    # which is not a valid BCP 47 tag and makes rdftab abort
+    build_command: "sed -e 's/xml:lang=\"a\"/xml:lang=\"en\"/g' $< > $@"
+    prefixmap:
+      HOIP: http://purl.bioontology.org/ontology/HOIP/HOIP_
+  ssbd:
+    description: SSBD Ontology - FAIR metadata for bioimaging datasets in the RIKEN SSBD repository
+    # https://bioportal.bioontology.org/ontologies/SSBD mirrors this; the GitHub copy is the
+    # primary release and has property-name typo fixes not yet in the BioPortal submission
+    url: https://raw.githubusercontent.com/openssbd/ssbd-ontology/main/ontology/ssbd_integrated.owl
+    prefixmap:
+      ssbd: http://ssbd.riken.jp/ontology/
+      NCBIGene: https://www.ncbi.nlm.nih.gov/gene/
+      jax: https://www.jax.org/strain/

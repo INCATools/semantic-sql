@@ -282,6 +282,10 @@ uco.vocabulary,https://ontology.unifiedcyberontology.org/uco/vocabulary/
 uco.co,https://ontology.unifiedcyberontology.org/co/
 d3f,http://d3fend.mitre.org/ontologies/d3fend.owl#
 CoDAMoS,http://lpis.csd.auth.gr/ontologies/CoDAMoS/CoDAMoS.owl#
+HOIP,http://purl.bioontology.org/ontology/HOIP/HOIP_
+ssbd,http://ssbd.riken.jp/ontology/
+NCBIGene,https://www.ncbi.nlm.nih.gov/gene/
+jax,https://www.jax.org/strain/
 RBO,http://purl.obolibrary.org/obo/RBO_
 RBO,http://purl.obolibrary.org/obo/RBO_
 CLYH,http://purl.obolibrary.org/obo/CLYH_
