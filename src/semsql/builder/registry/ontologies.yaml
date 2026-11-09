@@ -112,19 +112,19 @@ ontologies:
     url: https://raw.githubusercontent.com/Data-Semantics-Laboratory/modular-ontology-design-library/master/MODL.owl
     prefixmap:
       modl: "https://archive.org/services/purl/purl/modular_ontology_design_library#"
-  phenio:
-    description: Monarch Phenomics Integrated Ontology
-    url: https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl.gz
-    compression: gzip
-    relation_graph_settings:
-      properties:
-        - BFO:0000050
-        - BFO:0000051
-        - UPHENO:0000001
-        - UPHENO:0000003
-        - RO:0002202
-    prefixmap:
-      biolink: https://w3id.org/biolink/vocab/
+  #phenio:
+  #  description: Monarch Phenomics Integrated Ontology
+  #  url: https://github.com/monarch-initiative/phenio/releases/latest/download/phenio.owl.gz
+  #  compression: gzip
+  #  relation_graph_settings:
+  #    properties:
+  #      - BFO:0000050
+  #      - BFO:0000051
+  #      - UPHENO:0000001
+  #      - UPHENO:0000003
+  #      - RO:0002202
+  #  prefixmap:
+  #    biolink: https://w3id.org/biolink/vocab/
   comploinc:
     url: https://github.com/loinc/comp-loinc/releases/download/v2022-11-05/merged_reasoned_loinc.owl
     build_command: "robot relax -i $< merge -o $@"
@@ -151,8 +151,8 @@ ontologies:
     url: https://github.com/brain-bican/primate_brain_atlas_ontology/raw/main/pbao-base.owl
     prefixmap:
       PBA: https://purl.brain-bican.org/ontology/pbao/PBA_
-  bero:
-    url: https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl
+#  bero:
+#    url: https://github.com/berkeleybop/bero/releases/download/2022-05-26/bero.owl
   aio:
     url: https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl
   reacto:
